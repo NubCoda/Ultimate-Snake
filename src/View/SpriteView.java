@@ -36,7 +36,9 @@ public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveab
 	 */
 	@Override
 	public void drawObjects(Graphics graphics) {
-		graphics.drawImage(bufferedImages[0], (int) x, (int) y, null);
+		for(int i = 0; i < bufferedImages.length; i++) {
+			graphics.drawImage(bufferedImages[i], (int) x, (int) y, null);
+		}
 	}
 
 	public void doLogic() {

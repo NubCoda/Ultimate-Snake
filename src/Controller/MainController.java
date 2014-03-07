@@ -50,15 +50,17 @@ public class MainController {
 	public static void main(String[] args) {
 		MainView mainView = new MainView();
 		GamePanelView gamePanelView = new GamePanelView(
-				mainView.getWidth() * 2, mainView.getHeight() * 2);
+				mainView.getWidth(), mainView.getHeight());
 		gamePanelView.setBackground(Color.CYAN);
 		Vector<SpriteView> actors = new Vector<SpriteView>();
 		BufferedImage[] apple = MainController.getInstance().loadImages("./resources/apple_sprite.png", 1);
 		AppleView appleView = new AppleView(apple, 40, 150, gamePanelView);
 		actors.add(appleView);
+		appleView = new AppleView(apple, 40, 40, gamePanelView);
+		actors.add(appleView);
 		gamePanelView.setActors(actors);
 		mainView.add(gamePanelView);
-		mainView.setResizable(false);
+		mainView.setResizable(true);
 		mainView.setVisible(true);
 	}
 
