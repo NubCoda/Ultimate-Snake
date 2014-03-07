@@ -23,7 +23,7 @@ public class MainController {
 	 */
 	private MainController() {
 	}
-	
+
 	public BufferedImage[] loadImages(String path, int image) {
 		BufferedImage[] bufferedImages = new BufferedImage[image];
 		BufferedImage bufferedImage = null;
@@ -44,7 +44,7 @@ public class MainController {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -56,6 +56,7 @@ public class MainController {
 		BufferedImage[] apple = MainController.getInstance().loadImages("./resources/apple_sprite.png", 1);
 		AppleView appleView = new AppleView(apple, 40, 150, gamePanelView);
 		actors.add(appleView);
+		gamePanelView.setActors(actors);
 		mainView.add(gamePanelView);
 		mainView.setResizable(false);
 		mainView.setVisible(true);
