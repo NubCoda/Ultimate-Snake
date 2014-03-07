@@ -2,6 +2,6 @@ package ModelInterface;
 
 import java.awt.Point;
 
-public interface IActor {
+public interface IMoveable {
 	public void move(Point point);
 }
