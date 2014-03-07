@@ -3,7 +3,7 @@ package View;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class KeyListener extends KeyAdapter {
+public class KeyListenerView extends KeyAdapter {
 
 	@Override
 	public void keyPressed(KeyEvent e) {

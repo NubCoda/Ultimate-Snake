@@ -6,7 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
-public class MainFrame extends JFrame {
+public class MainView extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu menuOption;
 	private JMenuItem menuItemStart;
@@ -17,7 +17,7 @@ public class MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	public MainView() {
 		initGUI();
 	}
 	private void initGUI() {
