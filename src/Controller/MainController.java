@@ -1,6 +1,6 @@
 package Controller;
 
-import javax.swing.JButton;
+import java.awt.Color;
 
 import View.GamePanelView;
 import View.MainView;
@@ -22,7 +22,7 @@ public class MainController {
 	public static void main(String[] args) {
 		MainView mainView = new MainView();
 		GamePanelView gamePanelView = new GamePanelView(mainView.getWidth(), mainView.getHeight());
-		gamePanelView.add(new JButton());
+		gamePanelView.setBackground(Color.CYAN);
 		mainView.add(gamePanelView);
 		mainView.setVisible(true);
 	}
