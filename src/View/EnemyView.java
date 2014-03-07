@@ -1,5 +1,6 @@
 package View;
 
-public class EnemyView {
+@SuppressWarnings("serial")
+public class EnemyView extends SpriteView {
 
 }

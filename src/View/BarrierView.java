@@ -1,5 +1,6 @@
 package View;
 
-public class BarrierView {
+@SuppressWarnings("serial")
+public class BarrierView extends SpriteView {
 
 }

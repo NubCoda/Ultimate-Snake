@@ -1,5 +1,6 @@
 package View;
 
-public class SnakeView {
+@SuppressWarnings("serial")
+public class SnakeView extends SpriteView {
 
 }

@@ -1,4 +1,4 @@
-package ModelInterface;
+package ViewInterface;
 
 import java.awt.Point;
 

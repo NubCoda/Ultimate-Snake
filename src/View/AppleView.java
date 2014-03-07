@@ -1,5 +1,6 @@
 package View;
 
-public class AppleView {
+@SuppressWarnings("serial")
+public class AppleView extends SpriteView {
 
 }
