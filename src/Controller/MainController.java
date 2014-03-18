@@ -43,25 +43,46 @@ public class MainController {
 		return mainController;
 	}
 
+	
+	public static void spawnApples() {
+		
+	}
+	
 	/**
 	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MainView mainView = new MainView();
-		GamePanelView gamePanelView = new GamePanelView(
+		final MainView mainView = new MainView();
+		mainView.setBounds(1024, 600, 1024, 600);
+		final GamePanelView gamePanelView = new GamePanelView(
 				mainView.getWidth(), mainView.getHeight());
 		gamePanelView.setBackground(Color.CYAN);
-		Vector<SpriteView> actors = new Vector<SpriteView>();
-		BufferedImage[] apple = MainController.getInstance().loadImages("./resources/apple_sprite.png", 1);
-		AppleView appleView = new AppleView(apple, 40, 150, gamePanelView);
-		actors.add(appleView);
-		appleView = new AppleView(apple, 40, 40, gamePanelView);
-		actors.add(appleView);
-		gamePanelView.setActors(actors);
+		final Vector<SpriteView> actors = new Vector<SpriteView>();
+		final BufferedImage[] apple = MainController.getInstance().loadImages("./resources/apple_sprite.png", 1);
 		mainView.add(gamePanelView);
-		mainView.setResizable(true);
 		mainView.setVisible(true);
+		while(true) {
+			Runnable runnable = new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(1000);
+						AppleView appleView = new AppleView(apple, Math.random() * 100.234 , Math.random() * 50.234, gamePanelView);
+						actors.add(appleView);
+						gamePanelView.setActors(actors);
+						mainView.repaint();
+						Thread.sleep(10000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			Thread thread = new Thread(runnable);
+			thread.start();
+		}
 	}
 
 }
