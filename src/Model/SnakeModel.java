@@ -1,5 +1,7 @@
 package Model;
 
-public class SnakeModel {
+import java.util.Observable;
+
+public class SnakeModel extends Observable {
 
 }

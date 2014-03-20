@@ -1,5 +1,8 @@
 package Model;
 
-public class EnemyModel {
+import java.util.Observable;
+
+public class EnemyModel extends Observable {
+
 
 }
