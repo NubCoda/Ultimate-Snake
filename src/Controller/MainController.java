@@ -22,13 +22,12 @@ public class MainController {
 	private BufferedImage[] apple;
 	private AppleView appleView;
 	private Thread appleThread;
+	private Runnable runnable;
+	private int counter;
 
 	public boolean IsGameRunning = false;
 	public boolean IsWindowCreated = false;
 
-	/**
-	 * Makes it impossible to instantite
-	 */
 	private MainController() {
 	}
 
@@ -69,8 +68,7 @@ public class MainController {
 				Math.random() * 50.234, gamePanelView);
 		actors.add(appleView);
 		gamePanelView.setActors(actors);
-		Runnable runnable = new Runnable() {
-
+		runnable = new Runnable() {
 			@Override
 			public void run() {
 				while (true) {
@@ -78,20 +76,19 @@ public class MainController {
 						appleView.x = Math.random() * 100.234;
 						appleView.y = Math.random() * 100.234;
 						mainView.repaint();
-						Thread.sleep(1000);
+						Thread.sleep(5000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						JOptionPane.showMessageDialog(null, e.getMessage());
 					}
 				}
 			}
 		};
-		appleThread = new Thread(runnable);
 	}
 
 	/**
-	 * Main Funktion
-	 * Gezeichnet wird nur, wenn der Benutzer das "Spiel" gestartet hat
+	 * Main Funktion Gezeichnet wird nur, wenn der Benutzer das "Spiel"
+	 * gestartet hat
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -99,7 +96,13 @@ public class MainController {
 		while (getInstance().IsWindowCreated) {
 			if (getInstance().IsGameRunning) {
 				getInstance().spawnApples();
+				getInstance().appleThread = new Thread(getInstance().runnable);
 				getInstance().appleThread.run();
+			} else {
+				if (!getInstance().IsGameRunning
+						&& getInstance().appleThread != null) {
+					System.out.println("YO");
+				}
 			}
 		}
 	}
