@@ -16,11 +16,15 @@ import View.SpriteView;
 public class MainController {
 
 	private static MainController mainController;
-	private static MainView mainView;
-	private static GamePanelView gamePanelView;
-	private static Vector<SpriteView> actors;
-	private static BufferedImage[] apple;
-	private static AppleView appleView;
+	private MainView mainView;
+	private GamePanelView gamePanelView;
+	private Vector<SpriteView> actors;
+	private BufferedImage[] apple;
+	private AppleView appleView;
+	private Thread thread;
+
+	public boolean IsGameRunning = false;
+	public boolean IsWindowCreated = false;
 
 	/**
 	 * Makes it impossible to instantite
@@ -54,14 +58,15 @@ public class MainController {
 				mainView.getHeight());
 		mainView.add(gamePanelView);
 		mainView.setVisible(true);
+		IsWindowCreated = true;
 	}
 
 	private void spawnApples() {
 		actors = new Vector<SpriteView>();
 		apple = MainController.getInstance().loadImages(
 				"./resources/apple_sprite.png", 1);
-		appleView = new AppleView(apple,
-				Math.random() * 100.234, Math.random() * 50.234, gamePanelView);
+		appleView = new AppleView(apple, Math.random() * 100.234,
+				Math.random() * 50.234, gamePanelView);
 		actors.add(appleView);
 		gamePanelView.setActors(actors);
 		Runnable runnable = new Runnable() {
@@ -81,17 +86,22 @@ public class MainController {
 				}
 			}
 		};
-		Thread thread = new Thread(runnable);
-		thread.start();
+		thread = new Thread(runnable);
 	}
 
 	/**
-	 * 
+	 * Main Funktion
+	 * Gezeichnet wird nur, wenn der Benutzer das "Spiel" gestartet hat
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		getInstance().createWindow();
-		getInstance().spawnApples();
+		while (getInstance().IsWindowCreated) {
+			if (getInstance().IsGameRunning) {
+				getInstance().spawnApples();
+				getInstance().thread.run();
+			}
+		}
 	}
 
 }
