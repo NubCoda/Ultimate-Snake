@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
-import View.SnakeView;
 import View.SpriteView;
 
 public class MainController {
@@ -22,7 +21,6 @@ public class MainController {
 	private Vector<SpriteView> actors;
 	private BufferedImage[] bufferedImages;
 	private AppleView appleView;
-	private SnakeView snakeView;
 	private Thread appleThread;
 	private Runnable runnable;
 
@@ -68,9 +66,6 @@ public class MainController {
 		appleView = new AppleView(bufferedImages, Math.random() * 100.234,
 				Math.random() * 50.234, gamePanelView);
 		actors.add(appleView);
-		bufferedImages = MainController.getInstance().loadImages("./resources/head_sprite.png", 1);
-		snakeView = new SnakeView(bufferedImages, mainView.getWidth() / 2, mainView.getHeight() / 2, gamePanelView);
-		actors.add(snakeView);
 		gamePanelView.setActors(actors);
 		runnable = new Runnable() {
 			@Override
