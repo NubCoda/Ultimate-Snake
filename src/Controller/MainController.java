@@ -20,6 +20,7 @@ public class MainController {
 	private static GamePanelView gamePanelView;
 	private static Vector<SpriteView> actors;
 	private static BufferedImage[] apple;
+	private static AppleView appleView;
 
 	/**
 	 * Makes it impossible to instantite
@@ -59,7 +60,7 @@ public class MainController {
 		actors = new Vector<SpriteView>();
 		apple = MainController.getInstance().loadImages(
 				"./resources/apple_sprite.png", 1);
-		final AppleView appleView = new AppleView(apple,
+		appleView = new AppleView(apple,
 				Math.random() * 100.234, Math.random() * 50.234, gamePanelView);
 		actors.add(appleView);
 		gamePanelView.setActors(actors);
