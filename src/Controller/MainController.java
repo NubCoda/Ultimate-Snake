@@ -21,7 +21,7 @@ public class MainController {
 	private Vector<SpriteView> actors;
 	private BufferedImage[] apple;
 	private AppleView appleView;
-	private Thread thread;
+	private Thread appleThread;
 
 	public boolean IsGameRunning = false;
 	public boolean IsWindowCreated = false;
@@ -86,7 +86,7 @@ public class MainController {
 				}
 			}
 		};
-		thread = new Thread(runnable);
+		appleThread = new Thread(runnable);
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class MainController {
 		while (getInstance().IsWindowCreated) {
 			if (getInstance().IsGameRunning) {
 				getInstance().spawnApples();
-				getInstance().thread.run();
+				getInstance().appleThread.run();
 			}
 		}
 	}
