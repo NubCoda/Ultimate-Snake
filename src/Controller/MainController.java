@@ -1,6 +1,5 @@
 package Controller;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +16,10 @@ import View.SpriteView;
 public class MainController {
 
 	private static MainController mainController;
+	private static MainView mainView;
+	private static GamePanelView gamePanelView;
+	private static Vector<SpriteView> actors;
+	private static BufferedImage[] apple;
 
 	/**
 	 * Makes it impossible to instantite
@@ -43,30 +46,23 @@ public class MainController {
 		return mainController;
 	}
 
-	public static void spawnApples() {
-
-	}
-
-	/**
-	 *
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		final MainView mainView = new MainView();
+	private void createWindow() {
+		mainView = new MainView();
 		mainView.setBounds(1024, 600, 1024, 600);
-		final GamePanelView gamePanelView = new GamePanelView(
-				mainView.getWidth(), mainView.getHeight());
-		gamePanelView.setBackground(Color.CYAN);
-		final Vector<SpriteView> actors = new Vector<SpriteView>();
-		final BufferedImage[] apple = MainController.getInstance().loadImages(
-				"./resources/apple_sprite.png", 1);
-		final AppleView appleView = new AppleView(apple,
-				Math.random() * 100.234,
-				Math.random() * 50.234, gamePanelView);
-		actors.add(appleView);
-		gamePanelView.setActors(actors);
+		gamePanelView = new GamePanelView(mainView.getWidth(),
+				mainView.getHeight());
 		mainView.add(gamePanelView);
 		mainView.setVisible(true);
+	}
+
+	private void spawnApples() {
+		actors = new Vector<SpriteView>();
+		apple = MainController.getInstance().loadImages(
+				"./resources/apple_sprite.png", 1);
+		final AppleView appleView = new AppleView(apple,
+				Math.random() * 100.234, Math.random() * 50.234, gamePanelView);
+		actors.add(appleView);
+		gamePanelView.setActors(actors);
 		Runnable runnable = new Runnable() {
 
 			@Override
@@ -86,6 +82,16 @@ public class MainController {
 		};
 		Thread thread = new Thread(runnable);
 		thread.start();
+	}
+
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		getInstance().createWindow();
+		getInstance().spawnApples();
+
 	}
 
 }
