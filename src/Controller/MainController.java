@@ -23,7 +23,6 @@ public class MainController {
 	private AppleView appleView;
 	private Thread appleThread;
 	private Runnable runnable;
-	private int counter;
 
 	public boolean IsGameRunning = false;
 	public boolean IsWindowCreated = false;
