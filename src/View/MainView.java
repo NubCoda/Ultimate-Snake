@@ -21,6 +21,11 @@ public class MainView extends JFrame implements ActionListener {
 	private JMenuItem menuItemStart;
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemReset;
+	private JMenu menuResolution;
+	private JMenuItem menuItemVGA;
+	private JMenuItem menuItemSVGA;
+	private JMenuItem menuItemXGA;
+	private JMenuItem menuItemFHD;
 
 
 	/**
@@ -56,6 +61,26 @@ public class MainView extends JFrame implements ActionListener {
 					menuItemReset.addActionListener(this);
 					menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
 					menuOption.add(menuItemReset);
+				}
+			}
+			{
+				menuResolution = new JMenu("Aufl\u00F6sung");
+				menuBar.add(menuResolution);
+				{
+					menuItemVGA = new JMenuItem("640x800");
+					menuResolution.add(menuItemVGA);
+				}
+				{
+					menuItemSVGA = new JMenuItem("800x600");
+					menuResolution.add(menuItemSVGA);
+				}
+				{
+					menuItemXGA = new JMenuItem("1024x768");
+					menuResolution.add(menuItemXGA);
+				}
+				{
+					menuItemFHD = new JMenuItem("1920x1080");
+					menuResolution.add(menuItemFHD);
 				}
 			}
 		}
