@@ -14,6 +14,7 @@ public class GamePanelView extends JPanel implements Observer {
 	private Vector<SpriteView> actors;
 
 	public GamePanelView(int width, int height) {
+		addKeyListener(new KeyListenerView());
 	}
 
 	public void setActors(Vector<SpriteView> actors) {
