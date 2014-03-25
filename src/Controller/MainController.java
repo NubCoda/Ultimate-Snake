@@ -3,9 +3,11 @@ package Controller;
 import java.io.IOException;
 
 import Model.AppleModel;
+import Model.SnakeModel;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
+import View.SnakeView;
 
 public class MainController implements Runnable {
 	private static MainController mainController;
@@ -52,14 +54,12 @@ public class MainController implements Runnable {
 	public void run() {
 		AppleView appleView = new AppleView("./resources/apple_sprite.png", 20, 20, gamePanelView);
 		AppleModel appleModel = null;
+		SnakeView snakeView = new SnakeView("./resources/head_sprite.png", "./resources/head_sprite.png", 120, 120, gamePanelView);
 
-		try {
-			appleModel = new AppleModel(gamePanelView);
-			appleModel.addObserver(appleView);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		appleModel = new AppleModel(gamePanelView);
+		appleModel.addObserver(appleView);
 		gamePanelView.addActor(appleView);
+		gamePanelView.addActor(snakeView);
 		while (true) {
 			try {
 				appleModel.update();

@@ -27,7 +27,7 @@ public class AppleModel extends Observable {
 
 
 
-	public AppleModel(GamePanelView gamePanelView) throws IOException{
+	public AppleModel(GamePanelView gamePanelView) {
 
 //		bufferedImages = ImageIO.read(getClass().getClassLoader().getResourceAsStream("recources/apple_sprite.png"));
 //		bounding = new Rectangle(newPosition_x, newPosition_y, bufferedImages.getWidth(), bufferedImages.getHeight());

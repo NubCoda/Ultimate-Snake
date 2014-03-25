@@ -24,6 +24,9 @@ public class SnakeView extends SpriteView implements Observer {
 
 	@Override
 	public void drawObjects(Graphics graphics) {
-		// TODO Head und je nach der Groesse die tail mehr mal zeichnen
+		graphics.drawImage(head, (int) x, (int) y, null);
+		graphics.drawImage(tail, (int) x-40, (int) y, null);
+		graphics.drawImage(tail, (int) x-40*2, (int) y, null);
+		graphics.drawImage(tail, (int) x-40*3, (int) y, null);
 	}
 }
