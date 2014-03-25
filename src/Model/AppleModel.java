@@ -4,15 +4,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Observable;
-import java.util.Vector;
 
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-
-import Controller.MainController;
-import View.AppleView;
 import View.GamePanelView;
-import View.SpriteView;
 
 public class AppleModel extends Observable {
 

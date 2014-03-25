@@ -91,7 +91,10 @@ public class OptionView extends JDialog implements ActionListener {
 		}
 	}
 	protected void comboBoxResolutionActionPerformed(ActionEvent arg0) {
-		System.out.println(comboBoxResolution.getSelectedItem());
+		String selectedItem = comboBoxResolution.getSelectedItem().toString();
+		int positionOfMulti = selectedItem.indexOf("x");
+		String width = selectedItem.substring(0, positionOfMulti);
+		String height = selectedItem.substring(positionOfMulti+1, selectedItem.length());
 		
 	}
 	protected void buttonCancelActionPerformed(ActionEvent arg0) {
