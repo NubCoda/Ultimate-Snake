@@ -1,11 +1,7 @@
 package Controller;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import View.AppleView;
@@ -19,7 +15,6 @@ public class MainController {
 	private MainView mainView;
 	private GamePanelView gamePanelView;
 	private Vector<SpriteView> actors;
-	private BufferedImage[] bufferedImages;
 	private AppleView appleView;
 	private Thread appleThread;
 	private Runnable runnable;
@@ -28,18 +23,6 @@ public class MainController {
 	public boolean IsWindowCreated = false;
 
 	private MainController() {
-	}
-
-	public BufferedImage[] loadImages(String path, int image) {
-		BufferedImage[] bufferedImages = new BufferedImage[image];
-		BufferedImage bufferedImage = null;
-		try {
-			bufferedImage = ImageIO.read(new File(path));
-			bufferedImages[0] = bufferedImage;
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-		return bufferedImages;
 	}
 
 	public static MainController getInstance() {
@@ -59,11 +42,10 @@ public class MainController {
 		IsWindowCreated = true;
 	}
 
+	// FIXME: SpawnApples im Model fuer Apples bzw. Items
 	private void spawnApples() {
 		actors = new Vector<SpriteView>();
-		bufferedImages = MainController.getInstance().loadImages(
-				"./resources/apple_sprite.png", 1);
-		appleView = new AppleView(bufferedImages, Math.random() * 100.234,
+		appleView = new AppleView("./resources/apple_sprite.png", Math.random() * 100.234,
 				Math.random() * 50.234, gamePanelView);
 		actors.add(appleView);
 		gamePanelView.setActors(actors);
@@ -87,7 +69,7 @@ public class MainController {
 	/**
 	 * Main Funktion Gezeichnet wird nur, wenn der Benutzer das "Spiel"
 	 * gestartet hat
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {

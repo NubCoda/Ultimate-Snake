@@ -4,23 +4,35 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import ViewInterface.IDrawable;
 import ViewInterface.IMoveable;
 
 @SuppressWarnings("serial")
 public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveable {
-
-
 	private GamePanelView gamePanelView;
-	private BufferedImage[] bufferedImages;
+	private BufferedImage bufferedImage;
 
-	public SpriteView(BufferedImage[] bufferedImages, double x, double y, GamePanelView gamePanelView) {
-		this.bufferedImages = bufferedImages;
+	public SpriteView(String path, double x, double y, GamePanelView gamePanelView) {
+		bufferedImage = loadImage(path);
 		this.x = x;
 		this.y = y;
 		this.gamePanelView = gamePanelView;
 		System.out.println(this.gamePanelView.getBounds());
+	}
+
+	protected BufferedImage loadImage(String path){
+		BufferedImage bufferedImage = null;
+		try {
+			bufferedImage = ImageIO.read(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return bufferedImage;
 	}
 
 	/* (non-Javadoc)
@@ -37,9 +49,7 @@ public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveab
 	 */
 	@Override
 	public void drawObjects(Graphics graphics) {
-		for(int i = 0; i < bufferedImages.length; i++) {
-			graphics.drawImage(bufferedImages[i], (int) x, (int) y, null);
-		}
+		graphics.drawImage(bufferedImage, (int) x, (int) y, null);
 	}
 
 	public void doLogic() {

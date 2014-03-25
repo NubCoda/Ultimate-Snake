@@ -70,7 +70,7 @@ public class MainView extends JFrame implements ActionListener {
 			menuItemStartActionPerformed(arg0);
 		}
 	}
-	
+
 	protected void menuItemStartActionPerformed(ActionEvent arg0) {
 		MainController.getInstance().IsGameRunning = true;
 		System.out.println("Game started");
