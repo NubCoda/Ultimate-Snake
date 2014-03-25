@@ -1,28 +1,24 @@
 package Controller;
 
-import java.util.Vector;
+import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
+import Model.AppleModel;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
-import View.SpriteView;
 
-public class MainController {
-
+public class MainController implements Runnable {
 	private static MainController mainController;
 	private MainView mainView;
 	private GamePanelView gamePanelView;
-	private Vector<SpriteView> actors;
-	private AppleView appleView;
-	private Thread appleThread;
-	private Runnable runnable;
 
 	public boolean IsGameRunning = false;
 	public boolean IsWindowCreated = false;
 
 	private MainController() {
+		createWindow();
+		Thread t = new Thread(this);
+		t.run();
 	}
 
 	public static MainController getInstance() {
@@ -42,30 +38,6 @@ public class MainController {
 		gamePanelView.setFocusable(true);
 	}
 
-	// FIXME: SpawnApples im Model fuer Apples bzw. Items
-	private void spawnApples() {
-		actors = new Vector<SpriteView>();
-		appleView = new AppleView("./resources/apple_sprite.png", Math.random() * 100.234,
-				Math.random() * 50.234, gamePanelView);
-		actors.add(appleView);
-		gamePanelView.setActors(actors);
-		runnable = new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					try {
-						appleView.x = Math.random() * 100.234;
-						appleView.y = Math.random() * 100.234;
-						mainView.repaint();
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						JOptionPane.showMessageDialog(null, e.getMessage());
-					}
-				}
-			}
-		};
-	}
-
 	/**
 	 * Main Funktion Gezeichnet wird nur, wenn der Benutzer das "Spiel"
 	 * gestartet hat
@@ -73,20 +45,31 @@ public class MainController {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		getInstance().createWindow();
-		while (getInstance().IsWindowCreated) {
-			if (getInstance().IsGameRunning) {
-				getInstance().spawnApples();
+		MainController.getInstance();
+	}
 
-				getInstance().appleThread = new Thread(getInstance().runnable);
-				getInstance().appleThread.run();
-			} else {
-				if (!getInstance().IsGameRunning
-						&& getInstance().appleThread != null) {
-					System.out.println("YO");
-				}
+	@Override
+	public void run() {
+		AppleView appleView = new AppleView("./resources/apple_sprite.png", 20, 20, gamePanelView);
+		AppleModel appleModel = null;
+
+		try {
+			appleModel = new AppleModel(gamePanelView);
+			appleModel.addObserver(appleView);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		gamePanelView.addActor(appleView);
+		while (true) {
+			try {
+				appleModel.update();
+				gamePanelView.repaint();
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
+
 	}
 
 }

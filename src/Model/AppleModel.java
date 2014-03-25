@@ -3,6 +3,7 @@ package Model;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Observable;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -13,8 +14,8 @@ import View.AppleView;
 import View.GamePanelView;
 import View.SpriteView;
 
-public class AppleModel {
-	
+public class AppleModel extends Observable {
+
 	private Rectangle bounding; //ränder
 	double applePosition_x;
 	double applePosition_y;
@@ -25,13 +26,13 @@ public class AppleModel {
 	private BufferedImage bufferedImages;
 
 
-	
+
 	public AppleModel(GamePanelView gamePanelView) throws IOException{
 
 //		bufferedImages = ImageIO.read(getClass().getClassLoader().getResourceAsStream("recources/apple_sprite.png"));
 //		bounding = new Rectangle(newPosition_x, newPosition_y, bufferedImages.getWidth(), bufferedImages.getHeight());
-		this.maxWindowsize_x = gamePanelView.getWidth()-20;
-		this.maxWindowsize_y = gamePanelView.getHeight()-20;
+		this.maxWindowsize_x = gamePanelView.getWidth()-40;
+		this.maxWindowsize_y = gamePanelView.getHeight()-40;
 		this.minWindowsize_x =0;
 		this.minWindowsize_y =0;
 	}
@@ -41,6 +42,8 @@ public class AppleModel {
 	public void update() {
 		applePosition_x = Math.random()*(double)(maxWindowsize_x-minWindowsize_x)-(double)minWindowsize_x;
 		applePosition_y = Math.random()*(double)(maxWindowsize_y-minWindowsize_y)-(double)minWindowsize_y;
+		setChanged();
+		notifyObservers();
 	}
 	public double getApplePosition_x() {
 		return applePosition_x;

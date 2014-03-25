@@ -11,14 +11,14 @@ import ViewInterface.IDrawable;
 
 @SuppressWarnings("serial")
 public class GamePanelView extends JPanel implements Observer {
-	private Vector<SpriteView> actors;
+	private Vector<SpriteView> actors = new Vector<SpriteView>();
 
 	public GamePanelView(int width, int height) {
 		addKeyListener(new KeyListenerView());
 	}
 
-	public void setActors(Vector<SpriteView> actors) {
-		this.actors = actors;
+	public void addActor(SpriteView actor) {
+		this.actors.add(actor);
 	}
 
 	@Override
