@@ -40,6 +40,7 @@ public class MainController {
 		mainView.add(gamePanelView);
 		mainView.setVisible(true);
 		IsWindowCreated = true;
+		gamePanelView.setFocusable(true);
 	}
 
 	// FIXME: SpawnApples im Model fuer Apples bzw. Items
