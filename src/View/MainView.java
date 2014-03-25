@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -35,7 +36,8 @@ public class MainView extends JFrame implements ActionListener {
 	}
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setSize(450, 300);
+		setLocationRelativeTo(null);
 		{
 			menuBar = new JMenuBar();
 			setJMenuBar(menuBar);

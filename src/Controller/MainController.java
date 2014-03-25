@@ -34,7 +34,6 @@ public class MainController {
 
 	private void createWindow() {
 		mainView = new MainView();
-		mainView.setBounds(1024, 600, 1024, 600);
 		gamePanelView = new GamePanelView(mainView.getWidth(),
 				mainView.getHeight());
 		mainView.add(gamePanelView);
@@ -78,6 +77,7 @@ public class MainController {
 		while (getInstance().IsWindowCreated) {
 			if (getInstance().IsGameRunning) {
 				getInstance().spawnApples();
+
 				getInstance().appleThread = new Thread(getInstance().runnable);
 				getInstance().appleThread.run();
 			} else {
