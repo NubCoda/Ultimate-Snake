@@ -66,18 +66,22 @@ public class MainView extends JFrame implements ActionListener {
 				menuBar.add(menuResolution);
 				{
 					menuItemVGA = new JMenuItem("640x800");
+					menuItemVGA.addActionListener(this);
 					menuResolution.add(menuItemVGA);
 				}
 				{
 					menuItemSVGA = new JMenuItem("800x600");
+					menuItemSVGA.addActionListener(this);
 					menuResolution.add(menuItemSVGA);
 				}
 				{
 					menuItemXGA = new JMenuItem("1024x768");
+					menuItemXGA.addActionListener(this);
 					menuResolution.add(menuItemXGA);
 				}
 				{
 					menuItemFHD = new JMenuItem("1920x1080");
+					menuItemFHD.addActionListener(this);
 					menuResolution.add(menuItemFHD);
 				}
 			}
@@ -85,6 +89,18 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == menuItemFHD) {
+			menuItemFHDActionPerformed(arg0);
+		}
+		if (arg0.getSource() == menuItemXGA) {
+			menuItemXGAActionPerformed(arg0);
+		}
+		if (arg0.getSource() == menuItemSVGA) {
+			menuItemSVGAActionPerformed(arg0);
+		}
+		if (arg0.getSource() == menuItemVGA) {
+			menuItemVGAActionPerformed(arg0);
+		}
 		if (arg0.getSource() == menuItemReset) {
 			menuItemResetActionPerformed(arg0);
 		}
@@ -105,5 +121,13 @@ public class MainView extends JFrame implements ActionListener {
 		System.out.println("Game paused");
 	}
 	protected void menuItemResetActionPerformed(ActionEvent arg0) {
+	}
+	protected void menuItemVGAActionPerformed(ActionEvent arg0) {
+	}
+	protected void menuItemSVGAActionPerformed(ActionEvent arg0) {
+	}
+	protected void menuItemXGAActionPerformed(ActionEvent arg0) {
+	}
+	protected void menuItemFHDActionPerformed(ActionEvent arg0) {
 	}
 }
