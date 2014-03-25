@@ -1,6 +1,5 @@
 package View;
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -17,15 +16,11 @@ import Controller.MainController;
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener {
 	private JMenuBar menuBar;
-	private JMenu menuOption;
+	private JMenu menuGame;
 	private JMenuItem menuItemStart;
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemReset;
-	private JMenu menuResolution;
-	private JMenuItem menuItemVGA;
-	private JMenuItem menuItemSVGA;
-	private JMenuItem menuItemXGA;
-	private JMenuItem menuItemFHD;
+	private JMenuItem menuItemOption;
 
 
 	/**
@@ -42,66 +37,39 @@ public class MainView extends JFrame implements ActionListener {
 			menuBar = new JMenuBar();
 			setJMenuBar(menuBar);
 			{
-				menuOption = new JMenu("Optionen");
-				menuBar.add(menuOption);
+				menuGame = new JMenu("Spiel");
+				menuBar.add(menuGame);
 				{
 					menuItemStart = new JMenuItem("Start");
 					menuItemStart.addActionListener(this);
 					menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
-					menuOption.add(menuItemStart);
+					menuGame.add(menuItemStart);
 				}
 				{
 					menuItemPause = new JMenuItem("Pause");
 					menuItemPause.addActionListener(this);
 					menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
-					menuOption.add(menuItemPause);
+					menuGame.add(menuItemPause);
 				}
 				{
 					menuItemReset = new JMenuItem("Reset");
 					menuItemReset.addActionListener(this);
 					menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
-					menuOption.add(menuItemReset);
-				}
-			}
-			{
-				menuResolution = new JMenu("Aufl\u00F6sung");
-				menuBar.add(menuResolution);
-				{
-					menuItemVGA = new JMenuItem("640x800");
-					menuItemVGA.addActionListener(this);
-					menuResolution.add(menuItemVGA);
+					menuGame.add(menuItemReset);
 				}
 				{
-					menuItemSVGA = new JMenuItem("800x600");
-					menuItemSVGA.addActionListener(this);
-					menuResolution.add(menuItemSVGA);
-				}
-				{
-					menuItemXGA = new JMenuItem("1024x768");
-					menuItemXGA.addActionListener(this);
-					menuResolution.add(menuItemXGA);
-				}
-				{
-					menuItemFHD = new JMenuItem("1920x1080");
-					menuItemFHD.addActionListener(this);
-					menuResolution.add(menuItemFHD);
+					menuItemOption = new JMenuItem("Optionen");
+					menuItemOption.addActionListener(this);
+					menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemOption);
 				}
 			}
 		}
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == menuItemFHD) {
-			menuItemFHDActionPerformed(arg0);
-		}
-		if (arg0.getSource() == menuItemXGA) {
-			menuItemXGAActionPerformed(arg0);
-		}
-		if (arg0.getSource() == menuItemSVGA) {
-			menuItemSVGAActionPerformed(arg0);
-		}
-		if (arg0.getSource() == menuItemVGA) {
-			menuItemVGAActionPerformed(arg0);
+		if (arg0.getSource() == menuItemOption) {
+			menuItemOptionActionPerformed(arg0);
 		}
 		if (arg0.getSource() == menuItemReset) {
 			menuItemResetActionPerformed(arg0);
@@ -124,12 +92,8 @@ public class MainView extends JFrame implements ActionListener {
 	}
 	protected void menuItemResetActionPerformed(ActionEvent arg0) {
 	}
-	protected void menuItemVGAActionPerformed(ActionEvent arg0) {
-	}
-	protected void menuItemSVGAActionPerformed(ActionEvent arg0) {
-	}
-	protected void menuItemXGAActionPerformed(ActionEvent arg0) {
-	}
-	protected void menuItemFHDActionPerformed(ActionEvent arg0) {
+	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
+		OptionView optionView = new OptionView();
+		optionView.setVisible(true);
 	}
 }
