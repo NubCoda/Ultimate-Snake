@@ -24,6 +24,7 @@ public class MainController implements Runnable {
 		Thread t = new Thread(this);
 		t.run();
 		System.out.println("Test");
+		System.out.println("Hallo");
 	}
 
 	public static MainController getInstance() {
