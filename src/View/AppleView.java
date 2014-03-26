@@ -16,7 +16,6 @@ public class AppleView extends SpriteView implements Observer {
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-		System.out.println("Test");
 		setRect(((AppleModel)observable).getApplePosition_x(), ((AppleModel)observable).getApplePosition_y(), 40, 40);
 	}
 }

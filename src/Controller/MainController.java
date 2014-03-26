@@ -1,5 +1,7 @@
 package Controller;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.io.IOException;
 
 import Model.AppleModel;
@@ -34,7 +36,9 @@ public class MainController implements Runnable {
 		mainView = new MainView();
 		gamePanelView = new GamePanelView(mainView.getWidth(),
 				mainView.getHeight());
+//		mainView.getContentPane().setLayout(new BorderLayout());
 		mainView.add(gamePanelView);
+//		, BorderLayout.CENTER
 		mainView.setVisible(true);
 		IsWindowCreated = true;
 		gamePanelView.setFocusable(true);
@@ -54,12 +58,12 @@ public class MainController implements Runnable {
 	public void run() {
 		AppleView appleView = new AppleView("./resources/apple_sprite.png", 20, 20, gamePanelView);
 		AppleModel appleModel = null;
-		SnakeView snakeView = new SnakeView("./resources/head_sprite.png", "./resources/head_sprite.png", 120, 120, gamePanelView);
+//		SnakeView snakeView = new SnakeView("./resources/head_sprite.png", "./resources/head_sprite.png", 120, 120, gamePanelView);
 
 		appleModel = new AppleModel(gamePanelView);
 		appleModel.addObserver(appleView);
 		gamePanelView.addActor(appleView);
-		gamePanelView.addActor(snakeView);
+//		gamePanelView.addActor(snakeView);
 		while (true) {
 			try {
 				appleModel.update();

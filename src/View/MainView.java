@@ -91,9 +91,10 @@ public class MainView extends JFrame implements ActionListener {
 		System.out.println("Game paused");
 	}
 	protected void menuItemResetActionPerformed(ActionEvent arg0) {
+		System.out.println(((GamePanelView)getContentPane().getComponent(0)).getSize());
 	}
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
-		OptionView optionView = new OptionView();
+		OptionView optionView = new OptionView(this);
 		optionView.setVisible(true);
 	}
 }

@@ -21,19 +21,17 @@ public class OptionView extends JDialog implements ActionListener {
 	private JComboBox<String> comboBoxResolution;
 	private JButton buttonCancel;
 	private JButton buttonOk;
+	private MainView mainView;
+	private int newWidth;
+	private int newHeight;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			OptionView dialog = new OptionView();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public OptionView(MainView mainView) {
+		this.mainView = mainView;
+		this.newWidth = mainView.getWidth();
+		this.newHeight = mainView.getHeight();
+		initGUI();
 	}
+
 
 	/**
 	 * Create the dialog.
@@ -93,13 +91,16 @@ public class OptionView extends JDialog implements ActionListener {
 	protected void comboBoxResolutionActionPerformed(ActionEvent arg0) {
 		String selectedItem = comboBoxResolution.getSelectedItem().toString();
 		int positionOfMulti = selectedItem.indexOf("x");
-		String width = selectedItem.substring(0, positionOfMulti);
-		String height = selectedItem.substring(positionOfMulti+1, selectedItem.length());
+		newWidth = Integer.valueOf(selectedItem.substring(0, positionOfMulti));
+		newHeight = Integer.valueOf(selectedItem.substring(positionOfMulti+1, selectedItem.length()));
 
 	}
 	protected void buttonCancelActionPerformed(ActionEvent arg0) {
 		this.dispose();
 	}
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
+		mainView.setSize(newWidth, newHeight);
+		mainView.setLocationRelativeTo(null);
+		this.dispose();
 	}
 }
