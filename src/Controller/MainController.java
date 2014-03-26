@@ -67,7 +67,7 @@ public class MainController implements Runnable {
 //		gamePanelView.addActor(snakeView);
 		while (true) {
 			try {
-				appleModel.update();
+				appleModel.moveApple();
 				gamePanelView.repaint();
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
