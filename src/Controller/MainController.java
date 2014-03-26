@@ -23,6 +23,7 @@ public class MainController implements Runnable {
 		createWindow();
 		Thread t = new Thread(this);
 		t.run();
+		System.out.println("Hallo");
 	}
 
 	public static MainController getInstance() {
