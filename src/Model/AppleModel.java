@@ -19,8 +19,9 @@ public class AppleModel extends Observable {
 	public AppleModel(GamePanelView gamePanelView) {
 		this.gamePanelView = gamePanelView;
 		try {
-			File image = new File("./resources/apple_sprite.png"); 
-			this.bufferedImages =  ImageIO.read(image);
+
+			this.bufferedImages = ImageIO.read(new File(
+					"./resources/apple_sprite.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,11 +30,12 @@ public class AppleModel extends Observable {
 
 	public void moveApple() {
 
-		applePosition_x = Math.random() * ((double) (gamePanelView.getWidth())
-				- ((double) bufferedImages.getWidth()));
-		System.out.println(applePosition_x);
-		applePosition_y = Math.random() * ((double) (gamePanelView.getHeight())
-				- ((double) bufferedImages.getHeight()));
+		applePosition_x = Math.random()
+				* ((double) (gamePanelView.getWidth()) - ((double) bufferedImages
+						.getWidth()));
+		applePosition_y = Math.random()
+				* ((double) (gamePanelView.getHeight()) - ((double) bufferedImages
+						.getHeight()));
 		setChanged();
 		notifyObservers();
 	}
@@ -46,5 +48,4 @@ public class AppleModel extends Observable {
 		return applePosition_y;
 	}
 
-	
 }
