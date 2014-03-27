@@ -2,9 +2,10 @@ package Model;
 
 import java.util.Observable;
 
+import ModelInterface.Actor;
 import ViewInterface.Constants;
 
-public class SnakeModel extends Observable {
+public class SnakeModel extends Observable implements Actor{
 	private int x;
 	private int y;
 
@@ -30,4 +31,13 @@ public class SnakeModel extends Observable {
 	public int getY() {
 		return y;
 	}
+
+	@Override
+	public void actuate() {
+		x += 20;
+		setChanged();
+		notifyObservers();
+	}
+
+
 }
