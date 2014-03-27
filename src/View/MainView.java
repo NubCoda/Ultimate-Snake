@@ -83,11 +83,11 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	protected void menuItemStartActionPerformed(ActionEvent arg0) {
-		MainController.getInstance().IsGameRunning = true;
+//		MainController.getInstance().IsGameRunning = true;
 		System.out.println("Game started");
 	}
 	protected void menuItemPauseActionPerformed(ActionEvent arg0) {
-		MainController.getInstance().IsGameRunning = false;
+//		MainController.getInstance().IsGameRunning = false;
 		System.out.println("Game paused");
 	}
 	protected void menuItemResetActionPerformed(ActionEvent arg0) {
