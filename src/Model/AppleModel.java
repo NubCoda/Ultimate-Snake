@@ -1,7 +1,11 @@
 package Model;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
+
+import javax.imageio.ImageIO;
 
 import View.GamePanelView;
 
@@ -12,40 +16,35 @@ public class AppleModel extends Observable {
 	private BufferedImage bufferedImages;
 	private GamePanelView gamePanelView;
 
-
 	public AppleModel(GamePanelView gamePanelView) {
 		this.gamePanelView = gamePanelView;
+		try {
+			File image = new File("./resources/apple_sprite.png"); 
+			this.bufferedImages =  ImageIO.read(image);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
-
-
 	public void moveApple() {
-		applePosition_x = Math.random()*(double)(gamePanelView.getWidth()-0)-(double)0;
-		applePosition_y = Math.random()*(double)(gamePanelView.getHeight()-0)-(double)0;
+
+		applePosition_x = Math.random() * ((double) (gamePanelView.getWidth())
+				- ((double) bufferedImages.getWidth()));
+		System.out.println(applePosition_x);
+		applePosition_y = Math.random() * ((double) (gamePanelView.getHeight())
+				- ((double) bufferedImages.getHeight()));
 		setChanged();
 		notifyObservers();
 	}
+
 	public double getApplePosition_x() {
 		return applePosition_x;
 	}
-	public void setApplePosition_x(double x) {
-		this.applePosition_x=x;
-	}
+
 	public double getApplePosition_y() {
 		return applePosition_y;
 	}
-	public void setApplePosition_y(double y) {
-		this.applePosition_y=y;
-	}
 
-	public BufferedImage getBufferedImages() {
-		return bufferedImages;
-	}
-
-
-
-	public void setBufferedImages(BufferedImage bufferedImages) {
-		this.bufferedImages = bufferedImages;
-	}
-
+	
 }
