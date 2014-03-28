@@ -22,7 +22,6 @@ public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveab
 		this.x = x;
 		this.y = y;
 		this.gamePanelView = gamePanelView;
-		System.out.println(this.gamePanelView.getBounds());
 	}
 
 	protected BufferedImage loadImage(String path){

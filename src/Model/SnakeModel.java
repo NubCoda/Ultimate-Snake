@@ -23,28 +23,29 @@ public class SnakeModel extends Observable implements IActor{
 		switch (direction) {
 		case IConstants.RIGHT:
 			if(currentDirection==IConstants.UP || currentDirection==IConstants.DOWN){
-				drawDirections.put(new Point(x, y), Integer.valueOf(direction));
+				drawDirections.put(new Point(x, y), Integer.valueOf(currentDirection));
+				currentDirection = currentDirection==IConstants.DOWN?IConstants.LEFT:direction;
 			}
 			break;
 		case IConstants.LEFT:
 			if(currentDirection==IConstants.UP || currentDirection==IConstants.DOWN){
-				drawDirections.put(new Point(x, y), Integer.valueOf(direction));
+				drawDirections.put(new Point(x, y), Integer.valueOf(currentDirection));
+				currentDirection = currentDirection==IConstants.DOWN?IConstants.RIGHT:direction;
 			}
 			break;
 		case IConstants.UP:
 			if(currentDirection==IConstants.RIGHT || currentDirection==IConstants.LEFT){
-				drawDirections.put(new Point(x, y), Integer.valueOf(direction));
+				drawDirections.put(new Point(x, y), Integer.valueOf(currentDirection));
+				currentDirection = direction;
 			}
 			break;
 		case IConstants.DOWN:
 			if(currentDirection==IConstants.RIGHT || currentDirection==IConstants.LEFT){
-				drawDirections.put(new Point(x, y), Integer.valueOf(direction));
+				drawDirections.put(new Point(x, y), Integer.valueOf(currentDirection));
+				currentDirection = direction;
 			}
 			break;
 		}
-		// "wenden" nicht erlauben -> wenn schlange nach oben läuft kann diese nicht plötzlich nach untent laufen
-		// dasselbe mit unten=> oben; rechts=> links und links => rechts
-		currentDirection = direction;
 	}
 
 	public int getX() {
