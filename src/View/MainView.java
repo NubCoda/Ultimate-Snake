@@ -11,8 +11,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import Controller.MainController;
-
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener {
 	private JMenuBar menuBar;
@@ -83,11 +81,11 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	protected void menuItemStartActionPerformed(ActionEvent arg0) {
-		MainController.getInstance().IsGameRunning = true;
+//		MainController.getInstance().IsGameRunning = true;
 		System.out.println("Game started");
 	}
 	protected void menuItemPauseActionPerformed(ActionEvent arg0) {
-		MainController.getInstance().IsGameRunning = false;
+//		MainController.getInstance().IsGameRunning = false;
 		System.out.println("Game paused");
 	}
 	protected void menuItemResetActionPerformed(ActionEvent arg0) {

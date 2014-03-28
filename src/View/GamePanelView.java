@@ -35,6 +35,6 @@ public class GamePanelView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-		// TODO Auto-generated method stub
+		repaint();
 	}
 }

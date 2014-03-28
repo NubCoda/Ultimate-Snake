@@ -7,9 +7,10 @@ import java.util.Observable;
 
 import javax.imageio.ImageIO;
 
+import ModelInterface.IActor;
 import View.GamePanelView;
 
-public class AppleModel extends Observable {
+public class AppleModel extends Observable implements IActor {
 
 	double applePosition_x;
 	double applePosition_y;
@@ -46,6 +47,11 @@ public class AppleModel extends Observable {
 
 	public double getApplePosition_y() {
 		return applePosition_y;
+	}
+
+	@Override
+	public void actuate() {
+		moveApple();
 	}
 
 }
