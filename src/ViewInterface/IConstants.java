@@ -1,8 +1,8 @@
 package ViewInterface;
 
 public interface IConstants {
-	public static final int RIGHT = 1;
-	public static final int LEFT = 2;
-	public static final int UP = 3;
-	public static final int DOWN = 4;
+	public static final int RIGHT = 39;
+	public static final int LEFT = 37;
+	public static final int UP = 38;
+	public static final int DOWN = 40;
 }

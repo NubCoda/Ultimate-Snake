@@ -51,7 +51,7 @@ public class AppleModel extends Observable implements IActor {
 
 	@Override
 	public void actuate() {
-		moveApple();
+//		moveApple();
 	}
 
 }
