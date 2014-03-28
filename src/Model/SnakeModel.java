@@ -2,10 +2,10 @@ package Model;
 
 import java.util.Observable;
 
-import ModelInterface.Actor;
-import ViewInterface.Constants;
+import ModelInterface.IActor;
+import ViewInterface.IConstants;
 
-public class SnakeModel extends Observable implements Actor{
+public class SnakeModel extends Observable implements IActor{
 	private int x;
 	private int y;
 
@@ -16,7 +16,7 @@ public class SnakeModel extends Observable implements Actor{
 
 	public void moveSnake(int direction) {
 		switch (direction) {
-		case Constants.RIGHT:
+		case IConstants.RIGHT:
 			x += 20;
 			break;
 		}

@@ -3,12 +3,12 @@ package Model;
 import java.util.Observable;
 import java.util.Vector;
 
-import ModelInterface.Actor;
+import ModelInterface.IActor;
 
 
 public class Logic extends Observable implements Runnable {
-	private Vector<Actor> actors;
-	public Logic(Vector<Actor> actors) {
+	private Vector<IActor> actors;
+	public Logic(Vector<IActor> actors) {
 		this.actors = actors;
 	}
 
@@ -16,12 +16,12 @@ public class Logic extends Observable implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				for (Actor actor : actors) {
+				for (IActor actor : actors) {
 					actor.actuate();
 				}
 				setChanged();
 				notifyObservers();
-				Thread.sleep(500);
+				Thread.sleep(300);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

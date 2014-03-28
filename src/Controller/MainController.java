@@ -5,7 +5,7 @@ import java.util.Vector;
 import Model.AppleModel;
 import Model.Logic;
 import Model.SnakeModel;
-import ModelInterface.Actor;
+import ModelInterface.IActor;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
@@ -21,7 +21,7 @@ public class MainController {
 
 	private MainController() {
 		createWindow();
-		Vector<Actor> actors = new Vector<Actor>();
+		Vector<IActor> actors = new Vector<IActor>();
 		AppleView appleView = new AppleView("./resources/apple_sprite.png", 20, 20, gamePanelView);
 		AppleModel appleModel = null;
 		SnakeView snakeView = new SnakeView("./resources/head_sprite.png", "./resources/tail_sprite.png", 120, 120, gamePanelView);

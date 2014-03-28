@@ -3,7 +3,7 @@ package View;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import ViewInterface.Constants;
+import ViewInterface.IConstants;
 import Controller.MainController;
 
 public class KeyListenerView extends KeyAdapter {
@@ -12,7 +12,7 @@ public class KeyListenerView extends KeyAdapter {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case 39:	// -> Right
-				MainController.getInstance().moveSnake(Constants.RIGHT);
+				MainController.getInstance().moveSnake(IConstants.RIGHT);
 				break;
 			case 38:	// -> Top
 				break;

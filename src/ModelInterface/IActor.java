@@ -1,5 +1,5 @@
 package ModelInterface;
 
-public interface Actor {
+public interface IActor {
 	public void actuate();
 }
