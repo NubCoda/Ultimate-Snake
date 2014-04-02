@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import ModelInterface.IActor;
 import View.GamePanelView;
+import ViewInterface.IConstants;
 
 public class AppleModel extends Observable implements IActor {
 
@@ -22,7 +23,7 @@ public class AppleModel extends Observable implements IActor {
 		try {
 
 			this.bufferedImages = ImageIO.read(new File(
-					"./resources/apple_sprite.png"));
+					IConstants.APPLE_PAHT));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

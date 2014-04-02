@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -28,6 +29,7 @@ public class SnakeView extends SpriteView implements Observer {
 		this.gamePanelView = gamePanelView;
 		head = loadImage(pathHead);
 		tail = loadImage(pathTail);
+		drawDirections = new HashMap<Point, Integer>();
 	}
 
 	@Override

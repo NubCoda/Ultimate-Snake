@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.Point;
+import java.awt.dnd.DragGestureEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -11,6 +12,7 @@ import ViewInterface.IConstants;
 public class SnakeModel extends Observable implements IActor{
 	private int x;
 	private int y;
+	private int length = 20;
 	private int currentDirection = IConstants.RIGHT;
 	private Map<Point, Integer> drawDirections;
 	public SnakeModel(int x, int y) {
@@ -46,6 +48,34 @@ public class SnakeModel extends Observable implements IActor{
 			}
 			break;
 		}
+		int drawX = (int) x;
+		int drawY = (int) y;
+		int curDir = currentDirection;
+		Map<Point, Integer> newDrawDirections = new HashMap<Point, Integer>();
+		System.out.println("------------------------------------");
+		for (int i = 1; i <= length; i++) {
+			Point curPosition = new Point(drawX, drawY);
+			if (drawDirections.containsKey(curPosition)) {
+				System.out.println(curPosition + " " + curDir);
+				curDir = drawDirections.get(curPosition);
+				newDrawDirections.put(curPosition, curDir);
+			}
+			switch (curDir) {
+			case IConstants.RIGHT:
+				drawX -= 20;
+				break;
+			case IConstants.LEFT:
+				drawX += 20;
+				break;
+			case IConstants.UP:
+				drawY += 20;
+				break;
+			case IConstants.DOWN:
+				drawY -= 20;
+				break;
+			}
+		}
+		drawDirections = newDrawDirections;
 	}
 
 	public int getX() {

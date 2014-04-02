@@ -35,7 +35,7 @@ public class Logic extends Observable implements Runnable {
 				}
 				setChanged();
 				notifyObservers();
-				Thread.sleep(600);
+				Thread.sleep(250);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
