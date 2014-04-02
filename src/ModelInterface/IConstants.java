@@ -1,4 +1,5 @@
-package ViewInterface;
+package ModelInterface;
+
 
 public interface IConstants {
 	public static final int RIGHT = 39;

@@ -11,7 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Model.SnakeModel;
-import ViewInterface.IConstants;
+import ModelInterface.IConstants;
 
 @SuppressWarnings("serial")
 public class SnakeView extends SpriteView implements Observer {

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Observable;
 
 import ModelInterface.IActor;
-import ViewInterface.IConstants;
+import ModelInterface.IConstants;
 
 public class SnakeModel extends Observable implements IActor {
 	private int x;

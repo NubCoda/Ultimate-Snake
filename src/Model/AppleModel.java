@@ -8,8 +8,8 @@ import java.util.Observable;
 import javax.imageio.ImageIO;
 
 import ModelInterface.IActor;
+import ModelInterface.IConstants;
 import View.GamePanelView;
-import ViewInterface.IConstants;
 
 public class AppleModel extends Observable implements IActor {
 	double applePosition_x;
