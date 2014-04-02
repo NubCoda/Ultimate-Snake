@@ -12,7 +12,6 @@ import View.GamePanelView;
 import ViewInterface.IConstants;
 
 public class AppleModel extends Observable implements IActor {
-
 	double applePosition_x;
 	double applePosition_y;
 	private BufferedImage bufferedImages;
@@ -21,9 +20,7 @@ public class AppleModel extends Observable implements IActor {
 	public AppleModel(GamePanelView gamePanelView) {
 		this.gamePanelView = gamePanelView;
 		try {
-
-			this.bufferedImages = ImageIO.read(new File(
-					IConstants.APPLE_PAHT));
+			this.bufferedImages = ImageIO.read(new File(IConstants.APPLE_PAHT));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,7 +28,6 @@ public class AppleModel extends Observable implements IActor {
 	}
 
 	public void moveApple() {
-
 		applePosition_x = Math.random()
 				* ((double) (gamePanelView.getWidth()) - ((double) bufferedImages
 						.getWidth()));
@@ -52,7 +48,7 @@ public class AppleModel extends Observable implements IActor {
 
 	@Override
 	public void actuate() {
-//		moveApple();
+		// moveApple();
 	}
 
 }

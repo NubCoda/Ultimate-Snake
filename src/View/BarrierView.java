@@ -5,7 +5,6 @@ import java.util.Observer;
 
 @SuppressWarnings("serial")
 public class BarrierView extends SpriteView implements Observer {
-
 	public BarrierView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);

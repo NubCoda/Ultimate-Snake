@@ -7,7 +7,6 @@ import Model.AppleModel;
 
 @SuppressWarnings("serial")
 public class AppleView extends SpriteView implements Observer {
-
 	public AppleView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);
@@ -16,6 +15,7 @@ public class AppleView extends SpriteView implements Observer {
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-		setRect(((AppleModel)observable).getApplePosition_x(), ((AppleModel)observable).getApplePosition_y(), 40, 40);
+		setRect(((AppleModel) observable).getApplePosition_x(),
+				((AppleModel) observable).getApplePosition_y(), 40, 40);
 	}
 }

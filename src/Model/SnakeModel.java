@@ -1,7 +1,6 @@
 package Model;
 
 import java.awt.Point;
-import java.awt.dnd.DragGestureEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -9,12 +8,13 @@ import java.util.Observable;
 import ModelInterface.IActor;
 import ViewInterface.IConstants;
 
-public class SnakeModel extends Observable implements IActor{
+public class SnakeModel extends Observable implements IActor {
 	private int x;
 	private int y;
 	private int length = 20;
 	private int currentDirection = IConstants.RIGHT;
 	private Map<Point, Integer> drawDirections;
+
 	public SnakeModel(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -24,26 +24,36 @@ public class SnakeModel extends Observable implements IActor{
 	public void moveSnake(int direction) {
 		switch (direction) {
 		case IConstants.RIGHT:
-			if(currentDirection==IConstants.UP || currentDirection==IConstants.DOWN){
-				drawDirections.put(new Point(x, y), Integer.valueOf(currentDirection));
-				currentDirection = currentDirection==IConstants.DOWN?IConstants.LEFT:direction;
+			if (currentDirection == IConstants.UP
+					|| currentDirection == IConstants.DOWN) {
+				drawDirections.put(new Point(x, y),
+						Integer.valueOf(currentDirection));
+				currentDirection = currentDirection == IConstants.DOWN ? IConstants.LEFT
+						: direction;
 			}
 			break;
 		case IConstants.LEFT:
-			if(currentDirection==IConstants.UP || currentDirection==IConstants.DOWN){
-				drawDirections.put(new Point(x, y), Integer.valueOf(currentDirection));
-				currentDirection = currentDirection==IConstants.DOWN?IConstants.RIGHT:direction;
+			if (currentDirection == IConstants.UP
+					|| currentDirection == IConstants.DOWN) {
+				drawDirections.put(new Point(x, y),
+						Integer.valueOf(currentDirection));
+				currentDirection = currentDirection == IConstants.DOWN ? IConstants.RIGHT
+						: direction;
 			}
 			break;
 		case IConstants.UP:
-			if(currentDirection==IConstants.RIGHT || currentDirection==IConstants.LEFT){
-				drawDirections.put(new Point(x, y), Integer.valueOf(currentDirection));
+			if (currentDirection == IConstants.RIGHT
+					|| currentDirection == IConstants.LEFT) {
+				drawDirections.put(new Point(x, y),
+						Integer.valueOf(currentDirection));
 				currentDirection = direction;
 			}
 			break;
 		case IConstants.DOWN:
-			if(currentDirection==IConstants.RIGHT || currentDirection==IConstants.LEFT){
-				drawDirections.put(new Point(x, y), Integer.valueOf(currentDirection));
+			if (currentDirection == IConstants.RIGHT
+					|| currentDirection == IConstants.LEFT) {
+				drawDirections.put(new Point(x, y),
+						Integer.valueOf(currentDirection));
 				currentDirection = direction;
 			}
 			break;
@@ -86,11 +96,11 @@ public class SnakeModel extends Observable implements IActor{
 		return y;
 	}
 
-	public Map<Point, Integer> getDrawDirections(){
+	public Map<Point, Integer> getDrawDirections() {
 		return drawDirections;
 	}
 
-	public int getDirection(){
+	public int getDirection() {
 		return currentDirection;
 	}
 

@@ -20,13 +20,13 @@ public class MainView extends JFrame implements ActionListener {
 	private JMenuItem menuItemReset;
 	private JMenuItem menuItemOption;
 
-
 	/**
 	 * Create the frame.
 	 */
 	public MainView() {
 		initGUI();
 	}
+
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
@@ -40,25 +40,29 @@ public class MainView extends JFrame implements ActionListener {
 				{
 					menuItemStart = new JMenuItem("Start");
 					menuItemStart.addActionListener(this);
-					menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+					menuItemStart.setAccelerator(KeyStroke.getKeyStroke(
+							KeyEvent.VK_S, InputEvent.CTRL_MASK));
 					menuGame.add(menuItemStart);
 				}
 				{
 					menuItemPause = new JMenuItem("Pause");
 					menuItemPause.addActionListener(this);
-					menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
+					menuItemPause.setAccelerator(KeyStroke.getKeyStroke(
+							KeyEvent.VK_P, InputEvent.CTRL_MASK));
 					menuGame.add(menuItemPause);
 				}
 				{
 					menuItemReset = new JMenuItem("Reset");
 					menuItemReset.addActionListener(this);
-					menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
+					menuItemReset.setAccelerator(KeyStroke.getKeyStroke(
+							KeyEvent.VK_R, InputEvent.CTRL_MASK));
 					menuGame.add(menuItemReset);
 				}
 				{
 					menuItemOption = new JMenuItem("Optionen");
 					menuItemOption.addActionListener(this);
-					menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+					menuItemOption.setAccelerator(KeyStroke.getKeyStroke(
+							KeyEvent.VK_O, InputEvent.CTRL_MASK));
 					menuGame.add(menuItemOption);
 				}
 			}
@@ -81,16 +85,20 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	protected void menuItemStartActionPerformed(ActionEvent arg0) {
-//		MainController.getInstance().IsGameRunning = true;
+		// MainController.getInstance().IsGameRunning = true;
 		System.out.println("Game started");
 	}
+
 	protected void menuItemPauseActionPerformed(ActionEvent arg0) {
-//		MainController.getInstance().IsGameRunning = false;
+		// MainController.getInstance().IsGameRunning = false;
 		System.out.println("Game paused");
 	}
+
 	protected void menuItemResetActionPerformed(ActionEvent arg0) {
-		System.out.println(((GamePanelView)getContentPane().getComponent(0)).getSize());
+		System.out.println(((GamePanelView) getContentPane().getComponent(0))
+				.getSize());
 	}
+
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
 		OptionView optionView = new OptionView(this);
 		optionView.setVisible(true);

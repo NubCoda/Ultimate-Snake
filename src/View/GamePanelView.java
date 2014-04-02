@@ -27,7 +27,7 @@ public class GamePanelView extends JPanel implements Observer {
 		super.paintComponent(graphics);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
-				//System.out.println(draw);
+				// System.out.println(draw);
 				draw.drawObjects(graphics);
 			}
 		}

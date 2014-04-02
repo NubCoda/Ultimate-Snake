@@ -32,13 +32,13 @@ public class OptionView extends JDialog implements ActionListener {
 		initGUI();
 	}
 
-
 	/**
 	 * Create the dialog.
 	 */
 	public OptionView() {
 		initGUI();
 	}
+
 	private void initGUI() {
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -54,7 +54,8 @@ public class OptionView extends JDialog implements ActionListener {
 		{
 			comboBoxResolution = new JComboBox<String>();
 			comboBoxResolution.addActionListener(this);
-			comboBoxResolution.setModel(new DefaultComboBoxModel<String>(new String[] {"800x600", "1024x768", "1280x720"}));
+			comboBoxResolution.setModel(new DefaultComboBoxModel<String>(
+					new String[] { "800x600", "1024x768", "1280x720" }));
 			comboBoxResolution.setBounds(82, 7, 102, 22);
 			contentPanel.add(comboBoxResolution);
 		}
@@ -77,6 +78,7 @@ public class OptionView extends JDialog implements ActionListener {
 			}
 		}
 	}
+
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == buttonOk) {
 			buttonOkActionPerformed(arg0);
@@ -88,16 +90,20 @@ public class OptionView extends JDialog implements ActionListener {
 			comboBoxResolutionActionPerformed(arg0);
 		}
 	}
+
 	protected void comboBoxResolutionActionPerformed(ActionEvent arg0) {
 		String selectedItem = comboBoxResolution.getSelectedItem().toString();
 		int positionOfMulti = selectedItem.indexOf("x");
 		newWidth = Integer.valueOf(selectedItem.substring(0, positionOfMulti));
-		newHeight = Integer.valueOf(selectedItem.substring(positionOfMulti+1, selectedItem.length()));
+		newHeight = Integer.valueOf(selectedItem.substring(positionOfMulti + 1,
+				selectedItem.length()));
 
 	}
+
 	protected void buttonCancelActionPerformed(ActionEvent arg0) {
 		this.dispose();
 	}
+
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
 		mainView.setSize(newWidth, newHeight);
 		mainView.setLocationRelativeTo(null);

@@ -13,18 +13,20 @@ import ViewInterface.IDrawable;
 import ViewInterface.IMoveable;
 
 @SuppressWarnings("serial")
-public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveable {
+public class SpriteView extends Rectangle2D.Double implements IDrawable,
+		IMoveable {
 	private GamePanelView gamePanelView;
 	private BufferedImage bufferedImage;
 
-	public SpriteView(String path, double x, double y, GamePanelView gamePanelView) {
+	public SpriteView(String path, double x, double y,
+			GamePanelView gamePanelView) {
 		bufferedImage = loadImage(path);
 		this.x = x;
 		this.y = y;
 		this.gamePanelView = gamePanelView;
 	}
 
-	protected BufferedImage loadImage(String path){
+	protected BufferedImage loadImage(String path) {
 		BufferedImage bufferedImage = null;
 		try {
 			bufferedImage = ImageIO.read(new File(path));
@@ -34,7 +36,9 @@ public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveab
 		return bufferedImage;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see ViewInterface.IMoveable#move(java.awt.Point)
 	 */
 	@Override
@@ -43,7 +47,9 @@ public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveab
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see ViewInterface.IDrawable#drawObjects(java.awt.Graphics)
 	 */
 	@Override

@@ -1,6 +1,5 @@
 package View;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -53,8 +52,8 @@ public class SnakeView extends SpriteView implements Observer {
 		} else if (currentDirection == IConstants.LEFT) {
 			rotation = 180;
 		}
-		at.rotate(Math.toRadians(rotation), (int) x+ (head.getWidth() / 2),
-				(int) y+ (head.getHeight() / 2));
+		at.rotate(Math.toRadians(rotation), (int) x + (head.getWidth() / 2),
+				(int) y + (head.getHeight() / 2));
 		g2.transform(at);
 		g2.drawImage(head, (int) x, (int) y, null);
 		g2.setTransform(oldTransorfm);
