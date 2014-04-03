@@ -16,7 +16,7 @@ import Model.SnakeModel;
 import Model.Interface.IConstants;
 
 @SuppressWarnings("serial")
-public class SnakeView extends SpriteView implements Observer {
+public class SnakeView implements Observer {
 //	private BufferedImage head;
 //	private BufferedImage tail;
 //	private int length = 20;
@@ -24,16 +24,16 @@ public class SnakeView extends SpriteView implements Observer {
 //	private Map<Point, Integer> drawDirections;
 //	private GamePanelView gamePanelView;
 
-	public SnakeView(String pathHead, String pathTail, double x, double y,
-			GamePanelView gamePanelView) {
-		super(pathHead, x, y, gamePanelView);
+//	public SnakeView(String pathHead, String pathTail, double x, double y,
+//			GamePanelView gamePanelView) {
+//		super(pathHead, x, y, gamePanelView);
 //		this.gamePanelView = gamePanelView;
 //		head = loadImage(pathHead);
 //		tail = loadImage(pathTail);
 //		drawDirections = new HashMap<Point, Integer>();
 //		width = 20;
 //		height = 20;
-	}
+//	}
 
 	@Override
 	public void update(Observable observable, Object argObject) {
@@ -43,8 +43,8 @@ public class SnakeView extends SpriteView implements Observer {
 //		currentDirection = ((SnakeModel) observable).getDirection();
 	}
 
-	@Override
-	public void drawObjects(Graphics graphics) {
+//	@Override
+////	public void drawObjects(Graphics graphics) {
 //		Graphics2D g2 = (Graphics2D) graphics;
 //		AffineTransform oldTransorfm = g2.getTransform();
 //		AffineTransform at = new AffineTransform();
@@ -87,14 +87,14 @@ public class SnakeView extends SpriteView implements Observer {
 //			}
 //			g2.drawImage(tail, drawX, drawY, null);
 //		}
-	}
+//	}
 
-	@Override
-	public boolean collidedWith(SpriteView spriteView) {
-		if(this.intersects(spriteView)){
-			System.out.println("kollision snake");
-			return true;
-		}
-		return false;
-	}
+//	@Override
+//	public boolean collidedWith(SpriteView spriteView) {
+//		if(this.intersects(spriteView)){
+//			System.out.println("kollision snake");
+//			return true;
+//		}
+//		return false;
+//	}
 }

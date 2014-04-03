@@ -25,16 +25,16 @@ public class MainController {
 		AppleView appleView = new AppleView("./resources/apple_sprite.png", 20,
 				20, gamePanelView);
 		AppleModel appleModel = null;
-		SnakeView snakeView = new SnakeView("./resources/head_sprite.png",
-				"./resources/tail_sprite.png", 120, 120, gamePanelView);
+//		SnakeView snakeView = new SnakeView("./resources/head_sprite.png",
+//				"./resources/tail_sprite.png", 120, 120, gamePanelView);
 		snakeModel = new SnakeModel(120, 120);
 		appleModel = new AppleModel(gamePanelView);
 		actors.add(appleModel);
 		actors.add(snakeModel);
 		appleModel.addObserver(appleView);
-		snakeModel.addObserver(snakeView);
+//		snakeModel.addObserver(snakeView);
 		gamePanelView.addActor(appleView);
-		gamePanelView.addActor(snakeView);
+//		gamePanelView.addActor(snakeView);
 
 		Logic logic = new Logic(actors);
 		logic.addObserver(gamePanelView);

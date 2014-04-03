@@ -10,11 +10,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import View.Interface.IDrawable;
-import View.Interface.IMoveable;
 
 @SuppressWarnings("serial")
-public abstract class SpriteView extends Rectangle2D.Double implements IDrawable,
-		IMoveable {
+public abstract class SpriteView extends Rectangle2D.Double implements IDrawable {
 	private GamePanelView gamePanelView;
 	private BufferedImage bufferedImage;
 
@@ -39,26 +37,11 @@ public abstract class SpriteView extends Rectangle2D.Double implements IDrawable
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see ViewInterface.IMoveable#move(java.awt.Point)
-	 */
-	@Override
-	public void move(Point point) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
 	 * @see ViewInterface.IDrawable#drawObjects(java.awt.Graphics)
 	 */
 	@Override
 	public void drawObjects(Graphics graphics) {
 		graphics.drawImage(bufferedImage, (int) x, (int) y, null);
-	}
-
-	public void doLogic() {
-
 	}
 
 	public abstract boolean collidedWith(SpriteView spriteView);
