@@ -1,7 +1,8 @@
 package Model;
 
 import java.util.Observable;
-import ModelInterface.IActor;
+
+import Model.Interface.IActor;
 
 public class EnemyModel extends Observable implements IActor {
 	@Override

@@ -9,11 +9,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import ViewInterface.IDrawable;
-import ViewInterface.IMoveable;
+import View.Interface.IDrawable;
+import View.Interface.IMoveable;
 
 @SuppressWarnings("serial")
-public class SpriteView extends Rectangle2D.Double implements IDrawable,
+public abstract class SpriteView extends Rectangle2D.Double implements IDrawable,
 		IMoveable {
 	private GamePanelView gamePanelView;
 	private BufferedImage bufferedImage;
@@ -60,4 +60,6 @@ public class SpriteView extends Rectangle2D.Double implements IDrawable,
 	public void doLogic() {
 
 	}
+
+	public abstract boolean collidedWith(SpriteView spriteView);
 }

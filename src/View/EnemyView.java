@@ -15,4 +15,13 @@ public class EnemyView extends SpriteView implements Observer {
 	public void update(Observable observable, Object argObject) {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public boolean collidedWith(SpriteView spriteView) {
+		if(this.intersects(spriteView)){
+			System.out.println("kollision enemy");
+			return true;
+		}
+		return false;
+	}
 }

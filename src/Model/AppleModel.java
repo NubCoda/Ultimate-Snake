@@ -7,8 +7,8 @@ import java.util.Observable;
 
 import javax.imageio.ImageIO;
 
-import ModelInterface.IActor;
-import ModelInterface.IConstants;
+import Model.Interface.IActor;
+import Model.Interface.IConstants;
 import View.GamePanelView;
 
 public class AppleModel extends Observable implements IActor {

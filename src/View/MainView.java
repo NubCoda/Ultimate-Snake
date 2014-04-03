@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import Model.Interface.IConstants;
+
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener {
 	private JMenuBar menuBar;
@@ -29,7 +31,7 @@ public class MainView extends JFrame implements ActionListener {
 
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(450, 300);
+		setSize(IConstants.DEFAULT_RESOLUTION);
 		setLocationRelativeTo(null);
 		{
 			menuBar = new JMenuBar();

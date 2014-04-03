@@ -5,7 +5,7 @@ import java.util.Vector;
 import Model.AppleModel;
 import Model.Logic;
 import Model.SnakeModel;
-import ModelInterface.IActor;
+import Model.Interface.IActor;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;

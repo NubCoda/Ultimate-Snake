@@ -1,4 +1,4 @@
-package ViewInterface;
+package View.Interface;
 
 public interface IBarrier {
 
