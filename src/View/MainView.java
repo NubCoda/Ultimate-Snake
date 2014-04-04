@@ -11,6 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import Controller.MainController;
 import Model.Interface.IConstants;
 
 @SuppressWarnings("serial")
@@ -33,42 +34,36 @@ public class MainView extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(IConstants.DEFAULT_RESOLUTION);
 		setLocationRelativeTo(null);
-		{
-			menuBar = new JMenuBar();
-			setJMenuBar(menuBar);
-			{
-				menuGame = new JMenu("Spiel");
-				menuBar.add(menuGame);
-				{
-					menuItemStart = new JMenuItem("Start");
-					menuItemStart.addActionListener(this);
-					menuItemStart.setAccelerator(KeyStroke.getKeyStroke(
-							KeyEvent.VK_S, InputEvent.CTRL_MASK));
-					menuGame.add(menuItemStart);
-				}
-				{
-					menuItemPause = new JMenuItem("Pause");
-					menuItemPause.addActionListener(this);
-					menuItemPause.setAccelerator(KeyStroke.getKeyStroke(
-							KeyEvent.VK_P, InputEvent.CTRL_MASK));
-					menuGame.add(menuItemPause);
-				}
-				{
-					menuItemReset = new JMenuItem("Reset");
-					menuItemReset.addActionListener(this);
-					menuItemReset.setAccelerator(KeyStroke.getKeyStroke(
-							KeyEvent.VK_R, InputEvent.CTRL_MASK));
-					menuGame.add(menuItemReset);
-				}
-				{
-					menuItemOption = new JMenuItem("Optionen");
-					menuItemOption.addActionListener(this);
-					menuItemOption.setAccelerator(KeyStroke.getKeyStroke(
-							KeyEvent.VK_O, InputEvent.CTRL_MASK));
-					menuGame.add(menuItemOption);
-				}
-			}
-		}
+
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+
+		menuGame = new JMenu("Spiel");
+		menuBar.add(menuGame);
+
+		menuItemStart = new JMenuItem("Start");
+		menuItemStart.addActionListener(this);
+		menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+				InputEvent.CTRL_MASK));
+		menuGame.add(menuItemStart);
+
+		menuItemPause = new JMenuItem("Pause");
+		menuItemPause.addActionListener(this);
+		menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
+				InputEvent.CTRL_MASK));
+		menuGame.add(menuItemPause);
+
+		menuItemReset = new JMenuItem("Neustarten");
+		menuItemReset.addActionListener(this);
+		menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
+				InputEvent.CTRL_MASK));
+		menuGame.add(menuItemReset);
+
+		menuItemOption = new JMenuItem("Optionen");
+		menuItemOption.addActionListener(this);
+		menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
+				InputEvent.CTRL_MASK));
+		menuGame.add(menuItemOption);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
@@ -87,13 +82,11 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	protected void menuItemStartActionPerformed(ActionEvent arg0) {
-		// MainController.getInstance().IsGameRunning = true;
-		System.out.println("Game started");
+		MainController.getInstance().startGame();
 	}
 
 	protected void menuItemPauseActionPerformed(ActionEvent arg0) {
-		// MainController.getInstance().IsGameRunning = false;
-		System.out.println("Game paused");
+		MainController.getInstance().pauseGame();
 	}
 
 	protected void menuItemResetActionPerformed(ActionEvent arg0) {

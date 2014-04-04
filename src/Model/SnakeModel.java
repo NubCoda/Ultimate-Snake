@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
 
@@ -16,6 +17,7 @@ public class SnakeModel extends Observable implements IActor {
 //	private Map<Point, Integer> drawDirections;
 
 	public SnakeModel(int x, int y) {
+		if(Direction.RIGHT==Direction.RIGHT) System.out.println(true);
 //		this.x = x;
 //		this.y = y;
 //		drawDirections = new HashMap<Point, Integer>();
