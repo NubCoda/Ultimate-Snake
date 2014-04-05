@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -28,7 +27,7 @@ public class GamePanelView extends JPanel implements Observer {
 		super.paintComponent(graphics);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
-				// System.out.println(draw);
+//				System.out.println(draw);
 				draw.drawObjects(graphics);
 			}
 
@@ -38,20 +37,17 @@ public class GamePanelView extends JPanel implements Observer {
 	@Override
 	public void update(Observable observable, Object argObject) {
 		repaint();
+		// TODO / FIXME : Die Kollisionsprüfung muss in den Modellklassen stattfinden und nict im View
 		for (int i = 0; i < actors.size(); i++) {
 			for (int j = i+1; j < actors.size(); j++) {
-
 				SpriteView s1 = actors.elementAt(i);
 				SpriteView s2 = actors.elementAt(j);
-//				System.out.println(s1);
-//				System.out.println(s2);
 				s1.collidedWith(s2);
 			}
 		}
 	}
 
-//	@Override
-//	public Rectangle getBounds() {
-//		return new
-//	}
+	public void addActors(Vector<SpriteView> actors) {
+		this.actors.addAll(actors);
+	}
 }

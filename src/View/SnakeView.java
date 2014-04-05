@@ -1,16 +1,49 @@
 package View;
 
+import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
+
+import Model.Interface.IConstants;
+import Model.Interface.IPlayer;
 
 public class SnakeView implements Observer {
-	public SnakeView(){
+	private SnakeHeadView snakeHeadView;
+	private Map<Point, SnakeTailView> tails;
+	private GamePanelView gamePanelView;
+	public SnakeView(double x, double y, GamePanelView gamePanelView, Vector<Point> bonesPoints){
+		this.gamePanelView = gamePanelView;
+		this.snakeHeadView = new SnakeHeadView(IConstants.SNAKE_HEAD_PAHT, x, y, gamePanelView);
+		this.tails = new HashMap<Point, SnakeTailView>();
+		for (Point point : bonesPoints) {
+			tails.put(point, new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, point.x, point.y, gamePanelView));
+		}
+	}
 
+	public Vector<SpriteView> getActors(){
+		Vector<SpriteView> actors = new Vector<SpriteView>();
+		actors.add(snakeHeadView);
+		actors.addAll(tails.values());
+		return actors;
 	}
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-
+		IPlayer snake = ((IPlayer) observable);
+		snakeHeadView.x = snake.getX();
+		snakeHeadView.y = snake.getY();
+		Map<Point, Point> bonesPos = snake.getBonesPosition();
+		for (Point point : bonesPos.keySet()) {
+			if(tails.containsKey(point)){
+				this.tails.get(point).x = bonesPos.get(point).getX();
+				this.tails.get(point).y = bonesPos.get(point).getY();
+			} else {
+				this.tails.put(point, new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, point.x, point.y, gamePanelView));
+			}
+		}
 	}
 }
 

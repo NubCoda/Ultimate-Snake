@@ -1,50 +1,67 @@
 package Model;
 
-import java.awt.ItemSelectable;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
-import java.util.Vector;
 
 import Model.Interface.Direction;
 import Model.Interface.IActor;
-import Model.Interface.IConstants;
 import Model.Interface.IPlayer;
 
 public class SnakeModel extends Observable implements IActor, IPlayer {
+	private double x;
+	private double y;
+	private Direction direction;
+	private Map<Point, Point> bonesPoints;
+	private long speed = 250;
+	private long lastMove = 0;
+	private int length;
 
-	public SnakeModel(double x, double y) {
-		if(Direction.RIGHT==Direction.RIGHT) System.out.println(true);
+	public SnakeModel(double x, double y, int length, Direction direction) {
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+		bonesPoints = new HashMap<Point, Point>();
+		this.length = length;
+		for (int i = 1; i <= this.length; i++) {
+			bonesPoints.put(new Point(((int)x)-20*i, (int)y), new Point(((int)x)-20*i, (int)y));
+		}
 	}
 
-	private void moveSnake(int direction) {
-
-	}
+//	private void moveSnake(int direction) {
+//
+//	}
 
 	@Override
 	public double getX() {
-		return 0;
+		return x;
 	}
 
 	@Override
 	public double getY() {
-		return 0;
+		return y;
 	}
 
 	@Override
 	public Direction getDirection() {
-		return Direction.RIGHT;
+		return direction;
 	}
 
 	@Override
-	public Vector<Point> getBonesPosition() {
-		return null;
+	public Map<Point, Point> getBonesPosition() {
+		return bonesPoints;
 	}
 
 	@Override
 	public void actuate(long delta) {
-
+		lastMove+=(delta/1000000);
+		if(lastMove>speed){
+			lastMove = 0;
+			// TODO schlange bewegen
+			setChanged();
+			notifyObservers();
+		}
 	}
 }
 

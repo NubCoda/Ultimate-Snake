@@ -15,8 +15,8 @@ public interface IConstants {
 
 	/** Pfade für die Sprites des Spiels */
 	public static final String APPLE_PAHT = "./resources/apple_sprite.png";
-	public static final String SNAKE_TAIL_PAHT = "./resources/head_sprite.png";
-	public static final String SNAKE_HEAD_PAHT = "./resources/tail_sprite.png";
+	public static final String SNAKE_HEAD_PAHT = "./resources/head_sprite.png";
+	public static final String SNAKE_TAIL_PAHT = "./resources/tail_sprite.png";
 
 	/** Pfad für die Konfigurationsdatei des Spiels */
 	public static final String CONFIG_PATH = "./recources/config.ini";

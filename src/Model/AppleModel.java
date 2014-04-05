@@ -17,8 +17,10 @@ public class AppleModel extends Observable implements IActor, IElement{
 	double applePosition_y;
 	private BufferedImage bufferedImages;
 	private GamePanelView gamePanelView;
-	private long speed = 500;
-	private long respawn = 0;
+	private long respawnSpeed = 500;
+	private long lastRespawn = 0;
+	private boolean respawn = true;
+
 	public AppleModel(GamePanelView gamePanelView) {
 		this.gamePanelView = gamePanelView;
 		try {
@@ -51,12 +53,15 @@ public class AppleModel extends Observable implements IActor, IElement{
 
 	@Override
 	public void actuate(long delta) {
-		respawn+=(delta/1000000);
-		if(respawn>speed){
-			respawn = 0;
-			moveApple();
-			setChanged();
-			notifyObservers();
+		if(respawn){
+			respawn = false;
+			lastRespawn+=(delta/1000000);
+			if(lastRespawn>respawnSpeed){
+				lastRespawn = 0;
+				moveApple();
+				setChanged();
+				notifyObservers();
+			}
 		}
 	}
 }

@@ -11,9 +11,13 @@ public class Logic extends Observable implements Runnable {
 	private long last = 0;
 	private long delta = 0;
 
-	public Logic(Vector<IActor> actors) {
-		this.actors = actors;
+	public Logic() {
+		this.actors = new Vector<IActor>();
 		last = System.nanoTime();
+	}
+
+	public void addActor(IActor actor){
+		actors.add(actor);
 	}
 
 	public void setGameRunning(boolean isGameRunning) {
@@ -26,6 +30,7 @@ public class Logic extends Observable implements Runnable {
 			try {
 				if(isGameRunning){
 					delta = System.nanoTime() - last;
+//					System.out.println(((long) 1e9)/delta); => fps
 					last = System.nanoTime();
 					for (IActor actor : actors) {
 						actor.actuate(delta);

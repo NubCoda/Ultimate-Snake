@@ -1,11 +1,11 @@
 package Model.Interface;
 
 import java.awt.Point;
-import java.util.Vector;
+import java.util.Map;
 
 public interface IPlayer {
 	double getX();
 	double getY();
 	Direction getDirection();
-	Vector<Point> getBonesPosition();
+	Map<Point, Point> getBonesPosition();
 }

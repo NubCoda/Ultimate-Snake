@@ -1,11 +1,14 @@
 package Controller;
 
+import java.awt.Point;
 import java.util.Vector;
 
 import Model.AppleModel;
 import Model.Logic;
 import Model.SnakeModel;
+import Model.Interface.Direction;
 import Model.Interface.IActor;
+import Model.Interface.IConstants;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
@@ -15,27 +18,12 @@ public class MainController {
 	private static MainController mainController;
 	private MainView mainView;
 	private GamePanelView gamePanelView;
-	private SnakeModel snakeModel;
+//	private SnakeModel snakeModel;
 	private Logic logic;
 
 	private MainController() {
 		createWindow();
-		Vector<IActor> actors = new Vector<IActor>();
-		AppleView appleView = new AppleView("./resources/apple_sprite.png", 20,
-				20, gamePanelView);
-		AppleModel appleModel = null;
-		// SnakeView snakeView = new SnakeView("./resources/head_sprite.png",
-		// "./resources/tail_sprite.png", 120, 120, gamePanelView);
-		snakeModel = new SnakeModel(120, 120);
-		appleModel = new AppleModel(gamePanelView);
-		actors.add(appleModel);
-		actors.add(snakeModel);
-		appleModel.addObserver(appleView);
-		// snakeModel.addObserver(snakeView);
-		gamePanelView.addActor(appleView);
-		// gamePanelView.addActor(snakeView);
-
-		logic = new Logic(actors);
+		logic = new Logic();
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
@@ -72,6 +60,20 @@ public class MainController {
 	}
 
 	public void startGame() {
+		// TODO: das Level nur beim Start bzw. beim Levelwechsel erstellen
+//		Vector<IActor> actors = new Vector<IActor>();
+		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20,
+				20, gamePanelView);
+		AppleModel appleModel = null;
+		SnakeModel snakeModel = new SnakeModel(120, 120, 3, Direction.RIGHT);
+		SnakeView snakeView = new SnakeView(120, 120, gamePanelView, new Vector<>(snakeModel.getBonesPosition().values()));
+		appleModel = new AppleModel(gamePanelView);
+		logic.addActor(appleModel);
+		logic.addActor(snakeModel);
+		appleModel.addObserver(appleView);
+		snakeModel.addObserver(snakeView);
+		gamePanelView.addActor(appleView);
+		gamePanelView.addActors(snakeView.getActors());
 		logic.setGameRunning(true);
 	}
 
