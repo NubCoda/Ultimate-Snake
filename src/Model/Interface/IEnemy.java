@@ -1,4 +1,4 @@
-package View.Interface;
+package Model.Interface;
 
 public interface IEnemy {
 
