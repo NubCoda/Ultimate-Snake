@@ -4,13 +4,16 @@ import java.util.Observable;
 import java.util.Vector;
 
 import Model.Interface.IActor;
-import View.SpriteView;
 
 public class Logic extends Observable implements Runnable {
 	private Vector<IActor> actors;
 	private boolean isGameRunning;
+	private long last = 0;
+	private long delta = 0;
+
 	public Logic(Vector<IActor> actors) {
 		this.actors = actors;
+		last = System.nanoTime();
 	}
 
 	public void setGameRunning(boolean isGameRunning) {
@@ -22,14 +25,16 @@ public class Logic extends Observable implements Runnable {
 		while (true) {
 			try {
 				if(isGameRunning){
+					delta = System.nanoTime() - last;
+					last = System.nanoTime();
 					for (IActor actor : actors) {
-						actor.actuate();
+						actor.actuate(delta);
 					}
 
 					setChanged();
 					notifyObservers();
 				}
-				Thread.sleep(250);
+				Thread.sleep(15);
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();

@@ -16,7 +16,8 @@ public class AppleModel extends Observable implements IActor {
 	double applePosition_y;
 	private BufferedImage bufferedImages;
 	private GamePanelView gamePanelView;
-
+	private long speed = 500;
+	private long respawn = 0;
 	public AppleModel(GamePanelView gamePanelView) {
 		this.gamePanelView = gamePanelView;
 		try {
@@ -47,8 +48,12 @@ public class AppleModel extends Observable implements IActor {
 	}
 
 	@Override
-	public void actuate() {
-		moveApple();
+	public void actuate(long delta) {
+		respawn+=(delta/1000000);
+		if(respawn>speed){
+			respawn = 0;
+			moveApple();
+		}
 	}
 
 }

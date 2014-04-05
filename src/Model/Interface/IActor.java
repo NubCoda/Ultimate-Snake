@@ -1,5 +1,5 @@
 package Model.Interface;
 
 public interface IActor {
-	public void actuate();
+	public void actuate(long delta);
 }

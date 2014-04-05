@@ -111,7 +111,7 @@ public class SnakeModel extends Observable implements IActor {
 	}
 
 	@Override
-	public void actuate() {
+	public void actuate(long delta) {
 //		switch (currentDirection) {
 //		case IConstants.RIGHT:
 //			x += 20;
