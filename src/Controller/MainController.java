@@ -68,7 +68,7 @@ public class MainController {
 	}
 
 	public void moveSnake(int direction) {
-		snakeModel.moveSnake(direction);
+		//snakeModel.moveSnake(direction);
 	}
 
 	public void startGame() {

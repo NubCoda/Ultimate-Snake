@@ -9,9 +9,10 @@ import javax.imageio.ImageIO;
 
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Model.Interface.IElement;
 import View.GamePanelView;
 
-public class AppleModel extends Observable implements IActor {
+public class AppleModel extends Observable implements IActor, IElement{
 	double applePosition_x;
 	double applePosition_y;
 	private BufferedImage bufferedImages;
@@ -35,15 +36,16 @@ public class AppleModel extends Observable implements IActor {
 		applePosition_y = Math.random()
 				* ((double) (gamePanelView.getHeight()) - ((double) bufferedImages
 						.getHeight()));
-		setChanged();
-		notifyObservers();
 	}
 
-	public double getApplePosition_x() {
+
+	@Override
+	public double getX() {
 		return applePosition_x;
 	}
 
-	public double getApplePosition_y() {
+	@Override
+	public double getY() {
 		return applePosition_y;
 	}
 
@@ -53,7 +55,8 @@ public class AppleModel extends Observable implements IActor {
 		if(respawn>speed){
 			respawn = 0;
 			moveApple();
+			setChanged();
+			notifyObservers();
 		}
 	}
-
 }

@@ -1,34 +1,45 @@
 package Model;
 
+import java.awt.ItemSelectable;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Vector;
 
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Model.Interface.IPlayer;
 
-public class SnakeModel extends Observable implements IActor {
+public class SnakeModel extends Observable implements IActor, IPlayer {
 
-	public SnakeModel(int x, int y) {
+	public SnakeModel(double x, double y) {
 		if(Direction.RIGHT==Direction.RIGHT) System.out.println(true);
 	}
 
-	public void moveSnake(int direction) {
+	private void moveSnake(int direction) {
 
 	}
 
-	public int getX() {
+	@Override
+	public double getX() {
 		return 0;
 	}
 
-	public int getY() {
+	@Override
+	public double getY() {
 		return 0;
 	}
 
-	public int getDirection() {
-		return 0;
+	@Override
+	public Direction getDirection() {
+		return Direction.RIGHT;
+	}
+
+	@Override
+	public Vector<Point> getBonesPosition() {
+		return null;
 	}
 
 	@Override
