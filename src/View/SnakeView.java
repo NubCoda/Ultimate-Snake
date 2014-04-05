@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -12,13 +13,13 @@ import Model.Interface.IPlayer;
 
 public class SnakeView implements Observer {
 	private SnakeHeadView snakeHeadView;
-	private Map<Point, SnakeTailView> tails;
+	private Map<Point2D.Double, SnakeTailView> tails;
 	private GamePanelView gamePanelView;
-	public SnakeView(double x, double y, GamePanelView gamePanelView, Vector<Point> bonesPoints){
+	public SnakeView(double x, double y, GamePanelView gamePanelView, Vector<Point2D.Double> bonesPoints){
 		this.gamePanelView = gamePanelView;
 		this.snakeHeadView = new SnakeHeadView(IConstants.SNAKE_HEAD_PAHT, x, y, gamePanelView);
-		this.tails = new HashMap<Point, SnakeTailView>();
-		for (Point point : bonesPoints) {
+		this.tails = new HashMap<Point2D.Double, SnakeTailView>();
+		for (Point2D.Double point : bonesPoints) {
 			tails.put(point, new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, point.x, point.y, gamePanelView));
 		}
 	}
@@ -35,8 +36,8 @@ public class SnakeView implements Observer {
 		IPlayer snake = ((IPlayer) observable);
 		snakeHeadView.x = snake.getX();
 		snakeHeadView.y = snake.getY();
-		Map<Point, Point> bonesPos = snake.getBonesPosition();
-		for (Point point : bonesPos.keySet()) {
+		Map<Point2D.Double, Point2D.Double> bonesPos = snake.getBonesPosition();
+		for (Point2D.Double point : bonesPos.keySet()) {
 			if(tails.containsKey(point)){
 				this.tails.get(point).x = bonesPos.get(point).getX();
 				this.tails.get(point).y = bonesPos.get(point).getY();

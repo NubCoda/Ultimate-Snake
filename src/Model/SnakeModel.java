@@ -1,6 +1,6 @@
 package Model;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -13,7 +13,7 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 	private double x;
 	private double y;
 	private Direction direction;
-	private Map<Point, Point> bonesPoints;
+	private Map<Point2D.Double, Point2D.Double> bonesPoints;
 	private long speed = 250;
 	private long lastMove = 0;
 	private int length;
@@ -22,10 +22,11 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
-		bonesPoints = new HashMap<Point, Point>();
+		bonesPoints = new HashMap<Point2D.Double, Point2D.Double>();
 		this.length = length;
 		for (int i = 1; i <= this.length; i++) {
-			bonesPoints.put(new Point(((int)x)-20*i, (int)y), new Point(((int)x)-20*i, (int)y));
+			// TODO die berechnung je nach richtung
+			bonesPoints.put(new Point2D.Double(x-20*i, y), new Point2D.Double(x-20*i, y));
 		}
 	}
 
@@ -49,7 +50,7 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 	}
 
 	@Override
-	public Map<Point, Point> getBonesPosition() {
+	public Map<Point2D.Double, Point2D.Double> getBonesPosition() {
 		return bonesPoints;
 	}
 

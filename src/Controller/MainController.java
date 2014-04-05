@@ -1,6 +1,7 @@
 package Controller;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.Vector;
 
 import Model.AppleModel;
@@ -66,7 +67,7 @@ public class MainController {
 				20, gamePanelView);
 		AppleModel appleModel = null;
 		SnakeModel snakeModel = new SnakeModel(120, 120, 3, Direction.RIGHT);
-		SnakeView snakeView = new SnakeView(120, 120, gamePanelView, new Vector<>(snakeModel.getBonesPosition().values()));
+		SnakeView snakeView = new SnakeView(120, 120, gamePanelView, new Vector<Point2D.Double>(snakeModel.getBonesPosition().values()));
 		appleModel = new AppleModel(gamePanelView);
 		logic.addActor(appleModel);
 		logic.addActor(snakeModel);
