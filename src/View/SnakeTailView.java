@@ -11,7 +11,7 @@ public class SnakeTailView extends SpriteView{
 	@Override
 	public boolean collidedWith(SpriteView spriteView) {
 		if(this.intersects(spriteView)){
-			System.out.println("kollision snaketail");
+//			System.out.println("kollision snaketail");
 			return true;
 		}
 		return false;

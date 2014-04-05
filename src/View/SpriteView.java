@@ -13,13 +13,15 @@ import View.Interface.IDrawable;
 @SuppressWarnings("serial")
 public abstract class SpriteView extends Rectangle2D.Double implements IDrawable {
 	private GamePanelView gamePanelView;
-	private BufferedImage bufferedImage;
+	protected BufferedImage bufferedImage;
 
 	public SpriteView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		bufferedImage = loadImage(path);
 		this.x = x;
 		this.y = y;
+		this.width = bufferedImage.getWidth();
+		this.height = bufferedImage.getHeight();
 		this.gamePanelView = gamePanelView;
 	}
 
