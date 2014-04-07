@@ -1,9 +1,6 @@
 package Model;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -20,13 +17,19 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 	private long lastMove = 0;
 	private int length;
 	private Direction newDirection = Direction.NONE;
+	private Double maxX;
+	private Double minX = new Double(0);
+	private Double maxY;
+	private Double minY = new Double(0);
 
-	public SnakeModel(double x, double y, int length, Direction direction) {
+	public SnakeModel(double x, double y, int length, Direction direction, Double maxX, Double maxY) {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
 		bonesPoints = new Vector<Point2D.Double>();
 		this.length = length;
+		this.maxX = maxX;
+		this.maxY = maxY;
 		for (int i = 1; i <= this.length; i++) {
 			switch (direction) {
 			case DOWN:
@@ -63,18 +66,25 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 			direction = newDirection;
 			newDirection = Direction.NONE;
 		}
+
 		switch (direction) {
 		case DOWN:
-			y += 20;
+			y = (y+20)%maxY;
 			break;
 		case UP:
-			y -= 20;
+			y-=20;
+			if(y<minY){
+				y+= maxY;
+			}
 			break;
 		case RIGHT:
-			x += 20;
+			x = (x+20)%maxX;
 			break;
 		case LEFT:
-			x -= 20;
+			x-=20;
+			if(x<minX){
+				x+= maxX;
+			}
 			break;
 		default:
 			break;
@@ -118,102 +128,3 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 		}
 	}
 }
-
-/* ALT */
-// private int x;
-// private int y;
-// private int length = 20;
-// private int currentDirection = IConstants.RIGHT;
-// private Map<Point, Integer> drawDirections;
-
-// this.x = x;
-// this.y = y;
-// drawDirections = new HashMap<Point, Integer>();
-
-// switch (direction) {
-// case IConstants.RIGHT:
-// if (currentDirection == IConstants.UP
-// || currentDirection == IConstants.DOWN) {
-// drawDirections.put(new Point(x, y),
-// Integer.valueOf(currentDirection));
-// currentDirection = currentDirection == IConstants.DOWN ? IConstants.LEFT
-// : direction;
-// }
-// break;
-// case IConstants.LEFT:
-// if (currentDirection == IConstants.UP
-// || currentDirection == IConstants.DOWN) {
-// drawDirections.put(new Point(x, y),
-// Integer.valueOf(currentDirection));
-// currentDirection = currentDirection == IConstants.DOWN ? IConstants.RIGHT
-// : direction;
-// }
-// break;
-// case IConstants.UP:
-// if (currentDirection == IConstants.RIGHT
-// || currentDirection == IConstants.LEFT) {
-// drawDirections.put(new Point(x, y),
-// Integer.valueOf(currentDirection));
-// currentDirection = direction;
-// }
-// break;
-// case IConstants.DOWN:
-// if (currentDirection == IConstants.RIGHT
-// || currentDirection == IConstants.LEFT) {
-// drawDirections.put(new Point(x, y),
-// Integer.valueOf(currentDirection));
-// currentDirection = direction;
-// }
-// break;
-// }
-// int drawX = (int) x;
-// int drawY = (int) y;
-// int curDir = currentDirection;
-// Map<Point, Integer> newDrawDirections = new HashMap<Point, Integer>();
-// System.out.println("------------------------------------");
-// for (int i = 1; i <= length; i++) {
-// Point curPosition = new Point(drawX, drawY);
-// if (drawDirections.containsKey(curPosition)) {
-// System.out.println(curPosition + " " + curDir);
-// curDir = drawDirections.get(curPosition);
-// newDrawDirections.put(curPosition, curDir);
-// }
-// switch (curDir) {
-// case IConstants.RIGHT:
-// drawX -= 20;
-// break;
-// case IConstants.LEFT:
-// drawX += 20;
-// break;
-// case IConstants.UP:
-// drawY += 20;
-// break;
-// case IConstants.DOWN:
-// drawY -= 20;
-// break;
-// }
-// }
-// drawDirections = newDrawDirections;
-// return x;
-// return y;
-// public Map<Point, Integer> getDrawDirections() {
-// return null;
-// // return drawDirections;
-// }
-// return currentDirection;
-// switch (currentDirection) {
-// case IConstants.RIGHT:
-// x += 20;
-// break;
-// case IConstants.LEFT:
-// x -= 20;
-// break;
-// case IConstants.UP:
-// y -= 20;
-// break;
-// case IConstants.DOWN:
-// y += 20;
-// break;
-// }
-// setChanged();
-// notifyObservers();

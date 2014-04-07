@@ -22,7 +22,6 @@ public class SnakeHeadView extends SpriteView{
 	@Override
 	public boolean collidedWith(SpriteView spriteView) {
 		if(this.intersects(spriteView)){
-//			System.out.println("kollision snakehead");
 			return true;
 		}
 		return false;

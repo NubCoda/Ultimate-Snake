@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Model.AppleModel;
+import Model.Interface.IElement;
 
 @SuppressWarnings("serial")
 public class AppleView extends SpriteView implements Observer {
@@ -12,20 +13,18 @@ public class AppleView extends SpriteView implements Observer {
 		super(path, x, y, gamePanelView);
 		width = 20;
 		height = 20;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-
-		setRect(((AppleModel) observable).getX(),
-				((AppleModel) observable).getY(), 20, 20);
+		IElement apple = ((IElement) observable);
+		this.x = apple.getX();
+		this.y = apple.getY();
 	}
 
 	@Override
 	public boolean collidedWith(SpriteView spriteView) {
 		if(this.intersects(spriteView)){
-			System.out.println("kollision apple");
 			return true;
 		}
 		return false;

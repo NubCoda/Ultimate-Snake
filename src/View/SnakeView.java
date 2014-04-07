@@ -47,13 +47,6 @@ public class SnakeView implements Observer {
 			} else {
 				this.tails.add(new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, bonesPos.get(i).x, bonesPos.get(i).y, gamePanelView));
 			}
-
-//			if(tails.containsKey(point)){
-//				this.tails.get(point).x = bonesPos.getX();
-//				this.tails.get(point).y = bonesPos.getY();
-//			} else {
-//				this.tails.put(point, new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, point.x, point.y, gamePanelView));
-//			}
 		}
 	}
 }
