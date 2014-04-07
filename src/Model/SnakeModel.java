@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.geom.Point2D;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -13,7 +14,7 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 	private double y;
 	private Direction direction;
 	private Vector<Point2D.Double> bonesPoints;
-	private long speed = 250;
+	private long speed = 75;
 	private long lastMove = 0;
 	private int length;
 	private Direction newDirection = Direction.NONE;
@@ -22,7 +23,8 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 	private Double maxY;
 	private Double minY = new Double(0);
 
-	public SnakeModel(double x, double y, int length, Direction direction, Double maxX, Double maxY) {
+	public SnakeModel(double x, double y, int length, Direction direction,
+			Double maxX, Double maxY) {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
@@ -30,6 +32,9 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 		this.length = length;
 		this.maxX = maxX;
 		this.maxY = maxY;
+
+		System.out.println(maxY);
+		System.out.println(maxX);
 		for (int i = 1; i <= this.length; i++) {
 			switch (direction) {
 			case DOWN:
@@ -51,11 +56,10 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 	}
 
 	public void switchDirection(Direction direction) {
-		if((this.direction==Direction.RIGHT && (direction==Direction.UP || direction==Direction.DOWN))
-			|| (this.direction==Direction.LEFT && (direction==Direction.UP || direction==Direction.DOWN))
-			|| (this.direction==Direction.UP && (direction==Direction.RIGHT || direction==Direction.LEFT))
-			|| (this.direction==Direction.DOWN && (direction==Direction.LEFT || direction==Direction.RIGHT))
-		){
+		if ((this.direction == Direction.RIGHT && (direction == Direction.UP || direction == Direction.DOWN))
+				|| (this.direction == Direction.LEFT && (direction == Direction.UP || direction == Direction.DOWN))
+				|| (this.direction == Direction.UP && (direction == Direction.RIGHT || direction == Direction.LEFT))
+				|| (this.direction == Direction.DOWN && (direction == Direction.LEFT || direction == Direction.RIGHT))) {
 			newDirection = direction;
 		}
 	}
@@ -69,21 +73,21 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 
 		switch (direction) {
 		case DOWN:
-			y = (y+20)%maxY;
+			y = (y + 20) % maxY;
 			break;
 		case UP:
-			y-=20;
-			if(y<minY){
-				y+= maxY;
+			y -= 20;
+			if (y < minY) {
+				y += maxY;
 			}
 			break;
 		case RIGHT:
-			x = (x+20)%maxX;
+			x = (x + 20) % maxX;
 			break;
 		case LEFT:
-			x-=20;
-			if(x<minX){
-				x+= maxX;
+			x -= 20;
+			if (x < minX) {
+				x += maxX;
 			}
 			break;
 		default:

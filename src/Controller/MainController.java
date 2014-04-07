@@ -37,6 +37,8 @@ public class MainController {
 		gamePanelView = new GamePanelView(mainView.getWidth(),
 				mainView.getHeight());
 		mainView.add(gamePanelView);
+		mainView.setResizable(false);
+		mainView.pack();
 		mainView.setVisible(true);
 		gamePanelView.setFocusable(true);
 	}
@@ -61,6 +63,7 @@ public class MainController {
 		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20,
 				20, gamePanelView);
 		AppleModel appleModel = null;
+		System.out.println(gamePanelView);
 		snakeModel = new SnakeModel(120, 120, 3, Direction.RIGHT, new Double(gamePanelView.getWidth()), new Double(gamePanelView.getHeight()));
 		SnakeView snakeView = new SnakeView(120, 120, gamePanelView, snakeModel.getBonesPosition(), Direction.RIGHT);
 		appleModel = new AppleModel(gamePanelView);
