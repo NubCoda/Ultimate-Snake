@@ -17,9 +17,6 @@ public class GamePanelView extends JPanel implements Observer {
 
 	public GamePanelView(int width, int height) {
 		setPreferredSize(new Dimension(width, height));
-		setMinimumSize(new Dimension(width, height));
-		setMaximumSize(new Dimension(width, height));
-		setBackground(Color.blue);
 		addKeyListener(new KeyListenerView());
 	}
 

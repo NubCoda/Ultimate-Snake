@@ -14,7 +14,7 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 	private double y;
 	private Direction direction;
 	private Vector<Point2D.Double> bonesPoints;
-	private long speed = 75;
+	private long speed = 150;
 	private long lastMove = 0;
 	private int length;
 	private Direction newDirection = Direction.NONE;
@@ -33,8 +33,6 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 		this.maxX = maxX;
 		this.maxY = maxY;
 
-		System.out.println(maxY);
-		System.out.println(maxX);
 		for (int i = 1; i <= this.length; i++) {
 			switch (direction) {
 			case DOWN:
