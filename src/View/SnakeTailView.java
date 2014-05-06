@@ -1,7 +1,7 @@
 package View;
 
 @SuppressWarnings("serial")
-public class SnakeTailView extends SpriteView {
+public class SnakeTailView extends SpriteView{
 	public SnakeTailView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);
@@ -10,8 +10,7 @@ public class SnakeTailView extends SpriteView {
 
 	@Override
 	public boolean collidedWith(SpriteView spriteView) {
-		if (this.intersects(spriteView)) {
-			System.out.println("Kollision Tail");
+		if(this.intersects(spriteView)){
 			return true;
 		}
 		return false;

@@ -11,8 +11,7 @@ import javax.imageio.ImageIO;
 import View.Interface.IDrawable;
 
 @SuppressWarnings("serial")
-public abstract class SpriteView extends Rectangle2D.Double implements
-		IDrawable {
+public abstract class SpriteView extends Rectangle2D.Double implements IDrawable {
 	private GamePanelView gamePanelView;
 	protected BufferedImage bufferedImage;
 
@@ -38,7 +37,7 @@ public abstract class SpriteView extends Rectangle2D.Double implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see ViewInterface.IDrawable#drawObjects(java.awt.Graphics)
 	 */
 	@Override

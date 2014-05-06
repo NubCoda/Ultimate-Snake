@@ -5,10 +5,7 @@ import java.util.Vector;
 
 public interface IPlayer {
 	double getX();
-
 	double getY();
-
 	Direction getDirection();
-
 	Vector<Point2D.Double> getBonesPosition();
 }
