@@ -21,6 +21,9 @@ public interface IConstants {
 	/** Pfad für die Konfigurationsdatei des Spiels */
 	public static final String CONFIG_PATH = "./resources/config.ini";
 	
+	public static final String DATABASE_NAME = "database.db3";
 	public static final String DATABASE_PATH = "./resources/database.db3";
+	
+	public static final String TABLE_PLAYER_NAME = "player";
 
 }
