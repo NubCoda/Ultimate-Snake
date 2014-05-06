@@ -1,5 +1,7 @@
 package DataAccessObject;
 
-public interface IDataAccessObject {
+import Properties.Player;
 
+public interface IDataAccessObject {
+	public Player getPlayer();
 }
