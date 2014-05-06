@@ -4,15 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Controller.MainController;
+import DataAccessObject.DatabaseAccessObjects;
 import Model.Interface.IConstants;
+import Properties.Player;
 
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener {
@@ -22,12 +26,25 @@ public class MainView extends JFrame implements ActionListener {
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemReset;
 	private JMenuItem menuItemOption;
+	private JMenu menuPlayer;
+	private JMenuItem menuItemSpielerErstellen;
 
 	/**
 	 * Create the frame.
 	 */
 	public MainView() {
 		initGUI();
+		addPlayerToMenu();
+	}
+	
+	
+	private void addPlayerToMenu() {
+		DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
+		databaseAccessObjects.createConnection();
+		Vector<Player> playerVector =  databaseAccessObjects.getPlayer();
+		for(Player tmp : playerVector) {
+			
+		}
 	}
 
 	private void initGUI() {
@@ -64,9 +81,19 @@ public class MainView extends JFrame implements ActionListener {
 		menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
 				InputEvent.CTRL_MASK));
 		menuGame.add(menuItemOption);
+
+		menuPlayer = new JMenu("Spieler");
+		menuBar.add(menuPlayer);
+
+		menuItemSpielerErstellen = new JMenuItem("Erstellen");
+		menuItemSpielerErstellen.addActionListener(this);
+		menuPlayer.add(menuItemSpielerErstellen);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == menuItemSpielerErstellen) {
+			menuItemSpielerErstellenActionPerformed(arg0);
+		}
 		if (arg0.getSource() == menuItemOption) {
 			menuItemOptionActionPerformed(arg0);
 		}
@@ -97,5 +124,15 @@ public class MainView extends JFrame implements ActionListener {
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
 		OptionView optionView = new OptionView(this);
 		optionView.setVisible(true);
+	}
+
+	protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
+		Player player = new Player(
+				JOptionPane.showInputDialog("Spielernamen angeben!"));
+		if (player.getPlayerName() != null) {
+			DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
+			databaseAccessObjects.createConnection();
+			databaseAccessObjects.createPlayer(player);
+		}
 	}
 }

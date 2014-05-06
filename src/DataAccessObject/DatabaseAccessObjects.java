@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import DataAccessObject.Interface.IDataAccessObject;
 import Model.Interface.IConstants;
@@ -19,13 +20,14 @@ public class DatabaseAccessObjects implements IDataAccessObject {
 	private String table = IConstants.TABLE_PLAYER_NAME;
 	private String url = IConstants.DATABASE_PATH;
 	private String sql;
+
+	private Vector<Player> playerVector = null;
+
 	@Override
 	public void createConnection() {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			// initialise connection
-			url = "jdbc:sqlite:" + database;
-			// url
 			connection = DriverManager.getConnection(url);
 			connection.setReadOnly(false);
 		} catch (ClassNotFoundException e) {
@@ -36,24 +38,41 @@ public class DatabaseAccessObjects implements IDataAccessObject {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void createPlayer(Player player) {
-		sql = "SELECT * FROM player";
+		sql = "INSERT INTO " + table + " (player_name) values (?)";
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);  		
-			ResultSet resultSet = preparedStatement.executeQuery();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, player.getPlayerName());
+			preparedStatement.executeUpdate();
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
-	public Player getPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+	public Vector<Player> getPlayer() {
+		Player player = new Player();
+		playerVector = new Vector<Player>();
+		sql = "SELECT * FROM " + table;
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				player = new Player(resultSet.getInt("player_id"),
+						resultSet.getString("player_name"));
+				playerVector.add(player);
+				player = null;
+			}
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return playerVector;
 	}
-	
-	
 
 }

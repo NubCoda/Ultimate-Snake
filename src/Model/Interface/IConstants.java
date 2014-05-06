@@ -22,7 +22,7 @@ public interface IConstants {
 	public static final String CONFIG_PATH = "./resources/config.ini";
 	
 	public static final String DATABASE_NAME = "database.db3";
-	public static final String DATABASE_PATH = "./resources/database.db3";
+	public static final String DATABASE_PATH = "jdbc:sqlite:./resources/database.db3";
 	
 	public static final String TABLE_PLAYER_NAME = "player";
 
