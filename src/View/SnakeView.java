@@ -1,43 +1,52 @@
 package View;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
+import java.awt.geom.Point2D;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
-import Model.SnakeModel;
+import Model.Interface.Direction;
+import Model.Interface.IConstants;
+import Model.Interface.IPlayer;
 
-@SuppressWarnings("serial")
-public class SnakeView extends SpriteView implements Observer {
-	private BufferedImage head;
-	private BufferedImage tail;
+public class SnakeView implements Observer {
+	private SnakeHeadView snakeHeadView;
+	private Vector<SnakeTailView> tails;
+	private GamePanelView gamePanelView;
 
-	public SnakeView(String pathHead, String pathTail, double x, double y,
-			GamePanelView gamePanelView) {
-		super(pathHead, x, y, gamePanelView);
-		head = loadImage(pathHead);
-		tail = loadImage(pathTail);
+	public SnakeView(double x, double y, GamePanelView gamePanelView, Vector<Point2D.Double> bonesPoints, Direction direction){
+		this.gamePanelView = gamePanelView;
+		this.snakeHeadView = new SnakeHeadView(IConstants.SNAKE_HEAD_PAHT, x, y, gamePanelView, direction);
+		this.tails = new Vector<SnakeTailView>();
+		for (Point2D.Double point : bonesPoints) {
+			tails.add(new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, point.x, point.y, gamePanelView));
+		}
+	}
+
+	public Vector<SpriteView> getActors(){
+		Vector<SpriteView> actors = new Vector<SpriteView>();
+		actors.add(snakeHeadView);
+		actors.addAll(tails);
+		return actors;
 	}
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-		this.x = ((SnakeModel) observable).getX();
-		this.y = ((SnakeModel) observable).getY();
-	}
-
-	@Override
-	public void drawObjects(Graphics graphics) {
-		Graphics2D g2 = (Graphics2D) graphics;
-		AffineTransform oldTransorfm = g2.getTransform();
-		AffineTransform at = new AffineTransform();
-		at.rotate(Math.toRadians(90), x+(head.getWidth()/2), y+(head.getHeight()/2));
-		g2.transform(at);
-		g2.drawImage(head, (int)x, (int)y, null);
-		g2.setTransform(oldTransorfm);
-		g2.drawImage(tail, (int) x - 20, (int) y, null);
-		g2.drawImage(tail, (int) x - 20 * 2, (int) y, null);
-		g2.drawImage(tail, (int) x - 20 * 3, (int) y, null);
+		IPlayer snake = ((IPlayer) observable);
+		snakeHeadView.x = snake.getX();
+		snakeHeadView.y = snake.getY();
+		snakeHeadView.setDirection(snake.getDirection());
+		Vector<Point2D.Double> bonesPos = snake.getBonesPosition();
+		int size = this.tails.size();
+		for (int i = 0; i < bonesPos.size(); i++) {
+			if(i<size){
+				tails.get(i).x = bonesPos.get(i).x;
+				tails.get(i).y = bonesPos.get(i).y;
+			} else {
+				this.tails.add(new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, bonesPos.get(i).x, bonesPos.get(i).y, gamePanelView));
+			}
+		}
 	}
 }

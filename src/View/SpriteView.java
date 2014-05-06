@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,23 +8,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import ViewInterface.IDrawable;
-import ViewInterface.IMoveable;
+import View.Interface.IDrawable;
 
 @SuppressWarnings("serial")
-public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveable {
+public abstract class SpriteView extends Rectangle2D.Double implements IDrawable {
 	private GamePanelView gamePanelView;
-	private BufferedImage bufferedImage;
+	protected BufferedImage bufferedImage;
 
-	public SpriteView(String path, double x, double y, GamePanelView gamePanelView) {
+	public SpriteView(String path, double x, double y,
+			GamePanelView gamePanelView) {
 		bufferedImage = loadImage(path);
 		this.x = x;
 		this.y = y;
+		this.width = bufferedImage.getWidth();
+		this.height = bufferedImage.getHeight();
 		this.gamePanelView = gamePanelView;
-		System.out.println(this.gamePanelView.getBounds());
 	}
 
-	protected BufferedImage loadImage(String path){
+	protected BufferedImage loadImage(String path) {
 		BufferedImage bufferedImage = null;
 		try {
 			bufferedImage = ImageIO.read(new File(path));
@@ -35,16 +35,9 @@ public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveab
 		return bufferedImage;
 	}
 
-	/* (non-Javadoc)
-	 * @see ViewInterface.IMoveable#move(java.awt.Point)
-	 */
-	@Override
-	public void move(Point point) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see ViewInterface.IDrawable#drawObjects(java.awt.Graphics)
 	 */
 	@Override
@@ -52,7 +45,5 @@ public class SpriteView extends Rectangle2D.Double implements IDrawable, IMoveab
 		graphics.drawImage(bufferedImage, (int) x, (int) y, null);
 	}
 
-	public void doLogic() {
-
-	}
+	public abstract boolean collidedWith(SpriteView spriteView);
 }

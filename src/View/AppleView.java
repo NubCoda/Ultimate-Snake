@@ -4,18 +4,29 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Model.AppleModel;
+import Model.Interface.IElement;
 
 @SuppressWarnings("serial")
 public class AppleView extends SpriteView implements Observer {
-
 	public AppleView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);
-		// TODO Auto-generated constructor stub
+		width = 20;
+		height = 20;
 	}
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-		setRect(((AppleModel)observable).getApplePosition_x(), ((AppleModel)observable).getApplePosition_y(), 40, 40);
+		IElement apple = ((IElement) observable);
+		this.x = apple.getX();
+		this.y = apple.getY();
+	}
+
+	@Override
+	public boolean collidedWith(SpriteView spriteView) {
+		if(this.intersects(spriteView)){
+			return true;
+		}
+		return false;
 	}
 }
