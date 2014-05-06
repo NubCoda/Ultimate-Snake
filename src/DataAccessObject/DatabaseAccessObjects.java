@@ -2,10 +2,7 @@ package DataAccessObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.Vector;
 
-import properties.BenutzerLogin;
-import properties.EmailKontakt;
 import Properties.Player;
 
 public class DatabaseAccessObjects implements IDataAccessObject {
