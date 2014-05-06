@@ -16,6 +16,7 @@ public class MainController {
 	private GamePanelView gamePanelView;
 	private SnakeModel snakeModel;
 	private Logic logic;
+	private boolean hasGameStarted = false;
 
 	private MainController() {
 		createWindow();
@@ -46,7 +47,7 @@ public class MainController {
 	/**
 	 * Main Funktion Gezeichnet wird nur, wenn der Benutzer das "Spiel"
 	 * gestartet hat
-	 *
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -59,20 +60,26 @@ public class MainController {
 
 	public void startGame() {
 		// TODO: das Level nur beim Start bzw. beim Levelwechsel erstellen
-//		Vector<IActor> actors = new Vector<IActor>();
-		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20,
-				20, gamePanelView);
-		AppleModel appleModel = null;
-		snakeModel = new SnakeModel(120, 120, 3, Direction.RIGHT, new Double(gamePanelView.getWidth()), new Double(gamePanelView.getHeight()));
-		SnakeView snakeView = new SnakeView(120, 120, gamePanelView, snakeModel.getBonesPosition(), Direction.RIGHT);
-		appleModel = new AppleModel(gamePanelView);
-		logic.addActor(appleModel);
-		logic.addActor(snakeModel);
-		appleModel.addObserver(appleView);
-		snakeModel.addObserver(snakeView);
-		gamePanelView.addActor(appleView);
-		gamePanelView.addActors(snakeView.getActors());
+		if (!hasGameStarted) {
+			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20, 20,
+					gamePanelView);
+			AppleModel appleModel = null;
+			snakeModel = new SnakeModel(120, 120, 3, Direction.RIGHT,
+					new Double(gamePanelView.getWidth()), new Double(
+							gamePanelView.getHeight()));
+			SnakeView snakeView = new SnakeView(120, 120, gamePanelView,
+					snakeModel.getBonesPosition(), Direction.RIGHT);
+			appleModel = new AppleModel(gamePanelView);
+			logic.addActor(appleModel);
+			logic.addActor(snakeModel);
+			appleModel.addObserver(appleView);
+			snakeModel.addObserver(snakeView);
+			gamePanelView.addActor(appleView);
+			gamePanelView.addActors(snakeView.getActors());
+			hasGameStarted = true;
+		}
 		logic.setGameRunning(true);
+
 	}
 
 	public void pauseGame() {
