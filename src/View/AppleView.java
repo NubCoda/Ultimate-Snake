@@ -3,7 +3,6 @@ package View;
 import java.util.Observable;
 import java.util.Observer;
 
-import Model.AppleModel;
 import Model.Interface.IElement;
 
 @SuppressWarnings("serial")
