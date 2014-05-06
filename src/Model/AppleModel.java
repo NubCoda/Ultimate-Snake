@@ -12,7 +12,7 @@ import Model.Interface.IConstants;
 import Model.Interface.IElement;
 import View.GamePanelView;
 
-public class AppleModel extends Observable implements IActor, IElement{
+public class AppleModel extends Observable implements IActor, IElement {
 	double applePosition_x;
 	double applePosition_y;
 	private BufferedImage bufferedImages;
@@ -40,7 +40,6 @@ public class AppleModel extends Observable implements IActor, IElement{
 						.getHeight()));
 	}
 
-
 	@Override
 	public double getX() {
 		return applePosition_x;
@@ -53,10 +52,10 @@ public class AppleModel extends Observable implements IActor, IElement{
 
 	@Override
 	public void actuate(long delta) {
-		if(respawn){
+		if (respawn) {
 			respawn = false;
-			lastRespawn+=(delta/1000000);
-			if(lastRespawn>respawnSpeed){
+			lastRespawn += (delta / 1000000);
+			if (lastRespawn > respawnSpeed) {
 				lastRespawn = 0;
 				moveApple();
 				setChanged();

@@ -14,7 +14,7 @@ public class SnakeModel extends Observable implements IActor, IPlayer {
 	private double y;
 	private Direction direction;
 	private Vector<Point2D.Double> bonesPoints;
-	private long speed = 150;
+	private long speed = 100;
 	private long lastMove = 0;
 	private int length;
 	private Direction newDirection = Direction.NONE;

@@ -24,7 +24,8 @@ public class AppleView extends SpriteView implements Observer {
 
 	@Override
 	public boolean collidedWith(SpriteView spriteView) {
-		if(this.intersects(spriteView)){
+		if (this.intersects(spriteView)) {
+			System.out.println("Kollision Apfel");
 			return true;
 		}
 		return false;

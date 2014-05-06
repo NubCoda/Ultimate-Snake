@@ -7,8 +7,9 @@ import java.awt.geom.AffineTransform;
 import Model.Interface.Direction;
 
 @SuppressWarnings("serial")
-public class SnakeHeadView extends SpriteView{
+public class SnakeHeadView extends SpriteView {
 	private Direction direction;
+
 	public SnakeHeadView(String path, double x, double y,
 			GamePanelView gamePanelView, Direction direction) {
 		super(path, x, y, gamePanelView);
@@ -21,7 +22,8 @@ public class SnakeHeadView extends SpriteView{
 
 	@Override
 	public boolean collidedWith(SpriteView spriteView) {
-		if(this.intersects(spriteView)){
+		if (this.intersects(spriteView)) {
+			System.out.println("Kollision Head");
 			return true;
 		}
 		return false;
@@ -47,8 +49,7 @@ public class SnakeHeadView extends SpriteView{
 			rotation = 0;
 			break;
 		}
-		at.rotate(Math.toRadians(rotation), (int) x + (10),
-				(int) y + (10));
+		at.rotate(Math.toRadians(rotation), (int) x + (10), (int) y + (10));
 		g2.transform(at);
 		g2.drawImage(bufferedImage, (int) x, (int) y, null);
 		g2.setTransform(oldTransorfm);
