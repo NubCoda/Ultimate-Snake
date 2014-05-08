@@ -30,7 +30,6 @@ public class Logic extends Observable implements Runnable {
 			try {
 				if(isGameRunning){
 					delta = System.nanoTime() - last;
-//					System.out.println(((long) 1e9)/delta); => fps
 					last = System.nanoTime();
 					for (IActor actor : actors) {
 						actor.actuate(delta);
