@@ -2,19 +2,21 @@ package Controller;
 
 import Model.AppleModel;
 import Model.Logic;
-import Model.SnakeModel;
+import Model.SnakeHeadModel;
+import Model.SnakeTailModel;
 import Model.Interface.Direction;
 import Model.Interface.IConstants;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
-import View.SnakeView;
+import View.SnakeHeadView;
+import View.SnakeTailView;
 
 public class MainController {
 	private static MainController mainController;
 	private MainView mainView;
 	private GamePanelView gamePanelView;
-	private SnakeModel snakeModel;
+	private SnakeHeadModel snakeHeadModel;
 	private Logic logic;
 	private boolean hasGameStarted = false;
 
@@ -55,7 +57,7 @@ public class MainController {
 	}
 
 	public void switchSnakeDirection(Direction direction) {
-		snakeModel.switchDirection(direction);
+		snakeHeadModel.switchDirection(direction);
 	}
 
 	public void startGame() {
@@ -63,19 +65,30 @@ public class MainController {
 		if (!hasGameStarted) {
 			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20, 20,
 					gamePanelView);
-			AppleModel appleModel = null;
-			snakeModel = new SnakeModel(120, 120, 3, Direction.RIGHT,
-					new Double(gamePanelView.getWidth()), new Double(
-							gamePanelView.getHeight()));
-			SnakeView snakeView = new SnakeView(120, 120, gamePanelView,
-					snakeModel.getBonesPosition(), Direction.RIGHT);
-			appleModel = new AppleModel(gamePanelView);
+			SnakeHeadView snakeHeadView = new SnakeHeadView(IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView, Direction.RIGHT);
+			snakeHeadModel = new SnakeHeadModel(120, 120, Direction.RIGHT, snakeHeadView.getImage());
+			SnakeTailView snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
+			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView, 100, 120, snakeHeadModel, snakeTailView.getImage());
+			SnakeTailView snakeTailView1 = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);
+			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView, 80, 120, snakeTailModel, snakeTailView1.getImage());
+			SnakeTailView snakeTailView2 = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 60, 120, gamePanelView);
+			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView, 60, 120, snakeTailModel1, snakeTailView2.getImage());
+			AppleModel appleModel = new AppleModel(gamePanelView, appleView.getImage());
 			logic.addActor(appleModel);
-			logic.addActor(snakeModel);
+			logic.addActor(snakeHeadModel);
+			logic.addActor(snakeTailModel);
+			logic.addActor(snakeTailModel1);
+			logic.addActor(snakeTailModel2);
 			appleModel.addObserver(appleView);
-			snakeModel.addObserver(snakeView);
+			snakeHeadModel.addObserver(snakeHeadView);
+			snakeTailModel.addObserver(snakeTailView);
+			snakeTailModel1.addObserver(snakeTailView1);
+			snakeTailModel2.addObserver(snakeTailView2);
 			gamePanelView.addActor(appleView);
-			gamePanelView.addActors(snakeView.getActors());
+			gamePanelView.addActor(snakeHeadView);
+			gamePanelView.addActor(snakeTailView);
+			gamePanelView.addActor(snakeTailView1);
+			gamePanelView.addActor(snakeTailView2);
 			hasGameStarted = true;
 		}
 		logic.setGameRunning(true);
