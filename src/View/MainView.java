@@ -43,7 +43,7 @@ public class MainView extends JFrame implements ActionListener {
 		databaseAccessObjects.createConnection();
 		Vector<Player> playerVector =  databaseAccessObjects.getPlayer();
 		for(Player tmp : playerVector) {
-			
+			System.out.println(tmp.getPlayerName());
 		}
 	}
 
