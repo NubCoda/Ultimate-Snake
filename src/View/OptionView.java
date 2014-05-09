@@ -40,12 +40,12 @@ public class OptionView extends JDialog implements ActionListener {
 	private JComboBox<String> comboBoxPlayer;
 
 	public OptionView(MainView mainView, Player player) {
+		initGUI();
 		this.mainView = mainView;
 		this.newWidth = mainView.getWidth();
 		this.newHeight = mainView.getHeight();
 		this.player = player;
 		fillComboBox();
-		initGUI();
 	}
 
 	/**
