@@ -25,11 +25,9 @@ public class GamePanelView extends JPanel implements Observer {
 
 	@Override
 	protected void paintComponent(Graphics graphics) {
-		// TODO Auto-generated method stub
 		super.paintComponent(graphics);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
-//				System.out.println(draw);
 				draw.drawObjects(graphics);
 			}
 

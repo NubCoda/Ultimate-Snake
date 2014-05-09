@@ -4,7 +4,6 @@ import Model.AppleModel;
 import Model.Logic;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
-import Model.Interface.Direction;
 import Model.Interface.IConstants;
 import View.AppleView;
 import View.GamePanelView;
@@ -19,7 +18,7 @@ public class MainController {
 	private SnakeHeadModel snakeHeadModel;
 	private Logic logic;
 	private boolean hasGameStarted = false;
-
+	
 	private MainController() {
 		createWindow();
 		logic = new Logic();
@@ -40,7 +39,7 @@ public class MainController {
 		gamePanelView = new GamePanelView(mainView.getWidth(),
 				mainView.getHeight());
 		mainView.add(gamePanelView);
-		mainView.setResizable(false);
+//		mainView.setResizable(false);
 		mainView.pack();
 		mainView.setVisible(true);
 		gamePanelView.setFocusable(true);
@@ -56,8 +55,8 @@ public class MainController {
 		MainController.getInstance();
 	}
 
-	public void switchSnakeDirection(Direction direction) {
-		snakeHeadModel.switchDirection(direction);
+	public void rotateSnake(int rotation) {
+		snakeHeadModel.rotateSnake(rotation);
 	}
 
 	public void startGame() {
@@ -65,8 +64,8 @@ public class MainController {
 		if (!hasGameStarted) {
 			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20, 20,
 					gamePanelView);
-			SnakeHeadView snakeHeadView = new SnakeHeadView(IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView, Direction.RIGHT);
-			snakeHeadModel = new SnakeHeadModel(120, 120, Direction.RIGHT, snakeHeadView.getImage());
+			SnakeHeadView snakeHeadView = new SnakeHeadView(IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
+			snakeHeadModel = new SnakeHeadModel(120, 120, snakeHeadView.getImage());
 			SnakeTailView snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
 			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView, 100, 120, snakeHeadModel, snakeTailView.getImage());
 			SnakeTailView snakeTailView1 = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);

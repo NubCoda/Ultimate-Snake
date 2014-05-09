@@ -1,23 +1,23 @@
 package Model;
 
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Observable;
 
 import Model.Interface.Actor;
-import Model.Interface.Direction;
 import Model.Interface.IConstants;
 import Model.Interface.IPlayerBone;
 
-public class SnakeHeadModel extends Actor implements IPlayerBone {
-	private Direction direction;
-	private Direction newDirection = Direction.NONE;
-	private Point2D.Double oldPos;
-	private int speed = IConstants.SNAKE_SPEED;
+public class SnakeHeadModel extends Observable implements Actor, IPlayerBone {
+	private Point2D.Double movement;
 	
-	public SnakeHeadModel(double x, double y, Direction direction, BufferedImage bufferedImage) {
-		super(x, y, bufferedImage);
-		this.direction = direction;
+	private int speed = IConstants.SNAKE_SPEED;
+	private int rotation = 0;
+	private Ellipse2D.Double bounding;
+	public SnakeHeadModel(double x, double y, BufferedImage bufferedImage) {
+		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(), bufferedImage.getHeight());
 	}
 
 	public void actuate(double delta) {
@@ -27,28 +27,28 @@ public class SnakeHeadModel extends Actor implements IPlayerBone {
 	}
 
 	private void move(double delta) {
-		oldPos = new Point2D.Double(bounding.getMinX(), bounding.getMinY());
-		if (newDirection != Direction.NONE) {
-			direction = newDirection;
-			newDirection = Direction.NONE;
-		}
-		
-		switch (direction) {
-		case DOWN:
-			bounding.y += speed * delta;
-			break;
-		case UP:
+		if(rotation == 270){
 			bounding.y -= speed * delta;
-			break;
-		case RIGHT:
+		} else if(rotation > 270 && rotation < 360){
+			bounding.y -= speed * delta;
 			bounding.x += speed * delta;
-			break;
-		case LEFT:
+		} else if(rotation == 0){
+			bounding.x += speed * delta;
+		} else if(rotation > 0 && rotation < 90){
+			bounding.y += speed * delta;
+			bounding.x += speed * delta;
+		} else if(rotation == 90){
+			bounding.y += speed * delta;
+		} else if(rotation > 90 && rotation < 180){
+			bounding.y += speed * delta;
 			bounding.x -= speed * delta;
-			break;
-		default:
-			break;
+		} else if(rotation == 180){
+			bounding.x -= speed * delta;
+		} else {
+			bounding.y -= speed * delta;
+			bounding.x -= speed * delta;
 		}
+		movement = new Point2D.Double(bounding.x, bounding.y);
 	}
 
 	public void checkCollision(Actor actor) {
@@ -57,25 +57,29 @@ public class SnakeHeadModel extends Actor implements IPlayerBone {
 		}
 	}
 
-	public Rectangle2D.Double getBounding() {
-		return this.bounding;
+	public Rectangle2D getBounding() {
+		return this.bounding.getBounds2D();
 	}
 	
 	@Override
-	public Direction getDirection() {
-		return direction;
+	public int getRotation() {
+		return this.rotation;
 	}
 	
-	public Point2D.Double getOldPos(){
-		return oldPos;
+	public Point2D.Double getMovement(){
+		return movement;
 	}
 
-	public void switchDirection(Direction direction) {
-		if ((this.direction == Direction.RIGHT && (direction == Direction.UP || direction == Direction.DOWN))
-				|| (this.direction == Direction.LEFT && (direction == Direction.UP || direction == Direction.DOWN))
-				|| (this.direction == Direction.UP && (direction == Direction.RIGHT || direction == Direction.LEFT))
-				|| (this.direction == Direction.DOWN && (direction == Direction.LEFT || direction == Direction.RIGHT))) {
-			newDirection = direction;
+	public void rotateSnake(int rotation) {
+//		if ((this.direction == Direction.RIGHT && (direction == Direction.UP || direction == Direction.DOWN))
+//				|| (this.direction == Direction.LEFT && (direction == Direction.UP || direction == Direction.DOWN))
+//				|| (this.direction == Direction.UP && (direction == Direction.RIGHT || direction == Direction.LEFT))
+//				|| (this.direction == Direction.DOWN && (direction == Direction.LEFT || direction == Direction.RIGHT))) {
+//			newDirection = direction;
+//		}
+		this.rotation = (this.rotation + rotation) % 360;
+		if(this.rotation<0){
+			this.rotation += 360;
 		}
 	}
 
