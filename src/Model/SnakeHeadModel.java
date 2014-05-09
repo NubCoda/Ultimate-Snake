@@ -48,7 +48,7 @@ public class SnakeHeadModel extends Observable implements Actor, IPlayerBone {
 			bounding.y -= speed * delta;
 			bounding.x -= speed * delta;
 		}
-		movement = new Point2D.Double(bounding.x, bounding.y);
+		movement = new Point2D.Double(((bounding.getWidth()/2)*Math.cos(180+rotation))+bounding.getCenterX(), ((bounding.getWidth()/2)*Math.cos(180+rotation))+bounding.getCenterY());
 	}
 
 	public void checkCollision(Actor actor) {

@@ -39,11 +39,11 @@ public class SnakeTailModel extends Observable implements Actor, IPlayerBone{
 	}
 	
 	public void actuate(double delta) {
-			double oldX = bounding.x;
-			double oldY = bounding.y;
-			bounding.x += vorgaenger.getMovement().x;
-			bounding.y += vorgaenger.getMovement().y;
-			movement= new Point2D.Double(bounding.x-oldX, bounding.y - oldY);
+//			double oldX = bounding.x;
+//			double oldY = bounding.y;
+			bounding.x = vorgaenger.getMovement().x;
+			bounding.y = vorgaenger.getMovement().y;
+			movement= new Point2D.Double(0, 0);
 			setChanged();
 			notifyObservers();
 	}
