@@ -1,5 +1,7 @@
 package Model;
 
-public class OptionsModel {
+import java.util.Observable;
+
+public class OptionsModel extends Observable {
 
 }
