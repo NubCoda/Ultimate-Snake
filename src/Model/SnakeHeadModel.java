@@ -48,12 +48,15 @@ public class SnakeHeadModel extends Observable implements Actor, IPlayerBone {
 			bounding.y -= speed * delta;
 			bounding.x -= speed * delta;
 		}
-		movement = new Point2D.Double(((bounding.getWidth()/2)*Math.cos(180+rotation))+bounding.getCenterX(), ((bounding.getWidth()/2)*Math.sin(180+rotation))+bounding.getCenterY());
+		System.out.println(bounding.getCenterX());
+		System.out.println(bounding.getCenterY());
+		movement = new Point2D.Double(((bounding.getWidth()/2)*Math.cos(Math.toRadians(rotation)))+bounding.getCenterX(), ((bounding.getWidth()/2)*Math.sin(Math.toRadians(rotation)))+bounding.getCenterY());
+		System.out.println(movement);
 	}
 
 	public void checkCollision(Actor actor) {
 		if(bounding.intersects(actor.getBounding())){
-			System.out.println("Collision HEad");
+//			System.out.println("Collision HEad");
 		}
 	}
 
@@ -77,9 +80,11 @@ public class SnakeHeadModel extends Observable implements Actor, IPlayerBone {
 //				|| (this.direction == Direction.DOWN && (direction == Direction.LEFT || direction == Direction.RIGHT))) {
 //			newDirection = direction;
 //		}
-		this.rotation = (this.rotation + rotation) % 360;
-		if(this.rotation<0){
+		this.rotation = this.rotation + rotation;
+		if(this.rotation< 0){
 			this.rotation += 360;
+		} else if (this.rotation > 360) {
+			this.rotation -= 360;
 		}
 	}
 

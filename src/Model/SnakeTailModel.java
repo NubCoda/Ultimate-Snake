@@ -51,7 +51,7 @@ public class SnakeTailModel extends Observable implements Actor, IPlayerBone{
 	@Override
 	public void checkCollision(Actor actor) {
 		if(bounding.intersects(actor.getBounding())){
-			System.out.println("Collision Tail");
+//			System.out.println("Collision Tail");
 		}
 	}
 
