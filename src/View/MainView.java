@@ -28,6 +28,8 @@ public class MainView extends JFrame implements ActionListener {
 	private JMenuItem menuItemOption;
 	private JMenu menuPlayer;
 	private JMenuItem menuItemSpielerErstellen;
+	private JMenuItem menuItemSpielerWechseln;
+	private Player player;
 
 	/**
 	 * Create the frame.
@@ -88,9 +90,16 @@ public class MainView extends JFrame implements ActionListener {
 		menuItemSpielerErstellen = new JMenuItem("Erstellen");
 		menuItemSpielerErstellen.addActionListener(this);
 		menuPlayer.add(menuItemSpielerErstellen);
+		
+		menuItemSpielerWechseln = new JMenuItem("Spieler wechseln");
+		menuItemSpielerWechseln.addActionListener(this);
+		menuPlayer.add(menuItemSpielerWechseln);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == menuItemSpielerWechseln) {
+			menuItemSpielerWechselnActionPerformed(arg0);
+		}
 		if (arg0.getSource() == menuItemSpielerErstellen) {
 			menuItemSpielerErstellenActionPerformed(arg0);
 		}
@@ -127,12 +136,16 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
-		Player player = new Player(
+		player = new Player(
 				JOptionPane.showInputDialog("Spielernamen angeben!"));
 		if (player.getPlayerName() != null) {
 			DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
 			databaseAccessObjects.createConnection();
 			databaseAccessObjects.createPlayer(player);
 		}
+	}
+	protected void menuItemSpielerWechselnActionPerformed(ActionEvent arg0) {
+		SwitchPlayerView switchPlayerView = new SwitchPlayerView(player);
+		switchPlayerView.setVisible(true);
 	}
 }
