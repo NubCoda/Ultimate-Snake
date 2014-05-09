@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -28,7 +27,6 @@ public class MainView extends JFrame implements ActionListener {
 	private JMenuItem menuItemOption;
 	private JMenu menuPlayer;
 	private JMenuItem menuItemSpielerErstellen;
-	private JMenuItem menuItemSpielerWechseln;
 	private Player player;
 
 	/**
@@ -36,17 +34,7 @@ public class MainView extends JFrame implements ActionListener {
 	 */
 	public MainView() {
 		initGUI();
-		addPlayerToMenu();
-	}
-	
-	
-	private void addPlayerToMenu() {
-		DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
-		databaseAccessObjects.createConnection();
-		Vector<Player> playerVector =  databaseAccessObjects.getPlayer();
-		for(Player tmp : playerVector) {
-			System.out.println(tmp.getPlayerName());
-		}
+		player = new Player();
 	}
 
 	private void initGUI() {
@@ -90,16 +78,9 @@ public class MainView extends JFrame implements ActionListener {
 		menuItemSpielerErstellen = new JMenuItem("Erstellen");
 		menuItemSpielerErstellen.addActionListener(this);
 		menuPlayer.add(menuItemSpielerErstellen);
-		
-		menuItemSpielerWechseln = new JMenuItem("Spieler wechseln");
-		menuItemSpielerWechseln.addActionListener(this);
-		menuPlayer.add(menuItemSpielerWechseln);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == menuItemSpielerWechseln) {
-			menuItemSpielerWechselnActionPerformed(arg0);
-		}
 		if (arg0.getSource() == menuItemSpielerErstellen) {
 			menuItemSpielerErstellenActionPerformed(arg0);
 		}
@@ -131,7 +112,7 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
-		OptionView optionView = new OptionView(this);
+		OptionView optionView = new OptionView(this, player);
 		optionView.setVisible(true);
 	}
 
@@ -143,9 +124,5 @@ public class MainView extends JFrame implements ActionListener {
 			databaseAccessObjects.createConnection();
 			databaseAccessObjects.createPlayer(player);
 		}
-	}
-	protected void menuItemSpielerWechselnActionPerformed(ActionEvent arg0) {
-		SwitchPlayerView switchPlayerView = new SwitchPlayerView(player);
-		switchPlayerView.setVisible(true);
 	}
 }

@@ -12,6 +12,7 @@ import View.Interface.IDrawable;
 
 @SuppressWarnings("serial")
 public abstract class SpriteView extends Rectangle2D.Double implements IDrawable {
+	@SuppressWarnings("unused")
 	private GamePanelView gamePanelView;
 	protected BufferedImage bufferedImage;
 

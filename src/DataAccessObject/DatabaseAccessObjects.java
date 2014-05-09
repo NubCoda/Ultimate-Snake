@@ -15,8 +15,6 @@ public class DatabaseAccessObjects implements IDataAccessObject {
 
 	private Connection connection;
 	private PreparedStatement preparedStatement;
-
-	private String database = IConstants.DATABASE_NAME;
 	private String table = IConstants.TABLE_PLAYER_NAME;
 	private String url = IConstants.DATABASE_PATH;
 	private String sql;
@@ -53,8 +51,28 @@ public class DatabaseAccessObjects implements IDataAccessObject {
 		}
 	}
 
+	public Player getSinglePlayer(String playerName) {
+		createConnection();
+		Player player = null;
+		sql = "SELECT * FROM " + table + " WHERE player_name = '" + playerName
+				+ "'";
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet != null) {
+				player = new Player(resultSet.getInt("player_id"),
+						resultSet.getString("player_name"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return player;
+	}
+
 	@Override
-	public Vector<Player> getPlayer() {
+	public Vector<Player> getPlayers() {
+		createConnection();
 		Player player = new Player();
 		playerVector = new Vector<Player>();
 		sql = "SELECT * FROM " + table;
