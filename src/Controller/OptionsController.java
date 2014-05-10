@@ -7,9 +7,11 @@ import View.MainView;
 
 public class OptionsController {
 	private static OptionsController optionsController;
+	private OptionsModel optionsModel;
+	private MainView mainView;
 	
 	private OptionsController() {
-		
+		optionsModel = new OptionsModel(mainView);
 	}
 	
 	public static OptionsController getInstance() {
@@ -20,7 +22,7 @@ public class OptionsController {
 	}
 	
 	public void setResolution(MainView mainView, Dimension dimension) {
-		OptionsModel optionsModel = new OptionsModel(mainView);
+		optionsModel = new OptionsModel(mainView);
 		optionsModel.addObserver(mainView);
 		optionsModel.setResolution(dimension);
 		System.out.println("Test");
