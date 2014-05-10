@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +21,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controller.OptionsController;
 import DataAccessObject.DatabaseAccessObjects;
+import Model.OptionsModel;
 import Model.Interface.IConstants;
 import Properties.Player;
 
@@ -144,9 +147,12 @@ public class OptionView extends JDialog implements ActionListener {
 		DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
 		player = databaseAccessObjects
 				.getSinglePlayer((String) comboBoxPlayer.getSelectedItem());
-		mainView.setSize(newWidth, newHeight);
-		mainView.setLocationRelativeTo(null);
-		System.out.println(newHeight);
+		OptionsController.getInstance().setResolution(mainView, new Dimension(newWidth, newHeight));
+		
+		
+		
+		// TODO: Mit MVC implementieren. Wie?
+		// Wer gilt als Observer? 
 		File file = new File(IConstants.CONFIG_PATH);
 		Properties properties = new Properties();
 		try {

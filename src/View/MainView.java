@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -18,7 +20,7 @@ import Model.Interface.IConstants;
 import Properties.Player;
 
 @SuppressWarnings("serial")
-public class MainView extends JFrame implements ActionListener {
+public class MainView extends JFrame implements ActionListener, Observer {
 	private JMenuBar menuBar;
 	private JMenu menuGame;
 	private JMenuItem menuItemStart;
@@ -124,5 +126,10 @@ public class MainView extends JFrame implements ActionListener {
 			databaseAccessObjects.createConnection();
 			databaseAccessObjects.createPlayer(player);
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		repaint();
 	}
 }

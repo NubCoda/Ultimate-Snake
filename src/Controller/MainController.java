@@ -7,7 +7,6 @@ import Model.SnakeTailModel;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
-import Model.Interface.IPlayerBone;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
@@ -55,7 +54,6 @@ public class MainController {
 		gamePanelView = new GamePanelView(mainView.getWidth(),
 				mainView.getHeight());
 		mainView.add(gamePanelView);
-//		mainView.setResizable(false);
 		mainView.pack();
 		mainView.setVisible(true);
 		gamePanelView.setFocusable(true);
