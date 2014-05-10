@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,55 +15,46 @@ import Model.Interface.IElement;
 import View.GamePanelView;
 
 public class AppleModel extends Observable implements IActor, IElement{
-	double applePosition_x;
-	double applePosition_y;
 	private BufferedImage bufferedImages;
 	private GamePanelView gamePanelView;
-	private long respawnSpeed = 500;
-	private long lastRespawn = 0;
-	private boolean respawn = true;
-
-	public AppleModel(GamePanelView gamePanelView) {
+	private boolean appleAlive = true;
+	private Rectangle2D.Double bounding;
+	public AppleModel(GamePanelView gamePanelView, BufferedImage bufferedImage) {
+		this.bounding = new Rectangle2D.Double(0,0,bufferedImage.getWidth(),bufferedImage.getHeight());
 		this.gamePanelView = gamePanelView;
 		try {
 			this.bufferedImages = ImageIO.read(new File(IConstants.APPLE_PAHT));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void moveApple() {
-		applePosition_x = Math.random()
+		bounding.x = Math.random()
 				* ((double) (gamePanelView.getWidth()) - ((double) bufferedImages
 						.getWidth()));
-		applePosition_y = Math.random()
+		bounding.y = Math.random()
 				* ((double) (gamePanelView.getHeight()) - ((double) bufferedImages
 						.getHeight()));
 	}
 
-
-	@Override
-	public double getX() {
-		return applePosition_x;
+	public Rectangle2D getBounding(){
+		return bounding;
 	}
 
-	@Override
-	public double getY() {
-		return applePosition_y;
+	public void actuate(double delta) {
+		if(!appleAlive){
+			appleAlive = true;
+			moveApple();
+		}
+		setChanged();
+		notifyObservers();
 	}
 
-	@Override
-	public void actuate(long delta) {
-		if(respawn){
-			respawn = false;
-			lastRespawn+=(delta/1000000);
-			if(lastRespawn>respawnSpeed){
-				lastRespawn = 0;
-				moveApple();
-				setChanged();
-				notifyObservers();
-			}
+	public void checkCollision(IActor actor) {
+		if(bounding.intersects(actor.getBounding()) && actor instanceof SnakeHeadModel){
+			appleAlive = false;
+			((SnakeHeadModel) actor).increaseLength();
 		}
 	}
 }

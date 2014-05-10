@@ -16,10 +16,4 @@ public class BarrierView extends SpriteView implements Observer {
 	public void update(Observable observable, Object argObject) {
 		// TODO Auto-generated method stub
 	}
-
-	@Override
-	public boolean collidedWith(SpriteView spriteView) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

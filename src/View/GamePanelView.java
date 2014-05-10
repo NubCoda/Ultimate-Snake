@@ -25,11 +25,9 @@ public class GamePanelView extends JPanel implements Observer {
 
 	@Override
 	protected void paintComponent(Graphics graphics) {
-		// TODO Auto-generated method stub
 		super.paintComponent(graphics);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
-//				System.out.println(draw);
 				draw.drawObjects(graphics);
 			}
 
@@ -39,14 +37,14 @@ public class GamePanelView extends JPanel implements Observer {
 	@Override
 	public void update(Observable observable, Object argObject) {
 		repaint();
-		// TODO / FIXME : Die Kollisionsprüfung muss in den Modellklassen stattfinden und nict im View
-		for (int i = 0; i < actors.size(); i++) {
-			for (int j = i+1; j < actors.size(); j++) {
-				SpriteView s1 = actors.elementAt(i);
-				SpriteView s2 = actors.elementAt(j);
-				s1.collidedWith(s2);
-			}
-		}
+		// TODO / FIXME : Die Kollisionsprï¿½fung muss in den Modellklassen stattfinden und nict im View
+//		for (int i = 0; i < actors.size(); i++) {
+//			for (int j = i+1; j < actors.size(); j++) {
+//				SpriteView s1 = actors.elementAt(i);
+//				SpriteView s2 = actors.elementAt(j);
+//				s1.collidedWith(s2);
+//			}
+//		}
 	}
 
 	public void addActors(Vector<SpriteView> actors) {

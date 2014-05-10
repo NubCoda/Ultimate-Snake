@@ -11,18 +11,17 @@ import javax.imageio.ImageIO;
 import View.Interface.IDrawable;
 
 @SuppressWarnings("serial")
-public abstract class SpriteView extends Rectangle2D.Double implements IDrawable {
-	@SuppressWarnings("unused")
+public abstract class SpriteView implements IDrawable {
 	private GamePanelView gamePanelView;
 	protected BufferedImage bufferedImage;
+	protected double x;
+	protected double y;
 
 	public SpriteView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		bufferedImage = loadImage(path);
 		this.x = x;
 		this.y = y;
-		this.width = bufferedImage.getWidth();
-		this.height = bufferedImage.getHeight();
 		this.gamePanelView = gamePanelView;
 	}
 
@@ -45,6 +44,8 @@ public abstract class SpriteView extends Rectangle2D.Double implements IDrawable
 	public void drawObjects(Graphics graphics) {
 		graphics.drawImage(bufferedImage, (int) x, (int) y, null);
 	}
-
-	public abstract boolean collidedWith(SpriteView spriteView);
+	
+	public BufferedImage getImage(){
+		return bufferedImage;
+	}
 }

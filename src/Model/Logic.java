@@ -9,11 +9,10 @@ public class Logic extends Observable implements Runnable {
 	private Vector<IActor> actors;
 	private boolean isGameRunning;
 	private long last = 0;
-	private long delta = 0;
+	private double delta = 0;
 
 	public Logic() {
 		this.actors = new Vector<IActor>();
-		last = System.nanoTime();
 	}
 
 	public void addActor(IActor actor){
@@ -23,18 +22,31 @@ public class Logic extends Observable implements Runnable {
 	public void setGameRunning(boolean isGameRunning) {
 		this.isGameRunning = isGameRunning;
 	}
-
+	
+	public IActor getActor(IActor actor) {
+		return actors.get(actors.indexOf(actor));
+	}
+	
 	@Override
 	public void run() {
+		last = System.nanoTime();
 		while (true) {
 			try {
 				if(isGameRunning){
-					delta = System.nanoTime() - last;
-					last = System.nanoTime();
+					long currentTime = System.nanoTime();
+					delta = (currentTime - last)/1000000.00;
+//					System.out.println(((long) 1e9)/delta); => fps
+					last = currentTime;
 					for (IActor actor : actors) {
 						actor.actuate(delta);
 					}
-
+					for (int i = 0; i < actors.size(); i++) {
+						for (int j = i+1; j < actors.size(); j++) {
+							IActor s1 = actors.elementAt(i);
+							IActor s2 = actors.elementAt(j);
+							s1.checkCollision(s2);
+						}
+					}
 					setChanged();
 					notifyObservers();
 				}
