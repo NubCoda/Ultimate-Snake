@@ -16,6 +16,7 @@ import javax.swing.KeyStroke;
 
 import Controller.MainController;
 import DataAccessObject.DatabaseAccessObjects;
+import Model.OptionsModel;
 import Model.Interface.IConstants;
 import Properties.Player;
 
@@ -129,7 +130,9 @@ public class MainView extends JFrame implements ActionListener, Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable observable, Object argObject) {
+		OptionsModel optionsModel = ((OptionsModel) observable);
+		this.setSize(optionsModel.getDimension());
 		repaint();
 	}
 }

@@ -23,7 +23,6 @@ import javax.swing.border.EmptyBorder;
 
 import Controller.OptionsController;
 import DataAccessObject.DatabaseAccessObjects;
-import Model.OptionsModel;
 import Model.Interface.IConstants;
 import Properties.Player;
 
@@ -151,8 +150,7 @@ public class OptionView extends JDialog implements ActionListener {
 		
 		
 		
-		// TODO: Mit MVC implementieren. Wie?
-		// Wer gilt als Observer? 
+		// TODO: Mit MVC implementieren. Wie?  Wer gilt als Observer? 
 		File file = new File(IConstants.CONFIG_PATH);
 		Properties properties = new Properties();
 		try {

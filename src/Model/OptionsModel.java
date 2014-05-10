@@ -8,19 +8,25 @@ import View.MainView;
 
 public class OptionsModel extends Observable {
 	private MainView mainView;
+	private Dimension dimension;
 	
-	public OptionsModel(MainView mainView) {
-		this.mainView = mainView;
+	public OptionsModel() {
 	}
 	
-	public void setResolution(Dimension dimension) {
-		mainView.setSize(dimension);
-		mainView.setLocationRelativeTo(null);
-		this.setChanges();
+	
+	public void setDimension(Dimension dimension) {
+		this.dimension = dimension;
+	}
+
+
+	public Dimension getDimension() {
+		return dimension;
 	}
 	
 	public void setChanges() {
 		setChanged();
 		notifyObservers();
 	}
+	
+	
 }
