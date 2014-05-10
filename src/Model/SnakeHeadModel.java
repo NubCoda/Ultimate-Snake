@@ -12,6 +12,8 @@ import Model.Interface.IActor;
 import Model.Interface.Direction;
 import Model.Interface.IConstants;
 import Model.Interface.IPlayerBone;
+import View.GamePanelView;
+import View.SnakeTailView;
 
 public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Point2D.Double movement;
@@ -21,13 +23,13 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Ellipse2D.Double bounding;
 	private Direction newDirection = Direction.NONE;
 	private Direction direction = Direction.RIGHT;
-
 	private IPlayerBone last;
-
-	public SnakeHeadModel(double x, double y, BufferedImage bufferedImage) {
+	private GamePanelView gamePanelView;
+	public SnakeHeadModel(GamePanelView gamePanelView, double x, double y, BufferedImage bufferedImage) {
 		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(),
 				bufferedImage.getHeight());
 		movement = new Point2D.Double(0,0);
+		this.gamePanelView = gamePanelView;
 	}
 
 	public void actuate(double delta) {
@@ -48,7 +50,6 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 			
 			movement = new Point2D.Double(bounding.x, bounding.y);
 			
-			// TODO bewegung in die derzeitige richtung um bestimmte pixel
 			switch (direction) {
 			case DOWN:
 				bounding.y += bounding.getHeight();
@@ -70,11 +71,39 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())) {
-			last.getX();
-			last.getY();
+			
 		}
 	}
 
+	public void increaseLength(){
+			
+		double x = last.getX();
+		double y = last.getY();
+		switch (last.getDirection()) {
+		case DOWN:
+			y += bounding.getHeight();
+			break;
+		case UP:
+			y -= bounding.getHeight();
+			break;
+		case RIGHT:
+			x += bounding.getWidth();
+			break;
+		case LEFT:
+			x -= bounding.getWidth();
+			break;
+		default:
+			break;
+		}
+		SnakeTailView newTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, x, y, gamePanelView);
+		SnakeTailModel newTailModel;
+			newTailModel = new SnakeTailModel(gamePanelView, x, y, (IPlayerBone)MainController.getInstance().getActor(last), newTailView.getImage());
+		newTailModel.addObserver(newTailView);
+		MainController.getInstance().addViewActor(newTailView);
+		MainController.getInstance().addActor(newTailModel);
+		last = newTailModel;
+	}
+	
 	public Rectangle2D getBounding() {
 		return this.bounding.getBounds2D();
 	}

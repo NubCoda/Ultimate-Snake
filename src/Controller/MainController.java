@@ -5,12 +5,15 @@ import Model.Logic;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
 import Model.Interface.Direction;
+import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Model.Interface.IPlayerBone;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
+import View.SpriteView;
 
 public class MainController {
 	private static MainController mainController;
@@ -33,6 +36,18 @@ public class MainController {
 			mainController = new MainController();
 		}
 		return mainController;
+	}
+	
+	public IActor getActor(IActor actor){
+		return logic.getActor(actor);
+	}
+	
+	public void addActor(IActor actor) {
+		logic.addActor(actor);
+	}
+
+	public void addViewActor(SpriteView actor) {
+		gamePanelView.addActor(actor);
 	}
 
 	private void createWindow() {
@@ -66,13 +81,14 @@ public class MainController {
 			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20, 20,
 					gamePanelView);
 			SnakeHeadView snakeHeadView = new SnakeHeadView(IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
-			snakeHeadModel = new SnakeHeadModel(120, 120, snakeHeadView.getImage());
+			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120, snakeHeadView.getImage());
 			SnakeTailView snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
 			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView, 100, 120, snakeHeadModel, snakeTailView.getImage());
 			SnakeTailView snakeTailView1 = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);
 			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView, 80, 120, snakeTailModel, snakeTailView1.getImage());
 			SnakeTailView snakeTailView2 = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 60, 120, gamePanelView);
 			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView, 60, 120, snakeTailModel1, snakeTailView2.getImage());
+			snakeHeadModel.setLast(snakeTailModel2);
 			AppleModel appleModel = new AppleModel(gamePanelView, appleView.getImage());
 			logic.addActor(appleModel);
 			logic.addActor(snakeHeadModel);

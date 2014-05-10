@@ -22,7 +22,11 @@ public class Logic extends Observable implements Runnable {
 	public void setGameRunning(boolean isGameRunning) {
 		this.isGameRunning = isGameRunning;
 	}
-
+	
+	public IActor getActor(IActor actor) {
+		return actors.get(actors.indexOf(actor));
+	}
+	
 	@Override
 	public void run() {
 		last = System.nanoTime();

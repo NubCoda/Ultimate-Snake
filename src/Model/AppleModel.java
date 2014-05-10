@@ -54,6 +54,7 @@ public class AppleModel extends Observable implements IActor, IElement{
 	public void checkCollision(IActor actor) {
 		if(bounding.intersects(actor.getBounding()) && actor instanceof SnakeHeadModel){
 			appleAlive = false;
+			((SnakeHeadModel) actor).increaseLength();
 		}
 	}
 }

@@ -13,19 +13,22 @@ import Model.Interface.IConstants;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
 public class SnakeTailModel extends Observable implements IActor, IPlayerBone{
-	private IPlayerBone vorgaenger;
+	public IPlayerBone vorgaenger;
 	private int lastMove;
 	private Point2D.Double movement;
 	private Point2D.Double oldMovement;
 	private int speed = IConstants.SNAKE_SPEED;
 	private Ellipse2D.Double bounding;
 	private int rotation;
+	private Direction direction = Direction.NONE;
+	private GamePanelView gamePanelView;
+	private BufferedImage img;
 	public SnakeTailModel(GamePanelView gamePanelView, double x, double y, IPlayerBone vorgaenger, BufferedImage bufferedImage){
 		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(), bufferedImage.getHeight());
-		
-//		oldMovement = new Point2D.Double(x,y);
+		this.gamePanelView = gamePanelView;
+		this.img = bufferedImage;
 		this.vorgaenger = vorgaenger;
-//		vorgaenger.getRotation();
+		movement = new Point2D.Double(x,y);
 	}
 
 	public int getRotation() {
@@ -49,6 +52,7 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone{
 			movement = new Point2D.Double(bounding.x, bounding.y);
 			bounding.x = vorgaenger.getMovement().x;
 			bounding.y = vorgaenger.getMovement().y;
+			this.direction = vorgaenger.getDirection();
 			setChanged();
 			notifyObservers();
 		}
@@ -68,6 +72,6 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone{
 
 	@Override
 	public Direction getDirection() {
-		return Direction.NONE;
+		return direction;
 	}
 }
