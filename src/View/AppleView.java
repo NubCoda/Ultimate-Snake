@@ -3,7 +3,7 @@ package View;
 import java.util.Observable;
 import java.util.Observer;
 
-import Model.Interface.Actor;
+import Model.Interface.IActor;
 import Model.Interface.IElement;
 
 @SuppressWarnings("serial")
@@ -15,7 +15,7 @@ public class AppleView extends SpriteView implements Observer {
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-		Actor apple = ((Actor) observable);
+		IActor apple = ((IActor) observable);
 		this.x = apple.getBounding().getX();
 		this.y = apple.getBounding().getY();
 	}

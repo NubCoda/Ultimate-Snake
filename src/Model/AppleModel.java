@@ -9,12 +9,12 @@ import java.util.Observable;
 
 import javax.imageio.ImageIO;
 
-import Model.Interface.Actor;
+import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Model.Interface.IElement;
 import View.GamePanelView;
 
-public class AppleModel extends Observable implements Actor, IElement{
+public class AppleModel extends Observable implements IActor, IElement{
 	private BufferedImage bufferedImages;
 	private GamePanelView gamePanelView;
 	private boolean appleAlive = true;
@@ -51,7 +51,7 @@ public class AppleModel extends Observable implements Actor, IElement{
 		notifyObservers();
 	}
 
-	public void checkCollision(Actor actor) {
+	public void checkCollision(IActor actor) {
 		if(bounding.intersects(actor.getBounding()) && actor instanceof SnakeHeadModel){
 			appleAlive = false;
 		}

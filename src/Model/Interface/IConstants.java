@@ -20,5 +20,5 @@ public interface IConstants {
 
 	/** Pfad f�r die Konfigurationsdatei des Spiels */
 	public static final String CONFIG_PATH = "./recources/config.ini";
-	public static final int SNAKE_SPEED = 50;
+	public static final int SNAKE_SPEED = 150;
 }

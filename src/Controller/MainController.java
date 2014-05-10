@@ -4,6 +4,7 @@ import Model.AppleModel;
 import Model.Logic;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
+import Model.Interface.Direction;
 import Model.Interface.IConstants;
 import View.AppleView;
 import View.GamePanelView;
@@ -55,8 +56,8 @@ public class MainController {
 		MainController.getInstance();
 	}
 
-	public void rotateSnake(int rotation) {
-		snakeHeadModel.rotateSnake(rotation);
+	public void switchSnakeDirection(Direction direction) {
+		snakeHeadModel.rotateSnake(direction);
 	}
 
 	public void startGame() {

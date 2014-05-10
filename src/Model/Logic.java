@@ -3,19 +3,19 @@ package Model;
 import java.util.Observable;
 import java.util.Vector;
 
-import Model.Interface.Actor;
+import Model.Interface.IActor;
 
 public class Logic extends Observable implements Runnable {
-	private Vector<Actor> actors;
+	private Vector<IActor> actors;
 	private boolean isGameRunning;
 	private long last = 0;
 	private double delta = 0;
 
 	public Logic() {
-		this.actors = new Vector<Actor>();
+		this.actors = new Vector<IActor>();
 	}
 
-	public void addActor(Actor actor){
+	public void addActor(IActor actor){
 		actors.add(actor);
 	}
 
@@ -25,21 +25,21 @@ public class Logic extends Observable implements Runnable {
 
 	@Override
 	public void run() {
-		last = System.currentTimeMillis();
+		last = System.nanoTime();
 		while (true) {
 			try {
 				if(isGameRunning){
-					long currentTime = System.currentTimeMillis();
-					delta = (System.currentTimeMillis() - last)/1000.00;
+					long currentTime = System.nanoTime();
+					delta = (currentTime - last)/1000000.00;
 //					System.out.println(((long) 1e9)/delta); => fps
 					last = currentTime;
-					for (Actor actor : actors) {
+					for (IActor actor : actors) {
 						actor.actuate(delta);
 					}
 					for (int i = 0; i < actors.size(); i++) {
 						for (int j = i+1; j < actors.size(); j++) {
-							Actor s1 = actors.elementAt(i);
-							Actor s2 = actors.elementAt(j);
+							IActor s1 = actors.elementAt(i);
+							IActor s2 = actors.elementAt(j);
 							s1.checkCollision(s2);
 						}
 					}
