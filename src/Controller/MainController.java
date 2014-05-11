@@ -29,6 +29,7 @@ public class MainController {
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
+		startGame();
 	}
 
 	public static MainController getInstance() {
@@ -55,8 +56,6 @@ public class MainController {
 		gamePanelView = new GamePanelView(mainView.getWidth(),
 				mainView.getHeight());
 		mainView.add(gamePanelView);
-//		mainView.setResizable(false);
-		mainView.pack();
 		mainView.setVisible(true);
 		gamePanelView.setFocusable(true);
 	}

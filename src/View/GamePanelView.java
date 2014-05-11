@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.Observable;
@@ -17,6 +18,7 @@ public class GamePanelView extends JPanel implements Observer {
 	public GamePanelView(int width, int height) {
 		setPreferredSize(new Dimension(width, height));
 		addKeyListener(new KeyListenerView());
+		setBackground(Color.blue);
 	}
 
 	public void addActor(SpriteView actor) {

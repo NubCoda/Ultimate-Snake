@@ -1,5 +1,8 @@
 package View;
 
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -27,43 +30,21 @@ public class MainView extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public MainView() {
+		setUndecorated(true);
+		// setIgnoreRepaint(true);
+		GraphicsEnvironment env = GraphicsEnvironment
+				.getLocalGraphicsEnvironment();
+		GraphicsDevice device = env.getDefaultScreenDevice();
+		device.setFullScreenWindow(this);
+//		if(device.isDisplayChangeSupported()){
+//			System.out.println("change displaymode");
+//			device.setDisplayMode(new DisplayMode(800, 600, 32, 0));
+//		}
 		initGUI();
 	}
 
 	private void initGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(IConstants.DEFAULT_RESOLUTION);
-		setLocationRelativeTo(null);
-
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-
-		menuGame = new JMenu("Spiel");
-		menuBar.add(menuGame);
-
-		menuItemStart = new JMenuItem("Start");
-		menuItemStart.addActionListener(this);
-		menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemStart);
-
-		menuItemPause = new JMenuItem("Pause");
-		menuItemPause.addActionListener(this);
-		menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemPause);
-
-		menuItemReset = new JMenuItem("Neustarten");
-		menuItemReset.addActionListener(this);
-		menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemReset);
-
-		menuItemOption = new JMenuItem("Optionen");
-		menuItemOption.addActionListener(this);
-		menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemOption);
+		
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
