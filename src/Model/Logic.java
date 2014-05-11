@@ -10,7 +10,7 @@ public class Logic extends Observable implements Runnable {
 	private boolean isGameRunning;
 	private long last = 0;
 	private double delta = 0;
-
+	private boolean isKilled = false;
 	public Logic() {
 		this.actors = new Vector<IActor>();
 	}
@@ -27,10 +27,14 @@ public class Logic extends Observable implements Runnable {
 		return actors.get(actors.indexOf(actor));
 	}
 	
+	public void kill() {
+		isKilled = true;
+	}
+	
 	@Override
 	public void run() {
 		last = System.nanoTime();
-		while (true) {
+		while (!isKilled) {
 			try {
 				if(isGameRunning){
 					long currentTime = System.nanoTime();

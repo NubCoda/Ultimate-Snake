@@ -1,5 +1,13 @@
 package Controller;
 
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+
 import Model.AppleModel;
 import Model.Logic;
 import Model.SnakeHeadModel;
@@ -29,7 +37,7 @@ public class MainController {
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
-		startGame();
+//		startGame();
 	}
 
 	public static MainController getInstance() {
@@ -52,12 +60,20 @@ public class MainController {
 	}
 
 	private void createWindow() {
-		mainView = new MainView();
-		gamePanelView = new GamePanelView(mainView.getWidth(),
-				mainView.getHeight());
-		mainView.add(gamePanelView);
-		mainView.setVisible(true);
-		gamePanelView.setFocusable(true);
+		gamePanelView = new GamePanelView();
+		mainView = new MainView(gamePanelView);
+		gamePanelView.registerKeyboardAction(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				logic.kill();
+				for(Frame frame : Frame.getFrames()){
+					frame.dispose();
+				}
+				
+//				System.exit(0);
+			}
+		},  KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -29,22 +31,33 @@ public class MainView extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public MainView() {
+	public MainView(GamePanelView gamePanelView) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		getContentPane().setLayout(new BorderLayout());
+		add(gamePanelView); //, BorderLayout.CENTER
 		setUndecorated(true);
+		setResizable(false);
 		// setIgnoreRepaint(true);
 		GraphicsEnvironment env = GraphicsEnvironment
 				.getLocalGraphicsEnvironment();
 		GraphicsDevice device = env.getDefaultScreenDevice();
 		device.setFullScreenWindow(this);
-//		if(device.isDisplayChangeSupported()){
-//			System.out.println("change displaymode");
-//			device.setDisplayMode(new DisplayMode(800, 600, 32, 0));
-//		}
+			device.setDisplayMode(new DisplayMode(1600, 900, DisplayMode.BIT_DEPTH_MULTI,
+					DisplayMode.REFRESH_RATE_UNKNOWN));
+			setSize(new Dimension(1600, 900));
+			validate();
+
+		// System.out.println(device.isFullScreenSupported());
+		// toFront();
+		// if(device.isDisplayChangeSupported()){
+		// System.out.println("change displaymode");
+		// device.setDisplayMode(new DisplayMode(800, 600, 32, 0));
+		// }
 		initGUI();
 	}
 
 	private void initGUI() {
-		
+
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
