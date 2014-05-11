@@ -37,7 +37,7 @@ public class MainController {
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
-//		startGame();
+		startGame();
 	}
 
 	public static MainController getInstance() {

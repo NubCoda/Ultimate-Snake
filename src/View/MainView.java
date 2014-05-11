@@ -42,10 +42,10 @@ public class MainView extends JFrame implements ActionListener {
 				.getLocalGraphicsEnvironment();
 		GraphicsDevice device = env.getDefaultScreenDevice();
 		device.setFullScreenWindow(this);
-			device.setDisplayMode(new DisplayMode(1600, 900, DisplayMode.BIT_DEPTH_MULTI,
+			device.setDisplayMode(new DisplayMode(800, 600, DisplayMode.BIT_DEPTH_MULTI,
 					DisplayMode.REFRESH_RATE_UNKNOWN));
-			setSize(new Dimension(1600, 900));
-			validate();
+//			setSize(new Dimension(640, 480));
+//			validate();
 
 		// System.out.println(device.isFullScreenSupported());
 		// toFront();

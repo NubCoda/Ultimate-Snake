@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -42,6 +43,15 @@ public class GamePanelView extends JPanel implements Observer {
 	@Override
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
+		((Graphics2D)graphics).setRenderingHint(
+		        RenderingHints.KEY_ANTIALIASING,
+		        RenderingHints.VALUE_ANTIALIAS_ON);
+		((Graphics2D)graphics).setRenderingHint(
+		        RenderingHints.KEY_TEXT_ANTIALIASING,
+		        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		((Graphics2D)graphics).setRenderingHint(
+		        RenderingHints.KEY_FRACTIONALMETRICS,
+		        RenderingHints.VALUE_FRACTIONALMETRICS_ON);
 		try {
 			graphics.drawImage(ImageIO.read(new File("./resources/pic/background.png")), 0, 0, getWidth(), getHeight(), Color.BLACK, this);
 		} catch (IOException e1) {
@@ -59,7 +69,7 @@ public class GamePanelView extends JPanel implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		graphics.drawString("SNAKE", (getWidth()/2), 100);
+		graphics.drawString("SNAKE", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("SNAKE", graphics).getWidth()/2)), 50);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
 				draw.drawObjects(graphics);
