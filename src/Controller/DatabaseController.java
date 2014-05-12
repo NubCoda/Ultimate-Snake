@@ -19,8 +19,8 @@ public class DatabaseController {
 		return databaseController;
 	}
 	
-	public void createPlayer(Player player) {
-		databaseAccessObject.createPlayer(player);
+	public void createPlayer(String playerName) {
+		databaseAccessObject.createPlayer(playerName);
 	}
 	
 }

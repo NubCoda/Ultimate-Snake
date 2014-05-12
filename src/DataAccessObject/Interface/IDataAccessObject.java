@@ -6,6 +6,6 @@ import Properties.Player;
 
 public interface IDataAccessObject {
 	public void createConnection();
-	public void createPlayer(Player player);
+	public void createPlayer(String playerName);
 	public Vector<Player> getPlayers();
 }

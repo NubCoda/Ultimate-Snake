@@ -121,10 +121,9 @@ public class MainView extends JFrame implements ActionListener, Observer {
 	}
 
 	protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
-		player = new Player(
-				JOptionPane.showInputDialog("Spielernamen angeben!"));
+		String playerName = JOptionPane.showInputDialog("Spielernamen angeben!");
 		if (player.getPlayerName() != null) {
-			DatabaseController.getInstance().createPlayer(player);
+			DatabaseController.getInstance().createPlayer(playerName);
 		}
 	}
 

@@ -38,11 +38,12 @@ public class DatabaseAccessObject implements IDataAccessObject {
 	}
 
 	@Override
-	public void createPlayer(Player player) {
+	public void createPlayer(String playerName) {
+		createConnection();
 		sql = "INSERT INTO " + table + " (player_name) values (?)";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, player.getPlayerName());
+			preparedStatement.setString(1, playerName);
 			preparedStatement.executeUpdate();
 			connection.close();
 		} catch (SQLException e) {
