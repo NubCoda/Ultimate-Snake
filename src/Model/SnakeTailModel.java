@@ -7,26 +7,18 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 
-import Model.Interface.IActor;
 import Model.Interface.Direction;
-import Model.Interface.IConstants;
+import Model.Interface.IActor;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
 public class SnakeTailModel extends Observable implements IActor, IPlayerBone{
 	public IPlayerBone vorgaenger;
-	private int lastMove;
 	private Point2D.Double movement;
-	private Point2D.Double oldMovement;
-	private int speed = IConstants.SNAKE_SPEED;
 	private Ellipse2D.Double bounding;
 	private int rotation;
 	private Direction direction = Direction.NONE;
-	private GamePanelView gamePanelView;
-	private BufferedImage img;
 	public SnakeTailModel(GamePanelView gamePanelView, double x, double y, IPlayerBone vorgaenger, BufferedImage bufferedImage){
 		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(), bufferedImage.getHeight());
-		this.gamePanelView = gamePanelView;
-		this.img = bufferedImage;
 		this.vorgaenger = vorgaenger;
 		movement = new Point2D.Double(x,y);
 	}

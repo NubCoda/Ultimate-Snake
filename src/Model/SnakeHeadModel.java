@@ -3,13 +3,12 @@ package Model;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Point2D.Double;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import Controller.MainController;
-import Model.Interface.IActor;
 import Model.Interface.Direction;
+import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;

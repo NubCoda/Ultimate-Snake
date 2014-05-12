@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.Graphics;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,9 +9,7 @@ import javax.imageio.ImageIO;
 
 import View.Interface.IDrawable;
 
-@SuppressWarnings("serial")
 public abstract class SpriteView implements IDrawable {
-	private GamePanelView gamePanelView;
 	protected BufferedImage bufferedImage;
 	protected double x;
 	protected double y;
@@ -22,7 +19,6 @@ public abstract class SpriteView implements IDrawable {
 		bufferedImage = loadImage(path);
 		this.x = x;
 		this.y = y;
-		this.gamePanelView = gamePanelView;
 	}
 
 	protected BufferedImage loadImage(String path) {

@@ -3,7 +3,6 @@ package View;
 import java.util.Observable;
 import java.util.Observer;
 
-@SuppressWarnings("serial")
 public class BarrierView extends SpriteView implements Observer {
 
 	public BarrierView(String path, double x, double y,

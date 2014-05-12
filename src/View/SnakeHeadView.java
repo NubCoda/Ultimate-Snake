@@ -9,7 +9,6 @@ import java.util.Observer;
 import Model.Interface.Direction;
 import Model.Interface.IPlayerBone;
 
-@SuppressWarnings("serial")
 public class SnakeHeadView extends SpriteView implements Observer{
 	private int rotation;
 	private Direction direction;
@@ -34,6 +33,12 @@ public class SnakeHeadView extends SpriteView implements Observer{
 			break;
 		case LEFT:
 			rotation = 180;
+			break;
+		case NONE:
+			break;
+		case RIGHT:
+			break;
+		default:
 			break;
 		}
 		at.rotate(Math.toRadians(rotation), (int) x + (10),
