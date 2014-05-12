@@ -5,11 +5,11 @@ import java.util.Observable;
 import java.util.Properties;
 import java.util.Vector;
 
-public class FileWriterModel extends Observable {
+public class FileModel extends Observable {
 	private Vector<Properties> properVector;
 	private File file;
 	
-	public FileWriterModel() {
+	public FileModel() {
 		properVector = new Vector<Properties>();
 	}
 	

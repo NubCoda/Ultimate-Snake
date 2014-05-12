@@ -7,17 +7,17 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Properties;
 
-import Model.FileWriterModel;
+import Model.FileModel;
 
-public class FileWriterView implements Observer {
+public class FileView implements Observer {
 
-	public FileWriterView(){
+	public FileView(){
 		
 	}
 	
 	@Override
 	public void update(Observable observable, Object object) {
-		FileWriterModel fileWriterModel = ((FileWriterModel) observable);
+		FileModel fileWriterModel = ((FileModel) observable);
 		for(Properties properties : fileWriterModel.getProperVector()) {
 			try {
 				properties.store(new FileOutputStream(fileWriterModel.getFile()), null);

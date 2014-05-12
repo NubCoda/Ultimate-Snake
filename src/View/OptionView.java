@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controller.FileWriterController;
+import Controller.FileController;
 import Controller.OptionsController;
 import DataAccessObject.DatabaseAccessObject;
 import Model.Interface.IConstants;
@@ -149,7 +149,7 @@ public class OptionView extends JDialog implements ActionListener {
 		properties.setProperty("height", String.valueOf(newHeight));
 		properties.setProperty("width", String.valueOf(newWidth));
 		File file = new File(IConstants.CONFIG_PATH);
-		FileWriterController.getInstance().writeToIniFile(new FileWriterView(), file, properties); 
+		FileController.getInstance().writeToIniFile(new FileView(), file, properties); 
 		this.dispose();
 	}
 }
