@@ -108,7 +108,6 @@ public class OptionView extends JDialog implements ActionListener {
 		DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
 		Vector<Player> playerVector = databaseAccessObjects.getPlayers();
 		for (Player tmp : playerVector) {
-			// System.out.println(tmp.getPlayerName());
 			comboBoxPlayer.addItem(tmp.getPlayerName());
 		}
 

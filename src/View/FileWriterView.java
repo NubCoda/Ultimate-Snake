@@ -17,10 +17,10 @@ public class FileWriterView implements Observer {
 	
 	@Override
 	public void update(Observable observable, Object object) {
-		FileWriterModel fileModel = ((FileWriterModel) observable);
-		for(Properties properties : fileModel.getProperVector()) {
+		FileWriterModel fileWriterModel = ((FileWriterModel) observable);
+		for(Properties properties : fileWriterModel.getProperVector()) {
 			try {
-				properties.store(new FileOutputStream(fileModel.getFile()), null);
+				properties.store(new FileOutputStream(fileWriterModel.getFile()), null);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
