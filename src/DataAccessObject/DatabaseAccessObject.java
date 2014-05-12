@@ -61,7 +61,7 @@ public class DatabaseAccessObject implements IDataAccessObject {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet != null) {
 				player = new Player(resultSet.getInt("player_id"),
-						resultSet.getString("player_name"));
+						resultSet.getString("player_name"), 0);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,7 +81,7 @@ public class DatabaseAccessObject implements IDataAccessObject {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				player = new Player(resultSet.getInt("player_id"),
-						resultSet.getString("player_name"));
+						resultSet.getString("player_name"), 0);
 				playerVector.add(player);
 				player = null;
 			}

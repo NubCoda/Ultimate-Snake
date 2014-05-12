@@ -13,7 +13,7 @@ public class Player {
 		this.playerName = playerName;
 	}
 	
-	public Player(int playerId, String playerName) {
+	public Player(int playerId, String playerName, int highscore) {
 		this.playerId = playerId;
 		this.playerName = playerName;
 		this.highscore = highscore;
