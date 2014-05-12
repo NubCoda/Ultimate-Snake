@@ -20,7 +20,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileView;
 
+import Controller.FileWriterController;
 import Controller.OptionsController;
 import DataAccessObject.DatabaseAccessObjects;
 import Model.Interface.IConstants;
@@ -147,25 +149,12 @@ public class OptionView extends JDialog implements ActionListener {
 		player = databaseAccessObjects
 				.getSinglePlayer((String) comboBoxPlayer.getSelectedItem());
 		OptionsController.getInstance().setResolution(mainView, new Dimension(newWidth, newHeight));
-		
-		
-		
-		// TODO: Mit MVC implementieren. Wie?  Wer gilt als Observer? 
-		File file = new File(IConstants.CONFIG_PATH);
 		Properties properties = new Properties();
-		try {
-			properties.load(new FileInputStream(file));
-			properties.setProperty("height", String.valueOf(newHeight));
-			properties.setProperty("width", String.valueOf(newWidth));
-			properties.setProperty("player", player.getPlayerName());
-			properties.store(new FileOutputStream(file), null);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		properties.setProperty("player", player.getPlayerName());
+		properties.setProperty("height", String.valueOf(newHeight));
+		properties.setProperty("width", String.valueOf(newWidth));
+		File file = new File(IConstants.CONFIG_PATH);
+		FileWriterController.getInstance().writeToIniFile(new FileWriterView(), file, properties); 
 		this.dispose();
 	}
 }
