@@ -37,14 +37,17 @@ public class OptionView extends JDialog implements ActionListener {
 	private Player player;
 	private JLabel labelPlayer;
 	private JComboBox<String> comboBoxPlayer;
+	Vector<Player> playerVector;
 
-	public OptionView(MainView mainView, Player player) {
+	public OptionView(MainView mainView, Vector<Player> playerVector) {
 		initGUI();
+		this.setLocationRelativeTo(null);
 		this.mainView = mainView;
 		this.newWidth = mainView.getWidth();
 		this.newHeight = mainView.getHeight();
-		this.player = player;
+		this.playerVector = playerVector;
 		fillComboBox();
+		comboBoxPlayer.actionPerformed(null);
 	}
 
 	/**
@@ -56,7 +59,7 @@ public class OptionView extends JDialog implements ActionListener {
 
 	private void initGUI() {
 		setModal(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 221, 137);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -105,8 +108,6 @@ public class OptionView extends JDialog implements ActionListener {
 	}
 	
 	private void fillComboBox() {
-		DatabaseAccessObject databaseAccessObjects = new DatabaseAccessObject();
-		Vector<Player> playerVector = databaseAccessObjects.getPlayers();
 		for (Player tmp : playerVector) {
 			comboBoxPlayer.addItem(tmp.getPlayerName());
 		}

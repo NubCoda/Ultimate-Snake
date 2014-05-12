@@ -115,7 +115,8 @@ public class MainView extends JFrame implements ActionListener, Observer {
 	}
 
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
-		OptionView optionView = new OptionView(this, player);
+		
+		OptionView optionView = new OptionView(this, DatabaseController.getInstance().getPlayers());
 		optionView.setVisible(true);
 	}
 

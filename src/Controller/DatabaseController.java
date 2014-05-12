@@ -1,6 +1,9 @@
 package Controller;
 
+import java.util.Vector;
+
 import DataAccessObject.DatabaseAccessObject;
+import Properties.Player;
 
 public class DatabaseController {
 	private static DatabaseController databaseController;
@@ -19,6 +22,11 @@ public class DatabaseController {
 	
 	public void createPlayer(String playerName) {
 		databaseAccessObject.createPlayer(playerName);
+	}
+	
+	public Vector<Player> getPlayers() {
+		Vector<Player> playerVector = databaseAccessObject.getPlayers();
+		return playerVector;
 	}
 	
 }
