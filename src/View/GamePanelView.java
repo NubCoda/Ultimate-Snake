@@ -70,6 +70,11 @@ public class GamePanelView extends JPanel implements Observer {
 			e.printStackTrace();
 		}
 		graphics.drawString("SNAKE", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("SNAKE", graphics).getWidth()/2)), 50);
+		graphics.drawString("Spiel starten", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Spiel starten", graphics).getWidth()/2)), getHeight()/3);
+		graphics.drawString("Optionen", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Optionen", graphics).getWidth()/2)), getHeight()/2);
+		graphics.drawString("Beenden", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Beenden", graphics).getWidth()/2)), (getHeight()/3)*2);
+		graphics.drawString("Highscore", 10, getHeight()-10);
+		graphics.drawString("Spieler", (int) (getWidth()-graphics.getFontMetrics().getStringBounds("Spieler", graphics).getWidth())-10, getHeight()-10);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
 				draw.drawObjects(graphics);
