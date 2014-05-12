@@ -7,6 +7,7 @@ import Model.SnakeTailModel;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Properties.Player;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
@@ -20,10 +21,12 @@ public class MainController {
 	private GamePanelView gamePanelView;
 	private SnakeHeadModel snakeHeadModel;
 	private Logic logic;
-	private boolean hasGameStarted = false;
+	private Player player;
+	private boolean hasGameStarted;
 	
 	private MainController() {
 		createWindow();
+		hasGameStarted = false;
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
