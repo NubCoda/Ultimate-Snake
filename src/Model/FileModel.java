@@ -13,6 +13,10 @@ public class FileModel extends Observable {
 		properVector = new Vector<Properties>();
 	}
 	
+	public void cleareVector() {
+		properVector.clear();
+	}
+	
 	public void setChanges() {
 		setChanged();
 		notifyObservers();

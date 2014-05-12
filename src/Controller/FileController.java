@@ -8,10 +8,10 @@ import View.FileView;
 
 public class FileController {
 	private static FileController fileController;
-	private FileModel fileWriterModel;
+	private FileModel fileModel;
 	
 	private FileController() {
-		fileWriterModel = new FileModel();
+		fileModel = new FileModel();
 	}
 	
 	public static FileController getInstance() {
@@ -22,11 +22,11 @@ public class FileController {
 		return fileController;
 	}
 	
-	public void writeToIniFile(FileView fileWriterView, File file, Properties properties) {
-		fileWriterModel.addProperty(properties);
-		fileWriterModel.setFile(file);
-		fileWriterModel.addObserver(fileWriterView);
-		fileWriterModel.setChanges();
+	public void writeToIniFile(FileView fileView, File file, Properties properties) {
+		fileModel.addProperty(properties);
+		fileModel.setFile(file);
+		fileModel.addObserver(fileView);
+		fileModel.setChanges();
 	}
 	
 }

@@ -17,10 +17,10 @@ public class FileView implements Observer {
 	
 	@Override
 	public void update(Observable observable, Object object) {
-		FileModel fileWriterModel = ((FileModel) observable);
-		for(Properties properties : fileWriterModel.getProperVector()) {
+		FileModel fileModel = ((FileModel) observable);
+		for(Properties properties : fileModel.getProperVector()) {
 			try {
-				properties.store(new FileOutputStream(fileWriterModel.getFile()), null);
+				properties.store(new FileOutputStream(fileModel.getFile()), null);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -29,6 +29,7 @@ public class FileView implements Observer {
 				e.printStackTrace();
 			}
 		}
+		fileModel.cleareVector();
 	}
 
 }
