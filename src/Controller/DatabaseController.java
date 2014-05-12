@@ -1,12 +1,10 @@
 package Controller;
 
 import DataAccessObject.DatabaseAccessObject;
-import Properties.Player;
 
 public class DatabaseController {
 	private static DatabaseController databaseController;
 	private DatabaseAccessObject databaseAccessObject;
-	private Player player;
 	
 	private DatabaseController() {
 		databaseAccessObject = new DatabaseAccessObject();

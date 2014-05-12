@@ -17,6 +17,7 @@ public class FileModel extends Observable {
 		properVector.clear();
 	}
 	
+	
 	public void setChanges() {
 		setChanged();
 		notifyObservers();
