@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Controller.MainController;
-import DataAccessObject.DatabaseAccessObjects;
+import DataAccessObject.DatabaseAccessObject;
 import Model.OptionsModel;
 import Model.Interface.IConstants;
 import Properties.Player;
@@ -123,7 +123,7 @@ public class MainView extends JFrame implements ActionListener, Observer {
 		player = new Player(
 				JOptionPane.showInputDialog("Spielernamen angeben!"));
 		if (player.getPlayerName() != null) {
-			DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
+			DatabaseAccessObject databaseAccessObjects = new DatabaseAccessObject();
 			databaseAccessObjects.createConnection();
 			databaseAccessObjects.createPlayer(player);
 		}

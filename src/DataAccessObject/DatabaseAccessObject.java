@@ -11,7 +11,7 @@ import DataAccessObject.Interface.IDataAccessObject;
 import Model.Interface.IConstants;
 import Properties.Player;
 
-public class DatabaseAccessObjects implements IDataAccessObject {
+public class DatabaseAccessObject implements IDataAccessObject {
 
 	private Connection connection;
 	private PreparedStatement preparedStatement;

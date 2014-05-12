@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import Controller.FileWriterController;
 import Controller.OptionsController;
-import DataAccessObject.DatabaseAccessObjects;
+import DataAccessObject.DatabaseAccessObject;
 import Model.Interface.IConstants;
 import Properties.Player;
 
@@ -105,7 +105,7 @@ public class OptionView extends JDialog implements ActionListener {
 	}
 	
 	private void fillComboBox() {
-		DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
+		DatabaseAccessObject databaseAccessObjects = new DatabaseAccessObject();
 		Vector<Player> playerVector = databaseAccessObjects.getPlayers();
 		for (Player tmp : playerVector) {
 			comboBoxPlayer.addItem(tmp.getPlayerName());
@@ -139,12 +139,13 @@ public class OptionView extends JDialog implements ActionListener {
 	}
 
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		DatabaseAccessObjects databaseAccessObjects = new DatabaseAccessObjects();
+		DatabaseAccessObject databaseAccessObjects = new DatabaseAccessObject();
 		player = databaseAccessObjects
 				.getSinglePlayer((String) comboBoxPlayer.getSelectedItem());
 		OptionsController.getInstance().setResolution(mainView, new Dimension(newWidth, newHeight));
 		Properties properties = new Properties();
 		properties.setProperty("player", player.getPlayerName());
+		properties.setProperty("player_id", String.valueOf(player.getPlayerId()));
 		properties.setProperty("height", String.valueOf(newHeight));
 		properties.setProperty("width", String.valueOf(newWidth));
 		File file = new File(IConstants.CONFIG_PATH);
