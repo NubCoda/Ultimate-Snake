@@ -49,6 +49,8 @@ public class MainController {
 		MenuModel optionenMenuModel = new MenuModel(gamePanelView, optionen.getX(), optionen.getY(), optionen.getHeight(), optionen.getWidth(), "Optionen");
 		MenuView beenden = new MenuView(50, 70, gamePanelView, "Beenden", 48.0f);
 		MenuModel beendenMenuModel = new MenuModel(gamePanelView, beenden.getX(), beenden.getY(), beenden.getHeight(), beenden.getWidth(), "Beenden");
+		MenuView spieler = new MenuView(95, 98, gamePanelView, "Spieler : ", 48.0f);
+		MenuView highScore = new MenuView(7, 98, gamePanelView, "Highscore : ", 48.0f);
 		logic.addActor(spMenuModel);
 		logic.addActor(optionenMenuModel);
 		logic.addActor(beendenMenuModel);
@@ -59,6 +61,8 @@ public class MainController {
 		gamePanelView.addActor(spielStarten);
 		gamePanelView.addActor(optionen);
 		gamePanelView.addActor(beenden);
+		gamePanelView.addActor(spieler);
+		gamePanelView.addActor(highScore);
 //		startGame();
 	}
 
