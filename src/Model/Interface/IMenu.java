@@ -1,7 +1,8 @@
 package Model.Interface;
 
 public interface IMenu {
-	public boolean isFocused();
+	boolean isFocused();
 	void focus();
 	void defocus();
+	String getText();
 }

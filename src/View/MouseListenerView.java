@@ -10,7 +10,7 @@ public class MouseListenerView implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		
+		MainController.getInstance().mouseClick(arg0.getPoint());
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class MouseListenerView implements MouseMotionListener, MouseListener {
 	
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		
+		MainController.getInstance().mouseMove(arg0.getPoint());
 	}
 
 	@Override

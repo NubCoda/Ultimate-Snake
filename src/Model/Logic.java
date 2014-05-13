@@ -21,6 +21,10 @@ public class Logic extends Observable implements Runnable {
 		actors.add(actor);
 	}
 
+	public void clearActors(){
+		actors.clear();
+	}
+	
 	public void setGameRunning(boolean isGameRunning) {
 		this.isGameRunning = isGameRunning;
 	}

@@ -14,10 +14,12 @@ public class MenuModel extends Observable implements IActor, IMenu{
 	private Rectangle2D.Double bounding;
 	private boolean focus = false;
 	private GamePanelView gamePanelView;
+	private String text;
 	
-	public MenuModel(GamePanelView gamePanelView, double x, double y, double height, double width){
+	public MenuModel(GamePanelView gamePanelView, double x, double y, double height, double width, String text){
 		this.gamePanelView = gamePanelView;
 		bounding = new Rectangle2D.Double(x, y, width, height);
+		this.text = text;
 	}
 	
 	@Override
@@ -55,5 +57,10 @@ public class MenuModel extends Observable implements IActor, IMenu{
 		this.focus = false;
 		setChanged();
 		notifyObservers();
+	}
+
+	@Override
+	public String getText() {
+		return text;
 	}
 }

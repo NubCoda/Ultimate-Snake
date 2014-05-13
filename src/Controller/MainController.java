@@ -44,11 +44,11 @@ public class MainController {
 		t.start();
 		MenuView title = new MenuView(50, 10, gamePanelView, "SNAKE", 48.0f);
 		MenuView spielStarten = new MenuView(50, 30, gamePanelView, "Spiel starten", 48.0f);
-		MenuModel spMenuModel = new MenuModel(gamePanelView, spielStarten.getX(), spielStarten.getY(), spielStarten.getHeight(), spielStarten.getWidth());
+		MenuModel spMenuModel = new MenuModel(gamePanelView, spielStarten.getX(), spielStarten.getY(), spielStarten.getHeight(), spielStarten.getWidth(), "Spiel starten");
 		MenuView optionen = new MenuView(50, 50, gamePanelView, "Optionen", 48.0f);
-		MenuModel optionenMenuModel = new MenuModel(gamePanelView, optionen.getX(), optionen.getY(), optionen.getHeight(), optionen.getWidth());
+		MenuModel optionenMenuModel = new MenuModel(gamePanelView, optionen.getX(), optionen.getY(), optionen.getHeight(), optionen.getWidth(), "Optionen");
 		MenuView beenden = new MenuView(50, 70, gamePanelView, "Beenden", 48.0f);
-		MenuModel beendenMenuModel = new MenuModel(gamePanelView, beenden.getX(), beenden.getY(), beenden.getHeight(), beenden.getWidth());
+		MenuModel beendenMenuModel = new MenuModel(gamePanelView, beenden.getX(), beenden.getY(), beenden.getHeight(), beenden.getWidth(), "Beenden");
 		logic.addActor(spMenuModel);
 		logic.addActor(optionenMenuModel);
 		logic.addActor(beendenMenuModel);
@@ -125,6 +125,26 @@ public class MainController {
 		oldMenu = ((MenuModel)actor);
 	}
 
+	
+	public void mouseClick(Point point){
+		IActor actor = logic.checkMouse(point);
+		if(actor!=null){
+			String menuText = ((MenuModel)actor).getText();
+			if(menuText.equals("Spiel starten")){
+				gamePanelView.clearActors();
+				logic.clearActors();
+				startGame();
+			} else if (menuText.equals("Optionen")){
+				
+			} else if (menuText.equals("Beenden")){
+				logic.kill();
+				for(Frame frame : Frame.getFrames()){
+					frame.dispose();
+				}
+			}
+		}
+	}
+	
 	public void startGame() {
 		// TODO: das Level nur beim Start bzw. beim Levelwechsel erstellen
 		if (!hasGameStarted) {

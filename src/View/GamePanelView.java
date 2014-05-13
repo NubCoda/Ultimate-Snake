@@ -46,6 +46,10 @@ public class GamePanelView extends JPanel implements Observer {
 		this.actors.add(actor);
 	}
 
+	public void clearActors(){
+		actors.removeAllElements();
+	}
+	
 	@Override
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
