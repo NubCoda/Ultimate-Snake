@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
@@ -73,5 +74,11 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone{
 	@Override
 	public Direction getDirection() {
 		return direction;
+	}
+
+	@Override
+	public boolean checkPosition(Point point) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

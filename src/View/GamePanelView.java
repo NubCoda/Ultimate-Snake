@@ -12,6 +12,9 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +37,9 @@ public class GamePanelView extends JPanel implements Observer {
 	public GamePanelView() {
 		setFocusable(true);
 		addKeyListener(new KeyListenerView());
+		MouseListenerView mouseListener = new MouseListenerView();
+		addMouseMotionListener(mouseListener);
+		addMouseListener(mouseListener);
 	}
 
 	public void addActor(SpriteView actor) {
@@ -58,7 +64,7 @@ public class GamePanelView extends JPanel implements Observer {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		graphics.setColor(Color.RED);
+//		graphics.setColor(Color.RED);
 		try {
 			Font f = Font.createFont(Font.TRUETYPE_FONT, new File(
 					"./resources/font/FEASFBI_.TTF"));
@@ -69,12 +75,12 @@ public class GamePanelView extends JPanel implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		graphics.drawString("SNAKE", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("SNAKE", graphics).getWidth()/2)), 50);
-		graphics.drawString("Spiel starten", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Spiel starten", graphics).getWidth()/2)), getHeight()/3);
-		graphics.drawString("Optionen", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Optionen", graphics).getWidth()/2)), getHeight()/2);
-		graphics.drawString("Beenden", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Beenden", graphics).getWidth()/2)), (getHeight()/3)*2);
-		graphics.drawString("Highscore", 10, getHeight()-10);
-		graphics.drawString("Spieler", (int) (getWidth()-graphics.getFontMetrics().getStringBounds("Spieler", graphics).getWidth())-10, getHeight()-10);
+//		graphics.drawString("SNAKE", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("SNAKE", graphics).getWidth()/2)), 50);
+//		graphics.drawString("Spiel starten", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Spiel starten", graphics).getWidth()/2)), getHeight()/3);
+//		graphics.drawString("Optionen", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Optionen", graphics).getWidth()/2)), getHeight()/2);
+//		graphics.drawString("Beenden", (int) ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Beenden", graphics).getWidth()/2)), (getHeight()/3)*2);
+//		graphics.drawString("Highscore", 10, getHeight()-10);
+//		graphics.drawString("Spieler", (int) (getWidth()-graphics.getFontMetrics().getStringBounds("Spieler", graphics).getWidth())-10, getHeight()-10);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
 				draw.drawObjects(graphics);

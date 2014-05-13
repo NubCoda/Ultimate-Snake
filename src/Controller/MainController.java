@@ -1,24 +1,29 @@
 package Controller;
 
 import java.awt.Frame;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
 import Model.AppleModel;
 import Model.Logic;
+import Model.MenuModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Model.Interface.IMenu;
 import Model.Interface.IPlayerBone;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
+import View.MenuView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
 import View.SpriteView;
@@ -30,13 +35,20 @@ public class MainController {
 	private SnakeHeadModel snakeHeadModel;
 	private Logic logic;
 	private boolean hasGameStarted = false;
-	
+	private IMenu oldMenu = null;
 	private MainController() {
 		createWindow();
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
+		MenuView title = new MenuView(50, 10, gamePanelView, "SNAKE", 48.0f);
+		MenuView spielStarten = new MenuView(50, 30, gamePanelView, "Spiel starten", 48.0f);//spielStarten.getX() spielStarten.getY()
+		MenuModel spMenuModel = new MenuModel(gamePanelView, spielStarten.getX(), spielStarten.getY(), spielStarten.getHeight(), spielStarten.getWidth());
+		logic.addActor(spMenuModel);
+		spMenuModel.addObserver(spielStarten);
+		gamePanelView.addActor(title);
+		gamePanelView.addActor(spielStarten);
 //		startGame();
 	}
 
@@ -62,6 +74,8 @@ public class MainController {
 	private void createWindow() {
 		gamePanelView = new GamePanelView();
 		mainView = new MainView(gamePanelView);
+		
+		// TODO passend auslagern
 		gamePanelView.registerKeyboardAction(new ActionListener() {
 			
 			@Override
@@ -70,8 +84,6 @@ public class MainController {
 				for(Frame frame : Frame.getFrames()){
 					frame.dispose();
 				}
-				
-//				System.exit(0);
 			}
 		},  KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
 	}
@@ -88,6 +100,19 @@ public class MainController {
 
 	public void switchSnakeDirection(Direction direction) {
 		snakeHeadModel.rotateSnake(direction);
+	}
+	
+	public void mouseMove(Point point){
+		IActor actor = logic.checkMouse(point);
+		if(actor!=null){
+			((MenuModel)actor).focus();
+			if(oldMenu!=null && !oldMenu.equals(actor)){
+				oldMenu.defocus();
+			}
+		} else if(oldMenu!=null){
+			oldMenu.defocus();
+		}
+		oldMenu = ((MenuModel)actor);
 	}
 
 	public void startGame() {

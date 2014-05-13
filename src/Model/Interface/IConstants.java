@@ -10,7 +10,7 @@ public interface IConstants {
 	public static final int DEFAULT_KEY_UP = KeyEvent.VK_UP;
 	public static final int DEFAULT_KEY_DOWN = KeyEvent.VK_DOWN;
 
-	public static final Dimension DEFAULT_RESOLUTION = new Dimension(800, 600);
+	public static final Dimension DEFAULT_RESOLUTION = new Dimension(1600, 900);
 	public static final Dimension[] RESOLUTIONS = new Dimension[] {
 		new Dimension(800, 600),
 		new Dimension(1024,768),

@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.BufferedImage;
@@ -56,5 +58,11 @@ public class AppleModel extends Observable implements IActor, IElement{
 			appleAlive = false;
 			((SnakeHeadModel) actor).increaseLength();
 		}
+	}
+
+	@Override
+	public boolean checkPosition(Point point) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

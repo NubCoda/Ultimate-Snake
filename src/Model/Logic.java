@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -31,11 +33,21 @@ public class Logic extends Observable implements Runnable {
 		isKilled = true;
 	}
 	
+	public IActor checkMouse(Point point){
+		for (IActor actor: actors) {
+			if(actor.checkPosition(point)){
+				return actor;
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public void run() {
 		last = System.nanoTime();
 		while (!isKilled) {
 			try {
+				// TODO Meunu hier unterbringen und neuzeichenen auffordern
 				if(isGameRunning){
 					long currentTime = System.nanoTime();
 					delta = (currentTime - last)/1000000.00;
@@ -51,9 +63,9 @@ public class Logic extends Observable implements Runnable {
 							s1.checkCollision(s2);
 						}
 					}
-					setChanged();
-					notifyObservers();
 				}
+				setChanged();
+				notifyObservers();
 				Thread.sleep(15);
 
 			} catch (InterruptedException e) {

@@ -12,7 +12,7 @@ import View.Interface.IDrawable;
 
 @SuppressWarnings("serial")
 public abstract class SpriteView implements IDrawable {
-	private GamePanelView gamePanelView;
+	protected GamePanelView gamePanelView;
 	protected BufferedImage bufferedImage;
 	protected double x;
 	protected double y;
@@ -27,10 +27,12 @@ public abstract class SpriteView implements IDrawable {
 
 	protected BufferedImage loadImage(String path) {
 		BufferedImage bufferedImage = null;
-		try {
-			bufferedImage = ImageIO.read(new File(path));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(path!=null && !path.isEmpty()){
+			try {
+				bufferedImage = ImageIO.read(new File(path));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return bufferedImage;
 	}
@@ -42,7 +44,9 @@ public abstract class SpriteView implements IDrawable {
 	 */
 	@Override
 	public void drawObjects(Graphics graphics) {
-		graphics.drawImage(bufferedImage, (int) x, (int) y, null);
+		if(bufferedImage != null){
+			graphics.drawImage(bufferedImage, (int) x, (int) y, null);
+		}
 	}
 	
 	public BufferedImage getImage(){
