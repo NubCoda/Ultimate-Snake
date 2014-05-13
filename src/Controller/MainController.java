@@ -43,12 +43,22 @@ public class MainController {
 		Thread t = new Thread(logic);
 		t.start();
 		MenuView title = new MenuView(50, 10, gamePanelView, "SNAKE", 48.0f);
-		MenuView spielStarten = new MenuView(50, 30, gamePanelView, "Spiel starten", 48.0f);//spielStarten.getX() spielStarten.getY()
+		MenuView spielStarten = new MenuView(50, 30, gamePanelView, "Spiel starten", 48.0f);
 		MenuModel spMenuModel = new MenuModel(gamePanelView, spielStarten.getX(), spielStarten.getY(), spielStarten.getHeight(), spielStarten.getWidth());
+		MenuView optionen = new MenuView(50, 50, gamePanelView, "Optionen", 48.0f);
+		MenuModel optionenMenuModel = new MenuModel(gamePanelView, optionen.getX(), optionen.getY(), optionen.getHeight(), optionen.getWidth());
+		MenuView beenden = new MenuView(50, 70, gamePanelView, "Beenden", 48.0f);
+		MenuModel beendenMenuModel = new MenuModel(gamePanelView, beenden.getX(), beenden.getY(), beenden.getHeight(), beenden.getWidth());
 		logic.addActor(spMenuModel);
+		logic.addActor(optionenMenuModel);
+		logic.addActor(beendenMenuModel);
 		spMenuModel.addObserver(spielStarten);
+		optionenMenuModel.addObserver(optionen);
+		beendenMenuModel.addObserver(beenden);
 		gamePanelView.addActor(title);
 		gamePanelView.addActor(spielStarten);
+		gamePanelView.addActor(optionen);
+		gamePanelView.addActor(beenden);
 //		startGame();
 	}
 
