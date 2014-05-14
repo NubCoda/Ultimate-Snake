@@ -145,7 +145,7 @@ public class OptionView extends JDialog implements ActionListener {
 				.getSinglePlayer((String) comboBoxPlayer.getSelectedItem());
 		OptionsController.getInstance().setResolution(mainView, new Dimension(newWidth, newHeight));
 		Properties properties = new Properties();
-		properties.setProperty("player", player.getPlayerName());
+		properties.setProperty("player", String.valueOf(playerVector.get(0).getPlayerName()));
 		properties.setProperty("player_id", String.valueOf(player.getPlayerId()));
 		properties.setProperty("height", String.valueOf(newHeight));
 		properties.setProperty("width", String.valueOf(newWidth));
