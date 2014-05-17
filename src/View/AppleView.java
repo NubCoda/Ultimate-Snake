@@ -4,9 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Model.Interface.IActor;
-import Model.Interface.IElement;
 
-@SuppressWarnings("serial")
 public class AppleView extends SpriteView implements Observer {
 	public AppleView(String path, double x, double y,
 			GamePanelView gamePanelView) {

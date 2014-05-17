@@ -9,7 +9,6 @@ import java.util.Observer;
 import Model.Interface.Direction;
 import Model.Interface.IPlayerBone;
 
-@SuppressWarnings("serial")
 public class SnakeHeadView extends SpriteView implements Observer{
 	private int rotation;
 	private Direction direction;

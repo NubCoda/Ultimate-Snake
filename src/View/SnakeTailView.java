@@ -5,7 +5,6 @@ import java.util.Observer;
 
 import Model.Interface.IPlayerBone;
 
-@SuppressWarnings("serial")
 public class SnakeTailView extends SpriteView implements Observer{
 	public SnakeTailView(String path, double x, double y,
 			GamePanelView gamePanelView) {

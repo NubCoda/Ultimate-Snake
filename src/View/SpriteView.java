@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 
 import View.Interface.IDrawable;
 
-@SuppressWarnings("serial")
 public abstract class SpriteView implements IDrawable {
 	protected GamePanelView gamePanelView;
 	protected BufferedImage bufferedImage;

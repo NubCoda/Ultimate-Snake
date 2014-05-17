@@ -9,24 +9,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import Controller.DatabaseController;
 import Controller.MainController;
+import Model.OptionsModel;
 import Model.Interface.IConstants;
+import Properties.Player;
 
 @SuppressWarnings("serial")
-public class MainView extends JFrame implements ActionListener {
+public class MainView extends JFrame implements ActionListener, Observer {
 	private JMenuBar menuBar;
 	private JMenu menuGame;
 	private JMenuItem menuItemStart;
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemReset;
 	private JMenuItem menuItemOption;
+	private JMenu menuPlayer;
+	private JMenuItem menuItemSpielerErstellen;
+	private Player player;
 
 	/**
 	 * Create the frame.
@@ -117,7 +126,21 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
-		OptionView optionView = new OptionView(this);
+		OptionView optionView = new OptionView(this, DatabaseController.getInstance().getPlayers());
 		optionView.setVisible(true);
+	}
+
+	protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
+		String playerName = JOptionPane.showInputDialog("Spielernamen angeben!");
+		if (player.getPlayerName() != null) {
+			DatabaseController.getInstance().createPlayer(playerName);
+		}
+	}
+
+	@Override
+	public void update(Observable observable, Object argObject) {
+		OptionsModel optionsModel = ((OptionsModel) observable);
+		this.setSize(optionsModel.getDimension());
+		repaint();
 	}
 }

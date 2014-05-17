@@ -1,9 +1,13 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Properties;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -12,6 +16,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.FileController;
+import Controller.OptionsController;
+import DataAccessObject.DatabaseAccessObject;
+import Model.Interface.IConstants;
+import Properties.Player;
 
 @SuppressWarnings("serial")
 public class OptionView extends JDialog implements ActionListener {
@@ -24,12 +34,20 @@ public class OptionView extends JDialog implements ActionListener {
 	private MainView mainView;
 	private int newWidth;
 	private int newHeight;
+	private Player player;
+	private JLabel labelPlayer;
+	private JComboBox<String> comboBoxPlayer;
+	Vector<Player> playerVector;
 
-	public OptionView(MainView mainView) {
+	public OptionView(MainView mainView, Vector<Player> playerVector) {
+		initGUI();
+		this.setLocationRelativeTo(null);
 		this.mainView = mainView;
 		this.newWidth = mainView.getWidth();
 		this.newHeight = mainView.getHeight();
-		initGUI();
+		this.playerVector = playerVector;
+		fillComboBox();
+		comboBoxPlayer.actionPerformed(null);
 	}
 
 	/**
@@ -41,7 +59,7 @@ public class OptionView extends JDialog implements ActionListener {
 
 	private void initGUI() {
 		setModal(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 221, 137);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -58,6 +76,16 @@ public class OptionView extends JDialog implements ActionListener {
 					new String[] { "800x600", "1024x768", "1280x720" }));
 			comboBoxResolution.setBounds(82, 7, 102, 22);
 			contentPanel.add(comboBoxResolution);
+		}
+		{
+			labelPlayer = new JLabel("Spieler:");
+			labelPlayer.setBounds(10, 44, 62, 14);
+			contentPanel.add(labelPlayer);
+		}
+		{
+			comboBoxPlayer = new JComboBox<String>();
+			comboBoxPlayer.setBounds(82, 40, 102, 22);
+			contentPanel.add(comboBoxPlayer);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -77,6 +105,13 @@ public class OptionView extends JDialog implements ActionListener {
 				buttonPane.add(buttonCancel);
 			}
 		}
+	}
+	
+	private void fillComboBox() {
+		for (Player tmp : playerVector) {
+			comboBoxPlayer.addItem(tmp.getPlayerName());
+		}
+
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
@@ -105,8 +140,17 @@ public class OptionView extends JDialog implements ActionListener {
 	}
 
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		mainView.setSize(newWidth, newHeight);
-		mainView.setLocationRelativeTo(null);
+		DatabaseAccessObject databaseAccessObjects = new DatabaseAccessObject();
+		player = databaseAccessObjects
+				.getSinglePlayer((String) comboBoxPlayer.getSelectedItem());
+		OptionsController.getInstance().setResolution(mainView, new Dimension(newWidth, newHeight));
+		Properties properties = new Properties();
+		properties.setProperty("player", String.valueOf(playerVector.get(0).getPlayerName()));
+		properties.setProperty("player_id", String.valueOf(player.getPlayerId()));
+		properties.setProperty("height", String.valueOf(newHeight));
+		properties.setProperty("width", String.valueOf(newWidth));
+		File file = new File(IConstants.CONFIG_PATH);
+		FileController.getInstance().writeToIniFile(new FileView(), file, properties); 
 		this.dispose();
 	}
 }
