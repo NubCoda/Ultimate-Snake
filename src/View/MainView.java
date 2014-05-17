@@ -42,9 +42,9 @@ public class MainView extends JFrame implements ActionListener {
 				.getLocalGraphicsEnvironment();
 		GraphicsDevice device = env.getDefaultScreenDevice();
 		device.setFullScreenWindow(this);
-			device.setDisplayMode(new DisplayMode(IConstants.DEFAULT_RESOLUTION.width, IConstants.DEFAULT_RESOLUTION.height, DisplayMode.BIT_DEPTH_MULTI,
-					DisplayMode.REFRESH_RATE_UNKNOWN));
-//			setSize(new Dimension(640, 480));
+//			device.setDisplayMode(new DisplayMode(800, 600, DisplayMode.BIT_DEPTH_MULTI,
+//					DisplayMode.REFRESH_RATE_UNKNOWN));
+////			setSize(new Dimension(640, 480));
 //			validate();
 
 		// System.out.println(device.isFullScreenSupported());
@@ -57,7 +57,35 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	private void initGUI() {
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
 
+		menuGame = new JMenu("Spiel");
+		menuBar.add(menuGame);
+
+		menuItemStart = new JMenuItem("Start");
+		menuItemStart.addActionListener(this);
+		menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+		InputEvent.CTRL_MASK));
+		menuGame.add(menuItemStart);
+
+		menuItemPause = new JMenuItem("Pause");
+		menuItemPause.addActionListener(this);
+		menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
+		InputEvent.CTRL_MASK));
+		menuGame.add(menuItemPause);
+
+		menuItemReset = new JMenuItem("Neustarten");
+		menuItemReset.addActionListener(this);
+		menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
+		InputEvent.CTRL_MASK));
+		menuGame.add(menuItemReset);
+
+		menuItemOption = new JMenuItem("Optionen");
+		menuItemOption.addActionListener(this);
+		menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
+		InputEvent.CTRL_MASK));
+		menuGame.add(menuItemOption);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
