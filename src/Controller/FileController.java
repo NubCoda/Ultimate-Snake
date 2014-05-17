@@ -5,7 +5,12 @@ import java.util.Properties;
 
 import Model.FileModel;
 import View.FileView;
-
+/**
+ * TODO: diese Klasse ist nicht notwendig, da diese die Einstellungen in eine INI-Datei
+ * schrieben soll und das über den Model geschehen kann, sodass beim klicken auf ok
+ * oder beim schliessen des spieles die optionen gespeichert werden
+ * 
+ */
 public class FileController {
 	private static FileController fileController;
 	private FileModel fileModel;

@@ -2,15 +2,15 @@ package Controller;
 
 import java.util.Vector;
 
-import DataAccessObject.DatabaseAccessObject;
+import Model.DatabaseConnection;
 import Properties.Player;
 
 public class DatabaseController {
 	private static DatabaseController databaseController;
-	private DatabaseAccessObject databaseAccessObject;
+	private DatabaseConnection databaseAccessObject;
 	
 	private DatabaseController() {
-		databaseAccessObject = new DatabaseAccessObject();
+		databaseAccessObject = new DatabaseConnection();
 	}
 	
 	public static DatabaseController getInstance() {

@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import Controller.FileController;
 import Controller.OptionsController;
-import DataAccessObject.DatabaseAccessObject;
+import Model.DatabaseConnection;
 import Model.Interface.IConstants;
 import Properties.Player;
 
@@ -140,7 +140,7 @@ public class OptionView extends JDialog implements ActionListener {
 	}
 
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		DatabaseAccessObject databaseAccessObjects = new DatabaseAccessObject();
+		DatabaseConnection databaseAccessObjects = new DatabaseConnection();
 		player = databaseAccessObjects
 				.getSinglePlayer((String) comboBoxPlayer.getSelectedItem());
 		OptionsController.getInstance().setResolution(mainView, new Dimension(newWidth, newHeight));

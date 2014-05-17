@@ -12,6 +12,7 @@ import Controller.MainController;
 import Model.Interface.IActor;
 import Model.Interface.Direction;
 import Model.Interface.IConstants;
+import Model.Interface.IElement;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
 import View.SnakeTailView;
@@ -71,8 +72,8 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	}
 
 	public void checkCollision(IActor actor) {
-		if (bounding.intersects(actor.getBounding())) {
-			
+		if (bounding.intersects(actor.getBounding()) && !(actor instanceof IElement)) {
+			System.out.println("Game Over");
 		}
 	}
 
