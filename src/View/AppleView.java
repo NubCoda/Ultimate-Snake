@@ -5,7 +5,18 @@ import java.util.Observer;
 
 import Model.Interface.IActor;
 
+/**
+ * 
+ * 
+ */
 public class AppleView extends SpriteView implements Observer {
+	/**
+	 * 
+	 * @param path
+	 * @param x
+	 * @param y
+	 * @param gamePanelView
+	 */
 	public AppleView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);

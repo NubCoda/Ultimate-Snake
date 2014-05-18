@@ -1,15 +1,35 @@
 package Model.Interface;
 
 import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.Observable;
 
-public interface IActor{
+/**
+ * 
+ * 
+ */
+public interface IActor {
+	/**
+	 * 
+	 * @param point
+	 * @return
+	 */
 	public boolean checkPosition(Point point);
+
+	/**
+	 * 
+	 * @param delta
+	 */
 	public void actuate(double delta);
+
+	/**
+	 * 
+	 * @param actor
+	 */
 	public void checkCollision(IActor actor);
+
+	/**
+	 * 
+	 * @return
+	 */
 	public Rectangle2D getBounding();
 }

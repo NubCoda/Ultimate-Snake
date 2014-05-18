@@ -6,6 +6,10 @@ import java.awt.event.MouseMotionListener;
 
 import Controller.MainController;
 
+/**
+ * 
+ * 
+ */
 public class MouseListenerView implements MouseMotionListener, MouseListener {
 
 	@Override
@@ -17,25 +21,25 @@ public class MouseListenerView implements MouseMotionListener, MouseListener {
 	public void mouseMoved(MouseEvent arg0) {
 		MainController.getInstance().mouseMove(arg0.getPoint());
 	}
-	
-	
+
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		MainController.getInstance().mouseMove(arg0.getPoint());
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {}
+	public void mouseExited(MouseEvent arg0) {
+	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent arg0) {
+	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {}
+	public void mouseReleased(MouseEvent arg0) {
+	}
 
 	@Override
-	public void mouseDragged(MouseEvent arg0) {}
-
-	
-
+	public void mouseDragged(MouseEvent arg0) {
+	}
 }

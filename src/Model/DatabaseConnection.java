@@ -11,14 +11,16 @@ import Model.Interface.IConstants;
 import Model.Interface.IDataBaseConnection;
 import Properties.Player;
 
+/**
+ * 
+ * 
+ */
 public class DatabaseConnection implements IDataBaseConnection {
-
 	private Connection connection;
 	private PreparedStatement preparedStatement;
 	private String table = IConstants.TABLE_PLAYER;
 	private String url = IConstants.DATABASE_PATH;
 	private String sql;
-
 	private Vector<Player> playerVector = null;
 
 	@Override
@@ -52,6 +54,11 @@ public class DatabaseConnection implements IDataBaseConnection {
 		}
 	}
 
+	/**
+	 * 
+	 * @param playerName
+	 * @return
+	 */
 	public Player getSinglePlayer(String playerName) {
 		createConnection();
 		Player player = null;
@@ -93,5 +100,4 @@ public class DatabaseConnection implements IDataBaseConnection {
 		}
 		return playerVector;
 	}
-
 }

@@ -134,7 +134,7 @@ public class MainController {
 		new MainView(gamePanelView);
 
 		// TODO - passend auslagern
-		//      - Fuer pause und neustarten passende KeyEvents festlegen
+		// - Fuer pause und neustarten passende KeyEvents festlegen
 		gamePanelView.registerKeyboardAction(new ActionListener() {
 
 			@Override
