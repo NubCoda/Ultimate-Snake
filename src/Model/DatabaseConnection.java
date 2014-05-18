@@ -15,7 +15,7 @@ public class DatabaseConnection implements IDataBaseConnection {
 
 	private Connection connection;
 	private PreparedStatement preparedStatement;
-	private String table = IConstants.TABLE_PLAYER_NAME;
+	private String table = IConstants.TABLE_PLAYER;
 	private String url = IConstants.DATABASE_PATH;
 	private String sql;
 

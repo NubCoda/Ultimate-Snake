@@ -5,6 +5,9 @@ import java.util.Vector;
 import Model.DatabaseConnection;
 import Properties.Player;
 
+/**
+ * Diese Klasse nur wenn notwendig lassen sonst diese Funktionen irgendwo anders unterbringen 
+ */
 public class DatabaseController {
 	private static DatabaseController databaseController;
 	private DatabaseConnection databaseAccessObject;

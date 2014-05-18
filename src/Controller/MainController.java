@@ -27,15 +27,14 @@ import View.SnakeTailView;
 import View.SpriteView;
 
 /**
- * 
+ *
  *
  */
 public class MainController {
-	private static MainController mainController;
+	private static MainController MAIN_CONTROLLER_INSTANCE;
 	private GamePanelView gamePanelView;
-	private SnakeHeadModel snakeHeadModel;
 	private Logic logic;
-	private boolean hasGameStarted = false;
+	private SnakeHeadModel snakeHeadModel;
 	private IMenu oldMenu = null;
 
 	/**
@@ -47,6 +46,8 @@ public class MainController {
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
+
+		// TODO: dies ist das Level Menu
 		MenuView title = new MenuView(50, 10, gamePanelView, "SNAKE", 48.0f);
 		MenuView spielStarten = new MenuView(50, 30, gamePanelView,
 				"Spiel starten", 48.0f);
@@ -86,10 +87,18 @@ public class MainController {
 	 * @return
 	 */
 	public static MainController getInstance() {
-		if (mainController == null) {
-			mainController = new MainController();
+		if (MAIN_CONTROLLER_INSTANCE == null) {
+			MAIN_CONTROLLER_INSTANCE = new MainController();
 		}
-		return mainController;
+		return MAIN_CONTROLLER_INSTANCE;
+	}
+
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		MainController.getInstance();
 	}
 
 	/**
@@ -122,9 +131,10 @@ public class MainController {
 	 */
 	private void createWindow() {
 		gamePanelView = new GamePanelView();
-		MainView mainView = new MainView(gamePanelView);
+		new MainView(gamePanelView);
 
-		// TODO passend auslagern
+		// TODO - passend auslagern
+		//      - Fuer pause und neustarten passende KeyEvents festlegen
 		gamePanelView.registerKeyboardAction(new ActionListener() {
 
 			@Override
@@ -136,16 +146,6 @@ public class MainController {
 			}
 		}, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
-	}
-
-	/**
-	 * Main Funktion Gezeichnet wird nur, wenn der Benutzer das "Spiel"
-	 * gestartet hat
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		MainController.getInstance();
 	}
 
 	/**
@@ -200,46 +200,43 @@ public class MainController {
 	 * 
 	 */
 	public void startGame() {
-		// TODO: das Level nur beim Start bzw. beim Levelwechsel erstellen
-		if (!hasGameStarted) {
-			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20, 20,
-					gamePanelView);
-			SnakeHeadView snakeHeadView = new SnakeHeadView(
-					IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
-			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
-					snakeHeadView.getImage());
-			SnakeTailView snakeTailView = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
-			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView,
-					100, 120, snakeHeadModel, snakeTailView.getImage());
-			SnakeTailView snakeTailView1 = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);
-			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView,
-					80, 120, snakeTailModel, snakeTailView1.getImage());
-			SnakeTailView snakeTailView2 = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PAHT, 60, 120, gamePanelView);
-			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView,
-					60, 120, snakeTailModel1, snakeTailView2.getImage());
-			snakeHeadModel.setLast(snakeTailModel2);
-			AppleModel appleModel = new AppleModel(gamePanelView,
-					appleView.getImage());
-			logic.addActor(appleModel);
-			logic.addActor(snakeHeadModel);
-			logic.addActor(snakeTailModel);
-			logic.addActor(snakeTailModel1);
-			logic.addActor(snakeTailModel2);
-			appleModel.addObserver(appleView);
-			snakeHeadModel.addObserver(snakeHeadView);
-			snakeTailModel.addObserver(snakeTailView);
-			snakeTailModel1.addObserver(snakeTailView1);
-			snakeTailModel2.addObserver(snakeTailView2);
-			gamePanelView.addActor(appleView);
-			gamePanelView.addActor(snakeHeadView);
-			gamePanelView.addActor(snakeTailView);
-			gamePanelView.addActor(snakeTailView1);
-			gamePanelView.addActor(snakeTailView2);
-			hasGameStarted = true;
-		}
+		// TODO: dies koennte das Level 1 sein
+		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20, 20,
+				gamePanelView);
+		SnakeHeadView snakeHeadView = new SnakeHeadView(
+				IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
+		snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
+				snakeHeadView.getImage());
+		SnakeTailView snakeTailView = new SnakeTailView(
+				IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
+		SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView, 100,
+				120, snakeHeadModel, snakeTailView.getImage());
+		SnakeTailView snakeTailView1 = new SnakeTailView(
+				IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);
+		SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView, 80,
+				120, snakeTailModel, snakeTailView1.getImage());
+		SnakeTailView snakeTailView2 = new SnakeTailView(
+				IConstants.SNAKE_TAIL_PAHT, 60, 120, gamePanelView);
+		SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView, 60,
+				120, snakeTailModel1, snakeTailView2.getImage());
+		snakeHeadModel.setLast(snakeTailModel2);
+		AppleModel appleModel = new AppleModel(gamePanelView,
+				appleView.getImage());
+		logic.addActor(appleModel);
+		logic.addActor(snakeHeadModel);
+		logic.addActor(snakeTailModel);
+		logic.addActor(snakeTailModel1);
+		logic.addActor(snakeTailModel2);
+		appleModel.addObserver(appleView);
+		snakeHeadModel.addObserver(snakeHeadView);
+		snakeTailModel.addObserver(snakeTailView);
+		snakeTailModel1.addObserver(snakeTailView1);
+		snakeTailModel2.addObserver(snakeTailView2);
+		gamePanelView.addActor(appleView);
+		gamePanelView.addActor(snakeHeadView);
+		gamePanelView.addActor(snakeTailView);
+		gamePanelView.addActor(snakeTailView1);
+		gamePanelView.addActor(snakeTailView2);
 		logic.setGameRunning(true);
 
 	}

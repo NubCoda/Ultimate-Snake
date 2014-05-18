@@ -42,27 +42,15 @@ public class MainView extends JFrame implements ActionListener, Observer {
 	 */
 	public MainView(GamePanelView gamePanelView) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		getContentPane().setLayout(new BorderLayout());
-		add(gamePanelView); //, BorderLayout.CENTER
+		add(gamePanelView);
 		setUndecorated(true);
 		setResizable(false);
-		// setIgnoreRepaint(true);
 		GraphicsEnvironment env = GraphicsEnvironment
 				.getLocalGraphicsEnvironment();
 		GraphicsDevice device = env.getDefaultScreenDevice();
-		device.setFullScreenWindow(this);
-//			device.setDisplayMode(new DisplayMode(800, 600, DisplayMode.BIT_DEPTH_MULTI,
-//					DisplayMode.REFRESH_RATE_UNKNOWN));
-////			setSize(new Dimension(640, 480));
-//			validate();
-
-		// System.out.println(device.isFullScreenSupported());
-		// toFront();
-		// if(device.isDisplayChangeSupported()){
-		// System.out.println("change displaymode");
-		// device.setDisplayMode(new DisplayMode(800, 600, 32, 0));
-		// }
 		initGUI();
+		device.setFullScreenWindow(this);
+		
 	}
 
 	private void initGUI() {
@@ -142,5 +130,6 @@ public class MainView extends JFrame implements ActionListener, Observer {
 		OptionsModel optionsModel = ((OptionsModel) observable);
 		this.setSize(optionsModel.getDimension());
 		repaint();
+		// nicht mehr notwendig
 	}
 }
