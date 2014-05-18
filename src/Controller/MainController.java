@@ -112,22 +112,6 @@ public class MainController {
 
 	/**
 	 * 
-	 * @param actor
-	 */
-	public void addActor(IActor actor) {
-		logic.addActor(actor);
-	}
-
-	/**
-	 * 
-	 * @param actor
-	 */
-	public void addViewActor(SpriteView actor) {
-		gamePanelView.addActor(actor);
-	}
-
-	/**
-	 * 
 	 */
 	private void createWindow() {
 		gamePanelView = new GamePanelView();
@@ -206,7 +190,7 @@ public class MainController {
 		SnakeHeadView snakeHeadView = new SnakeHeadView(
 				IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
 		snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
-				snakeHeadView.getImage());
+				snakeHeadView.getImage(), logic);
 		SnakeTailView snakeTailView = new SnakeTailView(
 				IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
 		SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView, 100,

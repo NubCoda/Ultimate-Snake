@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -19,10 +20,9 @@ import View.GamePanelView;
  * 
  */
 public class AppleModel extends Observable implements IActor, IElement {
-	private BufferedImage bufferedImages;
-	private GamePanelView gamePanelView;
 	private boolean appleAlive = true;
 	private Rectangle2D.Double bounding;
+	private GamePanelView gamePanelView;
 
 	/**
 	 * 
@@ -33,23 +33,18 @@ public class AppleModel extends Observable implements IActor, IElement {
 		this.bounding = new Rectangle2D.Double(0, 0, bufferedImage.getWidth(),
 				bufferedImage.getHeight());
 		this.gamePanelView = gamePanelView;
-		try {
-			this.bufferedImages = ImageIO.read(new File(IConstants.APPLE_PAHT));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		moveApple();
 	}
 
 	/**
 	 * 
 	 */
 	public void moveApple() {
-		bounding.x = Math.random()
-				* ((double) (gamePanelView.getWidth()) - ((double) bufferedImages
-						.getWidth()));
-		bounding.y = Math.random()
-				* ((double) (gamePanelView.getHeight()) - ((double) bufferedImages
-						.getHeight()));
+		Random random = new Random();
+		int x = random.nextInt((int) (gamePanelView.getWidth() - bounding.getWidth()));
+		int y = random.nextInt((int) (gamePanelView.getHeight() - bounding.getHeight()));
+		bounding.x = (int) (x - (x % bounding.getWidth()));
+		bounding.y = (int) (y - (y % bounding.getHeight()));
 	}
 
 	/**

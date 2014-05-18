@@ -29,6 +29,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Direction direction = Direction.RIGHT;
 	private IPlayerBone last;
 	private GamePanelView gamePanelView;
+	private Logic logic;
 
 	/**
 	 * 
@@ -38,11 +39,12 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 * @param bufferedImage
 	 */
 	public SnakeHeadModel(GamePanelView gamePanelView, double x, double y,
-			BufferedImage bufferedImage) {
+			BufferedImage bufferedImage, Logic logic) {
 		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(),
 				bufferedImage.getHeight());
 		movement = new Point2D.Double(0, 0);
 		this.gamePanelView = gamePanelView;
+		this.logic = logic;
 	}
 
 	/**
@@ -94,7 +96,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
 				&& !(actor instanceof IElement)) {
-			System.out.println("Game Over");
+			logic.gameOver();
 		}
 	}
 
@@ -128,8 +130,8 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 				(IPlayerBone) MainController.getInstance().getActor(last),
 				newTailView.getImage());
 		newTailModel.addObserver(newTailView);
-		MainController.getInstance().addViewActor(newTailView);
-		MainController.getInstance().addActor(newTailModel);
+		gamePanelView.addActor(newTailView);
+		logic.addActor(newTailModel);
 		last = newTailModel;
 	}
 
