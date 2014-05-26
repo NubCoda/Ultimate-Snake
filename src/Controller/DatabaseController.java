@@ -11,6 +11,7 @@ public class DatabaseController {
 	
 	private DatabaseController() {
 		databaseAccessObject = new DatabaseAccessObject();
+		System.out.println("Test");
 	}
 	
 	public static DatabaseController getInstance() {
