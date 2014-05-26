@@ -64,16 +64,26 @@ public class MainController {
 		MenuModel beendenMenuModel = new MenuModel(gamePanelView,
 				beenden.getX(), beenden.getY(), beenden.getHeight(),
 				beenden.getWidth(), "Beenden");
-		MenuView spieler = new MenuView(95, 98, gamePanelView, "Spieler : ",
+		MenuView spieler = new MenuView(95, 98, gamePanelView, "Spieler: ",
 				48.0f);
-		MenuView highScore = new MenuView(7, 98, gamePanelView, "Highscore : ",
+		MenuModel spielerMenuModel = new MenuModel(gamePanelView,
+				spieler.getX(), spieler.getY(), spieler.getHeight(),
+				spieler.getWidth(), "Spieler: ");
+		MenuView highScore = new MenuView(7, 98, gamePanelView, "Highscore: ",
 				48.0f);
+		MenuModel highScoreMenuModel = new MenuModel(gamePanelView,
+				highScore.getX(), highScore.getY(), highScore.getHeight(),
+				highScore.getWidth(), "Highscore: ");
 		logic.addActor(spMenuModel);
 		logic.addActor(optionenMenuModel);
 		logic.addActor(beendenMenuModel);
+		logic.addActor(spielerMenuModel);
+		logic.addActor(highScoreMenuModel);
 		spMenuModel.addObserver(spielStarten);
 		optionenMenuModel.addObserver(optionen);
 		beendenMenuModel.addObserver(beenden);
+		spielerMenuModel.addObserver(spieler);
+		highScoreMenuModel.addObserver(highScore);
 		gamePanelView.addActor(title);
 		gamePanelView.addActor(spielStarten);
 		gamePanelView.addActor(optionen);
@@ -185,7 +195,7 @@ public class MainController {
 	 */
 	public void startGame() {
 		// TODO: dies koennte das Level 1 sein
-		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 20, 20,
+		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
 				gamePanelView);
 		SnakeHeadView snakeHeadView = new SnakeHeadView(
 				IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
@@ -206,16 +216,17 @@ public class MainController {
 		snakeHeadModel.setLast(snakeTailModel2);
 		AppleModel appleModel = new AppleModel(gamePanelView,
 				appleView.getImage());
-		logic.addActor(appleModel);
-		logic.addActor(snakeHeadModel);
-		logic.addActor(snakeTailModel);
-		logic.addActor(snakeTailModel1);
-		logic.addActor(snakeTailModel2);
+
 		appleModel.addObserver(appleView);
 		snakeHeadModel.addObserver(snakeHeadView);
 		snakeTailModel.addObserver(snakeTailView);
 		snakeTailModel1.addObserver(snakeTailView1);
 		snakeTailModel2.addObserver(snakeTailView2);
+		logic.addActor(appleModel);
+		logic.addActor(snakeHeadModel);
+		logic.addActor(snakeTailModel);
+		logic.addActor(snakeTailModel1);
+		logic.addActor(snakeTailModel2);
 		gamePanelView.addActor(appleView);
 		gamePanelView.addActor(snakeHeadView);
 		gamePanelView.addActor(snakeTailView);

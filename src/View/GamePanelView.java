@@ -68,10 +68,9 @@ public class GamePanelView extends JPanel implements Observer {
 					ImageIO.read(new File("./resources/pic/background.png")),
 					0, 0, getWidth(), getHeight(), Color.BLACK, this);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		// graphics.setColor(Color.RED);
+
 		try {
 			Font f = Font.createFont(Font.TRUETYPE_FONT, new File(
 					"./resources/font/FEASFBI_.TTF"));
@@ -79,25 +78,9 @@ public class GamePanelView extends JPanel implements Observer {
 			graphics.setFont(f);
 
 		} catch (FontFormatException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// graphics.drawString("SNAKE", (int)
-		// ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("SNAKE",
-		// graphics).getWidth()/2)), 50);
-		// graphics.drawString("Spiel starten", (int)
-		// ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Spiel starten",
-		// graphics).getWidth()/2)), getHeight()/3);
-		// graphics.drawString("Optionen", (int)
-		// ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Optionen",
-		// graphics).getWidth()/2)), getHeight()/2);
-		// graphics.drawString("Beenden", (int)
-		// ((getWidth()/2)-(graphics.getFontMetrics().getStringBounds("Beenden",
-		// graphics).getWidth()/2)), (getHeight()/3)*2);
-		// graphics.drawString("Highscore", 10, getHeight()-10);
-		// graphics.drawString("Spieler", (int)
-		// (getWidth()-graphics.getFontMetrics().getStringBounds("Spieler",
-		// graphics).getWidth())-10, getHeight()-10);
+//		graphics.drawRect(0, 60, getWidth(), getHeight()-60);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
 				draw.drawObjects(graphics);
@@ -108,15 +91,6 @@ public class GamePanelView extends JPanel implements Observer {
 	@Override
 	public void update(Observable observable, Object argObject) {
 		repaint();
-		// TODO / FIXME : Die Kollisionspr�fung muss in den Modellklassen
-		// stattfinden und nict im View
-		// for (int i = 0; i < actors.size(); i++) {
-		// for (int j = i+1; j < actors.size(); j++) {
-		// SpriteView s1 = actors.elementAt(i);
-		// SpriteView s2 = actors.elementAt(j);
-		// s1.collidedWith(s2);
-		// }
-		// }
 	}
 
 	/**

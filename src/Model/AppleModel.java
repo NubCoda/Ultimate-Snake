@@ -20,7 +20,7 @@ import View.GamePanelView;
  * 
  */
 public class AppleModel extends Observable implements IActor, IElement {
-	private boolean appleAlive = true;
+	private boolean appleAlive = false;
 	private Rectangle2D.Double bounding;
 	private GamePanelView gamePanelView;
 
@@ -33,7 +33,6 @@ public class AppleModel extends Observable implements IActor, IElement {
 		this.bounding = new Rectangle2D.Double(0, 0, bufferedImage.getWidth(),
 				bufferedImage.getHeight());
 		this.gamePanelView = gamePanelView;
-		moveApple();
 	}
 
 	/**
@@ -61,9 +60,9 @@ public class AppleModel extends Observable implements IActor, IElement {
 		if (!appleAlive) {
 			appleAlive = true;
 			moveApple();
+			setChanged();
+			notifyObservers();
 		}
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
