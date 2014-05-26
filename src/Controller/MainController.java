@@ -12,6 +12,7 @@ import javax.swing.KeyStroke;
 import Model.AppleModel;
 import Model.Logic;
 import Model.MenuModel;
+import Model.OpponentModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
 import Model.Interface.Direction;
@@ -22,6 +23,7 @@ import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
 import View.MenuView;
+import View.OpponentView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
 import View.SpriteView;
@@ -216,7 +218,10 @@ public class MainController {
 		snakeHeadModel.setLast(snakeTailModel2);
 		AppleModel appleModel = new AppleModel(gamePanelView,
 				appleView.getImage());
-
+		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
+		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, 0, 60, opponentView1.getImage(), logic);
+		opponentModel1.addObserver(opponentView1);
+			
 		appleModel.addObserver(appleView);
 		snakeHeadModel.addObserver(snakeHeadView);
 		snakeTailModel.addObserver(snakeTailView);
@@ -227,11 +232,13 @@ public class MainController {
 		logic.addActor(snakeTailModel);
 		logic.addActor(snakeTailModel1);
 		logic.addActor(snakeTailModel2);
+		logic.addActor(opponentModel1);
 		gamePanelView.addActor(appleView);
 		gamePanelView.addActor(snakeHeadView);
 		gamePanelView.addActor(snakeTailView);
 		gamePanelView.addActor(snakeTailView1);
 		gamePanelView.addActor(snakeTailView2);
+		gamePanelView.addActor(opponentView1);
 		logic.setGameRunning(true);
 
 	}

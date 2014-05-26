@@ -27,6 +27,8 @@ public interface IConstants {
 	 */
 	public static final int DEFAULT_KEY_DOWN = KeyEvent.VK_DOWN;
 
+	public static final int DEFAULT_KEY_SPACE = KeyEvent.VK_SPACE;
+	
 	/**
 	 * 
 	 */
@@ -42,6 +44,8 @@ public interface IConstants {
 	 */
 	public static final String SNAKE_TAIL_PAHT = "./resources/pic/tail_sprite.png";
 
+	public static final String OPPONENT_PATH = "./resources/pic/ghost_sprite.png";
+	public static final String BULLET_PATH = "./resources/pic/bullet_sprite.png";
 	/**
 	 * 
 	 */
