@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.OptionsController;
-import Model.DatabaseConnection;
+import Model.DatabaseConnectionModel;
 import Model.Interface.IConstants;
 import Properties.Player;
 
@@ -168,7 +168,7 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param arg0
 	 */
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		DatabaseConnection databaseAccessObjects = new DatabaseConnection();
+		DatabaseConnectionModel databaseAccessObjects = new DatabaseConnectionModel();
 		player = databaseAccessObjects.getSinglePlayer((String) comboBoxPlayer
 				.getSelectedItem());
 		OptionsController.getInstance().setResolution(mainView,
