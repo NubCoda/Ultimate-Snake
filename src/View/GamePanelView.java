@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
@@ -28,9 +29,10 @@ public class GamePanelView extends JPanel implements Observer {
 	/**
 	 * 
 	 */
-	public GamePanelView() {
+	public GamePanelView(int width, int height) {
 		setFocusable(true);
 		addKeyListener(new KeyListenerView());
+		setPreferredSize(new Dimension(width, height));
 		MouseListenerView mouseListener = new MouseListenerView();
 		addMouseMotionListener(mouseListener);
 		addMouseListener(mouseListener);

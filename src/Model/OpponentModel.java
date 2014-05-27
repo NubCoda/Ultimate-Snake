@@ -102,7 +102,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	}
 
 	public void actuate(double delta) {
-		System.out.println(bounding);
 		if (opponentAlive) {
 			checkMovement();
 			moveOpponent();
