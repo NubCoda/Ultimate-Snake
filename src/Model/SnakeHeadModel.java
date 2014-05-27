@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -10,13 +11,17 @@ import Controller.MainController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Model.Interface.IElement;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
 import View.SnakeTailView;
 
+/**
+ * 
+ * 
+ */
 public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Point2D.Double movement;
-
 	private int speed = IConstants.SNAKE_SPEED;
 	private double lastMove = 0;
 	private Ellipse2D.Double bounding;
@@ -24,13 +29,27 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Direction direction = Direction.RIGHT;
 	private IPlayerBone last;
 	private GamePanelView gamePanelView;
-	public SnakeHeadModel(GamePanelView gamePanelView, double x, double y, BufferedImage bufferedImage) {
+	private Logic logic;
+
+	/**
+	 * 
+	 * @param gamePanelView
+	 * @param x
+	 * @param y
+	 * @param bufferedImage
+	 */
+	public SnakeHeadModel(GamePanelView gamePanelView, double x, double y,
+			BufferedImage bufferedImage, Logic logic) {
 		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(),
 				bufferedImage.getHeight());
-		movement = new Point2D.Double(0,0);
+		movement = new Point2D.Double(0, 0);
 		this.gamePanelView = gamePanelView;
+		this.logic = logic;
 	}
 
+	/**
+	 * 
+	 */
 	public void actuate(double delta) {
 		lastMove += delta;
 		if (lastMove > speed) {
@@ -41,41 +60,51 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void move() {
-			if (newDirection != Direction.NONE) {
-				direction = newDirection;
-				newDirection = Direction.NONE;
-			}
-			
-			movement = new Point2D.Double(bounding.x, bounding.y);
-			
-			switch (direction) {
-			case DOWN:
-				bounding.y += bounding.getHeight();
-				break;
-			case UP:
-				bounding.y -= bounding.getHeight();
-				break;
-			case RIGHT:
-				bounding.x += bounding.getWidth();
-				break;
-			case LEFT:
-				bounding.x -= bounding.getWidth();
-				break;
-			default:
-				break;
-			}
-			
+		if (newDirection != Direction.NONE) {
+			direction = newDirection;
+			newDirection = Direction.NONE;
+		}
+
+		movement = new Point2D.Double(bounding.x, bounding.y);
+
+		switch (direction) {
+		case DOWN:
+			bounding.y += bounding.getHeight();
+			break;
+		case UP:
+			bounding.y -= bounding.getHeight();
+			break;
+		case RIGHT:
+			bounding.x += bounding.getWidth();
+			break;
+		case LEFT:
+			bounding.x -= bounding.getWidth();
+			break;
+		default:
+			break;
+		}
+
 	}
 
+	/**
+	 * 
+	 */
 	public void checkCollision(IActor actor) {
-		if (bounding.intersects(actor.getBounding())) {
-			
+		if (bounding.intersects(actor.getBounding())
+				&& !(actor instanceof IElement)) {
+			logic.gameOver();
 		}
 	}
 
-	public void increaseLength(){
-			
+	/**
+	 * 
+	 */
+	public void increaseLength() {
+
 		double x = last.getX();
 		double y = last.getY();
 		switch (last.getDirection()) {
@@ -94,27 +123,44 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		default:
 			break;
 		}
-		SnakeTailView newTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, x, y, gamePanelView);
+		SnakeTailView newTailView = new SnakeTailView(
+				IConstants.SNAKE_TAIL_PAHT, x, y, gamePanelView);
 		SnakeTailModel newTailModel;
-			newTailModel = new SnakeTailModel(gamePanelView, x, y, (IPlayerBone)MainController.getInstance().getActor(last), newTailView.getImage());
+		newTailModel = new SnakeTailModel(gamePanelView, x, y,
+				(IPlayerBone) MainController.getInstance().getActor(last),
+				newTailView.getImage());
 		newTailModel.addObserver(newTailView);
-		MainController.getInstance().addViewActor(newTailView);
-		MainController.getInstance().addActor(newTailModel);
+		gamePanelView.addActor(newTailView);
+		logic.addActor(newTailModel);
 		last = newTailModel;
 	}
-	
+
+	/**
+	 * 
+	 */
 	public Rectangle2D getBounding() {
 		return this.bounding.getBounds2D();
 	}
 
+	/**
+	 * 
+	 */
 	public Point2D.Double getMovement() {
 		return movement;
 	}
-	
-	public void setLast(IPlayerBone last){
+
+	/**
+	 * 
+	 * @param last
+	 */
+	public void setLast(IPlayerBone last) {
 		this.last = last;
 	}
-	
+
+	/**
+	 * 
+	 * @param direction
+	 */
 	public void rotateSnake(Direction direction) {
 		if ((this.direction == Direction.RIGHT && (direction == Direction.UP || direction == Direction.DOWN))
 				|| (this.direction == Direction.LEFT && (direction == Direction.UP || direction == Direction.DOWN))
@@ -137,5 +183,11 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	@Override
 	public Direction getDirection() {
 		return this.direction;
+	}
+
+	@Override
+	public boolean checkPosition(Point point) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

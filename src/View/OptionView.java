@@ -17,15 +17,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controller.FileController;
 import Controller.OptionsController;
-import DataAccessObject.DatabaseAccessObject;
+import Model.DatabaseConnection;
 import Model.Interface.IConstants;
 import Properties.Player;
 
+/**
+ * 
+ * 
+ */
 @SuppressWarnings("serial")
 public class OptionView extends JDialog implements ActionListener {
-
 	private final JPanel contentPanel = new JPanel();
 	private JLabel labelResolution;
 	private JComboBox<String> comboBoxResolution;
@@ -39,6 +41,11 @@ public class OptionView extends JDialog implements ActionListener {
 	private JComboBox<String> comboBoxPlayer;
 	Vector<Player> playerVector;
 
+	/**
+	 * 
+	 * @param mainView
+	 * @param playerVector
+	 */
 	public OptionView(MainView mainView, Vector<Player> playerVector) {
 		initGUI();
 		this.setLocationRelativeTo(null);
@@ -57,6 +64,9 @@ public class OptionView extends JDialog implements ActionListener {
 		initGUI();
 	}
 
+	/**
+	 * 
+	 */
 	private void initGUI() {
 		setModal(true);
 		setBounds(100, 100, 221, 137);
@@ -106,7 +116,10 @@ public class OptionView extends JDialog implements ActionListener {
 			}
 		}
 	}
-	
+
+	/**
+	 * 
+	 */
 	private void fillComboBox() {
 		for (Player tmp : playerVector) {
 			comboBoxPlayer.addItem(tmp.getPlayerName());
@@ -114,6 +127,9 @@ public class OptionView extends JDialog implements ActionListener {
 
 	}
 
+	/**
+	 * 
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == buttonOk) {
 			buttonOkActionPerformed(arg0);
@@ -126,6 +142,10 @@ public class OptionView extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * 
+	 * @param arg0
+	 */
 	protected void comboBoxResolutionActionPerformed(ActionEvent arg0) {
 		String selectedItem = comboBoxResolution.getSelectedItem().toString();
 		int positionOfMulti = selectedItem.indexOf("x");
@@ -135,22 +155,34 @@ public class OptionView extends JDialog implements ActionListener {
 
 	}
 
+	/**
+	 * 
+	 * @param arg0
+	 */
 	protected void buttonCancelActionPerformed(ActionEvent arg0) {
 		this.dispose();
 	}
 
+	/**
+	 * 
+	 * @param arg0
+	 */
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		DatabaseAccessObject databaseAccessObjects = new DatabaseAccessObject();
-		player = databaseAccessObjects
-				.getSinglePlayer((String) comboBoxPlayer.getSelectedItem());
-		OptionsController.getInstance().setResolution(mainView, new Dimension(newWidth, newHeight));
+		DatabaseConnection databaseAccessObjects = new DatabaseConnection();
+		player = databaseAccessObjects.getSinglePlayer((String) comboBoxPlayer
+				.getSelectedItem());
+		OptionsController.getInstance().setResolution(mainView,
+				new Dimension(newWidth, newHeight));
 		Properties properties = new Properties();
-		properties.setProperty("player", String.valueOf(playerVector.get(0).getPlayerName()));
-		properties.setProperty("player_id", String.valueOf(player.getPlayerId()));
+		properties.setProperty("player",
+				String.valueOf(playerVector.get(0).getPlayerName()));
+		properties.setProperty("player_id",
+				String.valueOf(player.getPlayerId()));
 		properties.setProperty("height", String.valueOf(newHeight));
 		properties.setProperty("width", String.valueOf(newWidth));
 		File file = new File(IConstants.CONFIG_PATH);
-		FileController.getInstance().writeToIniFile(new FileView(), file, properties); 
+//		FileController.getInstance().writeToIniFile(new FileView(), file,
+//				properties);
 		this.dispose();
 	}
 }

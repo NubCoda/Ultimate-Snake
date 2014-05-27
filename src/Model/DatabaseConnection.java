@@ -1,4 +1,4 @@
-package DataAccessObject;
+package Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,18 +7,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import DataAccessObject.Interface.IDataAccessObject;
 import Model.Interface.IConstants;
+import Model.Interface.IDataBaseConnection;
 import Properties.Player;
 
-public class DatabaseAccessObject implements IDataAccessObject {
-
+/**
+ * 
+ * 
+ */
+public class DatabaseConnection implements IDataBaseConnection {
 	private Connection connection;
 	private PreparedStatement preparedStatement;
-	private String table = IConstants.TABLE_PLAYER_NAME;
+	private String table = IConstants.TABLE_PLAYER;
 	private String url = IConstants.DATABASE_PATH;
 	private String sql;
-
 	private Vector<Player> playerVector = null;
 
 	@Override
@@ -52,6 +54,11 @@ public class DatabaseAccessObject implements IDataAccessObject {
 		}
 	}
 
+	/**
+	 * 
+	 * @param playerName
+	 * @return
+	 */
 	public Player getSinglePlayer(String playerName) {
 		createConnection();
 		Player player = null;
@@ -93,5 +100,4 @@ public class DatabaseAccessObject implements IDataAccessObject {
 		}
 		return playerVector;
 	}
-
 }

@@ -3,8 +3,18 @@ package View;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * 
+ * 
+ */
 public class EnemyView extends SpriteView implements Observer {
-
+	/**
+	 * 
+	 * @param path
+	 * @param x
+	 * @param y
+	 * @param gamePanelView
+	 */
 	public EnemyView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);
