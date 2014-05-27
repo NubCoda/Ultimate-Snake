@@ -73,21 +73,38 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 
 		switch (direction) {
 		case DOWN:
-			bounding.y += bounding.getHeight();
+			bounding.y = (bounding.y + bounding.getHeight()) % gamePanelView.getHeight();
 			break;
 		case UP:
 			bounding.y -= bounding.getHeight();
+			if (bounding.y < 0) {
+				bounding.y += gamePanelView.getHeight();
+			}
 			break;
 		case RIGHT:
-			bounding.x += bounding.getWidth();
+			bounding.x = (bounding.x + bounding.getWidth()) % gamePanelView.getWidth();
+			
 			break;
 		case LEFT:
 			bounding.x -= bounding.getWidth();
+			if (bounding.x < 0) {
+				bounding.x += gamePanelView.getWidth();
+			}
 			break;
 		default:
 			break;
 		}
-
+//		if(bounding.x > gamePanelView.getWidth()){
+//			bounding.x = 0;
+//		} else if(bounding.x < 0) {
+//			bounding.x = gamePanelView.getWidth();
+//		}
+//		
+//		if(bounding.y > gamePanelView.getHeight()){
+//			bounding.y = 0;
+//		} else if (bounding.y < 0) {
+//			bounding.y = gamePanelView.getHeight();
+//		}
 	}
 
 	/**
