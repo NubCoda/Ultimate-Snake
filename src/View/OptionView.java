@@ -28,9 +28,6 @@ public class OptionView extends JDialog implements ActionListener {
 	private final JPanel contentPanel = new JPanel();
 	private JButton buttonCancel;
 	private JButton buttonOk;
-	private MainView mainView;
-	private int newWidth;
-	private int newHeight;
 	private Player player;
 	private JLabel labelPlayer;
 	private JComboBox<String> comboBoxPlayer;
@@ -41,10 +38,9 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param mainView
 	 * @param playerVector
 	 */
-	public OptionView(MainView mainView, Vector<Player> playerVector) {
+	public OptionView(Vector<Player> playerVector) {
 		initGUI();
 		this.setLocationRelativeTo(null);
-		this.mainView = mainView;
 		this.playerVector = playerVector;
 		fillComboBox();
 	}
