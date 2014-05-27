@@ -27,15 +27,15 @@ import Properties.Player;
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements Observer, ActionListener {
 	private JMenuBar menuBar;
-	 private JMenu menuGame;
-	 private JMenuItem menuItemStart;
-	 private JMenuItem menuItemPause;
-	 private JMenuItem menuItemReset;
-	 private JMenuItem menuItemOption;
-	 private JMenu menuPlayer;
-	 private JMenuItem menuItemSpielerErstellen;
-	 private Player player;
-	
+	private JMenu menuGame;
+	private JMenuItem menuItemStart;
+	private JMenuItem menuItemPause;
+	private JMenuItem menuItemReset;
+	private JMenuItem menuItemOption;
+	private JMenu menuPlayer;
+	private JMenuItem menuItemSpielerErstellen;
+	private Player player;
+
 	/**
 	 * 
 	 * @param gamePanelView
@@ -47,6 +47,11 @@ public class MainView extends JFrame implements Observer, ActionListener {
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);
+		initializeMenu();
+		setVisible(true);
+	}
+
+	private void initializeMenu() {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
@@ -83,9 +88,9 @@ public class MainView extends JFrame implements Observer, ActionListener {
 		menuItemSpielerErstellen = new JMenuItem("Erstellen");
 		menuItemSpielerErstellen.addActionListener(this);
 		menuPlayer.add(menuItemSpielerErstellen);
-		}
+	}
 
-		public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == menuItemSpielerErstellen) {
 			menuItemSpielerErstellenActionPerformed(arg0);
 		}
@@ -101,30 +106,32 @@ public class MainView extends JFrame implements Observer, ActionListener {
 		if (arg0.getSource() == menuItemStart) {
 			menuItemStartActionPerformed(arg0);
 		}
-		}
+	}
 
-		protected void menuItemStartActionPerformed(ActionEvent arg0) {
+	protected void menuItemStartActionPerformed(ActionEvent arg0) {
 		MainController.getInstance().startGame();
-		}
+	}
 
-		protected void menuItemPauseActionPerformed(ActionEvent arg0) {
+	protected void menuItemPauseActionPerformed(ActionEvent arg0) {
 		MainController.getInstance().pauseGame();
-		}
+	}
 
-		protected void menuItemResetActionPerformed(ActionEvent arg0) {
+	protected void menuItemResetActionPerformed(ActionEvent arg0) {
 		System.out.println(((GamePanelView) getContentPane().getComponent(0))
 				.getSize());
-		}
+	}
 
-		protected void menuItemOptionActionPerformed(ActionEvent arg0) {
+	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
 
-		OptionView optionView = new OptionView(this, OptionsController.getInstance().getPlayers());
+		OptionView optionView = new OptionView(this, OptionsController
+				.getInstance().getPlayers());
 		optionView.setVisible(true);
-		}
+	}
 
-		protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
-		String playerName = JOptionPane.showInputDialog("Spielernamen angeben!");
-		if (player.getPlayerName() != null) {
+	protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
+		String playerName = JOptionPane
+				.showInputDialog("Spielernamen angeben!");
+		if (!playerName.isEmpty()) {
 			OptionsController.getInstance().createPlayer(playerName);
 		}
 		setVisible(true);

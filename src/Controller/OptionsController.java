@@ -23,6 +23,7 @@ public class OptionsController {
 	 */
 	private OptionsController() {
 		optionsModel = new OptionsModel();
+		databaseConnectionModel = new DatabaseConnectionModel();
 	}
 
 	/**
