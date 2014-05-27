@@ -141,7 +141,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 			break;
 		}
 		SnakeTailView newTailView = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PAHT, x, y, gamePanelView);
+				IConstants.SNAKE_TAIL_PATH, x, y, gamePanelView);
 		SnakeTailModel newTailModel;
 		newTailModel = new SnakeTailModel(gamePanelView, x, y,
 				(IPlayerBone) MainController.getInstance().getActor(last),

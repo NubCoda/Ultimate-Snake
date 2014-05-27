@@ -204,22 +204,22 @@ public class MainController {
 		snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
 				snakeHeadView.getImage(), logic);
 		SnakeTailView snakeTailView = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
+				IConstants.SNAKE_TAIL_PATH, 100, 120, gamePanelView);
 		SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView, 100,
 				120, snakeHeadModel, snakeTailView.getImage());
 		SnakeTailView snakeTailView1 = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);
+				IConstants.SNAKE_TAIL_PATH, 80, 120, gamePanelView);
 		SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView, 80,
 				120, snakeTailModel, snakeTailView1.getImage());
 		SnakeTailView snakeTailView2 = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PAHT, 60, 120, gamePanelView);
+				IConstants.SNAKE_TAIL_PATH, 60, 120, gamePanelView);
 		SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView, 60,
 				120, snakeTailModel1, snakeTailView2.getImage());
 		snakeHeadModel.setLast(snakeTailModel2);
 		AppleModel appleModel = new AppleModel(gamePanelView,
 				appleView.getImage());
 		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, 0, 60, opponentView1.getImage(), logic);
+		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage(), logic);
 		opponentModel1.addObserver(opponentView1);
 			
 		appleModel.addObserver(appleView);

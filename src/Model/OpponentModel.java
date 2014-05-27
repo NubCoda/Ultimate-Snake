@@ -25,13 +25,21 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	private int maxJumpLength = 100;
 	private int minJumpLength = 50;
 	private Logic logic;
+	private double positionX = 100;
+	private double positionY = 100;
+	private double padding = 50;
 
-	public OpponentModel(GamePanelView gamePanelView, double x, double y,
+	public OpponentModel(GamePanelView gamePanelView,
 			BufferedImage bufferedImage, Logic logic) {
-		this.bounding = new Rectangle2D.Double(x, y, bufferedImage.getWidth(),
-				bufferedImage.getHeight());
-		System.out.println(bounding);
 		this.gamePanelView = gamePanelView;
+		
+		this.positionX = setStartPosition(true);
+		this.positionY = setStartPosition(false);
+
+		this.bounding = new Rectangle2D.Double(positionX, positionY,
+				bufferedImage.getWidth(), bufferedImage.getHeight());
+		System.out.println(bounding);
+		
 		try {
 			this.bufferedImages = ImageIO.read(new File(
 					IConstants.OPPONENT_PATH));
@@ -39,6 +47,17 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 			e.printStackTrace();
 		}
 		this.logic = logic;
+	}
+
+	private double setStartPosition(boolean width) {
+		double newPosition;
+		if (width) {
+			newPosition = (Math.random() * ((gamePanelView.getWidth()-padding) / 2)+padding);
+			System.out.println(newPosition);
+		} else {
+			newPosition = (Math.random()* ((gamePanelView.getHeight() - padding) / 2)+padding);
+		}
+		return newPosition;
 	}
 
 	public void moveOpponent() {
@@ -111,15 +130,15 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	}
 
 	public void checkCollision(IActor actor) {
-		if(bounding.intersects(actor.getBounding()) && actor instanceof SnakeHeadModel){
+		if (bounding.intersects(actor.getBounding())
+				&& actor instanceof SnakeHeadModel) {
 			setOpponentAlive(false);
-			
-//			MainController.getInstance().
-//			((SnakeHeadModel) actor).setSnakeAlive(false);
+
+			// MainController.getInstance().
+			// ((SnakeHeadModel) actor).setSnakeAlive(false);
 			// TODO Abfrage, wenn es eine Snake ist, setAllive = false
 			// ((SnakeHeadModel) actor).increaseLength();
 		}
-
 	}
 
 	public void setOpponentAlive(boolean alive) {
