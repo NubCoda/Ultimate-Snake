@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,14 +31,14 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	public OpponentModel(GamePanelView gamePanelView,
 			BufferedImage bufferedImage, Logic logic) {
 		this.gamePanelView = gamePanelView;
-		
+
 		this.positionX = setStartPosition(true);
 		this.positionY = setStartPosition(false);
 
 		this.bounding = new Rectangle2D.Double(positionX, positionY,
 				bufferedImage.getWidth(), bufferedImage.getHeight());
 		System.out.println(bounding);
-		
+
 		try {
 			this.bufferedImages = ImageIO.read(new File(
 					IConstants.OPPONENT_PATH));
@@ -52,10 +51,12 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	private double setStartPosition(boolean width) {
 		double newPosition;
 		if (width) {
-			newPosition = (Math.random() * ((gamePanelView.getWidth()-padding) / 2)+padding);
+			newPosition = (Math.random()
+					* ((gamePanelView.getWidth() - padding) / 2) + padding);
 			System.out.println(newPosition);
 		} else {
-			newPosition = (Math.random()* ((gamePanelView.getHeight() - padding) / 2)+padding);
+			newPosition = (Math.random()
+					* ((gamePanelView.getHeight() - padding) / 2) + padding);
 		}
 		return newPosition;
 	}
@@ -143,12 +144,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 
 	public void setOpponentAlive(boolean alive) {
 		this.opponentAlive = alive;
-	}
-
-	@Override
-	public boolean checkPosition(Point point) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

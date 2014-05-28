@@ -1,16 +1,13 @@
 package Controller;
 
 import java.awt.Dimension;
-import java.io.File;
-import java.util.Properties;
 import java.util.Vector;
 
 import Model.DatabaseConnectionModel;
 import Model.FileModel;
 import Model.OptionsModel;
-import Model.Interface.IConstants;
-import Properties.Player;
 import Properties.PlayerHighscore;
+import Properties.SnakeSpeed;
 import View.MainView;
 
 /**
@@ -68,9 +65,14 @@ public class OptionsController {
 		playerHighscore = fileModel.getLastPlayerFromFile();
 		return playerHighscore;
 	}
+	
+	public SnakeSpeed getSnakeSpeedFromFile() {
+		SnakeSpeed snakeSpeed = fileModel.getSnakeSpeedFromFile();
+		return snakeSpeed;
+	}
 
-	public void savePlayerToFile(PlayerHighscore playerHighscore) {
-		fileModel.writeToIniFile(playerHighscore);
+	public void saveToFile(PlayerHighscore playerHighscore, int snake_speed) {
+		fileModel.writeToIniFile(playerHighscore, snake_speed);
 	}
 	
 	public PlayerHighscore getSinglePlayer(String playerName) {

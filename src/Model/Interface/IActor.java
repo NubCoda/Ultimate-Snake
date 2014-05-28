@@ -10,13 +10,6 @@ import java.awt.geom.Rectangle2D;
 public interface IActor {
 	/**
 	 * 
-	 * @param point
-	 * @return
-	 */
-	public boolean checkPosition(Point point);
-
-	/**
-	 * 
 	 * @param delta
 	 */
 	public void actuate(double delta);

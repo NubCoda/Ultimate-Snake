@@ -22,7 +22,7 @@ import View.SnakeTailView;
  */
 public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Point2D.Double movement;
-	private int speed = IConstants.SNAKE_SPEED;
+	private int speed;
 	private double lastMove = 0;
 	private Ellipse2D.Double bounding;
 	private Direction newDirection = Direction.NONE;
@@ -45,6 +45,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		movement = new Point2D.Double(0, 0);
 		this.gamePanelView = gamePanelView;
 		this.logic = logic;
+		this.speed = logic.getSnakeSpeed().getSpeed();
 	}
 
 	/**
@@ -200,11 +201,5 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	@Override
 	public Direction getDirection() {
 		return this.direction;
-	}
-
-	@Override
-	public boolean checkPosition(Point point) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

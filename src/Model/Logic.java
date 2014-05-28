@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Vector;
 
 import Model.Interface.IActor;
+import Properties.SnakeSpeed;
 
 /**
  * 
@@ -16,12 +17,14 @@ public class Logic extends Observable implements Runnable {
 	private long last = 0;
 	private double delta = 0;
 	private boolean isKilled = false;
+	private SnakeSpeed snakeSpeed;
 
 	/**
 	 * 
 	 */
-	public Logic() {
+	public Logic(SnakeSpeed snakeSpeed) {
 		this.actors = new Vector<IActor>();
+		this.snakeSpeed = snakeSpeed;
 	}
 
 	/**
@@ -63,20 +66,6 @@ public class Logic extends Observable implements Runnable {
 		isKilled = true;
 	}
 
-	/**
-	 * 
-	 * @param point
-	 * @return
-	 */
-	public IActor checkMouse(Point point) {
-		for (IActor actor : actors) {
-			if (actor.checkPosition(point)) {
-				return actor;
-			}
-		}
-		return null;
-	}
-
 	@Override
 	public void run() {
 		last = System.nanoTime();
@@ -112,5 +101,9 @@ public class Logic extends Observable implements Runnable {
 	public void gameOver() {
 		setGameRunning(false);
 		//TODO
+	}
+
+	public SnakeSpeed getSnakeSpeed() {
+		return snakeSpeed;
 	}
 }

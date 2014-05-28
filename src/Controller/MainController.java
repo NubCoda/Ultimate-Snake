@@ -1,7 +1,6 @@
 package Controller;
 
 import java.awt.Frame;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,15 +10,14 @@ import javax.swing.KeyStroke;
 
 import Model.AppleModel;
 import Model.Logic;
-import Model.MenuModel;
 import Model.OpponentModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
-import Model.Interface.IMenu;
 import Properties.PlayerHighscore;
+import Properties.SnakeSpeed;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
@@ -37,8 +35,8 @@ public class MainController {
 	private GamePanelView gamePanelView;
 	private Logic logic;
 	private SnakeHeadModel snakeHeadModel;
-	private IMenu oldMenu = null;
 	private PlayerHighscore playerHighscore;
+	private SnakeSpeed snakeSpeed;
 	private boolean isGameStarted = false;
 
 	/**
@@ -47,55 +45,16 @@ public class MainController {
 	private MainController() {
 		createWindow();
 		playerHighscore = OptionsController.getInstance().setLastPlayerFromFile();
+		snakeSpeed = OptionsController.getInstance().getSnakeSpeedFromFile();
 		System.out.println(playerHighscore.getPlayer().getPlayerName());
-		logic = new Logic();
+		logic = new Logic(snakeSpeed);
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
 
 		// TODO: dies ist das Level Menu
 		MenuView title = new MenuView(50, 10, gamePanelView, "SNAKE", 48.0f);
-		MenuView spielStarten = new MenuView(50, 30, gamePanelView,
-				"Spiel starten", 48.0f);
-		MenuModel spMenuModel = new MenuModel(gamePanelView,
-				spielStarten.getX(), spielStarten.getY(),
-				spielStarten.getHeight(), spielStarten.getWidth(),
-				"Spiel starten");
-		MenuView optionen = new MenuView(50, 50, gamePanelView, "Optionen",
-				48.0f);
-		MenuModel optionenMenuModel = new MenuModel(gamePanelView,
-				optionen.getX(), optionen.getY(), optionen.getHeight(),
-				optionen.getWidth(), "Optionen");
-		MenuView beenden = new MenuView(50, 70, gamePanelView, "Beenden", 48.0f);
-		MenuModel beendenMenuModel = new MenuModel(gamePanelView,
-				beenden.getX(), beenden.getY(), beenden.getHeight(),
-				beenden.getWidth(), "Beenden");
-		MenuView spieler = new MenuView(95, 98, gamePanelView, "Spieler: ",
-				48.0f);
-		MenuModel spielerMenuModel = new MenuModel(gamePanelView,
-				spieler.getX(), spieler.getY(), spieler.getHeight(),
-				spieler.getWidth(), "Spieler: ");
-		MenuView highScore = new MenuView(7, 98, gamePanelView, "Highscore: ",
-				48.0f);
-		MenuModel highScoreMenuModel = new MenuModel(gamePanelView,
-				highScore.getX(), highScore.getY(), highScore.getHeight(),
-				highScore.getWidth(), "Highscore: ");
-		logic.addActor(spMenuModel);
-		logic.addActor(optionenMenuModel);
-		logic.addActor(beendenMenuModel);
-		logic.addActor(spielerMenuModel);
-		logic.addActor(highScoreMenuModel);
-		spMenuModel.addObserver(spielStarten);
-		optionenMenuModel.addObserver(optionen);
-		beendenMenuModel.addObserver(beenden);
-		spielerMenuModel.addObserver(spieler);
-		highScoreMenuModel.addObserver(highScore);
 		gamePanelView.addActor(title);
-		gamePanelView.addActor(spielStarten);
-		gamePanelView.addActor(optionen);
-		gamePanelView.addActor(beenden);
-		gamePanelView.addActor(spieler);
-		gamePanelView.addActor(highScore);
 	}
 
 	/**
@@ -156,45 +115,6 @@ public class MainController {
 		snakeHeadModel.rotateSnake(direction);
 	}
 
-	/**
-	 * 
-	 * @param point
-	 */
-	public void mouseMove(Point point) {
-		IActor actor = logic.checkMouse(point);
-		if (actor != null) {
-			((MenuModel) actor).focus();
-			if (oldMenu != null && !oldMenu.equals(actor)) {
-				oldMenu.defocus();
-			}
-		} else if (oldMenu != null) {
-			oldMenu.defocus();
-		}
-		oldMenu = ((MenuModel) actor);
-	}
-
-	/**
-	 * 
-	 * @param point
-	 */
-	public void mouseClick(Point point) {
-		IActor actor = logic.checkMouse(point);
-		if (actor != null) {
-			String menuText = ((MenuModel) actor).getText();
-			if (menuText.equals("Spiel starten")) {
-				gamePanelView.clearActors();
-				logic.clearActors();
-				startGame();
-			} else if (menuText.equals("Optionen")) {
-
-			} else if (menuText.equals("Beenden")) {
-				logic.kill();
-				for (Frame frame : Frame.getFrames()) {
-					frame.dispose();
-				}
-			}
-		}
-	}
 
 	/**
 	 * 
@@ -202,6 +122,7 @@ public class MainController {
 	public void startGame() {
 		// TODO: dies koennte das Level 1 sein
 		if (!isGameStarted) {
+			gamePanelView.clearActors();
 			isGameStarted = true;
 			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
 					gamePanelView);
@@ -248,7 +169,6 @@ public class MainController {
 			gamePanelView.addActor(snakeTailView2);
 			gamePanelView.addActor(opponentView1);
 		}
-
 		logic.setGameRunning(true);
 
 	}
@@ -264,6 +184,9 @@ public class MainController {
 	 * 
 	 */
 	public void restartGame() {
-
+		logic.clearActors();
+		gamePanelView.clearActors();
+		isGameStarted = false;
+		MainController.getInstance().startGame();
 	}
 }

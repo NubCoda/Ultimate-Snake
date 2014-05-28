@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.Properties;
 import java.util.Vector;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -19,6 +20,7 @@ import Controller.OptionsController;
 import Model.Interface.IConstants;
 import Properties.Player;
 import Properties.PlayerHighscore;
+import javax.swing.JRadioButton;
 
 /**
  * 
@@ -33,6 +35,10 @@ public class OptionView extends JDialog implements ActionListener {
 	private JLabel labelPlayer;
 	private JComboBox<String> comboBoxPlayer;
 	Vector<PlayerHighscore> playerVector;
+	private JRadioButton radioButtonSlow;
+	private JRadioButton radioButtonNormal;
+	private JRadioButton radioButtonFast;
+	private JLabel labelSpeed;
 
 	/**
 	 * 
@@ -41,16 +47,13 @@ public class OptionView extends JDialog implements ActionListener {
 	 */
 	public OptionView(Vector<PlayerHighscore> playerVector) {
 		initGUI();
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(radioButtonSlow);
+		buttonGroup.add(radioButtonNormal);
+		buttonGroup.add(radioButtonFast);
 		this.setLocationRelativeTo(null);
 		this.playerVector = playerVector;
 		fillComboBox();
-	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public OptionView() {
-		initGUI();
 	}
 
 	/**
@@ -58,7 +61,7 @@ public class OptionView extends JDialog implements ActionListener {
 	 */
 	private void initGUI() {
 		setModal(true);
-		setBounds(100, 100, 221, 108);
+		setBounds(100, 100, 369, 231);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -70,8 +73,28 @@ public class OptionView extends JDialog implements ActionListener {
 		}
 		{
 			comboBoxPlayer = new JComboBox<String>();
-			comboBoxPlayer.setBounds(82, 7, 102, 22);
+			comboBoxPlayer.setBounds(10, 25, 102, 22);
 			contentPanel.add(comboBoxPlayer);
+		}
+		{
+			radioButtonSlow = new JRadioButton("Langsam");
+			radioButtonSlow.setBounds(10, 78, 102, 23);
+			contentPanel.add(radioButtonSlow);
+		}
+		{
+			radioButtonNormal = new JRadioButton("Normal");
+			radioButtonNormal.setBounds(10, 104, 102, 23);
+			contentPanel.add(radioButtonNormal);
+		}
+		{
+			radioButtonFast = new JRadioButton("Schnell");
+			radioButtonFast.setBounds(10, 130, 102, 23);
+			contentPanel.add(radioButtonFast);
+		}
+		{
+			labelSpeed = new JLabel("Geschwindigkeit:");
+			labelSpeed.setBounds(10, 49, 102, 22);
+			contentPanel.add(labelSpeed);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -130,7 +153,17 @@ public class OptionView extends JDialog implements ActionListener {
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
 		playerHighscore = OptionsController.getInstance().getSinglePlayer((String) comboBoxPlayer
 				.getSelectedItem());
-		OptionsController.getInstance().savePlayerToFile(playerHighscore);
+		int snake_speed = 0;
+		if(radioButtonSlow.isSelected()) {
+			snake_speed = 150;
+		}
+		else if(radioButtonNormal.isSelected()) {
+			snake_speed = 125;
+		}
+		else {
+			snake_speed = 100;
+		}
+		OptionsController.getInstance().saveToFile(playerHighscore, snake_speed);
 		this.dispose();
 	}
 }

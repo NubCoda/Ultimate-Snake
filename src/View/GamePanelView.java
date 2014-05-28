@@ -33,9 +33,6 @@ public class GamePanelView extends JPanel implements Observer {
 		setFocusable(true);
 		addKeyListener(new KeyListenerView());
 		setPreferredSize(new Dimension(width, height));
-		MouseListenerView mouseListener = new MouseListenerView();
-		addMouseMotionListener(mouseListener);
-		addMouseListener(mouseListener);
 	}
 
 	/**

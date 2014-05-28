@@ -75,10 +75,4 @@ public class AppleModel extends Observable implements IActor, IElement {
 			((SnakeHeadModel) actor).increaseLength();
 		}
 	}
-
-	@Override
-	public boolean checkPosition(Point point) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
