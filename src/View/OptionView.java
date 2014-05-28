@@ -163,6 +163,7 @@ public class OptionView extends JDialog implements ActionListener {
 		else {
 			snake_speed = 100;
 		}
+		System.out.println(snake_speed);
 		OptionsController.getInstance().saveToFile(playerHighscore, snake_speed);
 		this.dispose();
 	}

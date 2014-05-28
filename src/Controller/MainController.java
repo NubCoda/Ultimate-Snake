@@ -46,7 +46,6 @@ public class MainController {
 		createWindow();
 		playerHighscore = OptionsController.getInstance().setLastPlayerFromFile();
 		snakeSpeed = OptionsController.getInstance().getSnakeSpeedFromFile();
-		System.out.println(playerHighscore.getPlayer().getPlayerName());
 		logic = new Logic(snakeSpeed);
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
@@ -121,6 +120,7 @@ public class MainController {
 	 */
 	public void startGame() {
 		// TODO: dies koennte das Level 1 sein
+		snakeSpeed = OptionsController.getInstance().getSnakeSpeedFromFile();
 		if (!isGameStarted) {
 			gamePanelView.clearActors();
 			isGameStarted = true;

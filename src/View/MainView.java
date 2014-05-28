@@ -123,8 +123,8 @@ public class MainView extends JFrame implements Observer, ActionListener {
 
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
 
-		OptionView optionView = new OptionView(OptionsController
-				.getInstance().getPlayers());
+		OptionView optionView = new OptionView(OptionsController.getInstance()
+				.getPlayers());
 		optionView.setVisible(true);
 	}
 
