@@ -46,8 +46,8 @@ public class MainController {
 	 */
 	private MainController() {
 		createWindow();
-		//playerHighscore = OptionsController.getInstance().setLastPlayerFromFile();
-		//System.out.println(playerHighscore.getPlayer().getPlayerName());
+		playerHighscore = OptionsController.getInstance().setLastPlayerFromFile();
+		System.out.println(playerHighscore.getPlayer().getPlayerName());
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);

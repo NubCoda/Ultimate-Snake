@@ -43,7 +43,7 @@ public class FileModel extends Observable {
 			properties.load(new FileInputStream(getFile()));
 			playerHighscore = new PlayerHighscore(new Player(
 					Integer.valueOf(properties.getProperty("player_id")),
-					properties.getProperty("player")),
+					properties.getProperty("player_name")),
 					Integer.valueOf(properties.getProperty("highscore")),
 					Integer.valueOf(properties.getProperty("highscore_id")));
 		} catch (IOException e) {
