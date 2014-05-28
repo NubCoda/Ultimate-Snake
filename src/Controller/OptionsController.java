@@ -58,8 +58,8 @@ public class OptionsController {
 		databaseConnectionModel.createPlayer(playerName);
 	}
 
-	public Vector<Player> getPlayers() {
-		Vector<Player> playerVector = databaseConnectionModel.getPlayers();
+	public Vector<PlayerHighscore> getPlayers() {
+		Vector<PlayerHighscore> playerVector = databaseConnectionModel.getPlayers();
 		return playerVector;
 	}
 	

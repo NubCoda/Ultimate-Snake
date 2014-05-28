@@ -32,14 +32,14 @@ public class OptionView extends JDialog implements ActionListener {
 	private PlayerHighscore playerHighscore;
 	private JLabel labelPlayer;
 	private JComboBox<String> comboBoxPlayer;
-	Vector<Player> playerVector;
+	Vector<PlayerHighscore> playerVector;
 
 	/**
 	 * 
 	 * @param mainView
 	 * @param playerVector
 	 */
-	public OptionView(Vector<Player> playerVector) {
+	public OptionView(Vector<PlayerHighscore> playerVector) {
 		initGUI();
 		this.setLocationRelativeTo(null);
 		this.playerVector = playerVector;
@@ -97,8 +97,8 @@ public class OptionView extends JDialog implements ActionListener {
 	 * 
 	 */
 	private void fillComboBox() {
-		for (Player tmp : playerVector) {
-			comboBoxPlayer.addItem(tmp.getPlayerName());
+		for (PlayerHighscore tmp : playerVector) {
+			comboBoxPlayer.addItem(tmp.getPlayer().getPlayerName());
 		}
 
 	}

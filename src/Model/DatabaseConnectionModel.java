@@ -23,7 +23,6 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 	private String highscore_table = IConstants.TABLE_HIGHSCORE;
 	private String url = IConstants.DATABASE_PATH;
 	private String sql;
-	private Vector<Player> playerVector = null;
 
 	@Override
 	public void createConnection() {
@@ -104,19 +103,23 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 	}
 
 	@Override
-	public Vector<Player> getPlayers() {
+	public Vector<PlayerHighscore> getPlayers() {
 		createConnection();
-		Player player = new Player();
-		playerVector = new Vector<Player>();
-		sql = "SELECT * FROM " + player_table;
+		PlayerHighscore playerHighscore = null;
+		Vector<PlayerHighscore> playerVector = new Vector<PlayerHighscore>();
+		sql = "SELECT player.player_name, highscore.* FROM " + player_table
+				+ " player JOIN " + highscore_table + " highscore ON"
+				+ " highscore.player_id = player.player_id";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				player = new Player(resultSet.getInt("player_id"),
-						resultSet.getString("player_name"));
-				playerVector.add(player);
-				player = null;
+				playerHighscore = new PlayerHighscore(new Player(
+						resultSet.getInt("player_id"),
+						resultSet.getString("player_name")),
+						resultSet.getInt("highscore"),
+						resultSet.getInt("highscore_id"));
+				playerVector.add(playerHighscore);
 			}
 			connection.close();
 		} catch (SQLException e) {

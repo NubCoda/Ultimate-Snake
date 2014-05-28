@@ -19,6 +19,7 @@ import Controller.MainController;
 import Controller.OptionsController;
 import Model.OptionsModel;
 import Properties.Player;
+import Properties.PlayerHighscore;
 
 /**
  * 
@@ -34,7 +35,7 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	private JMenuItem menuItemOption;
 	private JMenu menuPlayer;
 	private JMenuItem menuItemSpielerErstellen;
-	private Player player;
+	private PlayerHighscore playerHighscore;
 
 	/**
 	 * 

@@ -3,6 +3,7 @@ package Model.Interface;
 import java.util.Vector;
 
 import Properties.Player;
+import Properties.PlayerHighscore;
 
 /**
  * 
@@ -24,5 +25,5 @@ public interface IDataBaseConnection {
 	 * 
 	 * @return
 	 */
-	public Vector<Player> getPlayers();
+	public Vector<PlayerHighscore> getPlayers();
 }
