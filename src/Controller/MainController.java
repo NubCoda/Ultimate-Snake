@@ -219,7 +219,7 @@ public class MainController {
 		AppleModel appleModel = new AppleModel(gamePanelView,
 				appleView.getImage());
 		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, 0, 60, opponentView1.getImage(), logic);
+		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage(), logic);
 		opponentModel1.addObserver(opponentView1);
 			
 		appleModel.addObserver(appleView);
