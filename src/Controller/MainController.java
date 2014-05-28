@@ -46,6 +46,7 @@ public class MainController {
 		createWindow();
 		playerHighscore = OptionsController.getInstance()
 				.setLastPlayerFromFile();
+		gameSettings = OptionsController.getInstance().getGameSettings();
 		logic = new Logic(gameSettings);
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
@@ -114,6 +115,14 @@ public class MainController {
 		snakeHeadModel.rotateSnake(direction);
 	}
 
+	public int getDifficulty() {
+		return gameSettings.getDifficulty();
+	}
+	
+	public String getPlayerName() {
+		return playerHighscore.getPlayer().getPlayerName();
+	}
+
 	/**
 	 * 
 	 */
@@ -122,14 +131,14 @@ public class MainController {
 		if (!isGameStarted) {
 			gamePanelView.clearActors();
 			isGameStarted = true;
-			gameSettings = OptionsController.getInstance().getDifficulty();
 			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
 					gamePanelView);
 			SnakeHeadView snakeHeadView = new SnakeHeadView(
 					IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
+			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
-					snakeHeadView.getImage(), logic,
-					gameSettings.getDifficulty());
+					snakeHeadView.getImage(), logic);
+			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
 			SnakeTailView snakeTailView = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
 			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView,
@@ -169,11 +178,11 @@ public class MainController {
 			gamePanelView.addActor(snakeTailView2);
 			gamePanelView.addActor(opponentView1);
 		} else {
-			gameSettings = OptionsController.getInstance().getDifficulty();
+			gameSettings = OptionsController.getInstance().getGameSettings();
+			System.out.println(gameSettings.getDifficulty());
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
 		}
 		logic.setGameRunning(true);
-		System.out.println(gameSettings.getDifficulty());
 	}
 
 	/**

@@ -45,7 +45,7 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param mainView
 	 * @param playerVector
 	 */
-	public OptionView(Vector<PlayerHighscore> playerVector) {
+	public OptionView(Vector<PlayerHighscore> playerVector, int difficulty, String playerName) {
 		initGUI();
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(radioButtonSlow);
@@ -53,7 +53,8 @@ public class OptionView extends JDialog implements ActionListener {
 		buttonGroup.add(radioButtonFast);
 		this.setLocationRelativeTo(null);
 		this.playerVector = playerVector;
-		fillComboBox();
+		this.fillComboBox(playerName);
+		this.selectDifficulty(difficulty);
 	}
 
 	/**
@@ -119,11 +120,26 @@ public class OptionView extends JDialog implements ActionListener {
 	/**
 	 * 
 	 */
-	private void fillComboBox() {
+	private void fillComboBox(String playerName) {
 		for (PlayerHighscore tmp : playerVector) {
 			comboBoxPlayer.addItem(tmp.getPlayer().getPlayerName());
 		}
-
+		comboBoxPlayer.setSelectedItem((String) playerName);
+	}
+	
+	private void selectDifficulty(int difficulty){
+		System.out.println(difficulty);
+		switch (difficulty) {
+		case 1:
+			radioButtonSlow.setSelected(true);
+			break;
+		case 2:
+			radioButtonNormal.setSelected(true);
+			break;
+		case 3:
+			radioButtonFast.setSelected(true);
+			break;
+		}
 	}
 
 	/**
@@ -153,15 +169,15 @@ public class OptionView extends JDialog implements ActionListener {
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
 		playerHighscore = OptionsController.getInstance().getSinglePlayer((String) comboBoxPlayer
 				.getSelectedItem());
-		String difficulty = "";
+		int difficulty;
 		if(radioButtonSlow.isSelected()) {
-			difficulty = "Easy";
+			difficulty = 1;
 		}
 		else if(radioButtonNormal.isSelected()) {
-			difficulty = "Normal";
+			difficulty = 2;
 		}
 		else {
-			difficulty = "Hard";
+			difficulty = 3;
 		}
 		OptionsController.getInstance().saveToFile(playerHighscore, difficulty);
 		this.dispose();

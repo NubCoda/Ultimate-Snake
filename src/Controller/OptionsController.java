@@ -66,12 +66,12 @@ public class OptionsController {
 		return playerHighscore;
 	}
 	
-	public GameSettings getDifficulty() {
+	public GameSettings getGameSettings() {
 		GameSettings gameSettings = fileModel.getGameSettingsFromFile();
 		return gameSettings;
 	}
 
-	public void saveToFile(PlayerHighscore playerHighscore, String difficulty) {
+	public void saveToFile(PlayerHighscore playerHighscore, int difficulty) {
 		fileModel.writeToIniFile(playerHighscore, difficulty);
 	}
 	

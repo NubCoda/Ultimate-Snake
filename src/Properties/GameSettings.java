@@ -1,17 +1,17 @@
 package Properties;
 
 public class GameSettings {
-	private String difficulty;
+	private int difficulty;
 
-	public GameSettings(String difficulty) {
+	public GameSettings(int difficulty) {
 		this.difficulty = difficulty;
 	}
 
-	public String getDifficulty() {
+	public int getDifficulty() {
 		return difficulty;
 	}
 
-	public void setDifficulty(String difficulty) {
+	public void setDifficulty(int difficulty) {
 		this.difficulty = difficulty;
 	}
 

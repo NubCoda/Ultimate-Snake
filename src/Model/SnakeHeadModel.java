@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -40,30 +39,28 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 * @param bufferedImage
 	 */
 	public SnakeHeadModel(GamePanelView gamePanelView, double x, double y,
-			BufferedImage bufferedImage, Logic logic, String difficulty) {
+			BufferedImage bufferedImage, Logic logic) {
 		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(),
 				bufferedImage.getHeight());
 		movement = new Point2D.Double(0, 0);
 		this.gamePanelView = gamePanelView;
 		this.logic = logic;
-		this.difficulty = difficulty;
 	}
 
-	public void setSpeedByDifficulty(String difficulty) {
-		System.out.println(difficulty);
+	public void setSpeedByDifficulty(int difficulty) {
 		switch (difficulty) {
-		case "Easy":
-			this.speed = 160;
-			System.out.println("ITS EASY");
+		case 1:
+			speed = 160;
 			break;
-		case "Normal":
-			this.speed = 80;
+		case 2:
+			speed = 80;
 			break;
-		case "Hard":
-			this.speed = 40;
+		case 3:
+			speed = 40;
+			break;
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -90,7 +87,8 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 
 		switch (direction) {
 		case DOWN:
-			bounding.y = (bounding.y + bounding.getHeight()) % gamePanelView.getHeight();
+			bounding.y = (bounding.y + bounding.getHeight())
+					% gamePanelView.getHeight();
 			break;
 		case UP:
 			bounding.y -= bounding.getHeight();
@@ -99,8 +97,9 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 			}
 			break;
 		case RIGHT:
-			bounding.x = (bounding.x + bounding.getWidth()) % gamePanelView.getWidth();
-			
+			bounding.x = (bounding.x + bounding.getWidth())
+					% gamePanelView.getWidth();
+
 			break;
 		case LEFT:
 			bounding.x -= bounding.getWidth();
@@ -111,17 +110,17 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		default:
 			break;
 		}
-//		if(bounding.x > gamePanelView.getWidth()){
-//			bounding.x = 0;
-//		} else if(bounding.x < 0) {
-//			bounding.x = gamePanelView.getWidth();
-//		}
-//		
-//		if(bounding.y > gamePanelView.getHeight()){
-//			bounding.y = 0;
-//		} else if (bounding.y < 0) {
-//			bounding.y = gamePanelView.getHeight();
-//		}
+		// if(bounding.x > gamePanelView.getWidth()){
+		// bounding.x = 0;
+		// } else if(bounding.x < 0) {
+		// bounding.x = gamePanelView.getWidth();
+		// }
+		//
+		// if(bounding.y > gamePanelView.getHeight()){
+		// bounding.y = 0;
+		// } else if (bounding.y < 0) {
+		// bounding.y = gamePanelView.getHeight();
+		// }
 	}
 
 	/**

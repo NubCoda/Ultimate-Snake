@@ -19,7 +19,7 @@ public class FileModel extends Observable {
 		file = new File(IConstants.CONFIG_PATH);
 	}
 
-	public void writeToIniFile(PlayerHighscore playerHighscore, String difficulty) {
+	public void writeToIniFile(PlayerHighscore playerHighscore, int difficulty) {
 		Properties properties = new Properties();
 		properties.setProperty("player_name",
 				String.valueOf(playerHighscore.getPlayer().getPlayerName()));
@@ -29,7 +29,7 @@ public class FileModel extends Observable {
 				String.valueOf(playerHighscore.getHighscore()));
 		properties.setProperty("highscore_id",
 				String.valueOf(playerHighscore.getHighscore_id()));
-		properties.setProperty("difficulty", difficulty);
+		properties.setProperty("difficulty", String.valueOf(difficulty));
 		try {
 			properties.store(new FileOutputStream(getFile()), null);
 		} catch (IOException e) {
@@ -54,13 +54,14 @@ public class FileModel extends Observable {
 		}
 		return playerHighscore;
 	}
-	
+
 	public GameSettings getGameSettingsFromFile() {
 		GameSettings gameSettings = null;
 		Properties properties = new Properties();
 		try {
 			properties.load(new FileInputStream(getFile()));
-			gameSettings = new GameSettings(properties.getProperty("difficulty", "Normal"));
+			gameSettings = new GameSettings(Integer.valueOf(properties
+					.getProperty("difficulty", "1")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
