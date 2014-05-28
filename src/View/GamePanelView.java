@@ -50,7 +50,7 @@ public class GamePanelView extends JPanel implements Observer {
 	 * 
 	 */
 	public void clearActors() {
-		actors.removeAllElements();
+		actors.clear();
 	}
 
 	@Override
