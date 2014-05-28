@@ -26,7 +26,6 @@ import View.MenuView;
 import View.OpponentView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
-import View.SpriteView;
 
 /**
  *
