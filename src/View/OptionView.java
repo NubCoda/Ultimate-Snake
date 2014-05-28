@@ -38,7 +38,7 @@ public class OptionView extends JDialog implements ActionListener {
 	private JRadioButton radioButtonSlow;
 	private JRadioButton radioButtonNormal;
 	private JRadioButton radioButtonFast;
-	private JLabel labelSpeed;
+	private JLabel labelDifficulty;
 
 	/**
 	 * 
@@ -77,7 +77,7 @@ public class OptionView extends JDialog implements ActionListener {
 			contentPanel.add(comboBoxPlayer);
 		}
 		{
-			radioButtonSlow = new JRadioButton("Langsam");
+			radioButtonSlow = new JRadioButton("Einfach");
 			radioButtonSlow.setBounds(10, 78, 102, 23);
 			contentPanel.add(radioButtonSlow);
 		}
@@ -87,14 +87,14 @@ public class OptionView extends JDialog implements ActionListener {
 			contentPanel.add(radioButtonNormal);
 		}
 		{
-			radioButtonFast = new JRadioButton("Schnell");
+			radioButtonFast = new JRadioButton("Schwer");
 			radioButtonFast.setBounds(10, 130, 102, 23);
 			contentPanel.add(radioButtonFast);
 		}
 		{
-			labelSpeed = new JLabel("Geschwindigkeit:");
-			labelSpeed.setBounds(10, 49, 102, 22);
-			contentPanel.add(labelSpeed);
+			labelDifficulty = new JLabel("Schwierigkeit:");
+			labelDifficulty.setBounds(10, 49, 102, 22);
+			contentPanel.add(labelDifficulty);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -153,18 +153,17 @@ public class OptionView extends JDialog implements ActionListener {
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
 		playerHighscore = OptionsController.getInstance().getSinglePlayer((String) comboBoxPlayer
 				.getSelectedItem());
-		int snake_speed = 0;
+		String difficulty = "";
 		if(radioButtonSlow.isSelected()) {
-			snake_speed = 150;
+			difficulty = "Easy";
 		}
 		else if(radioButtonNormal.isSelected()) {
-			snake_speed = 125;
+			difficulty = "Normal";
 		}
 		else {
-			snake_speed = 100;
+			difficulty = "Hard";
 		}
-		System.out.println(snake_speed);
-		OptionsController.getInstance().saveToFile(playerHighscore, snake_speed);
+		OptionsController.getInstance().saveToFile(playerHighscore, difficulty);
 		this.dispose();
 	}
 }

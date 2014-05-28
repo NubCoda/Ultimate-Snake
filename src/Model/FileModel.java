@@ -8,9 +8,9 @@ import java.util.Observable;
 import java.util.Properties;
 
 import Model.Interface.IConstants;
+import Properties.GameSettings;
 import Properties.Player;
 import Properties.PlayerHighscore;
-import Properties.SnakeSpeed;
 
 public class FileModel extends Observable {
 	private File file;
@@ -19,7 +19,7 @@ public class FileModel extends Observable {
 		file = new File(IConstants.CONFIG_PATH);
 	}
 
-	public void writeToIniFile(PlayerHighscore playerHighscore, int snake_speed) {
+	public void writeToIniFile(PlayerHighscore playerHighscore, String difficulty) {
 		Properties properties = new Properties();
 		properties.setProperty("player_name",
 				String.valueOf(playerHighscore.getPlayer().getPlayerName()));
@@ -29,7 +29,7 @@ public class FileModel extends Observable {
 				String.valueOf(playerHighscore.getHighscore()));
 		properties.setProperty("highscore_id",
 				String.valueOf(playerHighscore.getHighscore_id()));
-		properties.setProperty("snake_speed", String.valueOf(snake_speed));
+		properties.setProperty("difficulty", difficulty);
 		try {
 			properties.store(new FileOutputStream(getFile()), null);
 		} catch (IOException e) {
@@ -55,17 +55,17 @@ public class FileModel extends Observable {
 		return playerHighscore;
 	}
 	
-	public SnakeSpeed getSnakeSpeedFromFile() {
-		SnakeSpeed snakeSpeed = null;
+	public GameSettings getGameSettingsFromFile() {
+		GameSettings gameSettings = null;
 		Properties properties = new Properties();
 		try {
 			properties.load(new FileInputStream(getFile()));
-			snakeSpeed = new SnakeSpeed(Integer.valueOf(properties.getProperty("snake_speed", "150")));
+			gameSettings = new GameSettings(properties.getProperty("snake_speed", "Normal"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return snakeSpeed;
+		return gameSettings;
 	}
 
 	public File getFile() {

@@ -39,15 +39,28 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 * @param bufferedImage
 	 */
 	public SnakeHeadModel(GamePanelView gamePanelView, double x, double y,
-			BufferedImage bufferedImage, Logic logic) {
+			BufferedImage bufferedImage, Logic logic, String difficulty) {
 		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(),
 				bufferedImage.getHeight());
 		movement = new Point2D.Double(0, 0);
 		this.gamePanelView = gamePanelView;
 		this.logic = logic;
-		this.speed = logic.getSnakeSpeed().getSpeed();
+		setSpeedByDifficulty(difficulty);
 	}
 
+	private void setSpeedByDifficulty(String difficulty) {
+		switch (difficulty) {
+		case "Easy":
+			this.speed = 150;
+			break;
+		case "Normal":
+			this.speed = 125;
+			break;
+		case "Hard":
+			this.speed = 100;
+		}
+	}
+	
 	/**
 	 * 
 	 */

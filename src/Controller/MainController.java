@@ -16,8 +16,8 @@ import Model.SnakeTailModel;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Properties.GameSettings;
 import Properties.PlayerHighscore;
-import Properties.SnakeSpeed;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
@@ -36,7 +36,7 @@ public class MainController {
 	private Logic logic;
 	private SnakeHeadModel snakeHeadModel;
 	private PlayerHighscore playerHighscore;
-	private SnakeSpeed snakeSpeed;
+	private GameSettings gameSettings;
 	private boolean isGameStarted = false;
 
 	/**
@@ -45,8 +45,8 @@ public class MainController {
 	private MainController() {
 		createWindow();
 		playerHighscore = OptionsController.getInstance().setLastPlayerFromFile();
-		snakeSpeed = OptionsController.getInstance().getSnakeSpeedFromFile();
-		logic = new Logic(snakeSpeed);
+		gameSettings = OptionsController.getInstance().getDifficulty();
+		logic = new Logic(gameSettings);
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
@@ -120,7 +120,6 @@ public class MainController {
 	 */
 	public void startGame() {
 		// TODO: dies koennte das Level 1 sein
-		snakeSpeed = OptionsController.getInstance().getSnakeSpeedFromFile();
 		if (!isGameStarted) {
 			gamePanelView.clearActors();
 			isGameStarted = true;
@@ -129,7 +128,7 @@ public class MainController {
 			SnakeHeadView snakeHeadView = new SnakeHeadView(
 					IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
 			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
-					snakeHeadView.getImage(), logic);
+					snakeHeadView.getImage(), logic, gameSettings.getDifficulty());
 			SnakeTailView snakeTailView = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
 			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView,
@@ -170,7 +169,6 @@ public class MainController {
 			gamePanelView.addActor(opponentView1);
 		}
 		logic.setGameRunning(true);
-
 	}
 
 	/**

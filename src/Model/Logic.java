@@ -1,11 +1,10 @@
 package Model;
 
-import java.awt.Point;
 import java.util.Observable;
 import java.util.Vector;
 
 import Model.Interface.IActor;
-import Properties.SnakeSpeed;
+import Properties.GameSettings;
 
 /**
  * 
@@ -17,14 +16,14 @@ public class Logic extends Observable implements Runnable {
 	private long last = 0;
 	private double delta = 0;
 	private boolean isKilled = false;
-	private SnakeSpeed snakeSpeed;
+	private GameSettings gameSettings;
 
 	/**
 	 * 
 	 */
-	public Logic(SnakeSpeed snakeSpeed) {
+	public Logic(GameSettings gameSettings) {
 		this.actors = new Vector<IActor>();
-		this.snakeSpeed = snakeSpeed;
+		this.gameSettings = gameSettings;
 	}
 
 	/**
@@ -101,9 +100,5 @@ public class Logic extends Observable implements Runnable {
 	public void gameOver() {
 		setGameRunning(false);
 		//TODO
-	}
-
-	public SnakeSpeed getSnakeSpeed() {
-		return snakeSpeed;
 	}
 }

@@ -6,8 +6,8 @@ import java.util.Vector;
 import Model.DatabaseConnectionModel;
 import Model.FileModel;
 import Model.OptionsModel;
+import Properties.GameSettings;
 import Properties.PlayerHighscore;
-import Properties.SnakeSpeed;
 import View.MainView;
 
 /**
@@ -66,13 +66,13 @@ public class OptionsController {
 		return playerHighscore;
 	}
 	
-	public SnakeSpeed getSnakeSpeedFromFile() {
-		SnakeSpeed snakeSpeed = fileModel.getSnakeSpeedFromFile();
-		return snakeSpeed;
+	public GameSettings getDifficulty() {
+		GameSettings gameSettings = fileModel.getGameSettingsFromFile();
+		return gameSettings;
 	}
 
-	public void saveToFile(PlayerHighscore playerHighscore, int snake_speed) {
-		fileModel.writeToIniFile(playerHighscore, snake_speed);
+	public void saveToFile(PlayerHighscore playerHighscore, String difficulty) {
+		fileModel.writeToIniFile(playerHighscore, difficulty);
 	}
 	
 	public PlayerHighscore getSinglePlayer(String playerName) {
