@@ -49,7 +49,7 @@ public interface IConstants {
 	/**
 	 * 
 	 */
-	public static final String CONFIG_PATH = "./recources/other/config.ini";
+	public static final String CONFIG_PATH = "./resources/other/config.ini";
 	
 	/**
 	 * 
@@ -68,5 +68,5 @@ public interface IConstants {
 	/**
 	 * 
 	 */
-	public static final String TABLE_HIGHSCORE = "player";
+	public static final String TABLE_HIGHSCORE = "player_highscore";
 }

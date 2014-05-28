@@ -10,6 +10,7 @@ import java.util.Vector;
 import Model.Interface.IConstants;
 import Model.Interface.IDataBaseConnection;
 import Properties.Player;
+import Properties.PlayerHighscore;
 
 /**
  * 
@@ -18,7 +19,8 @@ import Properties.Player;
 public class DatabaseConnectionModel implements IDataBaseConnection {
 	private Connection connection;
 	private PreparedStatement preparedStatement;
-	private String table = IConstants.TABLE_PLAYER;
+	private String player_table = IConstants.TABLE_PLAYER;
+	private String highscore_table = IConstants.TABLE_HIGHSCORE;
 	private String url = IConstants.DATABASE_PATH;
 	private String sql;
 	private Vector<Player> playerVector = null;
@@ -42,7 +44,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 	@Override
 	public void createPlayer(String playerName) {
 		createConnection();
-		sql = "INSERT INTO " + table + " (player_name) values (?)";
+		sql = "INSERT INTO " + player_table + " (player_name) values (?)";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, playerName);
@@ -59,23 +61,28 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 	 * @param playerName
 	 * @return
 	 */
-	public Player getSinglePlayer(String playerName) {
+	public PlayerHighscore getSinglePlayer(String playerName) {
 		createConnection();
 		Player player = null;
-		sql = "SELECT * FROM " + table + " WHERE player_name = '" + playerName
-				+ "'";
+		PlayerHighscore playerHighscore = null;
+		sql = "SELECT player.*, highscore.highscore FROM " + player_table
+				+ " player" + " JOIN " + highscore_table + " highscore ON"
+				+ " player.player_id = highscore.player_id"
+				+ " WHERE player_name = '" + playerName + "'";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet != null) {
 				player = new Player(resultSet.getInt("player_id"),
 						resultSet.getString("player_name"), 0);
+				playerHighscore = new PlayerHighscore(player, resultSet.getInt("highscore"));
+				System.out.println(player.getPlayerId());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return player;
+		return playerHighscore;
 	}
 
 	@Override
@@ -83,7 +90,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		createConnection();
 		Player player = new Player();
 		playerVector = new Vector<Player>();
-		sql = "SELECT * FROM " + table;
+		sql = "SELECT * FROM " + player_table;
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
