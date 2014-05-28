@@ -76,8 +76,12 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 	public PlayerHighscore getSinglePlayer(String playerName) {
 		createConnection();
 		PlayerHighscore playerHighscore = null;
-		sql = "SELECT player.*, highscore.highscore FROM " + player_table
-				+ " player" + " JOIN " + highscore_table + " highscore ON"
+		sql = "SELECT player.*, highscore.highscore, highscore.highscore_id FROM "
+				+ player_table
+				+ " player"
+				+ " JOIN "
+				+ highscore_table
+				+ " highscore ON"
 				+ " player.player_id = highscore.player_id"
 				+ " WHERE player_name = '" + playerName + "'";
 		// System.out.println(sql);
@@ -88,7 +92,8 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 				playerHighscore = new PlayerHighscore(new Player(
 						resultSet.getInt("player_id"),
 						resultSet.getString("player_name")),
-						resultSet.getInt("highscore"), resultSet.getInt("highscore_id"));
+						resultSet.getInt("highscore"),
+						resultSet.getInt("highscore_id"));
 			}
 			connection.close();
 		} catch (SQLException e) {

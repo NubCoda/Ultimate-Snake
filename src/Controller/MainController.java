@@ -19,6 +19,7 @@ import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Model.Interface.IMenu;
+import Properties.PlayerHighscore;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
@@ -37,6 +38,7 @@ public class MainController {
 	private Logic logic;
 	private SnakeHeadModel snakeHeadModel;
 	private IMenu oldMenu = null;
+	private PlayerHighscore playerHighscore;
 	private boolean isGameStarted = false;
 
 	/**
@@ -44,6 +46,8 @@ public class MainController {
 	 */
 	private MainController() {
 		createWindow();
+		//playerHighscore = OptionsController.getInstance().setLastPlayerFromFile();
+		//System.out.println(playerHighscore.getPlayer().getPlayerName());
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);

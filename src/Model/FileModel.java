@@ -20,12 +20,14 @@ public class FileModel extends Observable {
 
 	public void writeToIniFile(PlayerHighscore playerHighscore) {
 		Properties properties = new Properties();
-		properties.setProperty("player",
+		properties.setProperty("player_name",
 				String.valueOf(playerHighscore.getPlayer().getPlayerName()));
 		properties.setProperty("player_id",
 				String.valueOf(playerHighscore.getPlayer().getPlayerId()));
 		properties.setProperty("highscore",
 				String.valueOf(playerHighscore.getHighscore()));
+		properties.setProperty("highscore_id",
+				String.valueOf(playerHighscore.getHighscore_id()));
 		try {
 			properties.store(new FileOutputStream(getFile()), null);
 		} catch (IOException e) {
