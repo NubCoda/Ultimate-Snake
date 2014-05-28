@@ -54,7 +54,7 @@ public interface IConstants {
 	/**
 	 * 
 	 */
-	public static final int SNAKE_SPEED = 50;
+	public static final int SNAKE_SPEED = 150;
 
 	/**
 	 * 
@@ -65,4 +65,8 @@ public interface IConstants {
 	 * 
 	 */
 	public static final String TABLE_PLAYER = "player";
+	/**
+	 * 
+	 */
+	public static final String TABLE_HIGHSCORE = "player";
 }
