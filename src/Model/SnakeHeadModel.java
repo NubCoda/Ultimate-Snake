@@ -30,6 +30,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private IPlayerBone last;
 	private GamePanelView gamePanelView;
 	private Logic logic;
+	private String difficulty;
 
 	/**
 	 * 
@@ -45,19 +46,21 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		movement = new Point2D.Double(0, 0);
 		this.gamePanelView = gamePanelView;
 		this.logic = logic;
-		setSpeedByDifficulty(difficulty);
+		this.difficulty = difficulty;
 	}
 
-	private void setSpeedByDifficulty(String difficulty) {
+	public void setSpeedByDifficulty(String difficulty) {
+		System.out.println(difficulty);
 		switch (difficulty) {
 		case "Easy":
-			this.speed = 150;
+			this.speed = 160;
+			System.out.println("ITS EASY");
 			break;
 		case "Normal":
-			this.speed = 125;
+			this.speed = 80;
 			break;
 		case "Hard":
-			this.speed = 100;
+			this.speed = 40;
 		}
 	}
 	

@@ -60,7 +60,7 @@ public class FileModel extends Observable {
 		Properties properties = new Properties();
 		try {
 			properties.load(new FileInputStream(getFile()));
-			gameSettings = new GameSettings(properties.getProperty("snake_speed", "Normal"));
+			gameSettings = new GameSettings(properties.getProperty("difficulty", "Normal"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
