@@ -132,7 +132,7 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
 		String playerName = JOptionPane
 				.showInputDialog("Spielernamen angeben!");
-		if (!playerName.isEmpty()) {
+		if (playerName != null && !playerName.isEmpty()) {
 			OptionsController.getInstance().createPlayer(playerName);
 		}
 		setVisible(true);

@@ -169,6 +169,7 @@ public class OptionView extends JDialog implements ActionListener {
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
 		playerHighscore = OptionsController.getInstance().getSinglePlayer((String) comboBoxPlayer
 				.getSelectedItem());
+		System.out.println(playerHighscore.getPlayer().getPlayerName());
 		int difficulty;
 		if(radioButtonSlow.isSelected()) {
 			difficulty = 1;
