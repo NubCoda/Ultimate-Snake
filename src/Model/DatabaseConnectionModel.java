@@ -49,6 +49,18 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, playerName);
 			preparedStatement.executeUpdate();
+			sql = "SELECT * FROM sqlite_sequence WHERE name = '" + player_table
+					+ "'";
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet != null) {
+				sql = "INSERT INTO " + highscore_table
+						+ " (player_id, highscore) values (?, ?)";
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, resultSet.getInt("seq"));
+				preparedStatement.setString(2, playerName);
+				preparedStatement.executeUpdate();
+			}
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -63,21 +75,22 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 	 */
 	public PlayerHighscore getSinglePlayer(String playerName) {
 		createConnection();
-		Player player = null;
 		PlayerHighscore playerHighscore = null;
 		sql = "SELECT player.*, highscore.highscore FROM " + player_table
 				+ " player" + " JOIN " + highscore_table + " highscore ON"
 				+ " player.player_id = highscore.player_id"
 				+ " WHERE player_name = '" + playerName + "'";
+		// System.out.println(sql);
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet != null) {
-				player = new Player(resultSet.getInt("player_id"),
-						resultSet.getString("player_name"), 0);
-				playerHighscore = new PlayerHighscore(player, resultSet.getInt("highscore"));
-				System.out.println(player.getPlayerId());
+				playerHighscore = new PlayerHighscore(new Player(
+						resultSet.getInt("player_id"),
+						resultSet.getString("player_name")),
+						resultSet.getInt("highscore"), resultSet.getInt("highscore_id"));
 			}
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,7 +109,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				player = new Player(resultSet.getInt("player_id"),
-						resultSet.getString("player_name"), 0);
+						resultSet.getString("player_name"));
 				playerVector.add(player);
 				player = null;
 			}

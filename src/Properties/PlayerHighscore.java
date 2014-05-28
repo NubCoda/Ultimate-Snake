@@ -3,9 +3,12 @@ package Properties;
 public class PlayerHighscore {
 	private Player player;
 	private int highscore;
+	private int highscore_id;
 	
-	public PlayerHighscore(Player player, int highscore) {
-		
+	public PlayerHighscore(Player player, int highscore, int higscore_id) {
+		this.player = player;
+		this.highscore = highscore;
+		this.highscore_id = higscore_id;
 	}
 
 	/**
@@ -35,6 +38,21 @@ public class PlayerHighscore {
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
 	}
+
+	/**
+	 * @return the highscore_id
+	 */
+	public int getHighscore_id() {
+		return highscore_id;
+	}
+
+	/**
+	 * @param highscore_id the highscore_id to set
+	 */
+	public void setHighscore_id(int highscore_id) {
+		this.highscore_id = highscore_id;
+	}
+	
 	
 	
 }

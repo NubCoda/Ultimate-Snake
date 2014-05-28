@@ -8,6 +8,7 @@ import java.util.Vector;
 import Model.DatabaseConnectionModel;
 import Model.FileModel;
 import Model.OptionsModel;
+import Model.Interface.IConstants;
 import Properties.Player;
 import Properties.PlayerHighscore;
 import View.MainView;
@@ -61,16 +62,20 @@ public class OptionsController {
 		Vector<Player> playerVector = databaseConnectionModel.getPlayers();
 		return playerVector;
 	}
+	
+	public PlayerHighscore setLastPlayerFromFile(){
+		PlayerHighscore playerHighscore = null;
+		playerHighscore = fileModel.getLastPlayerFromFile();
+		return playerHighscore;
+	}
 
-	public void saveToFile(File file, Properties properties) {
-		fileModel.addProperty(properties);
-		fileModel.setFile(file);
-		fileModel.writeToIniFile();
-		fileModel.clearVector();
+	public void savePlayerToFile(PlayerHighscore playerHighscore) {
+		fileModel.writeToIniFile(playerHighscore);
 	}
 	
 	public PlayerHighscore getSinglePlayer(String playerName) {
-		PlayerHighscore playerHighscore = databaseConnectionModel.getSinglePlayer(playerName);
+		PlayerHighscore playerHighscore = null;
+		playerHighscore = databaseConnectionModel.getSinglePlayer(playerName);
 		return playerHighscore;
 	}
 }

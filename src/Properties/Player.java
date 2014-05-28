@@ -7,7 +7,6 @@ package Properties;
 public class Player {
 	private String playerName;
 	private int playerId;
-	private int highscore;
 
 	/**
 	 * 
@@ -30,10 +29,9 @@ public class Player {
 	 * @param playerName
 	 * @param highscore
 	 */
-	public Player(int playerId, String playerName, int highscore) {
+	public Player(int playerId, String playerName) {
 		this.playerId = playerId;
 		this.playerName = playerName;
-		this.highscore = highscore;
 	}
 
 	/**
@@ -68,19 +66,4 @@ public class Player {
 		this.playerName = playerName;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public int getHighscore() {
-		return highscore;
-	}
-
-	/**
-	 * 
-	 * @param highscore
-	 */
-	public void setHighscore(int highscore) {
-		this.highscore = highscore;
-	}
 }

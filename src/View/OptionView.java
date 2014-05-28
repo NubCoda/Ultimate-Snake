@@ -130,13 +130,7 @@ public class OptionView extends JDialog implements ActionListener {
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
 		playerHighscore = OptionsController.getInstance().getSinglePlayer((String) comboBoxPlayer
 				.getSelectedItem());
-		Properties properties = new Properties();
-		properties.setProperty("player",
-				String.valueOf(playerVector.get(0).getPlayerName()));
-		properties.setProperty("player_id",
-				String.valueOf(playerHighscore.getPlayer().getPlayerId()));
-		File file = new File(IConstants.CONFIG_PATH);
-		OptionsController.getInstance().saveToFile(file, properties);
+		OptionsController.getInstance().savePlayerToFile(playerHighscore);
 		this.dispose();
 	}
 }
