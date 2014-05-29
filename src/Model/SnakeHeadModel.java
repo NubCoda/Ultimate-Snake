@@ -70,7 +70,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		}
 
 		movement = new Point2D.Double(bounding.x, bounding.y);
-
+		
 		switch (direction) {
 		case DOWN:
 			bounding.y = (bounding.y + bounding.getHeight()) % gamePanelView.getHeight();
@@ -94,17 +94,6 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		default:
 			break;
 		}
-//		if(bounding.x > gamePanelView.getWidth()){
-//			bounding.x = 0;
-//		} else if(bounding.x < 0) {
-//			bounding.x = gamePanelView.getWidth();
-//		}
-//		
-//		if(bounding.y > gamePanelView.getHeight()){
-//			bounding.y = 0;
-//		} else if (bounding.y < 0) {
-//			bounding.y = gamePanelView.getHeight();
-//		}
 	}
 
 	/**
@@ -121,7 +110,6 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 * 
 	 */
 	public void increaseLength() {
-
 		double x = last.getX();
 		double y = last.getY();
 		switch (last.getDirection()) {

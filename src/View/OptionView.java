@@ -154,21 +154,21 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param arg0
 	 */
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		DatabaseConnectionModel databaseAccessObjects = new DatabaseConnectionModel();
-		player = databaseAccessObjects.getSinglePlayer((String) comboBoxPlayer
-				.getSelectedItem());
-		OptionsController.getInstance().setResolution(mainView,
-				new Dimension(newWidth, newHeight));
-		Properties properties = new Properties();
-		properties.setProperty("player",
-				String.valueOf(playerVector.get(0).getPlayerName()));
-		properties.setProperty("player_id",
-				String.valueOf(player.getPlayerId()));
-		properties.setProperty("height", String.valueOf(newHeight));
-		properties.setProperty("width", String.valueOf(newWidth));
-		File file = new File(IConstants.CONFIG_PATH);
-//		FileController.getInstance().writeToIniFile(new FileView(), file,
-//				properties);
-		this.dispose();
+//		DatabaseConnectionModel databaseAccessObjects = new DatabaseConnectionModel();
+//		player = databaseAccessObjects.getSinglePlayer((String) comboBoxPlayer
+//				.getSelectedItem());
+//		OptionsController.getInstance().setResolution(mainView,
+//				new Dimension(newWidth, newHeight));
+//		Properties properties = new Properties();
+//		properties.setProperty("player",
+//				String.valueOf(playerVector.get(0).getPlayerName()));
+//		properties.setProperty("player_id",
+//				String.valueOf(player.getPlayerId()));
+//		properties.setProperty("height", String.valueOf(newHeight));
+//		properties.setProperty("width", String.valueOf(newWidth));
+//		File file = new File(IConstants.CONFIG_PATH);
+////		FileController.getInstance().writeToIniFile(new FileView(), file,
+////				properties);
+//		this.dispose();
 	}
 }

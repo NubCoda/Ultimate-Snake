@@ -21,7 +21,7 @@ public class AppleView extends SpriteView implements Observer {
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);
 	}
-
+	
 	@Override
 	public void update(Observable observable, Object argObject) {
 		IActor apple = ((IActor) observable);

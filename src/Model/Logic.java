@@ -84,11 +84,10 @@ public class Logic extends Observable implements Runnable {
 							s1.checkCollision(s2);
 						}
 					}
+					setChanged();
+					notifyObservers();
 				}
-				setChanged();
-				notifyObservers();
 				Thread.sleep(15);
-
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

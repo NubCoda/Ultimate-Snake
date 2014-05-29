@@ -1,9 +1,6 @@
 package Controller;
 
-import java.awt.Dimension;
-
 import Model.OptionsModel;
-import View.MainView;
 
 /**
  * 
@@ -30,15 +27,12 @@ public class OptionsController {
 		}
 		return optionsController;
 	}
-
-	/**
-	 * 
-	 * @param mainView
-	 * @param dimension
-	 */
-	public void setResolution(MainView mainView, Dimension dimension) {
-		optionsModel.setDimension(dimension);
-		optionsModel.addObserver(mainView);
-		optionsModel.setChanges();
+	
+	public void setProperty(String propertyName, Object property){
+		
+	}
+	
+	public Object getProperty(String propertyName){
+		return null;
 	}
 }
