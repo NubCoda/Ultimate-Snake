@@ -131,7 +131,7 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
-				&& actor instanceof SnakeHeadModel) {
+				&& actor instanceof BulletModel) {
 			setOpponentAlive(false);
 
 			// MainController.getInstance().

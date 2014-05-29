@@ -77,7 +77,8 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 	public void actuate(double delta) {
 		if (bounding.x != vorgaenger.getMovement().x
 				|| bounding.y != vorgaenger.getMovement().y) {
-			movement = new Point2D.Double(bounding.x, bounding.y);
+			movement.x = bounding.x;
+			movement.y = bounding.y;
 			bounding.x = vorgaenger.getMovement().x;
 			bounding.y = vorgaenger.getMovement().y;
 			this.direction = vorgaenger.getDirection();

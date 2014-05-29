@@ -53,7 +53,7 @@ public interface IConstants {
 	/**
 	 * 
 	 */
-	public static final int SNAKE_SPEED = 50;
+	public static final int SNAKE_SPEED = 75;
 
 	/**
 	 * 
