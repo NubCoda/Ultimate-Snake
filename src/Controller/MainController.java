@@ -89,7 +89,7 @@ public class MainController {
 	 * 
 	 */
 	private void createWindow() {
-		gamePanelView = new GamePanelView(1280, 720);
+		gamePanelView = new GamePanelView(800, 600);
 		new MainView(gamePanelView);
 
 		// TODO - passend auslagern
