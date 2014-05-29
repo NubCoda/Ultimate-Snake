@@ -144,11 +144,4 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	public void setOpponentAlive(boolean alive) {
 		this.opponentAlive = alive;
 	}
-
-	@Override
-	public boolean checkPosition(Point point) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

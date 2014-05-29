@@ -15,7 +15,7 @@ import Properties.Player;
  * 
  * 
  */
-public class DatabaseConnection implements IDataBaseConnection {
+public class DatabaseConnectionModel implements IDataBaseConnection {
 	private Connection connection;
 	private PreparedStatement preparedStatement;
 	private String table = IConstants.TABLE_PLAYER;

@@ -201,10 +201,4 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	public Direction getDirection() {
 		return this.direction;
 	}
-
-	@Override
-	public boolean checkPosition(Point point) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

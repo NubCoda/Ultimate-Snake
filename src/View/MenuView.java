@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
-import Model.Interface.IMenu;
-
 /**
  * 
  * 
@@ -102,8 +100,8 @@ public class MenuView extends SpriteView implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		IMenu menu = ((IMenu) o);
-		focused = menu.isFocused();
+//		IMenu menu = ((IMenu) o);
+//		focused = menu.isFocused();
 	}
 
 	@Override

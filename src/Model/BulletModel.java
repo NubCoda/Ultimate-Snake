@@ -128,10 +128,4 @@ public class BulletModel extends Observable implements IActor, IElement {
 		return this.bufferedImages;
 	}
 
-	@Override
-	public boolean checkPosition(Point point) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

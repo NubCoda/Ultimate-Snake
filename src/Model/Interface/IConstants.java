@@ -48,12 +48,12 @@ public interface IConstants {
 	/**
 	 * 
 	 */
-	public static final String CONFIG_PATH = "./recources/other/config.ini";
+	public static final String CONFIG_PATH = "./resources/other/config.ini";
 	
 	/**
 	 * 
 	 */
-	public static final int SNAKE_SPEED = 150;
+	public static final int SNAKE_SPEED = 50;
 
 	/**
 	 * 

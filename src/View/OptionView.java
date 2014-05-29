@@ -9,7 +9,6 @@ import java.io.File;
 import java.util.Properties;
 import java.util.Vector;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -18,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.OptionsController;
-import Model.DatabaseConnection;
+import Model.DatabaseConnectionModel;
 import Model.Interface.IConstants;
 import Properties.Player;
 
@@ -74,19 +73,6 @@ public class OptionView extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		{
-			labelResolution = new JLabel("Aufl\u00F6sung:");
-			labelResolution.setBounds(10, 11, 62, 14);
-			contentPanel.add(labelResolution);
-		}
-		{
-			comboBoxResolution = new JComboBox<String>();
-			comboBoxResolution.addActionListener(this);
-			comboBoxResolution.setModel(new DefaultComboBoxModel<String>(
-					new String[] { "800x600", "1024x768", "1280x720" }));
-			comboBoxResolution.setBounds(82, 7, 102, 22);
-			contentPanel.add(comboBoxResolution);
-		}
 		{
 			labelPlayer = new JLabel("Spieler:");
 			labelPlayer.setBounds(10, 44, 62, 14);
@@ -168,7 +154,7 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param arg0
 	 */
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		DatabaseConnection databaseAccessObjects = new DatabaseConnection();
+		DatabaseConnectionModel databaseAccessObjects = new DatabaseConnectionModel();
 		player = databaseAccessObjects.getSinglePlayer((String) comboBoxPlayer
 				.getSelectedItem());
 		OptionsController.getInstance().setResolution(mainView,

@@ -63,20 +63,6 @@ public class Logic extends Observable implements Runnable {
 		isKilled = true;
 	}
 
-	/**
-	 * 
-	 * @param point
-	 * @return
-	 */
-	public IActor checkMouse(Point point) {
-		for (IActor actor : actors) {
-			if (actor.checkPosition(point)) {
-				return actor;
-			}
-		}
-		return null;
-	}
-
 	@Override
 	public void run() {
 		last = System.nanoTime();
