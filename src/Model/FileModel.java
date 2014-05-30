@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Properties;
 
+import Controller.OptionsController;
 import Model.Interface.IConstants;
 import Properties.GameSettings;
-import Properties.Player;
 import Properties.PlayerHighscore;
 
 public class FileModel extends Observable {
@@ -23,12 +23,6 @@ public class FileModel extends Observable {
 		Properties properties = new Properties();
 		properties.setProperty("player_name",
 				String.valueOf(playerHighscore.getPlayer().getPlayerName()));
-		properties.setProperty("player_id",
-				String.valueOf(playerHighscore.getPlayer().getPlayerId()));
-		properties.setProperty("highscore",
-				String.valueOf(playerHighscore.getHighscore()));
-		properties.setProperty("highscore_id",
-				String.valueOf(playerHighscore.getHighscore_id()));
 		properties.setProperty("difficulty", String.valueOf(difficulty));
 		try {
 			properties.store(new FileOutputStream(getFile()), null);
@@ -43,11 +37,8 @@ public class FileModel extends Observable {
 		Properties properties = new Properties();
 		try {
 			properties.load(new FileInputStream(getFile()));
-			playerHighscore = new PlayerHighscore(new Player(
-					Integer.valueOf(properties.getProperty("player_id")),
-					properties.getProperty("player_name")),
-					Integer.valueOf(properties.getProperty("highscore")),
-					Integer.valueOf(properties.getProperty("highscore_id")));
+			String playerName = properties.getProperty("player_name");
+			playerHighscore = OptionsController.getInstance().getSinglePlayer(playerName);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

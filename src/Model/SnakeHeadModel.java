@@ -119,7 +119,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
 				&& !(actor instanceof IElement)) {
-			logic.gameOver();
+			MainController.getInstance().gameOver();
 			OptionsController.getInstance().updateHighScore(
 					MainController.getInstance().getCurrentPlayerInfo());
 		}

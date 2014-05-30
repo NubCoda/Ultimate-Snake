@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Model.AppleModel;
@@ -66,8 +67,8 @@ public class MainController {
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
-		MenuView title = new MenuView(50, 50, gamePanelView, "SNAKE", 48.0f);
-		gamePanelView.addActor(title);
+		MenuView gameTitle = new MenuView(50, 50, gamePanelView, "SNAKE", 48.0f);
+		gamePanelView.addActor(gameTitle);
 	}
 
 	/**
@@ -120,7 +121,7 @@ public class MainController {
 				}, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
 	}
-	
+
 	private void initiliazeStatusbar() {
 		statusbar = new Statusbar();
 		statusbarModel = new StatusbarModel(playerHighscore, gameSettings);
@@ -264,5 +265,26 @@ public class MainController {
 		if (startGame) {
 			startGame();
 		}
+	}
+
+	public void gameOver() {
+		logic.setGameRunning(false);
+		logic.clearActors();
+		gamePanelView.clearActors();
+		MenuView gameOverTitle = new MenuView(50, 50, gamePanelView,
+				"Game Over", 48.0f);
+		gamePanelView.addActor(gameOverTitle);
+		if (playerHighscore.getCurrentScore() > playerHighscore.getHighscore()) {
+			MenuView highScoreTitle = new MenuView(50, 60, gamePanelView,
+					"Neuer Highscore!", 48.0f);
+			gamePanelView.addActor(highScoreTitle);
+		} else {
+			MenuView currentScoreTitle = new MenuView(50, 60, gamePanelView,
+					"Erreichte Punkte:", 48.0f);
+			gamePanelView.addActor(currentScoreTitle);
+		}
+		MenuView highScoreTitleScore = new MenuView(50, 70, gamePanelView,
+				String.valueOf(playerHighscore.getCurrentScore()), 48.0f);
+		gamePanelView.addActor(highScoreTitleScore);
 	}
 }

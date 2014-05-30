@@ -30,7 +30,6 @@ public class Statusbar extends JPanel implements Observer {
 		for (int i = 0; i < labelVector.size(); i++) {
 			add(labelVector.elementAt(i));
 			if (i < labelVector.size() - 1) {
-				System.out.println("Addet");
 				JSeparator separator = new JSeparator(JSeparator.VERTICAL);
 				separator.setPreferredSize(new Dimension(1, 15));
 				add(separator);
