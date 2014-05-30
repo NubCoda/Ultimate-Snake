@@ -172,11 +172,14 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		createConnection();
 		Vector<PlayerHighscore> vectorTopPlayer = new Vector<PlayerHighscore>();
 		PlayerHighscore playerHighscore;
+		// TODO
+		// SQL Logik prüfen - Warum kommt da ein Spasti-Spieler mit 0 Punkten an erster Stelle?
 		sql = "SELECT player.player_name, highscore.* FROM "
 				+ player_table
 				+ " player JOIN "
 				+ highscore_table
-				+ " highscore ON player.player_id = highscore.player_id ORDER BY highscore DESC, player_name ASC LIMIT 10";
+				+ " highscore ON player.player_id = highscore.player_id ORDER BY highscore.highscore DESC LIMIT 10  ";
+		System.out.println(sql);
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();

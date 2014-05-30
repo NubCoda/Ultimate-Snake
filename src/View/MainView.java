@@ -19,12 +19,8 @@ import Controller.MainController;
 import Controller.OptionsController;
 import Model.OptionsModel;
 
-/**
- * 
- * 
- */
-@SuppressWarnings("serial")
 public class MainView extends JFrame implements Observer, ActionListener {
+
 	private JMenuBar menuBar;
 	private JMenu menuGame;
 	private JMenuItem menuItemStart;
@@ -34,64 +30,65 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	private JMenu menuPlayer;
 	private JMenuItem menuItemSpielerErstellen;
 
-	/**
-	 * 
-	 * @param gamePanelView
-	 */
+	
 	public MainView(GamePanelView gamePanelView, Statusbar statusbar) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		initGui();
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(gamePanelView, BorderLayout.CENTER);
 		getContentPane().add(statusbar, BorderLayout.SOUTH);
-		initializeMenu();
 		setResizable(false);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
-	private void initializeMenu() {
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-
-		menuGame = new JMenu("Spiel");
-		menuBar.add(menuGame);
-
-		menuItemStart = new JMenuItem("Start");
-		menuItemStart.addActionListener(this);
-		menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemStart);
-
-		menuItemPause = new JMenuItem("Pause");
-		menuItemPause.addActionListener(this);
-		menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemPause);
-
-		menuItemReset = new JMenuItem("Neustarten");
-		menuItemReset.addActionListener(this);
-		menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemReset);
-		
-		menuGame.addSeparator();
-
-		menuItemOption = new JMenuItem("Optionen");
-		menuItemOption.addActionListener(this);
-		menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemOption);
-
-		menuGame.addSeparator();
-		
-		menuItemSpielerErstellen = new JMenuItem("Spieler erstellen");
-		menuItemSpielerErstellen.addActionListener(this);
-		menuItemSpielerErstellen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemSpielerErstellen);
+	/**
+	 * Create the frame.
+	 */
+	public void initGui() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		{
+			menuBar = new JMenuBar();
+			setJMenuBar(menuBar);
+			{
+				menuGame = new JMenu("Spiel");
+				menuBar.add(menuGame);
+				{
+					menuItemStart = new JMenuItem("Start");
+					menuItemStart.addActionListener(this);
+					menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemStart);
+				}
+				{
+					menuItemPause = new JMenuItem("Pause");
+					menuItemPause.addActionListener(this);
+					menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemPause);
+				}
+				{
+					menuItemReset = new JMenuItem("Neustarten");
+					menuItemReset.addActionListener(this);
+					menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemReset);
+					menuGame.addSeparator();
+				}
+				{
+					menuItemOption = new JMenuItem("Optionen");
+					menuItemOption.addActionListener(this);
+					menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemOption);
+					menuGame.addSeparator();
+				}
+				{
+					menuItemSpielerErstellen = new JMenuItem("Spieler erstellen");
+					menuItemSpielerErstellen.addActionListener(this);
+					menuItemSpielerErstellen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemSpielerErstellen);
+				}
+			}
+		}
 	}
-
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == menuItemSpielerErstellen) {
 			menuItemSpielerErstellenActionPerformed(arg0);

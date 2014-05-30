@@ -50,6 +50,7 @@ public class MainController {
 	private SnakeTailModel snakeTailModel;
 	private SnakeTailView snakeTailView;
 	private StatusbarModel statusbarModel;
+	private JLabel statusbarLabelTopPlayer;
 
 	/**
 	 * 
@@ -63,9 +64,6 @@ public class MainController {
 				.getAndSetLastPlayerFromFile();
 		gameSettings = OptionsController.getInstance().getGameSettings();
 		Vector<PlayerHighscore> topPlayer = OptionsController.getInstance().getTopPlayers();
-		for(PlayerHighscore playerHighscore : topPlayer) {
-			System.out.println(playerHighscore.getHighscore());
-		}
 		createWindow();
 		logic = new Logic(gameSettings);
 		logic.addObserver(gamePanelView);
