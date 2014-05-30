@@ -3,13 +3,13 @@ package Properties;
 public class PlayerHighscore {
 	private Player player;
 	private int highscore;
-	private int highscore_id;
+	private int highscoreId;
 	private int currentScore = 0;
 
 	public PlayerHighscore(Player player, int highscore, int higscore_id) {
 		this.player = player;
 		this.highscore = highscore;
-		this.highscore_id = higscore_id;
+		this.highscoreId = higscore_id;
 	}
 
 	/**
@@ -46,16 +46,16 @@ public class PlayerHighscore {
 	/**
 	 * @return the highscore_id
 	 */
-	public int getHighscore_id() {
-		return highscore_id;
+	public int getHighscoreId() {
+		return highscoreId;
 	}
 
 	/**
 	 * @param highscore_id
 	 *            the highscore_id to set
 	 */
-	public void setHighscore_id(int highscore_id) {
-		this.highscore_id = highscore_id;
+	public void setHighscoreId(int highscore_id) {
+		this.highscoreId = highscore_id;
 	}
 
 	public int getCurrentScore() {
