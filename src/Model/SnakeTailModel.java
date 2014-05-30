@@ -8,9 +8,11 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 
+import Controller.MainController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Model.Interface.IElement;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
 
@@ -25,7 +27,7 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 	private Ellipse2D.Double bounding;
 	private int rotation;
 	private Direction direction = Direction.NONE;
-	
+	private Direction newDirection = Direction.NONE;
 	/**
 	 * 
 	 * @param gamePanelView
@@ -81,7 +83,10 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 			movement.y = bounding.y;
 			bounding.x = vorgaenger.getMovement().x;
 			bounding.y = vorgaenger.getMovement().y;
-			this.direction = vorgaenger.getDirection();
+			if(newDirection != direction){
+				direction = newDirection;
+			}
+			newDirection = vorgaenger.getDirection();
 			setChanged();
 			notifyObservers();
 		}
@@ -89,8 +94,8 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 
 	@Override
 	public void checkCollision(IActor actor) {
-		if (bounding.intersects(actor.getBounding())) {
-			// System.out.println("Collision Tail");
+		if (bounding.intersects(actor.getBounding()) && !(actor instanceof IElement)) {
+			MainController.getInstance().gameOver();
 		}
 	}
 

@@ -103,7 +103,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
 				&& !(actor instanceof IElement)) {
-			logic.gameOver();
+			MainController.getInstance().gameOver();
 		}
 	}
 
@@ -111,24 +111,30 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 * 
 	 */
 	public void increaseLength() {
+		System.out.println(last.getDirection());
 		double x = last.getX();
 		double y = last.getY();
+		System.out.println(x);
+		System.out.println(y);
 		switch (last.getDirection()) {
 		case DOWN:
-			y += bounding.getHeight();
-			break;
-		case UP:
 			y -= bounding.getHeight();
 			break;
+		case UP:
+			y += bounding.getHeight();
+			break;
 		case RIGHT:
-			x += bounding.getWidth();
+			x -= bounding.getWidth();
 			break;
 		case LEFT:
-			x -= bounding.getWidth();
+			x += bounding.getWidth();
 			break;
 		default:
 			break;
 		}
+
+		System.out.println(x);
+		System.out.println(y);
 		SnakeTailView newTailView = new SnakeTailView(
 				IConstants.SNAKE_TAIL_PATH, x, y, gamePanelView);
 		SnakeTailModel newTailModel;

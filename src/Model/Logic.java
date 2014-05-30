@@ -94,9 +94,4 @@ public class Logic extends Observable implements Runnable {
 			}
 		}
 	}
-
-	public void gameOver() {
-		setGameRunning(false);
-		//TODO
-	}
 }

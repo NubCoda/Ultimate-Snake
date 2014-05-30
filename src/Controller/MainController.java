@@ -143,9 +143,9 @@ public class MainController {
 		snakeHeadModel.setLast(snakeTailModel2);
 		AppleModel appleModel = new AppleModel(gamePanelView,
 				appleView.getImage());
-		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage(), logic);
-		opponentModel1.addObserver(opponentView1);
+//		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
+//		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage(), logic);
+//		opponentModel1.addObserver(opponentView1);
 			
 		appleModel.addObserver(appleView);
 		snakeHeadModel.addObserver(snakeHeadView);
@@ -157,13 +157,13 @@ public class MainController {
 		logic.addActor(snakeTailModel);
 		logic.addActor(snakeTailModel1);
 		logic.addActor(snakeTailModel2);
-		logic.addActor(opponentModel1);
+//		logic.addActor(opponentModel1);
 		gamePanelView.addActor(appleView);
 		gamePanelView.addActor(snakeHeadView);
 		gamePanelView.addActor(snakeTailView);
 		gamePanelView.addActor(snakeTailView1);
 		gamePanelView.addActor(snakeTailView2);
-		gamePanelView.addActor(opponentView1);
+//		gamePanelView.addActor(opponentView1);
 		logic.setGameRunning(true);
 
 	}
@@ -180,5 +180,26 @@ public class MainController {
 	 */
 	public void restartGame() {
 
+	}
+
+	public void gameOver() {
+		logic.setGameRunning(false);
+		logic.clearActors();
+		gamePanelView.clearActors();
+		MenuView gameOverTitle = new MenuView(50, 40, gamePanelView,
+				"Game Over", 48.0f);
+		gamePanelView.addActor(gameOverTitle);
+//		if (playerHighscore.getCurrentScore() > playerHighscore.getHighscore()) {
+//			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
+//					"Neuer Highscore!", 48.0f);
+//			gamePanelView.addActor(highScoreTitle);
+//		} else {
+//			MenuView currentScoreTitle = new MenuView(50, 50, gamePanelView,
+//					"Erreichte Punkte:", 48.0f);
+//			gamePanelView.addActor(currentScoreTitle);
+//		}
+//		MenuView highScoreTitleScore = new MenuView(50, 60, gamePanelView,
+//				String.valueOf(playerHighscore.getCurrentScore()), 48.0f);
+//		gamePanelView.addActor(highScoreTitleScore);
 	}
 }
