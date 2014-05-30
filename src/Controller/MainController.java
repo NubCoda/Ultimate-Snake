@@ -4,9 +4,11 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Vector;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Model.AppleModel;
@@ -167,8 +169,8 @@ public class MainController {
 	public void startGame() {
 		// TODO: dies koennte das Level 1 sein
 		if (!isGameStarted) {
-			gamePanelView.clearActors();
 			logic.clearActors();
+			gamePanelView.clearActors();
 			isGameStarted = true;
 			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
 					gamePanelView);
@@ -265,10 +267,33 @@ public class MainController {
 			startGame();
 		}
 	}
-	
+
 	public void setPlayerHighscore(PlayerHighscore playerHighscore) {
 		this.playerHighscore = playerHighscore;
 		statusbarModel.setValuesOfPlayer(playerHighscore);
+	}
+
+	public void displayRanking() {
+		if(!isGameStarted) {
+			Vector<PlayerHighscore> topPlayerVector = OptionsController
+					.getInstance().getTopPlayers();
+			int counter = 1;
+			logic.clearActors();
+			gamePanelView.clearActors();
+			for (PlayerHighscore playerHighscore : topPlayerVector) {
+				MenuView topPlayer = new MenuView(50, 9.5 * counter, gamePanelView,
+						playerHighscore.getHighscore() + " - "
+								+ playerHighscore.getPlayer().getPlayerName(),
+						48.0f);
+				gamePanelView.addActor(topPlayer);
+				counter++;
+			}
+		}
+		else {
+			logic.setGameRunning(false);
+			JOptionPane.showMessageDialog(null, "Nicht während des Spiels möglich!");
+			logic.setGameRunning(true);
+		}
 	}
 
 	public void gameOver() {

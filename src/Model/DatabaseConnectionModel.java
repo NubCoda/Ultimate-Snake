@@ -74,7 +74,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 							+ " (player_id, highscore) values (?, ?)";
 					preparedStatement = connection.prepareStatement(sql);
 					preparedStatement.setInt(1, resultSet.getInt("seq"));
-					preparedStatement.setString(2, playerName);
+					preparedStatement.setInt(2, 0);
 					preparedStatement.executeUpdate();
 				}
 				connection.close();
@@ -178,7 +178,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 				+ player_table
 				+ " player JOIN "
 				+ highscore_table
-				+ " highscore ON player.player_id = highscore.player_id ORDER BY highscore.highscore DESC LIMIT 10  ";
+				+ " highscore ON player.player_id = highscore.player_id ORDER BY highscore.highscore DESC, player.player_name ASC LIMIT 10  ";
 		System.out.println(sql);
 		try {
 			preparedStatement = connection.prepareStatement(sql);

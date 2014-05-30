@@ -29,6 +29,7 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	private JMenuItem menuItemReset;
 	private JMenuItem menuItemOption;
 	private JMenuItem menuItemSpielerErstellen;
+	private JMenuItem menuItemRanking;
 
 	
 	public MainView(GamePanelView gamePanelView, StatusbarView statusbar) {
@@ -83,6 +84,12 @@ public class MainView extends JFrame implements Observer, ActionListener {
 				{
 					menuItemSpielerErstellen = new JMenuItem("Spieler erstellen");
 					menuItemSpielerErstellen.addActionListener(this);
+					{
+						menuItemRanking = new JMenuItem("Rangliste");
+						menuItemRanking.addActionListener(this);
+						menuItemRanking.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_MASK));
+						menuGame.add(menuItemRanking);
+					}
 					menuItemSpielerErstellen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
 					menuGame.add(menuItemSpielerErstellen);
 				}
@@ -90,6 +97,9 @@ public class MainView extends JFrame implements Observer, ActionListener {
 		}
 	}
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == menuItemRanking) {
+			menuItemRankingActionPerformed(arg0);
+		}
 		if (arg0.getSource() == menuItemSpielerErstellen) {
 			menuItemSpielerErstellenActionPerformed(arg0);
 		}
@@ -143,6 +153,10 @@ public class MainView extends JFrame implements Observer, ActionListener {
 		}
 		setVisible(true);
 	}
+	
+	protected void menuItemRankingActionPerformed(ActionEvent arg0) {
+		MainController.getInstance().displayRanking();
+	}
 
 	@Override
 	public void update(Observable observable, Object argObject) {
@@ -150,4 +164,5 @@ public class MainView extends JFrame implements Observer, ActionListener {
 		this.setSize(optionsModel.getDimension());
 		repaint();
 	}
+	
 }
