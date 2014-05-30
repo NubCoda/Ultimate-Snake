@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 import Model.AppleModel;
@@ -25,6 +26,8 @@ import View.MenuView;
 import View.OpponentView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
+import View.StatusLabelView;
+import View.Statusbar;
 
 /**
  *
@@ -90,7 +93,14 @@ public class MainController {
 	 */
 	private void createWindow() {
 		gamePanelView = new GamePanelView(800, 600);
-		new MainView(gamePanelView);
+		Statusbar statusbar = new Statusbar();
+		StatusLabelView label = new StatusLabelView("test");
+		statusbar.addStatusLabel(label);
+		StatusLabelView label1 = new StatusLabelView("test1");
+		statusbar.addStatusLabel(label1);
+		JFrame mainView = new MainView(gamePanelView, statusbar);
+		
+		
 
 		// TODO - passend auslagern
 		// - Fuer pause und neustarten passende KeyEvents festlegen
@@ -130,6 +140,7 @@ public class MainController {
 		// TODO: dies koennte das Level 1 sein
 		if (!isGameStarted) {
 			gamePanelView.clearActors();
+			logic.clearActors();
 			isGameStarted = true;
 			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
 					gamePanelView);

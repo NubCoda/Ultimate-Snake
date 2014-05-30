@@ -89,7 +89,7 @@ public class Logic extends Observable implements Runnable {
 				}
 				setChanged();
 				notifyObservers();
-				Thread.sleep(15);
+				Thread.sleep(10);
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();

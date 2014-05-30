@@ -83,7 +83,8 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 			newDirection = Direction.NONE;
 		}
 
-		movement = new Point2D.Double(bounding.x, bounding.y);
+		movement.x = bounding.x;
+		movement.y = bounding.y;
 
 		switch (direction) {
 		case DOWN:

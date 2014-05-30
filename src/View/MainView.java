@@ -41,14 +41,15 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	 * 
 	 * @param gamePanelView
 	 */
-	public MainView(GamePanelView gamePanelView) {
+	public MainView(GamePanelView gamePanelView, Statusbar statusbar) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(gamePanelView, BorderLayout.CENTER);
-		pack();
-		setResizable(false);
-		setLocationRelativeTo(null);
+		getContentPane().add(statusbar, BorderLayout.SOUTH);
 		initializeMenu();
+		setResizable(false);
+		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
