@@ -126,16 +126,12 @@ public class MainController {
 		statusbarModel.repaintElements();
 		statusbarModel.addObserver(statusbar);
 		mainView = new MainView(gamePanelView, statusbar);
-		
-		
-
-		// TODO - passend auslagern
-		// - Fuer pause und neustarten passende KeyEvents festlegen
 		gamePanelView.registerKeyboardAction(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				logic.kill();
+				OptionsController.getInstance().saveToFile(playerHighscore, gameSettings.getDifficulty());
 				for (Frame frame : Frame.getFrames()) {
 					frame.dispose();
 				}
