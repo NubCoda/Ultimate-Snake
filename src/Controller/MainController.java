@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,15 +42,20 @@ public class MainController {
 	private PlayerHighscore playerHighscore;
 	private GameSettings gameSettings;
 	private boolean isGameStarted = false;
+	private Statusbar statusbar;
+	private MainView mainView;
+	private StatusLabelView statusLabelViewPlayer;
+	private StatusLabelView statusLabelViewScore;
+	private StatusLabelView statusLabelViewDifficulty;
 
 	/**
 	 * 
 	 */
 	private MainController() {
-		createWindow();
 		playerHighscore = OptionsController.getInstance()
 				.setLastPlayerFromFile();
 		gameSettings = OptionsController.getInstance().getGameSettings();
+		createWindow();
 		logic = new Logic(gameSettings);
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
@@ -93,12 +99,14 @@ public class MainController {
 	 */
 	private void createWindow() {
 		gamePanelView = new GamePanelView(800, 600);
-		Statusbar statusbar = new Statusbar();
-		StatusLabelView label = new StatusLabelView("test");
-		statusbar.addStatusLabel(label);
-		StatusLabelView label1 = new StatusLabelView("test1");
-		statusbar.addStatusLabel(label1);
-		JFrame mainView = new MainView(gamePanelView, statusbar);
+		statusbar = new Statusbar();
+		statusLabelViewPlayer = new StatusLabelView("Spieler: " + playerHighscore.getPlayer().getPlayerName());
+		statusbar.addStatusLabel(statusLabelViewPlayer);
+		statusLabelViewScore = new StatusLabelView("Score: " + playerHighscore.getCurrentScore());
+		statusbar.addStatusLabel(statusLabelViewScore);
+		statusLabelViewDifficulty = new StatusLabelView("Schwierigkeit: " + gameSettings.getDifficulty());
+		statusbar.addStatusLabel(statusLabelViewDifficulty);
+		mainView = new MainView(gamePanelView, statusbar);
 		
 		
 
@@ -196,6 +204,12 @@ public class MainController {
 		logic.setGameRunning(true);
 	}
 
+	
+	public void raiseScore() {
+		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore());
+		System.out.println(playerHighscore.getCurrentScore());
+	}
+	
 	/**
 	 * 
 	 */

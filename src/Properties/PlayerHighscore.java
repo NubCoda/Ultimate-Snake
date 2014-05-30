@@ -4,6 +4,7 @@ public class PlayerHighscore {
 	private Player player;
 	private int highscore;
 	private int highscore_id;
+	private int currentScore = 0;
 	
 	public PlayerHighscore(Player player, int highscore, int higscore_id) {
 		this.player = player;
@@ -51,6 +52,14 @@ public class PlayerHighscore {
 	 */
 	public void setHighscore_id(int highscore_id) {
 		this.highscore_id = highscore_id;
+	}
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore + 2;
 	}
 	
 	

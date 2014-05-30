@@ -134,11 +134,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof SnakeHeadModel) {
 			setOpponentAlive(false);
-
-			// MainController.getInstance().
-			// ((SnakeHeadModel) actor).setSnakeAlive(false);
-			// TODO Abfrage, wenn es eine Snake ist, setAllive = false
-			// ((SnakeHeadModel) actor).increaseLength();
 		}
 	}
 
