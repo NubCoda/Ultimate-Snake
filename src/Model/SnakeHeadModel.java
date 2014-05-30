@@ -22,7 +22,7 @@ import View.SnakeTailView;
  */
 public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Point2D.Double movement;
-	private int speed = 75;
+	private int speed = 40;
 	private double lastMove = 0;
 	private Ellipse2D.Double bounding;
 	private Direction newDirection = Direction.NONE;
@@ -111,11 +111,8 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 * 
 	 */
 	public void increaseLength() {
-		System.out.println(last.getDirection());
 		double x = last.getX();
 		double y = last.getY();
-		System.out.println(x);
-		System.out.println(y);
 		switch (last.getDirection()) {
 		case DOWN:
 			y -= bounding.getHeight();
@@ -132,9 +129,6 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		default:
 			break;
 		}
-
-		System.out.println(x);
-		System.out.println(y);
 		SnakeTailView newTailView = new SnakeTailView(
 				IConstants.SNAKE_TAIL_PATH, x, y, gamePanelView);
 		SnakeTailModel newTailModel;

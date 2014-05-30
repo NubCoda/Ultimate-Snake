@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
@@ -11,7 +10,6 @@ import java.util.Observable;
 import Controller.MainController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
-import Model.Interface.IConstants;
 import Model.Interface.IElement;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;

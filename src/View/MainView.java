@@ -40,7 +40,7 @@ public class MainView extends JFrame implements ActionListener {
 	 * @param gamePanelView
 	 * @param statusbar 
 	 */
-	public MainView(GamePanelView gamePanelView, Statusbar statusbar) {
+	public MainView(GamePanelView gamePanelView, StatusbarView statusbar) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(gamePanelView, BorderLayout.CENTER);

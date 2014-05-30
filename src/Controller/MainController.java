@@ -25,7 +25,7 @@ import View.MenuView;
 import View.OpponentView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
-import View.Statusbar;
+import View.StatusbarView;
 
 /**
  *
@@ -36,7 +36,7 @@ public class MainController {
 	private GamePanelView gamePanelView;
 	private Logic logic;
 	private SnakeHeadModel snakeHeadModel;
-	private Statusbar statusbar;
+	private StatusbarView statusbar;
 	
 	/**
 	 * 
@@ -47,9 +47,6 @@ public class MainController {
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
-
-		MenuView title = new MenuView(50, 50, gamePanelView, "SNAKE", 48.0f);
-		gamePanelView.addActor(title);
 	}
 
 	/**
@@ -86,10 +83,12 @@ public class MainController {
 	private void createWindow() {
 		gamePanelView = new GamePanelView(800, 600);
 		PlayerModel player = new PlayerModel();
-		statusbar = new Statusbar();
+		statusbar = new StatusbarView();
 		player.addObserver(statusbar);
 		JFrame mainView = new MainView(gamePanelView, statusbar);
-		
+		player.changePlayer();
+		MenuView title = new MenuView(50, 50, gamePanelView, "SNAKE", 48.0f);
+		gamePanelView.addActor(title);
 		//TEST
 		// TODO - passend auslagern
 		// - Fuer pause und neustarten passende KeyEvents festlegen
@@ -143,9 +142,9 @@ public class MainController {
 		snakeHeadModel.setLast(snakeTailModel2);
 		AppleModel appleModel = new AppleModel(gamePanelView,
 				appleView.getImage());
-//		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-//		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage(), logic);
-//		opponentModel1.addObserver(opponentView1);
+		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
+		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage(), logic);
+		opponentModel1.addObserver(opponentView1);
 			
 		appleModel.addObserver(appleView);
 		snakeHeadModel.addObserver(snakeHeadView);
@@ -157,13 +156,13 @@ public class MainController {
 		logic.addActor(snakeTailModel);
 		logic.addActor(snakeTailModel1);
 		logic.addActor(snakeTailModel2);
-//		logic.addActor(opponentModel1);
+		logic.addActor(opponentModel1);
 		gamePanelView.addActor(appleView);
 		gamePanelView.addActor(snakeHeadView);
 		gamePanelView.addActor(snakeTailView);
 		gamePanelView.addActor(snakeTailView1);
 		gamePanelView.addActor(snakeTailView2);
-//		gamePanelView.addActor(opponentView1);
+		gamePanelView.addActor(opponentView1);
 		logic.setGameRunning(true);
 
 	}

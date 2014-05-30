@@ -14,23 +14,25 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
 
-public class Statusbar extends JPanel implements Observer{
+import Model.PlayerModel;
+
+public class StatusbarView extends JPanel implements Observer{
 	private JLabel playerLabel;
 	private JLabel scoreLabel;
 	private JLabel highscoreLabel;
-	private JLabel difficultcyLabel;
+	private JLabel difficultyLabel;
 
-	public Statusbar() {
+	public StatusbarView() {
 		setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.DARK_GRAY));
 		setLayout(new GridLayout());
 		playerLabel = new JLabel("Player: ");
 		scoreLabel = new JLabel("Score: ");
 		highscoreLabel = new JLabel("HighScore: ");
-		difficultcyLabel = new JLabel("Difficultcy: ");
+		difficultyLabel = new JLabel("Difficulty: ");
 		this.add(playerLabel);
 		this.add(scoreLabel);
 		this.add(highscoreLabel);
-		this.add(difficultcyLabel);
+		this.add(difficultyLabel);
 	}
 
 	@Override
@@ -38,6 +40,11 @@ public class Statusbar extends JPanel implements Observer{
 		// TODO 1. Zu dem statuspanel werden verschiedene models hinzugefuegt!
 		//      2. hier werden dann die daten des jeweiligen models ausgeselen und
 		//         in den passenden label geschrieben
+		PlayerModel player = ((PlayerModel) o);
+		playerLabel.setText("Player: " + player.getName());
+		scoreLabel.setText("Score: " + player.getScore());
+		highscoreLabel.setText("HighScore: " + player.getHighscore());
+		difficultyLabel.setText("Difficulty: " + player.getDifficulty());
 	}
 	
 	public void updateText() {
