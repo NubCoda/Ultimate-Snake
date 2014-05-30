@@ -271,19 +271,19 @@ public class MainController {
 		logic.setGameRunning(false);
 		logic.clearActors();
 		gamePanelView.clearActors();
-		MenuView gameOverTitle = new MenuView(50, 50, gamePanelView,
+		MenuView gameOverTitle = new MenuView(50, 40, gamePanelView,
 				"Game Over", 48.0f);
 		gamePanelView.addActor(gameOverTitle);
 		if (playerHighscore.getCurrentScore() > playerHighscore.getHighscore()) {
-			MenuView highScoreTitle = new MenuView(50, 60, gamePanelView,
+			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Neuer Highscore!", 48.0f);
 			gamePanelView.addActor(highScoreTitle);
 		} else {
-			MenuView currentScoreTitle = new MenuView(50, 60, gamePanelView,
+			MenuView currentScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Erreichte Punkte:", 48.0f);
 			gamePanelView.addActor(currentScoreTitle);
 		}
-		MenuView highScoreTitleScore = new MenuView(50, 70, gamePanelView,
+		MenuView highScoreTitleScore = new MenuView(50, 60, gamePanelView,
 				String.valueOf(playerHighscore.getCurrentScore()), 48.0f);
 		gamePanelView.addActor(highScoreTitleScore);
 	}
