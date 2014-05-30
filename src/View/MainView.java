@@ -18,7 +18,6 @@ import javax.swing.KeyStroke;
 import Controller.MainController;
 import Controller.OptionsController;
 import Model.OptionsModel;
-import Properties.PlayerHighscore;
 
 /**
  * 
@@ -34,7 +33,6 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	private JMenuItem menuItemOption;
 	private JMenu menuPlayer;
 	private JMenuItem menuItemSpielerErstellen;
-	private PlayerHighscore playerHighscore;
 
 	/**
 	 * 
