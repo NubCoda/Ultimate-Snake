@@ -120,6 +120,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		if (bounding.intersects(actor.getBounding())
 				&& !(actor instanceof IElement)) {
 			logic.gameOver();
+			OptionsController.getInstance().updateHighScore(MainController.getInstance().getCurrentPlayerInfo());
 		}
 	}
 

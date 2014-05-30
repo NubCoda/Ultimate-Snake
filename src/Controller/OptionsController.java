@@ -31,6 +31,7 @@ public class OptionsController {
 	
 	public void updateHighScore(PlayerHighscore playerHighscore) {
 		if(playerHighscore.getHighscore() < playerHighscore.getCurrentScore()) {
+			System.out.println("YO");
 			databaseConnectionModel.updatePlayerScore(playerHighscore);
 		}
 	}

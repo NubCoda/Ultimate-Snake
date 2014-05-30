@@ -47,15 +47,16 @@ public class MainController {
 	private StatusLabelView statusLabelViewPlayer;
 	private StatusLabelView statusLabelViewScore;
 	private StatusLabelView statusLabelViewDifficulty;
+	private StatusLabelView stauLabelViewHighscore;
 
 	/**
 	 * 
 	 */
 	private MainController() {
-		createGame();
+		intializeGame();
 	}
 	
-	private void createGame() {
+	private void intializeGame() {
 		playerHighscore = OptionsController.getInstance()
 				.setLastPlayerFromFile();
 		gameSettings = OptionsController.getInstance().getGameSettings();
@@ -104,8 +105,10 @@ public class MainController {
 		statusbar = new Statusbar();
 		statusLabelViewPlayer = new StatusLabelView("Spieler: " + playerHighscore.getPlayer().getPlayerName());
 		statusbar.addStatusLabel(statusLabelViewPlayer);
-		statusLabelViewScore = new StatusLabelView("Score: " + playerHighscore.getCurrentScore());
+		statusLabelViewScore = new StatusLabelView("Aktueller Score: " + playerHighscore.getCurrentScore());
 		statusbar.addStatusLabel(statusLabelViewScore);
+		stauLabelViewHighscore = new StatusLabelView("Highscore: " + playerHighscore.getHighscore());
+		statusbar.addStatusLabel(stauLabelViewHighscore);
 		statusLabelViewDifficulty = new StatusLabelView("Schwierigkeit: " + gameSettings.getDifficulty());
 		statusbar.addStatusLabel(statusLabelViewDifficulty);
 		mainView = new MainView(gamePanelView, statusbar);
@@ -135,12 +138,12 @@ public class MainController {
 		snakeHeadModel.rotateSnake(direction);
 	}
 
-	public int getDifficulty() {
-		return gameSettings.getDifficulty();
+	public GameSettings getCurrentGameSettings() {
+		return gameSettings;
 	}
 	
-	public String getPlayerName() {
-		return playerHighscore.getPlayer().getPlayerName();
+	public PlayerHighscore getCurrentPlayerInfo() {
+		return playerHighscore;
 	}
 
 	/**
