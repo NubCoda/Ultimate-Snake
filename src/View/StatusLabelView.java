@@ -12,8 +12,8 @@ public class StatusLabelView extends JLabel implements Observer {
 	}
 	
 	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub	
+	public void update(Observable observable, Object object) {
+		repaint();	
 	}
 
 }

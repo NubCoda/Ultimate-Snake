@@ -48,6 +48,8 @@ public class MainController {
 	private StatusLabelView statusLabelViewScore;
 	private StatusLabelView statusLabelViewDifficulty;
 	private StatusLabelView stauLabelViewHighscore;
+	private SnakeTailModel snakeTailModel;
+	private SnakeTailView snakeTailView;
 
 	/**
 	 * 
@@ -163,9 +165,9 @@ public class MainController {
 			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
 					snakeHeadView.getImage(), logic);
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
-			SnakeTailView snakeTailView = new SnakeTailView(
+			snakeTailView = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
-			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView,
+			snakeTailModel = new SnakeTailModel(gamePanelView,
 					100, 120, snakeHeadModel, snakeTailView.getImage());
 			SnakeTailView snakeTailView1 = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);
@@ -185,6 +187,7 @@ public class MainController {
 			opponentModel1.addObserver(opponentView1);
 
 			appleModel.addObserver(appleView);
+			appleModel.addObserver(statusLabelViewScore);
 			snakeHeadModel.addObserver(snakeHeadView);
 			snakeTailModel.addObserver(snakeTailView);
 			snakeTailModel1.addObserver(snakeTailView1);
@@ -212,8 +215,8 @@ public class MainController {
 	
 	public void raiseScore() {
 		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore());
-		statusLabelViewScore.setText("Score: " + playerHighscore.getCurrentScore());
-		mainView.pack();
+		//statusLabelViewScore.setText("Score: " + playerHighscore.getCurrentScore());
+		//statusbar.repaint();
 	}
 	
 	/**
