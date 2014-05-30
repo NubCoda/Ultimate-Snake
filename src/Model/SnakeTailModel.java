@@ -7,8 +7,11 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 
+import Controller.MainController;
+import Controller.OptionsController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
+import Model.Interface.IElement;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
 
@@ -85,8 +88,11 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 
 	@Override
 	public void checkCollision(IActor actor) {
-		if (bounding.intersects(actor.getBounding())) {
-			// System.out.println("Collision Tail");
+		if (bounding.intersects(actor.getBounding())
+				&& (actor instanceof OpponentModel)) {
+			MainController.getInstance().gameOver();
+			OptionsController.getInstance().updateHighScore(
+					MainController.getInstance().getCurrentPlayerInfo());
 		}
 	}
 

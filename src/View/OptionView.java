@@ -204,7 +204,9 @@ public class OptionView extends JDialog implements ActionListener {
 			OptionsController.getInstance().saveToFile(playerHighscore,
 					difficulty);
 		}
-		MainController.getInstance().setPlayerHighscore(playerHighscore);
+		if(playerHighscore != null)  {
+			MainController.getInstance().setPlayerHighscore(playerHighscore);
+		}
 		this.dispose();
 	}
 }
