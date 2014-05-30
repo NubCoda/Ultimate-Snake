@@ -28,7 +28,7 @@ import View.MenuView;
 import View.OpponentView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
-import View.Statusbar;
+import View.StatusbarView;
 
 /**
  *
@@ -42,7 +42,7 @@ public class MainController {
 	private PlayerHighscore playerHighscore;
 	private GameSettings gameSettings;
 	private boolean isGameStarted = false;
-	private Statusbar statusbar;
+	private StatusbarView statusbar;
 	private JLabel statusLabelPlayer;
 	private JLabel statusLabelScore;
 	private JLabel statusLabelDifficulty;
@@ -125,7 +125,7 @@ public class MainController {
 	}
 
 	private void initiliazeStatusbar() {
-		statusbar = new Statusbar();
+		statusbar = new StatusbarView();
 		statusbarModel = new StatusbarModel(playerHighscore, gameSettings);
 		statusLabelPlayer = new JLabel();
 		statusbar.addLabelToVector(statusLabelPlayer);

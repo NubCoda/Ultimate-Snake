@@ -14,10 +14,10 @@ import javax.swing.JSeparator;
 import Model.StatusbarModel;
 
 @SuppressWarnings("serial")
-public class Statusbar extends JPanel implements Observer {
+public class StatusbarView extends JPanel implements Observer {
 	private Vector<JLabel> labelVector;
 
-	public Statusbar() {
+	public StatusbarView() {
 		setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.DARK_GRAY));
 		labelVector = new Vector<JLabel>();
 	}
@@ -41,6 +41,6 @@ public class Statusbar extends JPanel implements Observer {
 	public void update(Observable observable, Object object) {
 		StatusbarModel statusbarModel = ((StatusbarModel) observable);
 		statusbarModel.repaintElements();
-		repaint();
+		//repaint();
 	}
 }

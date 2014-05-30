@@ -19,6 +19,7 @@ import Controller.MainController;
 import Controller.OptionsController;
 import Model.OptionsModel;
 
+@SuppressWarnings("serial")
 public class MainView extends JFrame implements Observer, ActionListener {
 
 	private JMenuBar menuBar;
@@ -27,11 +28,10 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemReset;
 	private JMenuItem menuItemOption;
-	private JMenu menuPlayer;
 	private JMenuItem menuItemSpielerErstellen;
 
 	
-	public MainView(GamePanelView gamePanelView, Statusbar statusbar) {
+	public MainView(GamePanelView gamePanelView, StatusbarView statusbar) {
 		initGui();
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(gamePanelView, BorderLayout.CENTER);
