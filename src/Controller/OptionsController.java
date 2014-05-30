@@ -1,5 +1,7 @@
 package Controller;
 
+import java.util.HashMap;
+
 import Model.OptionsModel;
 
 /**
@@ -7,7 +9,7 @@ import Model.OptionsModel;
  * 
  */
 public class OptionsController {
-	private static OptionsController optionsController;
+	private static OptionsController OPTIONS_CONTROLLER;
 	private OptionsModel optionsModel;
 
 	/**
@@ -22,10 +24,10 @@ public class OptionsController {
 	 * @return
 	 */
 	public static OptionsController getInstance() {
-		if (optionsController == null) {
-			optionsController = new OptionsController();
+		if (OPTIONS_CONTROLLER == null) {
+			OPTIONS_CONTROLLER = new OptionsController();
 		}
-		return optionsController;
+		return OPTIONS_CONTROLLER;
 	}
 	
 	public void setProperty(String propertyName, Object property){

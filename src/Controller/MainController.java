@@ -12,6 +12,7 @@ import javax.swing.KeyStroke;
 import Model.AppleModel;
 import Model.Logic;
 import Model.OpponentModel;
+import Model.PlayerModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
 import Model.Interface.Direction;
@@ -24,7 +25,6 @@ import View.MenuView;
 import View.OpponentView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
-import View.StatusLabelView;
 import View.Statusbar;
 
 /**
@@ -36,7 +36,8 @@ public class MainController {
 	private GamePanelView gamePanelView;
 	private Logic logic;
 	private SnakeHeadModel snakeHeadModel;
-
+	private Statusbar statusbar;
+	
 	/**
 	 * 
 	 */
@@ -84,11 +85,9 @@ public class MainController {
 	 */
 	private void createWindow() {
 		gamePanelView = new GamePanelView(800, 600);
-		Statusbar statusbar = new Statusbar();
-		StatusLabelView label = new StatusLabelView("test");
-		statusbar.addStatusLabel(label);
-		StatusLabelView label1 = new StatusLabelView("test1");
-		statusbar.addStatusLabel(label1);
+		PlayerModel player = new PlayerModel();
+		statusbar = new Statusbar();
+		player.addObserver(statusbar);
 		JFrame mainView = new MainView(gamePanelView, statusbar);
 		
 		
@@ -119,6 +118,7 @@ public class MainController {
 	 * 
 	 */
 	public void startGame() {
+		statusbar.updateText();
 		gamePanelView.clearActors();
 		logic.clearActors();
 		// TODO: dies koennte das Level 1 sein

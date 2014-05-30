@@ -22,7 +22,7 @@ import View.SnakeTailView;
  */
 public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Point2D.Double movement;
-	private int speed = IConstants.SNAKE_SPEED;
+	private int speed = 75;
 	private double lastMove = 0;
 	private Ellipse2D.Double bounding;
 	private Direction newDirection = Direction.NONE;

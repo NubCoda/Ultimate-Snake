@@ -24,7 +24,7 @@ import Model.OptionsModel;
  * 
  */
 @SuppressWarnings("serial")
-public class MainView extends JFrame implements Observer, ActionListener {
+public class MainView extends JFrame implements ActionListener {
 	private JMenuBar menuBar;
 	private JMenu menuGame;
 	private JMenuItem menuItemStart;
@@ -136,12 +136,5 @@ public class MainView extends JFrame implements Observer, ActionListener {
 //			OptionsController.getInstance().createPlayer(playerName);
 		}
 //		setVisible(true);
-	}
-
-	@Override
-	public void update(Observable observable, Object argObject) {
-		OptionsModel optionsModel = ((OptionsModel) observable);
-		this.setSize(optionsModel.getDimension());
-		repaint();
 	}
 }
