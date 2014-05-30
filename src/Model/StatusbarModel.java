@@ -11,7 +11,6 @@ import Properties.PlayerHighscore;
 public class StatusbarModel extends Observable {
 	private Vector<JLabel> statusLabelVector;
 	private Vector<String> keyNameVector;
-	private PlayerHighscore playerHighscore;
 	private GameSettings gameSettings;
 
 	public StatusbarModel(GameSettings gameSettings) {
