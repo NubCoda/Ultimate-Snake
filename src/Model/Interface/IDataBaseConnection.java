@@ -18,7 +18,7 @@ public interface IDataBaseConnection {
 	 * 
 	 * @param playerName
 	 */
-	public void createPlayer(String playerName);
+	public boolean createPlayer(String playerName);
 
 	/**
 	 * 

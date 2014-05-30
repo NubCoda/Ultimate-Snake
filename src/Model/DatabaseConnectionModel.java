@@ -41,30 +41,49 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 	}
 
 	@Override
-	public void createPlayer(String playerName) {
+	public boolean createPlayer(String playerName) {
 		createConnection();
-		sql = "INSERT INTO " + player_table + " (player_name) values (?)";
+		boolean notCreated = true;
+
+		sql = "SELECT * FROM " + player_table + " WHERE player_name = ?";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, playerName);
-			preparedStatement.executeUpdate();
-			sql = "SELECT * FROM sqlite_sequence WHERE name = '" + player_table
-					+ "'";
-			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet != null) {
-				sql = "INSERT INTO " + highscore_table
-						+ " (player_id, highscore) values (?, ?)";
-				preparedStatement = connection.prepareStatement(sql);
-				preparedStatement.setInt(1, resultSet.getInt("seq"));
-				preparedStatement.setString(2, playerName);
-				preparedStatement.executeUpdate();
+			if (resultSet.next()) {
+				notCreated = false;
+				connection.close();
 			}
-			connection.close();
-		} catch (SQLException e) {
+		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
+
+		if (notCreated) {
+			sql = "INSERT INTO " + player_table + " (player_name) values (?)";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, playerName);
+				preparedStatement.executeUpdate();
+				sql = "SELECT * FROM sqlite_sequence WHERE name = '"
+						+ player_table + "'";
+				preparedStatement = connection.prepareStatement(sql);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				if (resultSet != null) {
+					sql = "INSERT INTO " + highscore_table
+							+ " (player_id, highscore) values (?, ?)";
+					preparedStatement = connection.prepareStatement(sql);
+					preparedStatement.setInt(1, resultSet.getInt("seq"));
+					preparedStatement.setString(2, playerName);
+					preparedStatement.executeUpdate();
+				}
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return notCreated;
 	}
 
 	/**
@@ -157,7 +176,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 				+ player_table
 				+ " player JOIN "
 				+ highscore_table
-				+ " highscore ON player.player_id = highscore.player_id ORDER BY highscore DESC LIMIT 10";
+				+ " highscore ON player.player_id = highscore.player_id ORDER BY highscore DESC, player_name ASC LIMIT 10";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();

@@ -74,6 +74,8 @@ public class MainView extends JFrame implements Observer, ActionListener {
 		menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
 				InputEvent.CTRL_MASK));
 		menuGame.add(menuItemReset);
+		
+		menuGame.addSeparator();
 
 		menuItemOption = new JMenuItem("Optionen");
 		menuItemOption.addActionListener(this);
@@ -81,12 +83,13 @@ public class MainView extends JFrame implements Observer, ActionListener {
 				InputEvent.CTRL_MASK));
 		menuGame.add(menuItemOption);
 
-		menuPlayer = new JMenu("Spieler");
-		menuBar.add(menuPlayer);
-
-		menuItemSpielerErstellen = new JMenuItem("Erstellen");
+		menuGame.addSeparator();
+		
+		menuItemSpielerErstellen = new JMenuItem("Spieler erstellen");
 		menuItemSpielerErstellen.addActionListener(this);
-		menuPlayer.add(menuItemSpielerErstellen);
+		menuItemSpielerErstellen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+				InputEvent.CTRL_MASK));
+		menuGame.add(menuItemSpielerErstellen);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
@@ -130,10 +133,16 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	}
 
 	protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
+		boolean created = false;
 		String playerName = JOptionPane
 				.showInputDialog("Spielernamen angeben!");
 		if (playerName != null && !playerName.isEmpty()) {
-			OptionsController.getInstance().createPlayer(playerName);
+			created = OptionsController.getInstance().createPlayer(playerName);
+			while (!created) {
+				playerName = JOptionPane
+						.showInputDialog("Der Spieler existiert bereits!\nNeuen Spielernamen angeben!");
+				created = OptionsController.getInstance().createPlayer(playerName);
+			}
 		}
 		setVisible(true);
 	}

@@ -60,8 +60,9 @@ public class OptionsController {
 		optionsModel.setChanges();
 	}
 
-	public void createPlayer(String playerName) {
-		databaseConnectionModel.createPlayer(playerName);
+	public boolean createPlayer(String playerName) {
+		boolean created = databaseConnectionModel.createPlayer(playerName);
+		return created;
 	}
 
 	public Vector<PlayerHighscore> getPlayers() {
@@ -75,7 +76,7 @@ public class OptionsController {
 		return vectorTopPlayer;
 	}
 
-	public PlayerHighscore setLastPlayerFromFile() {
+	public PlayerHighscore getAndSetLastPlayerFromFile() {
 		PlayerHighscore playerHighscore = null;
 		playerHighscore = fileModel.getLastPlayerFromFile();
 		return playerHighscore;
