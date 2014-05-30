@@ -2,7 +2,6 @@ package Model.Interface;
 
 import java.util.Vector;
 
-import Properties.Player;
 import Properties.PlayerHighscore;
 
 /**

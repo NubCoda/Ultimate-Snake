@@ -18,7 +18,6 @@ import javax.swing.KeyStroke;
 import Controller.MainController;
 import Controller.OptionsController;
 import Model.OptionsModel;
-import Properties.Player;
 import Properties.PlayerHighscore;
 
 /**

@@ -1,15 +1,7 @@
 package View;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.io.File;
-import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
-
-import Model.Interface.IMenu;
 
 /**
  * 
