@@ -50,7 +50,6 @@ public class MainController {
 	private SnakeTailModel snakeTailModel;
 	private SnakeTailView snakeTailView;
 	private StatusbarModel statusbarModel;
-	private JLabel statusbarLabelTopPlayer;
 
 	/**
 	 * 
@@ -63,7 +62,6 @@ public class MainController {
 		playerHighscore = OptionsController.getInstance()
 				.getAndSetLastPlayerFromFile();
 		gameSettings = OptionsController.getInstance().getGameSettings();
-		Vector<PlayerHighscore> topPlayer = OptionsController.getInstance().getTopPlayers();
 		createWindow();
 		logic = new Logic(gameSettings);
 		logic.addObserver(gamePanelView);
@@ -126,7 +124,7 @@ public class MainController {
 
 	private void initiliazeStatusbar() {
 		statusbar = new StatusbarView();
-		statusbarModel = new StatusbarModel(playerHighscore, gameSettings);
+		statusbarModel = new StatusbarModel(gameSettings);
 		statusLabelPlayer = new JLabel();
 		statusbar.addLabelToVector(statusLabelPlayer);
 		statusbarModel.addLabelToVector(statusLabelPlayer);
@@ -144,7 +142,7 @@ public class MainController {
 		statusbarModel.addLabelToVector(statusLabelDifficulty);
 		statusbarModel.addKeyNameToVector("Schwierigkeit: ");
 		statusbar.addLabels();
-		statusbarModel.repaintElements();
+		statusbarModel.setValuesOfPlayer(playerHighscore);
 		statusbarModel.addObserver(statusbar);
 	}
 
@@ -216,13 +214,13 @@ public class MainController {
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
 
 		}
-		statusbarModel.repaintElements();
+		statusbarModel.setValuesOfPlayer(playerHighscore);
 		logic.setGameRunning(true);
 	}
 
 	public void raiseScore() {
 		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore() + 2);
-		statusbarModel.notifiyStatusbar();
+		statusbarModel.setValuesOfPlayer(playerHighscore);
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
 		switch (gameSettings.getDifficulty()) {
@@ -267,6 +265,11 @@ public class MainController {
 		if (startGame) {
 			startGame();
 		}
+	}
+	
+	public void setPlayerHighscore(PlayerHighscore playerHighscore) {
+		this.playerHighscore = playerHighscore;
+		statusbarModel.setValuesOfPlayer(playerHighscore);
 	}
 
 	public void gameOver() {

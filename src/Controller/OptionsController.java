@@ -6,6 +6,7 @@ import java.util.Vector;
 import Model.DatabaseConnectionModel;
 import Model.FileModel;
 import Model.OptionsModel;
+import Model.StatusbarModel;
 import Properties.GameSettings;
 import Properties.PlayerHighscore;
 import View.MainView;
@@ -94,6 +95,7 @@ public class OptionsController {
 	public PlayerHighscore getSinglePlayer(String playerName) {
 		PlayerHighscore playerHighscore = null;
 		playerHighscore = databaseConnectionModel.getSinglePlayer(playerName);
+//		MainController.getInstance().notifiyStatusbar();
 		return playerHighscore;
 	}
 }

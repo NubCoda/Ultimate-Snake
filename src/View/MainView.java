@@ -32,7 +32,7 @@ public class MainView extends JFrame implements Observer, ActionListener {
 
 	
 	public MainView(GamePanelView gamePanelView, StatusbarView statusbar) {
-		initGui();
+		initGUI();
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(gamePanelView, BorderLayout.CENTER);
 		getContentPane().add(statusbar, BorderLayout.SOUTH);
@@ -45,7 +45,7 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public void initGui() {
+	public void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		{

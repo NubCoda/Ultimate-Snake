@@ -14,9 +14,7 @@ public class StatusbarModel extends Observable {
 	private PlayerHighscore playerHighscore;
 	private GameSettings gameSettings;
 
-	public StatusbarModel(PlayerHighscore playerHighscore,
-			GameSettings gameSettings) {
-		this.playerHighscore = playerHighscore;
+	public StatusbarModel(GameSettings gameSettings) {
 		this.gameSettings = gameSettings;
 		statusLabelVector = new Vector<JLabel>();
 		keyNameVector = new Vector<String>();
@@ -35,7 +33,8 @@ public class StatusbarModel extends Observable {
 		notifyObservers();
 	}
 
-	public void repaintElements() {
+	public void setValuesOfPlayer(PlayerHighscore playerHighscore) {
+		System.out.println(playerHighscore.getPlayer().getPlayerName());
 		statusLabelVector.elementAt(0).setText(
 				"Spieler: " + playerHighscore.getPlayer().getPlayerName());
 		statusLabelVector.elementAt(1).setText(
@@ -44,5 +43,7 @@ public class StatusbarModel extends Observable {
 				"Highscore: " + playerHighscore.getHighscore());
 		statusLabelVector.elementAt(3).setText(
 				"Schwierigkeit: " + gameSettings.getDifficulty());
+		setChanged();
+		notifyObservers();
 	}
 }

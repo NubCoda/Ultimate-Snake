@@ -11,8 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import Model.StatusbarModel;
-
 @SuppressWarnings("serial")
 public class StatusbarView extends JPanel implements Observer {
 	private Vector<JLabel> labelVector;
@@ -39,8 +37,6 @@ public class StatusbarView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable observable, Object object) {
-		StatusbarModel statusbarModel = ((StatusbarModel) observable);
-		statusbarModel.repaintElements();
-		//repaint();
+		repaint();
 	}
 }

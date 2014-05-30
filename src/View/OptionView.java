@@ -177,10 +177,11 @@ public class OptionView extends JDialog implements ActionListener {
 
 		if (MainController.getInstance().getCurrentPlayerInfo()
 				.getCurrentScore() > 0
-				&& ((!MainController.getInstance().getCurrentPlayerInfo()
+				&& (!MainController.getInstance().getCurrentPlayerInfo()
 						.getPlayer().getPlayerName()
-						.equals((String) comboBoxPlayer.getSelectedItem())) || MainController
-						.getInstance().getCurrentGameSettings().getDifficulty() != difficulty)) {
+						.equals((String) comboBoxPlayer.getSelectedItem()))
+				|| MainController.getInstance().getCurrentGameSettings()
+						.getDifficulty() != difficulty) {
 			int selection = JOptionPane
 					.showConfirmDialog(
 							null,
@@ -188,10 +189,13 @@ public class OptionView extends JDialog implements ActionListener {
 							"Achtung", JOptionPane.YES_NO_OPTION,
 							JOptionPane.WARNING_MESSAGE);
 			if (selection == JOptionPane.YES_OPTION) {
-				OptionsController.getInstance().updateHighScore(MainController.getInstance().getCurrentPlayerInfo());
-				playerHighscore = OptionsController.getInstance().getSinglePlayer(
-						(String) comboBoxPlayer.getSelectedItem());
-				OptionsController.getInstance().saveToFile(playerHighscore, difficulty);
+				OptionsController.getInstance().updateHighScore(
+						MainController.getInstance().getCurrentPlayerInfo());
+				playerHighscore = OptionsController.getInstance()
+						.getSinglePlayer(
+								(String) comboBoxPlayer.getSelectedItem());
+				OptionsController.getInstance().saveToFile(playerHighscore,
+						difficulty);
 				MainController.getInstance().restartGame(false);
 			}
 		} else {
@@ -200,6 +204,7 @@ public class OptionView extends JDialog implements ActionListener {
 			OptionsController.getInstance().saveToFile(playerHighscore,
 					difficulty);
 		}
+		MainController.getInstance().setPlayerHighscore(playerHighscore);
 		this.dispose();
 	}
 }
