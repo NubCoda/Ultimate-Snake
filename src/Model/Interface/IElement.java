@@ -1,6 +1,6 @@
 package Model.Interface;
 
 public interface IElement {
-//	double getX();
-//	double getY();
+	// double getX();
+	// double getY();
 }

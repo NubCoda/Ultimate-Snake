@@ -128,15 +128,17 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		}
 		return playerVector;
 	}
-	
+
 	@Override
 	public void updatePlayerScore(PlayerHighscore playerHighscore) {
 		createConnection();
-		sql = "UPDATE " + highscore_table + " SET highscore = ? WHERE player_id = ?";
+		sql = "UPDATE " + highscore_table
+				+ " SET highscore = ? WHERE player_id = ?";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, playerHighscore.getCurrentScore());
-			preparedStatement.setInt(2, playerHighscore.getPlayer().getPlayerId());
+			preparedStatement.setInt(2, playerHighscore.getPlayer()
+					.getPlayerId());
 			int update = preparedStatement.executeUpdate();
 			System.out.println(update);
 			connection.close();

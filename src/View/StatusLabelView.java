@@ -5,8 +5,6 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
-import Model.StatusbarModel;
-
 @SuppressWarnings("serial")
 public class StatusLabelView extends JLabel implements Observer {
 	public StatusLabelView() {
@@ -14,6 +12,6 @@ public class StatusLabelView extends JLabel implements Observer {
 
 	@Override
 	public void update(Observable observable, Object object) {
-		
+
 	}
 }

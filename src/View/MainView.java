@@ -124,8 +124,10 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
 		MainController.getInstance().pauseGame();
 		OptionView optionView = new OptionView(OptionsController.getInstance()
-				.getPlayers(), MainController.getInstance().getCurrentGameSettings().getDifficulty(),
-				MainController.getInstance().getCurrentPlayerInfo().getPlayer().getPlayerName());
+				.getPlayers(), MainController.getInstance()
+				.getCurrentGameSettings().getDifficulty(), MainController
+				.getInstance().getCurrentPlayerInfo().getPlayer()
+				.getPlayerName());
 		optionView.setVisible(true);
 	}
 

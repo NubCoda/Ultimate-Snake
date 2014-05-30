@@ -5,7 +5,7 @@ public class PlayerHighscore {
 	private int highscore;
 	private int highscore_id;
 	private int currentScore = 0;
-	
+
 	public PlayerHighscore(Player player, int highscore, int higscore_id) {
 		this.player = player;
 		this.highscore = highscore;
@@ -20,7 +20,8 @@ public class PlayerHighscore {
 	}
 
 	/**
-	 * @param player the player to set
+	 * @param player
+	 *            the player to set
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
@@ -34,7 +35,8 @@ public class PlayerHighscore {
 	}
 
 	/**
-	 * @param highscore the highscore to set
+	 * @param highscore
+	 *            the highscore to set
 	 */
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
@@ -49,7 +51,8 @@ public class PlayerHighscore {
 	}
 
 	/**
-	 * @param highscore_id the highscore_id to set
+	 * @param highscore_id
+	 *            the highscore_id to set
 	 */
 	public void setHighscore_id(int highscore_id) {
 		this.highscore_id = highscore_id;
@@ -62,7 +65,5 @@ public class PlayerHighscore {
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
 	}
-	
-	
-	
+
 }

@@ -8,10 +8,10 @@ import Model.Interface.IActor;
 
 @SuppressWarnings("serial")
 public class OpponentView extends SpriteView implements Observer {
-	
+
 	private int rotation;
 	private Direction direction;
-	
+
 	public OpponentView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);

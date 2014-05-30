@@ -1,6 +1,5 @@
 package Model.Interface;
 
-public enum Action{
-	SPACE,
-	NONE
+public enum Action {
+	SPACE, NONE
 }

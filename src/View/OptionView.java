@@ -41,7 +41,8 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param mainView
 	 * @param playerVector
 	 */
-	public OptionView(Vector<PlayerHighscore> playerVector, int difficulty, String playerName) {
+	public OptionView(Vector<PlayerHighscore> playerVector, int difficulty,
+			String playerName) {
 		initGUI();
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(radioButtonSlow);
@@ -122,8 +123,8 @@ public class OptionView extends JDialog implements ActionListener {
 		}
 		comboBoxPlayer.setSelectedItem((String) playerName);
 	}
-	
-	private void selectDifficulty(int difficulty){
+
+	private void selectDifficulty(int difficulty) {
 		System.out.println(difficulty);
 		switch (difficulty) {
 		case 1:
@@ -163,17 +164,15 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param arg0
 	 */
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		playerHighscore = OptionsController.getInstance().getSinglePlayer((String) comboBoxPlayer
-				.getSelectedItem());
+		playerHighscore = OptionsController.getInstance().getSinglePlayer(
+				(String) comboBoxPlayer.getSelectedItem());
 		System.out.println(playerHighscore.getPlayer().getPlayerName());
 		int difficulty;
-		if(radioButtonSlow.isSelected()) {
+		if (radioButtonSlow.isSelected()) {
 			difficulty = 1;
-		}
-		else if(radioButtonNormal.isSelected()) {
+		} else if (radioButtonNormal.isSelected()) {
 			difficulty = 2;
-		}
-		else {
+		} else {
 			difficulty = 3;
 		}
 		OptionsController.getInstance().saveToFile(playerHighscore, difficulty);

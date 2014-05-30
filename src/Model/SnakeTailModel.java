@@ -12,7 +12,6 @@ import Model.Interface.IActor;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
 
-
 /**
  * 
  * 
@@ -23,7 +22,7 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 	private Ellipse2D.Double bounding;
 	private int rotation;
 	private Direction direction = Direction.NONE;
-	
+
 	/**
 	 * 
 	 * @param gamePanelView

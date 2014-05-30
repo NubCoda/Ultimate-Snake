@@ -28,12 +28,13 @@ public class OptionsController {
 		databaseConnectionModel = new DatabaseConnectionModel();
 		fileModel = new FileModel();
 	}
-	
+
 	public void updateHighScore(PlayerHighscore playerHighscore) {
-		if(playerHighscore.getHighscore() < playerHighscore.getCurrentScore()) {
+		if (playerHighscore.getHighscore() < playerHighscore.getCurrentScore()) {
 			playerHighscore.setHighscore(playerHighscore.getCurrentScore());
 			databaseConnectionModel.updatePlayerScore(playerHighscore);
-			saveToFile(playerHighscore, MainController.getInstance().getCurrentGameSettings().getDifficulty());
+			saveToFile(playerHighscore, MainController.getInstance()
+					.getCurrentGameSettings().getDifficulty());
 		}
 	}
 
@@ -64,16 +65,17 @@ public class OptionsController {
 	}
 
 	public Vector<PlayerHighscore> getPlayers() {
-		Vector<PlayerHighscore> playerVector = databaseConnectionModel.getPlayers();
+		Vector<PlayerHighscore> playerVector = databaseConnectionModel
+				.getPlayers();
 		return playerVector;
 	}
-	
-	public PlayerHighscore setLastPlayerFromFile(){
+
+	public PlayerHighscore setLastPlayerFromFile() {
 		PlayerHighscore playerHighscore = null;
 		playerHighscore = fileModel.getLastPlayerFromFile();
 		return playerHighscore;
 	}
-	
+
 	public GameSettings getGameSettings() {
 		GameSettings gameSettings = fileModel.getGameSettingsFromFile();
 		return gameSettings;
@@ -82,7 +84,7 @@ public class OptionsController {
 	public void saveToFile(PlayerHighscore playerHighscore, int difficulty) {
 		fileModel.writeToIniFile(playerHighscore, difficulty);
 	}
-	
+
 	public PlayerHighscore getSinglePlayer(String playerName) {
 		PlayerHighscore playerHighscore = null;
 		playerHighscore = databaseConnectionModel.getSinglePlayer(playerName);

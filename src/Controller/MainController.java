@@ -57,7 +57,7 @@ public class MainController {
 	private MainController() {
 		intializeGame();
 	}
-	
+
 	private void intializeGame() {
 		playerHighscore = OptionsController.getInstance()
 				.setLastPlayerFromFile();
@@ -126,17 +126,19 @@ public class MainController {
 		statusbarModel.repaintElements();
 		statusbarModel.addObserver(statusbar);
 		mainView = new MainView(gamePanelView, statusbar);
-		gamePanelView.registerKeyboardAction(new ActionListener() {
+		gamePanelView.registerKeyboardAction(
+				new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				logic.kill();
-				OptionsController.getInstance().saveToFile(playerHighscore, gameSettings.getDifficulty());
-				for (Frame frame : Frame.getFrames()) {
-					frame.dispose();
-				}
-			}
-		}, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						logic.kill();
+						OptionsController.getInstance().saveToFile(
+								playerHighscore, gameSettings.getDifficulty());
+						for (Frame frame : Frame.getFrames()) {
+							frame.dispose();
+						}
+					}
+				}, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
 	}
 
@@ -151,7 +153,7 @@ public class MainController {
 	public GameSettings getCurrentGameSettings() {
 		return gameSettings;
 	}
-	
+
 	public PlayerHighscore getCurrentPlayerInfo() {
 		return playerHighscore;
 	}
@@ -173,10 +175,10 @@ public class MainController {
 			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
 					snakeHeadView.getImage(), logic);
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
-			snakeTailView = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PAHT, 100, 120, gamePanelView);
-			snakeTailModel = new SnakeTailModel(gamePanelView,
-					100, 120, snakeHeadModel, snakeTailView.getImage());
+			snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 100,
+					120, gamePanelView);
+			snakeTailModel = new SnakeTailModel(gamePanelView, 100, 120,
+					snakeHeadModel, snakeTailView.getImage());
 			SnakeTailView snakeTailView1 = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);
 			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView,
@@ -219,12 +221,11 @@ public class MainController {
 		logic.setGameRunning(true);
 	}
 
-	
 	public void raiseScore() {
 		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore() + 2);
 		statusbarModel.notifiyStatusbar();
 	}
-	
+
 	/**
 	 * 
 	 */

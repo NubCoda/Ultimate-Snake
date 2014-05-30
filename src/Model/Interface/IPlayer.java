@@ -19,13 +19,13 @@ public interface IPlayer {
 	 * @return
 	 */
 	double getY();
-	
+
 	/**
 	 * 
 	 * @return
 	 */
 	Direction getDirection();
-	
+
 	/**
 	 * 
 	 * @return
