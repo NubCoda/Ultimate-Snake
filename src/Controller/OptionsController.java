@@ -69,6 +69,11 @@ public class OptionsController {
 				.getPlayers();
 		return playerVector;
 	}
+	
+	public Vector<PlayerHighscore> getTopPlayers() {
+		Vector<PlayerHighscore> vectorTopPlayer = databaseConnectionModel.getTopTenPlayers();
+		return vectorTopPlayer;
+	}
 
 	public PlayerHighscore setLastPlayerFromFile() {
 		PlayerHighscore playerHighscore = null;

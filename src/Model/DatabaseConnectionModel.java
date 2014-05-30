@@ -147,4 +147,32 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public Vector<PlayerHighscore> getTopTenPlayers() {
+		createConnection();
+		Vector<PlayerHighscore> vectorTopPlayer = new Vector<PlayerHighscore>();
+		PlayerHighscore playerHighscore;
+		sql = "SELECT player.player_name, highscore.* FROM "
+				+ player_table
+				+ " player JOIN "
+				+ highscore_table
+				+ " highscore ON player.player_id = highscore.player_id ORDER BY highscore DESC LIMIT 10";
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				playerHighscore = new PlayerHighscore(new Player(
+						resultSet.getInt("player_id"),
+						resultSet.getString("player_name")),
+						resultSet.getInt("highscore"),
+						resultSet.getInt("highscore_id"));
+				vectorTopPlayer.add(playerHighscore);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vectorTopPlayer;
+	}
 }
