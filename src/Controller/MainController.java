@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.KeyStroke;
 
 import Model.AppleModel;
@@ -26,7 +27,6 @@ import View.MenuView;
 import View.OpponentView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
-import View.StatusLabelView;
 import View.Statusbar;
 
 /**
@@ -42,10 +42,10 @@ public class MainController {
 	private GameSettings gameSettings;
 	private boolean isGameStarted = false;
 	private Statusbar statusbar;
-	private StatusLabelView statusLabelViewPlayer;
-	private StatusLabelView statusLabelViewScore;
-	private StatusLabelView statusLabelViewDifficulty;
-	private StatusLabelView stauLabelViewHighscore;
+	private JLabel statusLabelViewPlayer;
+	private JLabel statusLabelViewScore;
+	private JLabel statusLabelViewDifficulty;
+	private JLabel stauLabelViewHighscore;
 	private SnakeTailModel snakeTailModel;
 	private SnakeTailView snakeTailView;
 	private StatusbarModel statusbarModel;
@@ -103,27 +103,7 @@ public class MainController {
 	 */
 	private void createWindow() {
 		gamePanelView = new GamePanelView(800, 600);
-		statusbar = new Statusbar();
-		statusbarModel = new StatusbarModel(playerHighscore, gameSettings);
-		statusLabelViewPlayer = new StatusLabelView();
-		statusbar.addLabelToVector(statusLabelViewPlayer);
-		statusbarModel.addLabelToVector(statusLabelViewPlayer);
-		statusbarModel.addKeyNameToVector("Spieler: ");
-		statusLabelViewScore = new StatusLabelView();
-		statusbar.addLabelToVector(statusLabelViewScore);
-		statusbarModel.addLabelToVector(statusLabelViewScore);
-		statusbarModel.addKeyNameToVector("Aktueller Score: ");
-		stauLabelViewHighscore = new StatusLabelView();
-		statusbar.addLabelToVector(stauLabelViewHighscore);
-		statusbarModel.addLabelToVector(stauLabelViewHighscore);
-		statusbarModel.addKeyNameToVector("Highscore: ");
-		statusLabelViewDifficulty = new StatusLabelView();
-		statusbar.addLabelToVector(statusLabelViewDifficulty);
-		statusbarModel.addLabelToVector(statusLabelViewDifficulty);
-		statusbarModel.addKeyNameToVector("Schwierigkeit: ");
-		statusbar.addLabels();
-		statusbarModel.repaintElements();
-		statusbarModel.addObserver(statusbar);
+		initiliazeStatusbar();
 		new MainView(gamePanelView, statusbar);
 		gamePanelView.registerKeyboardAction(
 				new ActionListener() {
@@ -139,6 +119,30 @@ public class MainController {
 					}
 				}, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
+	}
+	
+	private void initiliazeStatusbar() {
+		statusbar = new Statusbar();
+		statusbarModel = new StatusbarModel(playerHighscore, gameSettings);
+		statusLabelViewPlayer = new JLabel();
+		statusbar.addLabelToVector(statusLabelViewPlayer);
+		statusbarModel.addLabelToVector(statusLabelViewPlayer);
+		statusbarModel.addKeyNameToVector("Spieler: ");
+		statusLabelViewScore = new JLabel();
+		statusbar.addLabelToVector(statusLabelViewScore);
+		statusbarModel.addLabelToVector(statusLabelViewScore);
+		statusbarModel.addKeyNameToVector("Aktueller Score: ");
+		stauLabelViewHighscore = new JLabel();
+		statusbar.addLabelToVector(stauLabelViewHighscore);
+		statusbarModel.addLabelToVector(stauLabelViewHighscore);
+		statusbarModel.addKeyNameToVector("Highscore: ");
+		statusLabelViewDifficulty = new JLabel();
+		statusbar.addLabelToVector(statusLabelViewDifficulty);
+		statusbarModel.addLabelToVector(statusLabelViewDifficulty);
+		statusbarModel.addKeyNameToVector("Schwierigkeit: ");
+		statusbar.addLabels();
+		statusbarModel.repaintElements();
+		statusbarModel.addObserver(statusbar);
 	}
 
 	/**
