@@ -11,10 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+import Controller.MainController;
 import Controller.OptionsController;
 import Properties.PlayerHighscore;
 
@@ -30,7 +32,7 @@ public class OptionView extends JDialog implements ActionListener {
 	private PlayerHighscore playerHighscore;
 	private JLabel labelPlayer;
 	private JComboBox<String> comboBoxPlayer;
-	Vector<PlayerHighscore> playerVector;
+	private Vector<PlayerHighscore> playerVector;
 	private JRadioButton radioButtonSlow;
 	private JRadioButton radioButtonNormal;
 	private JRadioButton radioButtonFast;
@@ -164,9 +166,6 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param arg0
 	 */
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		playerHighscore = OptionsController.getInstance().getSinglePlayer(
-				(String) comboBoxPlayer.getSelectedItem());
-		System.out.println(playerHighscore.getPlayer().getPlayerName());
 		int difficulty;
 		if (radioButtonSlow.isSelected()) {
 			difficulty = 1;
@@ -175,7 +174,32 @@ public class OptionView extends JDialog implements ActionListener {
 		} else {
 			difficulty = 3;
 		}
-		OptionsController.getInstance().saveToFile(playerHighscore, difficulty);
+
+		if (MainController.getInstance().getCurrentPlayerInfo()
+				.getCurrentScore() > 0
+				&& ((!MainController.getInstance().getCurrentPlayerInfo()
+						.getPlayer().getPlayerName()
+						.equals((String) comboBoxPlayer.getSelectedItem())) || MainController
+						.getInstance().getCurrentGameSettings().getDifficulty() != difficulty)) {
+			int selection = JOptionPane
+					.showConfirmDialog(
+							null,
+							"Sie haben Spieleinstellungen geändert! Das Spiel wird zurück gesetzt wenn Sie fortfahren. Wirklich fortfahren?",
+							"Achtung", JOptionPane.YES_NO_OPTION,
+							JOptionPane.WARNING_MESSAGE);
+			if (selection == JOptionPane.YES_OPTION) {
+				OptionsController.getInstance().updateHighScore(MainController.getInstance().getCurrentPlayerInfo());
+				playerHighscore = OptionsController.getInstance().getSinglePlayer(
+						(String) comboBoxPlayer.getSelectedItem());
+				OptionsController.getInstance().saveToFile(playerHighscore, difficulty);
+				MainController.getInstance().restartGame(false);
+			}
+		} else {
+			playerHighscore = OptionsController.getInstance().getSinglePlayer(
+					(String) comboBoxPlayer.getSelectedItem());
+			OptionsController.getInstance().saveToFile(playerHighscore,
+					difficulty);
+		}
 		this.dispose();
 	}
 }

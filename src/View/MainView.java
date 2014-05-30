@@ -118,7 +118,7 @@ public class MainView extends JFrame implements Observer, ActionListener {
 	}
 
 	protected void menuItemResetActionPerformed(ActionEvent arg0) {
-		MainController.getInstance().restartGame();
+		MainController.getInstance().restartGame(true);
 	}
 
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {

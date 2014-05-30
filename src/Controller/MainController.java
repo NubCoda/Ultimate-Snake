@@ -42,7 +42,6 @@ public class MainController {
 	private GameSettings gameSettings;
 	private boolean isGameStarted = false;
 	private Statusbar statusbar;
-	private MainView mainView;
 	private StatusLabelView statusLabelViewPlayer;
 	private StatusLabelView statusLabelViewScore;
 	private StatusLabelView statusLabelViewDifficulty;
@@ -125,7 +124,7 @@ public class MainController {
 		statusbar.addLabels();
 		statusbarModel.repaintElements();
 		statusbarModel.addObserver(statusbar);
-		mainView = new MainView(gamePanelView, statusbar);
+		MainView mainView = new MainView(gamePanelView, statusbar);
 		gamePanelView.registerKeyboardAction(
 				new ActionListener() {
 
@@ -215,9 +214,10 @@ public class MainController {
 			gamePanelView.addActor(opponentView1);
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
-			System.out.println(gameSettings.getDifficulty());
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
+			
 		}
+		statusbarModel.repaintElements();
 		logic.setGameRunning(true);
 	}
 
@@ -236,10 +236,12 @@ public class MainController {
 	/**
 	 * 
 	 */
-	public void restartGame() {
+	public void restartGame(boolean startGame) {
 		logic.clearActors();
 		gamePanelView.clearActors();
 		isGameStarted = false;
-		MainController.getInstance().startGame();
+		if(startGame) {
+			startGame();
+		}
 	}
 }

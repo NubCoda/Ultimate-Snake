@@ -23,7 +23,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	private int nextJumpX = 0;
 	private int maxJumpLength = 100;
 	private int minJumpLength = 50;
-	private Logic logic;
 	private double positionX = 100;
 	private double positionY = 100;
 	private double padding = 50;
@@ -45,7 +44,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.logic = logic;
 	}
 
 	private double setStartPosition(boolean width) {
