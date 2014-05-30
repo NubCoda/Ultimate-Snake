@@ -34,7 +34,6 @@ public class StatusbarModel extends Observable {
 	}
 
 	public void setValuesOfPlayer(PlayerHighscore playerHighscore) {
-		System.out.println(playerHighscore.getPlayer().getPlayerName());
 		statusLabelVector.elementAt(0).setText(
 				"Spieler: " + playerHighscore.getPlayer().getPlayerName());
 		statusLabelVector.elementAt(1).setText(

@@ -50,13 +50,13 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	public void setSpeedByDifficulty(int difficulty) {
 		switch (difficulty) {
 		case 1:
-			speed = 160;
+			speed = 110;
 			break;
 		case 2:
 			speed = 80;
 			break;
 		case 3:
-			speed = 40;
+			speed = 50;
 			break;
 		}
 	}
