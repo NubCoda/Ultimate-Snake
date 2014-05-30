@@ -223,10 +223,10 @@ public class MainController {
 			multiplikator = 16;
 			break;
 		case 2:
-			multiplikator = 10;
+			multiplikator = 12;
 			break;
 		case 3:
-			multiplikator = 4;
+			multiplikator = 6;
 			break;
 		}
 		if (playerHighscore.getCurrentScore() % multiplikator == 0) {
