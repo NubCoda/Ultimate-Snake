@@ -52,6 +52,10 @@ public class MainController {
 	 * 
 	 */
 	private MainController() {
+		createGame();
+	}
+	
+	private void createGame() {
 		playerHighscore = OptionsController.getInstance()
 				.setLastPlayerFromFile();
 		gameSettings = OptionsController.getInstance().getGameSettings();
@@ -60,8 +64,6 @@ public class MainController {
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
-
-		// TODO: dies ist das Level Menu
 		MenuView title = new MenuView(50, 50, gamePanelView, "SNAKE", 48.0f);
 		gamePanelView.addActor(title);
 	}
@@ -207,7 +209,8 @@ public class MainController {
 	
 	public void raiseScore() {
 		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore());
-		System.out.println(playerHighscore.getCurrentScore());
+		statusLabelViewScore.setText("Score: " + playerHighscore.getCurrentScore());
+		mainView.pack();
 	}
 	
 	/**

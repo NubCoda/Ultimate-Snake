@@ -28,6 +28,12 @@ public class OptionsController {
 		databaseConnectionModel = new DatabaseConnectionModel();
 		fileModel = new FileModel();
 	}
+	
+	public void updateHighScore(PlayerHighscore playerHighscore) {
+		if(playerHighscore.getHighscore() < playerHighscore.getCurrentScore()) {
+			databaseConnectionModel.updatePlayerScore(playerHighscore);
+		}
+	}
 
 	/**
 	 * 

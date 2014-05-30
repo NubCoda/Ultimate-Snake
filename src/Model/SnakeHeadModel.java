@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import Controller.MainController;
+import Controller.OptionsController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
