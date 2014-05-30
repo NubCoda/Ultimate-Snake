@@ -90,7 +90,7 @@ public class MainController {
 		player.addObserver(statusbar);
 		JFrame mainView = new MainView(gamePanelView, statusbar);
 		
-		
+		//TEST
 		// TODO - passend auslagern
 		// - Fuer pause und neustarten passende KeyEvents festlegen
 		gamePanelView.registerKeyboardAction(new ActionListener() {
