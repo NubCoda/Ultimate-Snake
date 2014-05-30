@@ -124,7 +124,7 @@ public class MainController {
 		statusbar.addLabels();
 		statusbarModel.repaintElements();
 		statusbarModel.addObserver(statusbar);
-		MainView mainView = new MainView(gamePanelView, statusbar);
+		new MainView(gamePanelView, statusbar);
 		gamePanelView.registerKeyboardAction(
 				new ActionListener() {
 
@@ -189,12 +189,6 @@ public class MainController {
 			snakeHeadModel.setLast(snakeTailModel2);
 			AppleModel appleModel = new AppleModel(gamePanelView,
 					appleView.getImage());
-			OpponentView opponentView1 = new OpponentView(
-					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-			OpponentModel opponentModel1 = new OpponentModel(gamePanelView,
-					opponentView1.getImage(), logic);
-			opponentModel1.addObserver(opponentView1);
-
 			appleModel.addObserver(appleView);
 			snakeHeadModel.addObserver(snakeHeadView);
 			snakeTailModel.addObserver(snakeTailView);
@@ -205,17 +199,15 @@ public class MainController {
 			logic.addActor(snakeTailModel);
 			logic.addActor(snakeTailModel1);
 			logic.addActor(snakeTailModel2);
-			logic.addActor(opponentModel1);
 			gamePanelView.addActor(appleView);
 			gamePanelView.addActor(snakeHeadView);
 			gamePanelView.addActor(snakeTailView);
 			gamePanelView.addActor(snakeTailView1);
 			gamePanelView.addActor(snakeTailView2);
-			gamePanelView.addActor(opponentView1);
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
-			
+
 		}
 		statusbarModel.repaintElements();
 		logic.setGameRunning(true);
@@ -224,6 +216,31 @@ public class MainController {
 	public void raiseScore() {
 		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore() + 2);
 		statusbarModel.notifiyStatusbar();
+		boolean spawnNewEnemy = false;
+		int multiplikator = 0;
+		switch (gameSettings.getDifficulty()) {
+		case 1:
+			multiplikator = 16;
+			break;
+		case 2:
+			multiplikator = 10;
+			break;
+		case 3:
+			multiplikator = 4;
+			break;
+		}
+		if (playerHighscore.getCurrentScore() % multiplikator == 0) {
+			spawnNewEnemy = true;
+		}
+		if (spawnNewEnemy) {
+			OpponentView opponentView1 = new OpponentView(
+					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
+			OpponentModel opponentModel1 = new OpponentModel(gamePanelView,
+					opponentView1.getImage(), logic);
+			opponentModel1.addObserver(opponentView1);
+			logic.addActor(opponentModel1);
+			gamePanelView.addActor(opponentView1);
+		}
 	}
 
 	/**
@@ -240,7 +257,7 @@ public class MainController {
 		logic.clearActors();
 		gamePanelView.clearActors();
 		isGameStarted = false;
-		if(startGame) {
+		if (startGame) {
 			startGame();
 		}
 	}
