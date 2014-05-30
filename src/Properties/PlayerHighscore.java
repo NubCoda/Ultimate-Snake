@@ -38,6 +38,7 @@ public class PlayerHighscore {
 	 */
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
+		System.out.println("Highscore: " + highscore);
 	}
 
 	/**
@@ -59,7 +60,7 @@ public class PlayerHighscore {
 	}
 
 	public void setCurrentScore(int currentScore) {
-		this.currentScore = currentScore + 2;
+		this.currentScore = currentScore;
 	}
 	
 	

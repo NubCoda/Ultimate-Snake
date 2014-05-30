@@ -1,13 +1,11 @@
 package Controller;
 
-import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 import Model.AppleModel;
@@ -15,6 +13,7 @@ import Model.Logic;
 import Model.OpponentModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
+import Model.StatusbarModel;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
@@ -50,6 +49,7 @@ public class MainController {
 	private StatusLabelView stauLabelViewHighscore;
 	private SnakeTailModel snakeTailModel;
 	private SnakeTailView snakeTailView;
+	private StatusbarModel statusbarModel;
 
 	/**
 	 * 
@@ -105,14 +105,26 @@ public class MainController {
 	private void createWindow() {
 		gamePanelView = new GamePanelView(800, 600);
 		statusbar = new Statusbar();
-		statusLabelViewPlayer = new StatusLabelView("Spieler: " + playerHighscore.getPlayer().getPlayerName());
-		statusbar.addStatusLabel(statusLabelViewPlayer);
-		statusLabelViewScore = new StatusLabelView("Aktueller Score: " + playerHighscore.getCurrentScore());
-		statusbar.addStatusLabel(statusLabelViewScore);
-		stauLabelViewHighscore = new StatusLabelView("Highscore: " + playerHighscore.getHighscore());
-		statusbar.addStatusLabel(stauLabelViewHighscore);
-		statusLabelViewDifficulty = new StatusLabelView("Schwierigkeit: " + gameSettings.getDifficulty());
-		statusbar.addStatusLabel(statusLabelViewDifficulty);
+		statusbarModel = new StatusbarModel(playerHighscore, gameSettings);
+		statusLabelViewPlayer = new StatusLabelView();
+		statusbar.addLabelToVector(statusLabelViewPlayer);
+		statusbarModel.addLabelToVector(statusLabelViewPlayer);
+		statusbarModel.addKeyNameToVector("Spieler: ");
+		statusLabelViewScore = new StatusLabelView();
+		statusbar.addLabelToVector(statusLabelViewScore);
+		statusbarModel.addLabelToVector(statusLabelViewScore);
+		statusbarModel.addKeyNameToVector("Aktueller Score: ");
+		stauLabelViewHighscore = new StatusLabelView();
+		statusbar.addLabelToVector(stauLabelViewHighscore);
+		statusbarModel.addLabelToVector(stauLabelViewHighscore);
+		statusbarModel.addKeyNameToVector("Highscore: ");
+		statusLabelViewDifficulty = new StatusLabelView();
+		statusbar.addLabelToVector(statusLabelViewDifficulty);
+		statusbarModel.addLabelToVector(statusLabelViewDifficulty);
+		statusbarModel.addKeyNameToVector("Schwierigkeit: ");
+		statusbar.addLabels();
+		statusbarModel.repaintElements();
+		statusbarModel.addObserver(statusbar);
 		mainView = new MainView(gamePanelView, statusbar);
 		
 		
@@ -187,7 +199,6 @@ public class MainController {
 			opponentModel1.addObserver(opponentView1);
 
 			appleModel.addObserver(appleView);
-			appleModel.addObserver(statusLabelViewScore);
 			snakeHeadModel.addObserver(snakeHeadView);
 			snakeTailModel.addObserver(snakeTailView);
 			snakeTailModel1.addObserver(snakeTailView1);
@@ -214,9 +225,8 @@ public class MainController {
 
 	
 	public void raiseScore() {
-		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore());
-		//statusLabelViewScore.setText("Score: " + playerHighscore.getCurrentScore());
-		//statusbar.repaint();
+		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore() + 2);
+		statusbarModel.notifiyStatusbar();
 	}
 	
 	/**

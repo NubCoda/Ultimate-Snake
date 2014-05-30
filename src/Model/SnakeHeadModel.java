@@ -128,7 +128,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 * 
 	 */
 	public void increaseLength() {
-
+		MainController.getInstance().raiseScore();
 		double x = last.getX();
 		double y = last.getY();
 		switch (last.getDirection()) {

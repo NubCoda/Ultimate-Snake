@@ -3,6 +3,7 @@ package Model;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import Controller.MainController;
@@ -67,10 +68,7 @@ public class AppleModel extends Observable implements IActor, IElement {
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof SnakeHeadModel) {
 			appleAlive = false;
-			MainController.getInstance().raiseScore();
 			((SnakeHeadModel) actor).increaseLength();
-			setChanged();
-			notifyObservers();
 		}
 	}
 }

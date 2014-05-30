@@ -139,6 +139,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 			preparedStatement.setInt(2, playerHighscore.getPlayer().getPlayerId());
 			int update = preparedStatement.executeUpdate();
 			System.out.println(update);
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -31,8 +31,9 @@ public class OptionsController {
 	
 	public void updateHighScore(PlayerHighscore playerHighscore) {
 		if(playerHighscore.getHighscore() < playerHighscore.getCurrentScore()) {
-			System.out.println("YO");
+			playerHighscore.setHighscore(playerHighscore.getCurrentScore());
 			databaseConnectionModel.updatePlayerScore(playerHighscore);
+			saveToFile(playerHighscore, MainController.getInstance().getCurrentGameSettings().getDifficulty());
 		}
 	}
 
