@@ -1,7 +1,5 @@
 package Controller;
 
-import java.awt.Dialog.ModalityType;
-import java.awt.Window;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -186,7 +184,11 @@ public class MainController {
 	 * 
 	 */
 	public void restartGame() {
-		
+		logic.clearActors();
+		gamePanelView.clearActors();
+//		isGameStarted = false;
+		player.setScore(0);
+		startGame();
 	}
 
 	/**
@@ -194,8 +196,6 @@ public class MainController {
 	 */
 	public void gameOver() {
 		logic.setGameRunning(false);
-		logic.clearActors();
-		gamePanelView.clearActors();
 		MenuView gameOverTitle = new MenuView(50, 40, gamePanelView,
 				"Game Over", 48.0f);
 		gamePanelView.addActor(gameOverTitle);
@@ -203,6 +203,7 @@ public class MainController {
 			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Neue Highscore!", 48.0f);
 			gamePanelView.addActor(highScoreTitle);
+			player.setHighscore(player.getScore());
 			connectionModel.updatePlayerScore(player);
 		} else {
 			MenuView currentScoreTitle = new MenuView(50, 50, gamePanelView,

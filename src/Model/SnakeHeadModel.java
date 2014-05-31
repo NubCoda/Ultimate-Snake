@@ -42,7 +42,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 			BufferedImage bufferedImage, Logic logic) {
 		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(),
 				bufferedImage.getHeight());
-		movement = new Point2D.Double(0, 0);
+		movement = new Point2D.Double(x, y);
 		this.gamePanelView = gamePanelView;
 		this.logic = logic;
 	}

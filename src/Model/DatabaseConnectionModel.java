@@ -131,7 +131,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 				+ " SET highscore = ? WHERE player_id = ?";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, player.getScore());
+			preparedStatement.setInt(1, player.getHighscore());
 			preparedStatement.setInt(2, player.getPlayerId());
 			preparedStatement.executeUpdate();
 			connection.close();

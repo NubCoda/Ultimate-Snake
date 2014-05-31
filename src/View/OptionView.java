@@ -30,7 +30,6 @@ public class OptionView extends JDialog implements ActionListener {
 	private final JPanel contentPanel = new JPanel();
 	private JButton buttonCancel;
 	private JButton buttonOk;
-	private Player player;
 	private JLabel labelPlayer;
 	private JComboBox<String> comboBoxPlayer;
 	private Vector<Player> playerVector;
@@ -182,8 +181,7 @@ public class OptionView extends JDialog implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// TODO per options controller die difficulty setzen
-		// und methode in maincontroller changeplayer, womit der spieler gewechselt wird
+		// TODO prüfen was vom unteren notwendig ist und dies implementieren
 
 //		if (MainController.getInstance().getCurrentPlayerInfo()
 //				.getCurrentScore() > 0
