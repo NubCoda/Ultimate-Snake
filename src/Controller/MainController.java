@@ -16,6 +16,7 @@ import Model.OpponentModel;
 import Model.StatusbarModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
+import Model.Interface.Difficuty;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
@@ -187,6 +188,9 @@ public class MainController {
 		
 	}
 
+	/**
+	 * 
+	 */
 	public void gameOver() {
 		logic.setGameRunning(false);
 		logic.clearActors();
@@ -206,5 +210,38 @@ public class MainController {
 		MenuView highScoreTitleScore = new MenuView(50, 60, gamePanelView,
 				String.valueOf(player.getScore()), 48.0f);
 		gamePanelView.addActor(highScoreTitleScore);
+	}
+	
+	/**
+	 * 
+	 */
+	public void raiseScore() {
+		snakeHeadModel.increaseLength();
+		player.setScore(player.getScore() + 2);
+		statusbarModel.updateStatus();
+		boolean spawnNewEnemy = false;
+		int multiplikator = 0;
+		switch (Difficuty.valueOf(OptionsController.getInstance().getOption("difficulty").toUpperCase())) {
+		case SIMPLE:
+			multiplikator = 16;
+			break;
+		case MEDIUM:
+			multiplikator = 12;
+			break;
+		case DIFFICULT:
+			multiplikator = 6;
+			break;
+		}
+		if (player.getScore() % multiplikator == 0) {
+			spawnNewEnemy = true;
+		}
+		if (spawnNewEnemy) {
+			OpponentView opponentView = new OpponentView(
+					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
+			OpponentModel opponentModel = new OpponentModel(gamePanelView, opponentView.getImage());
+			opponentModel.addObserver(opponentView);
+			logic.addActor(opponentModel);
+			gamePanelView.addActor(opponentView);
+		}
 	}
 }

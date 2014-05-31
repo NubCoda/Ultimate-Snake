@@ -8,7 +8,8 @@ public class Player {
 	private String playerName;
 	private int playerId;
 	private int highscore;
-
+	private int score = 0;
+	
 	/**
 	 * 
 	 */
@@ -89,7 +90,14 @@ public class Player {
 	 * @return
 	 */
 	public int getScore() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.score;
+	}
+
+	/**
+	 * 
+	 * @param i
+	 */
+	public void setScore(int score) {
+		this.score = score;
 	}
 }

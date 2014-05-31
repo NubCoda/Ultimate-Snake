@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Random;
 
+import Controller.MainController;
 import Model.Interface.IActor;
 import Model.Interface.IElement;
 import View.GamePanelView;
@@ -66,7 +67,7 @@ public class AppleModel extends Observable implements IActor, IElement {
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof SnakeHeadModel) {
 			appleAlive = false;
-			((SnakeHeadModel) actor).increaseLength();
+			MainController.getInstance().raiseScore();
 		}
 	}
 }
