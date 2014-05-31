@@ -27,66 +27,82 @@ public class MainView extends JFrame implements ActionListener {
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemReset;
 	private JMenuItem menuItemOption;
-	private JMenu menuPlayer;
 	private JMenuItem menuItemSpielerErstellen;
-
+	private JMenuItem menuItemRanking;
+	private GamePanelView gamePanelView;
+	private StatusbarView statusbar;
 	/**
 	 * 
 	 * @param gamePanelView
 	 * @param statusbar 
 	 */
 	public MainView(GamePanelView gamePanelView, StatusbarView statusbar) {
+		this.statusbar = statusbar;
+		this.gamePanelView = gamePanelView;
+		initGUI();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout());
-		getContentPane().add(gamePanelView, BorderLayout.CENTER);
-		getContentPane().add(statusbar, BorderLayout.SOUTH);
-		initializeMenu();
 		setResizable(false);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
-	private void initializeMenu() {
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-
-		menuGame = new JMenu("Spiel");
-		menuBar.add(menuGame);
-
-		menuItemStart = new JMenuItem("Start");
-		menuItemStart.addActionListener(this);
-		menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemStart);
-
-		menuItemPause = new JMenuItem("Pause");
-		menuItemPause.addActionListener(this);
-		menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemPause);
-
-		menuItemReset = new JMenuItem("Neustarten");
-		menuItemReset.addActionListener(this);
-		menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemReset);
-
-		menuItemOption = new JMenuItem("Optionen");
-		menuItemOption.addActionListener(this);
-		menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
-				InputEvent.CTRL_MASK));
-		menuGame.add(menuItemOption);
-
-		menuPlayer = new JMenu("Spieler");
-		menuBar.add(menuPlayer);
-
-		menuItemSpielerErstellen = new JMenuItem("Erstellen");
-		menuItemSpielerErstellen.addActionListener(this);
-		menuPlayer.add(menuItemSpielerErstellen);
+	private void initGUI() {
+		getContentPane().setLayout(new BorderLayout());
+		getContentPane().add(gamePanelView, BorderLayout.CENTER);
+		getContentPane().add(statusbar, BorderLayout.SOUTH);
+		{
+			menuBar = new JMenuBar();
+			setJMenuBar(menuBar);
+			{
+				menuGame = new JMenu("Spiel");
+				menuBar.add(menuGame);
+				{
+					menuItemStart = new JMenuItem("Start");
+					menuItemStart.addActionListener(this);
+					menuItemStart.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemStart);
+				}
+				{
+					menuItemPause = new JMenuItem("Pause");
+					menuItemPause.addActionListener(this);
+					menuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemPause);
+				}
+				{
+					menuItemReset = new JMenuItem("Neustarten");
+					menuItemReset.addActionListener(this);
+					menuItemReset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemReset);
+					menuGame.addSeparator();
+				}
+				{
+					menuItemOption = new JMenuItem("Optionen");
+					menuItemOption.addActionListener(this);
+					menuItemOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemOption);
+					menuGame.addSeparator();
+				}
+				{
+					menuItemSpielerErstellen = new JMenuItem("Spieler erstellen");
+					menuItemSpielerErstellen.addActionListener(this);
+					{
+						menuItemRanking = new JMenuItem("Rangliste");
+						menuItemRanking.addActionListener(this);
+						menuItemRanking.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_MASK));
+						menuGame.add(menuItemRanking);
+					}
+					menuItemSpielerErstellen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
+					menuGame.add(menuItemSpielerErstellen);
+				}
+			}
+		}
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == menuItemRanking) {
+			menuItemRankingActionPerformed(arg0);
+		}
 		if (arg0.getSource() == menuItemSpielerErstellen) {
 			menuItemSpielerErstellenActionPerformed(arg0);
 		}
@@ -131,5 +147,9 @@ public class MainView extends JFrame implements ActionListener {
 //			OptionsController.getInstance().createPlayer(playerName);
 		}
 //		setVisible(true);
+	}
+	
+	protected void menuItemRankingActionPerformed(ActionEvent arg0) {
+//		MainController.getInstance().displayRanking();
 	}
 }
