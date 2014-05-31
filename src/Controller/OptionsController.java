@@ -1,5 +1,7 @@
 package Controller;
 
+import java.io.IOException;
+
 import Model.OptionsModel;
 
 /**
@@ -44,5 +46,9 @@ public class OptionsController {
 	 */
 	public String getOption(String propertyName){
 		return optionsModel.getOption(propertyName);
+	}
+	
+	public void storeOptions() throws IOException{
+		optionsModel.storeOptions();
 	}
 }

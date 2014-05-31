@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import Controller.MainController;
+import Controller.OptionsController;
+import Model.Interface.Difficuty;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
@@ -21,7 +23,6 @@ import View.SnakeTailView;
  */
 public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	private Point2D.Double movement;
-	private int speed = 40;
 	private double lastMove = 0;
 	private Ellipse2D.Double bounding;
 	private Direction newDirection = Direction.NONE;
@@ -51,6 +52,8 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 */
 	public void actuate(double delta) {
 		lastMove += delta;
+		Difficuty difficuty = Difficuty.valueOf(OptionsController.getInstance().getOption("difficulty").toUpperCase());
+		int speed = difficuty == Difficuty.SIMPLE ? 110 : difficuty == Difficuty.MEDIUM ? 80 : 50;
 		if (lastMove > speed) {
 			lastMove = 0;
 			move();

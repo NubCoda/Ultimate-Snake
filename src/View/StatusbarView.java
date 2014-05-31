@@ -40,14 +40,10 @@ public class StatusbarView extends JPanel implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO 1. Zu dem statuspanel werden verschiedene models hinzugefuegt!
-		//      2. hier werden dann die daten des jeweiligen models ausgeselen und
-		//         in den passenden label geschrieben
 		StatusbarModel statusbarModel = ((StatusbarModel) o);
 		playerLabel.setText("Player: " + statusbarModel.getPlayerName());
 		scoreLabel.setText("Score: " + statusbarModel.getScore());
 		highscoreLabel.setText("HighScore: " + statusbarModel.getHighscore());
-		System.out.println(statusbarModel.getDifficulty().toString());
 		difficultyLabel.setText("Difficulty: " + statusbarModel.getDifficulty().toString());
 	}
 	

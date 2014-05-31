@@ -4,6 +4,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -92,24 +93,10 @@ public class MainController {
 		statusbarModel = new StatusbarModel(player);
 		statusbar = new StatusbarView();
 		statusbarModel.addObserver(statusbar);
-		JFrame mainView = new MainView(gamePanelView, statusbar);
+		new MainView(gamePanelView, statusbar);
 		statusbarModel.updateStatus();
 		MenuView title = new MenuView(50, 50, gamePanelView, "SNAKE", 48.0f);
 		gamePanelView.addActor(title);
-		//TEST
-		// TODO - passend auslagern
-		// - Fuer pause und neustarten passende KeyEvents festlegen
-		gamePanelView.registerKeyboardAction(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				logic.kill();
-				for (Frame frame : Frame.getFrames()) {
-					frame.dispose();
-				}
-			}
-		}, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
-				JComponent.WHEN_IN_FOCUSED_WINDOW);
 	}
 
 	/**
@@ -120,6 +107,23 @@ public class MainController {
 		snakeHeadModel.rotateSnake(direction);
 	}
 
+	/**
+	 * 
+	 * @param playerName
+	 * @throws IOException 
+	 */
+	public void createPlayer(String playerName) throws IOException{
+		connectionModel.createPlayer(playerName);
+		Player newPlayer = connectionModel.getSinglePlayer(playerName);
+		player.setPlayerName(newPlayer.getPlayerName());
+		player.setPlayerId(newPlayer.getPlayerId());
+		player.setScore(newPlayer.getScore());
+		player.setHighscore(newPlayer.getHighscore());
+		statusbarModel.updateStatus();
+		OptionsController.getInstance().setOption("player", player.getPlayerName());
+		OptionsController.getInstance().storeOptions();
+	}
+	
 	/**
 	 * 
 	 */

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -144,9 +145,13 @@ public class MainView extends JFrame implements ActionListener {
 		String playerName = JOptionPane
 				.showInputDialog("Spielernamen angeben!");
 		if (playerName != null && !playerName.isEmpty()) {
-//			OptionsController.getInstance().createPlayer(playerName);
+			try {
+				MainController.getInstance().createPlayer(playerName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-//		setVisible(true);
 	}
 	
 	protected void menuItemRankingActionPerformed(ActionEvent arg0) {

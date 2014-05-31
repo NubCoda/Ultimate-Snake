@@ -71,6 +71,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 				player = new Player(resultSet.getInt("player_id"),
 						resultSet.getString("player_name"), 0);
 			}
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
