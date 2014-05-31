@@ -263,6 +263,7 @@ public class MainController {
 		logic.clearActors();
 		gamePanelView.clearActors();
 		isGameStarted = false;
+		playerHighscore.setCurrentScore(0);
 		if (startGame) {
 			startGame();
 		}
@@ -307,13 +308,15 @@ public class MainController {
 			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Neuer Highscore!", 48.0f);
 			gamePanelView.addActor(highScoreTitle);
+			OptionsController.getInstance().updateHighScore(
+					playerHighscore);
 		} else {
 			MenuView currentScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Erreichte Punkte:", 48.0f);
 			gamePanelView.addActor(currentScoreTitle);
 		}
-		MenuView highScoreTitleScore = new MenuView(50, 60, gamePanelView,
+		MenuView scoreTitle = new MenuView(50, 60, gamePanelView,
 				String.valueOf(playerHighscore.getCurrentScore()), 48.0f);
-		gamePanelView.addActor(highScoreTitleScore);
+		gamePanelView.addActor(scoreTitle);
 	}
 }

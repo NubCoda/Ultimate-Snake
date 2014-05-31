@@ -91,8 +91,6 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 		if (bounding.intersects(actor.getBounding())
 				&& (actor instanceof OpponentModel)) {
 			MainController.getInstance().gameOver();
-			OptionsController.getInstance().updateHighScore(
-					MainController.getInstance().getCurrentPlayerInfo());
 		}
 	}
 
