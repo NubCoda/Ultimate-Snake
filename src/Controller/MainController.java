@@ -1,22 +1,15 @@
 package Controller;
 
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.KeyStroke;
+import java.util.Vector;
 
 import Model.AppleModel;
 import Model.DatabaseConnectionModel;
 import Model.Logic;
 import Model.OpponentModel;
-import Model.StatusbarModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
+import Model.StatusbarModel;
 import Model.Interface.Difficuty;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
@@ -131,6 +124,8 @@ public class MainController {
 		statusbar.updateText();
 		gamePanelView.clearActors();
 		logic.clearActors();
+		player.setScore(0);
+		statusbarModel.updateStatus();
 		// TODO: dies koennte das Level 1 sein
 		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
 				gamePanelView);
@@ -206,6 +201,7 @@ public class MainController {
 			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Neue Highscore!", 48.0f);
 			gamePanelView.addActor(highScoreTitle);
+			connectionModel.updatePlayerScore(player);
 		} else {
 			MenuView currentScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Erreichte Punkte:", 48.0f);
@@ -247,5 +243,30 @@ public class MainController {
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void displayRanking() {
+//		if(!isGameStarted) {
+			Vector<Player> topPlayerVector = connectionModel.getTopPlayers();
+			int counter = 1;
+			logic.clearActors();
+			gamePanelView.clearActors();
+			for (Player topPlayer : topPlayerVector) {
+				MenuView topPlayerView = new MenuView(50, 9.5 * counter, gamePanelView,
+						topPlayer.getHighscore() + " - "
+								+ topPlayer.getPlayerName(),
+						48.0f);
+				gamePanelView.addActor(topPlayerView);
+				counter++;
+			}
+//		}
+//		else {
+//			logic.setGameRunning(false);
+//			JOptionPane.showMessageDialog(null, "Nicht w�hrend des Spiels m�glich!");
+//			logic.setGameRunning(true);
+//		}
 	}
 }

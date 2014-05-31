@@ -69,7 +69,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet != null) {
 				player = new Player(resultSet.getInt("player_id"),
-						resultSet.getString("player_name"), 0);
+						resultSet.getString("player_name"), resultSet.getInt("highscore"));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -100,5 +100,44 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 			e.printStackTrace();
 		}
 		return playerVector;
+	}
+
+	public Vector<Player> getTopPlayers() {
+		createConnection();
+		Vector<Player> vectorTopPlayer = new Vector<Player>();
+		Player player;
+		// TODO
+		// SQL Logik pr�fen - Warum kommt da ein Spasti-Spieler mit 0 Punkten an erster Stelle?
+		sql = "SELECT * FROM "
+				+ table
+				+ " ORDER BY highscore DESC, player_name ASC LIMIT 10";
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				player = new Player(resultSet.getInt("player_id"), resultSet.getString("player_name"), resultSet.getInt("highscore"));
+				vectorTopPlayer.add(player);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vectorTopPlayer;
+	}
+
+	public void updatePlayerScore(Player player) {
+		createConnection();
+		sql = "UPDATE " + table
+				+ " SET highscore = ? WHERE player_id = ?";
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, player.getScore());
+			preparedStatement.setInt(2, player.getPlayerId());
+			preparedStatement.executeUpdate();
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

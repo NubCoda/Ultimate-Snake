@@ -155,6 +155,6 @@ public class MainView extends JFrame implements ActionListener {
 	}
 	
 	protected void menuItemRankingActionPerformed(ActionEvent arg0) {
-//		MainController.getInstance().displayRanking();
+		MainController.getInstance().displayRanking();
 	}
 }
