@@ -10,14 +10,16 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 import Model.AppleModel;
+import Model.DatabaseConnectionModel;
 import Model.Logic;
 import Model.OpponentModel;
-import Model.PlayerModel;
+import Model.StatusbarModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Properties.Player;
 import View.AppleView;
 import View.GamePanelView;
 import View.MainView;
@@ -37,11 +39,15 @@ public class MainController {
 	private Logic logic;
 	private SnakeHeadModel snakeHeadModel;
 	private StatusbarView statusbar;
+	private StatusbarModel statusbarModel;
+	private Player player;
+	private DatabaseConnectionModel connectionModel = new DatabaseConnectionModel();
 	
 	/**
 	 * 
 	 */
 	private MainController() {
+		player = connectionModel.getSinglePlayer(OptionsController.getInstance().getOption("player"));
 		createWindow();
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
@@ -82,11 +88,11 @@ public class MainController {
 	 */
 	private void createWindow() {
 		gamePanelView = new GamePanelView(800, 600);
-		PlayerModel player = new PlayerModel();
+		statusbarModel = new StatusbarModel(player);
 		statusbar = new StatusbarView();
-		player.addObserver(statusbar);
+		statusbarModel.addObserver(statusbar);
 		JFrame mainView = new MainView(gamePanelView, statusbar);
-		player.changePlayer();
+		statusbarModel.updateStatus();
 		MenuView title = new MenuView(50, 50, gamePanelView, "SNAKE", 48.0f);
 		gamePanelView.addActor(title);
 		//TEST
@@ -143,7 +149,7 @@ public class MainController {
 		AppleModel appleModel = new AppleModel(gamePanelView,
 				appleView.getImage());
 		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage(), logic);
+		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage());
 		opponentModel1.addObserver(opponentView1);
 			
 		appleModel.addObserver(appleView);
@@ -178,7 +184,7 @@ public class MainController {
 	 * 
 	 */
 	public void restartGame() {
-
+		
 	}
 
 	public void gameOver() {
@@ -188,17 +194,17 @@ public class MainController {
 		MenuView gameOverTitle = new MenuView(50, 40, gamePanelView,
 				"Game Over", 48.0f);
 		gamePanelView.addActor(gameOverTitle);
-//		if (playerHighscore.getCurrentScore() > playerHighscore.getHighscore()) {
-//			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
-//					"Neuer Highscore!", 48.0f);
-//			gamePanelView.addActor(highScoreTitle);
-//		} else {
-//			MenuView currentScoreTitle = new MenuView(50, 50, gamePanelView,
-//					"Erreichte Punkte:", 48.0f);
-//			gamePanelView.addActor(currentScoreTitle);
-//		}
-//		MenuView highScoreTitleScore = new MenuView(50, 60, gamePanelView,
-//				String.valueOf(playerHighscore.getCurrentScore()), 48.0f);
-//		gamePanelView.addActor(highScoreTitleScore);
+		if (player.getScore() > player.getHighscore()) {
+			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
+					"Neue Highscore!", 48.0f);
+			gamePanelView.addActor(highScoreTitle);
+		} else {
+			MenuView currentScoreTitle = new MenuView(50, 50, gamePanelView,
+					"Erreichte Punkte:", 48.0f);
+			gamePanelView.addActor(currentScoreTitle);
+		}
+		MenuView highScoreTitleScore = new MenuView(50, 60, gamePanelView,
+				String.valueOf(player.getScore()), 48.0f);
+		gamePanelView.addActor(highScoreTitleScore);
 	}
 }

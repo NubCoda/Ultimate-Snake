@@ -27,7 +27,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	private int nextJumpX = 0;
 	private int maxJumpLength = 100;
 	private int minJumpLength = 50;
-	private Logic logic;
 	private double positionX = 100;
 	private double positionY = 100;
 	private double padding = 50;
@@ -39,23 +38,22 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	 * @param logic
 	 */
 	public OpponentModel(GamePanelView gamePanelView,
-			BufferedImage bufferedImage, Logic logic) {
+			BufferedImage bufferedImage) {
 		this.gamePanelView = gamePanelView;
-		
+
 		this.positionX = setStartPosition(true);
 		this.positionY = setStartPosition(false);
 
 		this.bounding = new Rectangle2D.Double(positionX, positionY,
 				bufferedImage.getWidth(), bufferedImage.getHeight());
 		System.out.println(bounding);
-		
+
 		try {
 			this.bufferedImages = ImageIO.read(new File(
 					IConstants.OPPONENT_PATH));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.logic = logic;
 	}
 
 	/**
@@ -66,10 +64,12 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	private double setStartPosition(boolean width) {
 		double newPosition;
 		if (width) {
-			newPosition = (Math.random() * ((gamePanelView.getWidth()-padding) / 2)+padding);
+			newPosition = (Math.random()
+					* ((gamePanelView.getWidth() - padding) / 2) + padding);
 			System.out.println(newPosition);
 		} else {
-			newPosition = (Math.random()* ((gamePanelView.getHeight() - padding) / 2)+padding);
+			newPosition = (Math.random()
+					* ((gamePanelView.getHeight() - padding) / 2) + padding);
 		}
 		return newPosition;
 	}
@@ -164,11 +164,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof BulletModel) {
 			setOpponentAlive(false);
-
-			// MainController.getInstance().
-			// ((SnakeHeadModel) actor).setSnakeAlive(false);
-			// TODO Abfrage, wenn es eine Snake ist, setAllive = false
-			// ((SnakeHeadModel) actor).increaseLength();
 		}
 	}
 

@@ -9,7 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Model.PlayerModel;
+import Model.StatusbarModel;
 
 /**
  * 
@@ -43,11 +43,12 @@ public class StatusbarView extends JPanel implements Observer{
 		// TODO 1. Zu dem statuspanel werden verschiedene models hinzugefuegt!
 		//      2. hier werden dann die daten des jeweiligen models ausgeselen und
 		//         in den passenden label geschrieben
-		PlayerModel player = ((PlayerModel) o);
-		playerLabel.setText("Player: " + player.getName());
-		scoreLabel.setText("Score: " + player.getScore());
-		highscoreLabel.setText("HighScore: " + player.getHighscore());
-		difficultyLabel.setText("Difficulty: " + player.getDifficulty());
+		StatusbarModel statusbarModel = ((StatusbarModel) o);
+		playerLabel.setText("Player: " + statusbarModel.getPlayerName());
+		scoreLabel.setText("Score: " + statusbarModel.getScore());
+		highscoreLabel.setText("HighScore: " + statusbarModel.getHighscore());
+		System.out.println(statusbarModel.getDifficulty().toString());
+		difficultyLabel.setText("Difficulty: " + statusbarModel.getDifficulty().toString());
 	}
 	
 	/**

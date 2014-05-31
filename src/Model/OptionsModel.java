@@ -44,16 +44,14 @@ public class OptionsModel extends Observable {
 			properties.load(in);
 			in.close();
 		} else {
-			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(IConstants.CONFIG_PATH));
-			properties.setProperty("player_id", String.valueOf(IDefaultOptions.DEFAULT_PLAYER_ID));
+			properties.setProperty("player", IDefaultOptions.DEFAULT_PLAYER);
 			properties.setProperty("difficulty", String.valueOf(IDefaultOptions.DEFAULT_DIFFICULTY));
 			properties.setProperty("key_down", String.valueOf(IDefaultOptions.DEFAULT_KEY_DOWN));
 			properties.setProperty("key_up", String.valueOf(IDefaultOptions.DEFAULT_KEY_UP));
 			properties.setProperty("key_right", String.valueOf(IDefaultOptions.DEFAULT_KEY_RIGHT));
 			properties.setProperty("key_left", String.valueOf(IDefaultOptions.DEFAULT_KEY_LEFT));
 			properties.setProperty("key_shoot", String.valueOf(IDefaultOptions.DEFAULT_KEY_SHOOT));
-			properties.store(out, "");
-			out.close();
+			storeOptions();
 		}
 	}
 	
@@ -73,5 +71,11 @@ public class OptionsModel extends Observable {
 	 */
 	public void setOption(String propertyName, String property) {
 		properties.setProperty(propertyName, property);
+	}
+	
+	public void storeOptions() throws IOException{
+		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(IConstants.CONFIG_PATH));
+		properties.store(out, "");
+		out.close();
 	}
 }

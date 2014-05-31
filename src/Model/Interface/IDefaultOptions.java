@@ -31,10 +31,10 @@ public interface IDefaultOptions {
 	/**
 	 * 
 	 */
-	public static final int DEFAULT_DIFFICULTY = 1;
+	public static final Difficuty DEFAULT_DIFFICULTY = Difficuty.SIMPLE;
 
 	/**
 	 * 
 	 */
-	public static final int DEFAULT_PLAYER_ID = 1;
+	public static final String DEFAULT_PLAYER = "Default";
 }

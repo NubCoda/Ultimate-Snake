@@ -83,4 +83,13 @@ public class Player {
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
 	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
