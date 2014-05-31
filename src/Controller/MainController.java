@@ -169,6 +169,7 @@ public class MainController {
 	public void startGame() {
 		// TODO: dies koennte das Level 1 sein
 		if (!isGameStarted) {
+			playerHighscore.setCurrentScore(0);
 			logic.clearActors();
 			gamePanelView.clearActors();
 			isGameStarted = true;
@@ -298,11 +299,12 @@ public class MainController {
 	}
 
 	public void gameOver() {
+		isGameStarted = false;
 		logic.setGameRunning(false);
 		logic.clearActors();
 		gamePanelView.clearActors();
 		MenuView gameOverTitle = new MenuView(50, 40, gamePanelView,
-				"Game Over", 48.0f);
+				"GAME OVER!", 48.0f);
 		gamePanelView.addActor(gameOverTitle);
 		if (playerHighscore.getCurrentScore() > playerHighscore.getHighscore()) {
 			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
