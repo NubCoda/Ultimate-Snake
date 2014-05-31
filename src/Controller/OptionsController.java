@@ -31,12 +31,10 @@ public class OptionsController {
 	}
 
 	public void updateHighScore(PlayerHighscore playerHighscore) {
-		if (playerHighscore.getHighscore() < playerHighscore.getCurrentScore()) {
-			playerHighscore.setHighscore(playerHighscore.getCurrentScore());
-			databaseConnectionModel.updatePlayerScore(playerHighscore);
-			saveToFile(playerHighscore, MainController.getInstance()
-					.getCurrentGameSettings().getDifficulty());
-		}
+		playerHighscore.setHighscore(playerHighscore.getCurrentScore());
+		databaseConnectionModel.updatePlayerScore(playerHighscore);
+		saveToFile(playerHighscore, MainController.getInstance()
+				.getCurrentGameSettings().getDifficulty());
 	}
 
 	/**
@@ -71,9 +69,10 @@ public class OptionsController {
 				.getPlayers();
 		return playerVector;
 	}
-	
+
 	public Vector<PlayerHighscore> getTopPlayers() {
-		Vector<PlayerHighscore> vectorTopPlayer = databaseConnectionModel.getTopTenPlayers();
+		Vector<PlayerHighscore> vectorTopPlayer = databaseConnectionModel
+				.getTopTenPlayers();
 		return vectorTopPlayer;
 	}
 
@@ -95,7 +94,7 @@ public class OptionsController {
 	public PlayerHighscore getSinglePlayer(String playerName) {
 		PlayerHighscore playerHighscore = null;
 		playerHighscore = databaseConnectionModel.getSinglePlayer(playerName);
-//		MainController.getInstance().notifiyStatusbar();
+		// MainController.getInstance().notifiyStatusbar();
 		return playerHighscore;
 	}
 }
