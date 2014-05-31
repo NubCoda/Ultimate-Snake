@@ -239,13 +239,13 @@ public class MainController {
 			spawnNewEnemy = true;
 		}
 		if (spawnNewEnemy) {
-			OpponentView opponentView1 = new OpponentView(
+			OpponentView opponentView = new OpponentView(
 					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-			OpponentModel opponentModel1 = new OpponentModel(gamePanelView,
-					opponentView1.getImage(), logic);
-			opponentModel1.addObserver(opponentView1);
-			logic.addActor(opponentModel1);
-			gamePanelView.addActor(opponentView1);
+			OpponentModel opponentModel = new OpponentModel(gamePanelView,
+					opponentView.getImage(), logic);
+			opponentModel.addObserver(opponentView);
+			logic.addActor(opponentModel);
+			gamePanelView.addActor(opponentView);
 		}
 	}
 
