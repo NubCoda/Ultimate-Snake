@@ -1,14 +1,11 @@
 package Model;
 
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Observable;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 

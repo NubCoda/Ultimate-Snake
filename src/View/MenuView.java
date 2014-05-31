@@ -1,13 +1,7 @@
 package View;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.io.File;
-import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * 
@@ -32,24 +26,7 @@ public class MenuView extends SpriteView {
 
 	@Override
 	public void drawObjects(Graphics graphics) {
-//		Font f = null;
-//		try {
-//			f = Font.createFont(Font.TRUETYPE_FONT, new File(
-//					"./resources/font/FEASFBI_.TTF"));
-//			f = f.deriveFont(48.0f);
-//		} catch (FontFormatException | IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		if (focused) {
-//			graphics.setColor(Color.YELLOW);
-//		} else {
-			graphics.setColor(Color.RED);
-//		}
-		// (int)
-		// ((x*gamePanelView.getWidth()/100)-(graphics.getFontMetrics().getStringBounds(text,
-		// graphics).getWidth()/2))
-		// (int) (y*gamePanelView.getHeight()/100)
+		graphics.setColor(Color.RED);
 		graphics.drawString(text,
 				(int) ((x * gamePanelView.getWidth() / 100) - (graphics
 						.getFontMetrics().getStringBounds(text, graphics)

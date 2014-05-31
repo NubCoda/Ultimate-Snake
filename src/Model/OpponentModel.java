@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,6 +14,10 @@ import Model.Interface.IConstants;
 import Model.Interface.IEnemy;
 import View.GamePanelView;
 
+/**
+ * 
+ * 
+ */
 public class OpponentModel extends Observable implements IActor, IEnemy {
 	private BufferedImage bufferedImages;
 	private GamePanelView gamePanelView;
@@ -29,6 +32,12 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	private double positionY = 100;
 	private double padding = 50;
 
+	/**
+	 * 
+	 * @param gamePanelView
+	 * @param bufferedImage
+	 * @param logic
+	 */
 	public OpponentModel(GamePanelView gamePanelView,
 			BufferedImage bufferedImage, Logic logic) {
 		this.gamePanelView = gamePanelView;
@@ -49,6 +58,11 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		this.logic = logic;
 	}
 
+	/**
+	 * 
+	 * @param width
+	 * @return
+	 */
 	private double setStartPosition(boolean width) {
 		double newPosition;
 		if (width) {
@@ -60,11 +74,19 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		return newPosition;
 	}
 
+	/**
+	 * 
+	 */
 	public void moveOpponent() {
 		bounding.x += getNextMovement(true);
 		bounding.y += getNextMovement(false);
 	}
 
+	/**
+	 * 
+	 * @param movementOfX
+	 * @return
+	 */
 	private int getNextMovement(boolean movementOfX) {
 		int nextJump = 0;
 		int nextDirectionValue = 0;
@@ -96,6 +118,9 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		return nextDirectionValue;
 	}
 
+	/**
+	 * 
+	 */
 	private void checkMovement() {
 		if (bounding.x <= bufferedImages.getWidth()) {
 			bounding.x = bufferedImages.getWidth();
@@ -116,10 +141,16 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public Rectangle2D getBounding() {
 		return bounding;
 	}
 
+	/**
+	 * 
+	 */
 	public void actuate(double delta) {
 		if (opponentAlive) {
 			checkMovement();
@@ -141,6 +172,10 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		}
 	}
 
+	/**
+	 * 
+	 * @param alive
+	 */
 	public void setOpponentAlive(boolean alive) {
 		this.opponentAlive = alive;
 	}

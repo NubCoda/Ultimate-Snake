@@ -46,6 +46,8 @@ public class SnakeHeadView extends SpriteView implements Observer {
 		case LEFT:
 			rotation = 180;
 			break;
+		default:
+			break;
 		}
 		at.rotate(Math.toRadians(rotation), (int) x + (10), (int) y + (10));
 		g2.transform(at);

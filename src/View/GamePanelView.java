@@ -69,18 +69,17 @@ public class GamePanelView extends JPanel implements Observer {
 	@Override
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
-//		((Graphics2D) graphics).setRenderingHint(
-//				RenderingHints.KEY_ANTIALIASING,
-//				RenderingHints.VALUE_ANTIALIAS_ON);
-//		((Graphics2D) graphics).setRenderingHint(
-//				RenderingHints.KEY_TEXT_ANTIALIASING,
-//				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-//		((Graphics2D) graphics).setRenderingHint(
-//				RenderingHints.KEY_FRACTIONALMETRICS,
-//				RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+		((Graphics2D) graphics).setRenderingHint(
+				RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		((Graphics2D) graphics).setRenderingHint(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		((Graphics2D) graphics).setRenderingHint(
+				RenderingHints.KEY_FRACTIONALMETRICS,
+				RenderingHints.VALUE_FRACTIONALMETRICS_ON);
 		graphics.drawImage(background, 0, 0, getWidth(), getHeight(), Color.BLACK, this);
 		graphics.setFont(textFont);
-//		graphics.drawRect(0, 60, getWidth(), getHeight()-60);
 		if (actors != null) {
 			for (IDrawable draw : actors) {
 				draw.drawObjects(graphics);

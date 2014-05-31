@@ -1,17 +1,11 @@
 package Model;
 
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-
 import Model.Interface.IActor;
-import Model.Interface.IConstants;
 import Model.Interface.IElement;
 import View.GamePanelView;
 

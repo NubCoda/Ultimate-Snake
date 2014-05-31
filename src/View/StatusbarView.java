@@ -1,9 +1,6 @@
 package View;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,17 +8,23 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.SpringLayout;
 
 import Model.PlayerModel;
 
+/**
+ * 
+ * 
+ */
+@SuppressWarnings("serial")
 public class StatusbarView extends JPanel implements Observer{
 	private JLabel playerLabel;
 	private JLabel scoreLabel;
 	private JLabel highscoreLabel;
 	private JLabel difficultyLabel;
 
+	/**
+	 * 
+	 */
 	public StatusbarView() {
 		setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.DARK_GRAY));
 		setLayout(new GridLayout());
@@ -47,6 +50,9 @@ public class StatusbarView extends JPanel implements Observer{
 		difficultyLabel.setText("Difficulty: " + player.getDifficulty());
 	}
 	
+	/**
+	 * 
+	 */
 	public void updateText() {
 		playerLabel.setText("Player: Test");
 	}

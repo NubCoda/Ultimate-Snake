@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -16,8 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Controller.MainController;
-import Controller.OptionsController;
-import Model.OptionsModel;
 
 /**
  * 
@@ -33,7 +29,6 @@ public class MainView extends JFrame implements ActionListener {
 	private JMenuItem menuItemOption;
 	private JMenu menuPlayer;
 	private JMenuItem menuItemSpielerErstellen;
-//	private PlayerHighscore playerHighscore;
 
 	/**
 	 * 

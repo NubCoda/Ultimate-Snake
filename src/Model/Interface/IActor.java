@@ -1,6 +1,5 @@
 package Model.Interface;
 
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
 /**
