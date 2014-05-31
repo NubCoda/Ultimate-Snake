@@ -16,7 +16,7 @@ import Model.StatusbarModel;
  * 
  */
 @SuppressWarnings("serial")
-public class StatusbarView extends JPanel implements Observer{
+public class StatusbarView extends JPanel implements Observer {
 	private JLabel playerLabel;
 	private JLabel scoreLabel;
 	private JLabel highscoreLabel;
@@ -44,9 +44,10 @@ public class StatusbarView extends JPanel implements Observer{
 		playerLabel.setText("Player: " + statusbarModel.getPlayerName());
 		scoreLabel.setText("Score: " + statusbarModel.getScore());
 		highscoreLabel.setText("HighScore: " + statusbarModel.getHighscore());
-		difficultyLabel.setText("Difficulty: " + statusbarModel.getDifficulty().toString());
+		difficultyLabel.setText("Difficulty: "
+				+ statusbarModel.getDifficulty().toString());
 	}
-	
+
 	/**
 	 * 
 	 */

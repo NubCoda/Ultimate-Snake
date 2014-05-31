@@ -28,6 +28,7 @@ public class GamePanelView extends JPanel implements Observer {
 	private Vector<SpriteView> actors = new Vector<SpriteView>();
 	private BufferedImage background;
 	private Font textFont;
+
 	/**
 	 * 
 	 */
@@ -35,9 +36,10 @@ public class GamePanelView extends JPanel implements Observer {
 		setFocusable(true);
 		addKeyListener(new KeyListenerView());
 		setPreferredSize(new Dimension(width, height));
-		
+
 		try {
-			background = ImageIO.read(new File("./resources/pic/background.png"));
+			background = ImageIO
+					.read(new File("./resources/pic/background.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,6 +68,7 @@ public class GamePanelView extends JPanel implements Observer {
 	public void clearActors() {
 		actors.clear();
 	}
+
 	@Override
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
@@ -78,7 +81,8 @@ public class GamePanelView extends JPanel implements Observer {
 		((Graphics2D) graphics).setRenderingHint(
 				RenderingHints.KEY_FRACTIONALMETRICS,
 				RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-		graphics.drawImage(background, 0, 0, getWidth(), getHeight(), Color.BLACK, this);
+		graphics.drawImage(background, 0, 0, getWidth(), getHeight(),
+				Color.BLACK, this);
 		graphics.setFont(textFont);
 		if (actors != null) {
 			for (IDrawable draw : actors) {

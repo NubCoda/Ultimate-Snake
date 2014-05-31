@@ -14,13 +14,17 @@ import Model.Interface.Direction;
 public class KeyListenerView extends KeyAdapter {
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance().getOption("key_left"))) {
+		if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance()
+				.getOption("key_left"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.LEFT);
-		} else if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance().getOption("key_right"))) {
+		} else if (e.getKeyCode() == Integer.valueOf(OptionsController
+				.getInstance().getOption("key_right"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.RIGHT);
-		} else if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance().getOption("key_up"))) {
+		} else if (e.getKeyCode() == Integer.valueOf(OptionsController
+				.getInstance().getOption("key_up"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.UP);
-		} else if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance().getOption("key_down"))) {
+		} else if (e.getKeyCode() == Integer.valueOf(OptionsController
+				.getInstance().getOption("key_down"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.DOWN);
 		}
 	}

@@ -1,10 +1,17 @@
 package Model.Interface;
 
+/**
+ * 
+ *
+ */
 public enum Difficuty {
-	SIMPLE, MEDIUM, DIFFICULT;
+	SIMPLE,
+	MEDIUM,
+	DIFFICULT;
 
 	@Override
 	public String toString() {
-		return this == SIMPLE ? "simple" : this == MEDIUM ? "medium" : "difficult";
+		return this == SIMPLE ? "simple" : this == MEDIUM ? "medium"
+				: "difficult";
 	}
 }

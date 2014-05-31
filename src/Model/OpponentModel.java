@@ -18,7 +18,7 @@ import View.GamePanelView;
  * 
  * 
  */
-public class OpponentModel extends Observable implements IActor, IEnemy {
+public class OpponentModel extends Observable implements IEnemy {
 	private BufferedImage bufferedImages;
 	private GamePanelView gamePanelView;
 	private boolean opponentAlive = true;

@@ -19,7 +19,7 @@ import View.GamePanelView;
  * 
  * 
  */
-public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
+public class SnakeTailModel extends Observable implements IPlayerBone {
 	public IPlayerBone vorgaenger;
 	private Point2D.Double movement;
 	private Ellipse2D.Double bounding;
@@ -53,16 +53,6 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 	@Override
 	public Rectangle2D getBounding() {
 		return this.bounding.getBounds2D();
-	}
-
-	@Override
-	public double getX() {
-		return bounding.x;
-	}
-
-	@Override
-	public double getY() {
-		return bounding.y;
 	}
 
 	@Override

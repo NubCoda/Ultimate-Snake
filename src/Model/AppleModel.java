@@ -14,7 +14,7 @@ import View.GamePanelView;
  * 
  * 
  */
-public class AppleModel extends Observable implements IActor, IElement {
+public class AppleModel extends Observable implements IElement {
 	private boolean appleAlive = false;
 	private Rectangle2D.Double bounding;
 	private GamePanelView gamePanelView;

@@ -4,6 +4,6 @@ package Model.Interface;
  * 
  * 
  */
-public interface IEnemy {
+public interface IEnemy extends IActor{
 
 }

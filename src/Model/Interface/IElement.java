@@ -4,5 +4,5 @@ package Model.Interface;
  * 
  * 
  */
-public interface IElement {
+public interface IElement extends IActor{
 }
