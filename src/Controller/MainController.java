@@ -1,5 +1,7 @@
 package Controller;
 
+import java.awt.Dialog.ModalityType;
+import java.awt.Window;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -268,5 +270,27 @@ public class MainController {
 //			JOptionPane.showMessageDialog(null, "Nicht w�hrend des Spiels m�glich!");
 //			logic.setGameRunning(true);
 //		}
+	}
+
+	public String getPlayerName() {
+		return player.getPlayerName();
+	}
+
+	public Vector<Player> getPlayers() {
+		return connectionModel.getPlayers();
+	}
+	
+	public void changePlayer(String playerName){
+		Player newPlayer = connectionModel.getSinglePlayer(playerName);
+		player.setPlayerName(newPlayer.getPlayerName());
+		player.setPlayerId(newPlayer.getPlayerId());
+		player.setScore(newPlayer.getScore());
+		player.setHighscore(newPlayer.getHighscore());
+	}
+	
+	public void optionsChanged() throws IOException{
+		statusbarModel.updateStatus();
+		OptionsController.getInstance().setOption("player", player.getPlayerName());
+		OptionsController.getInstance().storeOptions();
 	}
 }

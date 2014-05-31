@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Controller.MainController;
+import Controller.OptionsController;
+import Model.Interface.Difficuty;
 
 /**
  * 
@@ -135,10 +137,10 @@ public class MainView extends JFrame implements ActionListener {
 
 	protected void menuItemOptionActionPerformed(ActionEvent arg0) {
 		MainController.getInstance().pauseGame();
-//		OptionView optionView = new OptionView(OptionsController.getInstance()
-//				.getPlayers(), MainController.getInstance().getDifficulty(),
-//				MainController.getInstance().getPlayerName());
-//		optionView.setVisible(true);
+		OptionView optionView = new OptionView(MainController.getInstance()
+				.getPlayers(), Difficuty.valueOf(OptionsController.getInstance().getOption("difficulty").toUpperCase()),
+				MainController.getInstance().getPlayerName());
+		optionView.setVisible(true);
 	}
 
 	protected void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
