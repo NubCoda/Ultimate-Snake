@@ -1,7 +1,5 @@
 package Controller;
 
-import java.util.HashMap;
-
 import Model.OptionsModel;
 
 /**
@@ -30,11 +28,21 @@ public class OptionsController {
 		return OPTIONS_CONTROLLER;
 	}
 	
-	public void setProperty(String propertyName, Object property){
-		
+	/**
+	 * 
+	 * @param propertyName
+	 * @param property
+	 */
+	public void setOption(String propertyName, String property){
+		optionsModel.setOption(propertyName, property);
 	}
 	
-	public Object getProperty(String propertyName){
-		return null;
+	/**
+	 * 
+	 * @param propertyName
+	 * @return
+	 */
+	public String getOption(String propertyName){
+		return optionsModel.getOption(propertyName);
 	}
 }

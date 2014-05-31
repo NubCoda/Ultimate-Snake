@@ -4,9 +4,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import Controller.MainController;
+import Controller.OptionsController;
 import Model.Interface.Direction;
-import Model.Interface.IConstants;
-import Model.Interface.IDefaultOptions;
 
 /**
  * 
@@ -15,19 +14,14 @@ import Model.Interface.IDefaultOptions;
 public class KeyListenerView extends KeyAdapter {
 	@Override
 	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case IDefaultOptions.DEFAULT_KEY_LEFT:
+		if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance().getOption("key_left"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.LEFT);
-			break;
-		case IDefaultOptions.DEFAULT_KEY_RIGHT:
+		} else if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance().getOption("key_right"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.RIGHT);
-			break;
-		case IDefaultOptions.DEFAULT_KEY_UP:
+		} else if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance().getOption("key_up"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.UP);
-			break;
-		case IDefaultOptions.DEFAULT_KEY_DOWN:
+		} else if (e.getKeyCode() == Integer.valueOf(OptionsController.getInstance().getOption("key_down"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.DOWN);
-			break;
 		}
 	}
 

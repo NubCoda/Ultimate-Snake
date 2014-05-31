@@ -32,4 +32,9 @@ public interface IDefaultOptions {
 	 * 
 	 */
 	public static final int DEFAULT_DIFFICULTY = 1;
+
+	/**
+	 * 
+	 */
+	public static final int DEFAULT_PLAYER_ID = 1;
 }
