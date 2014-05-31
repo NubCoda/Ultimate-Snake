@@ -11,7 +11,22 @@ public enum Difficuty {
 
 	@Override
 	public String toString() {
-		return this == SIMPLE ? "simple" : this == MEDIUM ? "medium"
-				: "difficult";
+		return this == SIMPLE ? "einfach" : this == MEDIUM ? "normal"
+				: "schwer";
+	}
+	
+	/**
+	 * 
+	 * @param difficulty
+	 * @return
+	 */
+	public static Difficuty fromString(String difficulty){
+		if(difficulty.equals("einfach")){
+			return SIMPLE;
+		} else if(difficulty.equals("normal")){
+			return MEDIUM;
+		} else {
+			return DIFFICULT;
+		}
 	}
 }

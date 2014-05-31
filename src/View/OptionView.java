@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
@@ -50,6 +51,7 @@ public class OptionView extends JDialog implements ActionListener {
 		buttonGroup.add(radioButtonSlow);
 		buttonGroup.add(radioButtonNormal);
 		buttonGroup.add(radioButtonFast);
+		setTitle("Optionen");
 		this.setLocationRelativeTo(null);
 		this.playerVector = playerVector;
 		this.fillComboBox(playerName);
@@ -175,50 +177,22 @@ public class OptionView extends JDialog implements ActionListener {
 		} else {
 			difficulty = Difficuty.DIFFICULT;
 		}
-		OptionsController.getInstance().setOption("difficulty",
-				difficulty.toString());
-		MainController.getInstance().changePlayer(
-				(String) comboBoxPlayer.getSelectedItem());
-		try {
-			MainController.getInstance().optionsChanged();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TODO prüfen was vom unteren notwendig ist und dies implementieren
 
-		// if (MainController.getInstance().getCurrentPlayerInfo()
-		// .getCurrentScore() > 0
-		// && (!MainController.getInstance().getCurrentPlayerInfo()
-		// .getPlayer().getPlayerName()
-		// .equals((String) comboBoxPlayer.getSelectedItem()))
-		// || MainController.getInstance().getCurrentGameSettings()
-		// .getDifficulty() != difficulty) {
-		// int selection = JOptionPane
-		// .showConfirmDialog(
-		// null,
-		// "Sie haben Spieleinstellungen ge�ndert! Das Spiel wird zur�ck gesetzt wenn Sie fortfahren. Wirklich fortfahren?",
-		// "Achtung", JOptionPane.YES_NO_OPTION,
-		// JOptionPane.WARNING_MESSAGE);
-		// if (selection == JOptionPane.YES_OPTION) {
-		// OptionsController.getInstance().updateHighScore(
-		// MainController.getInstance().getCurrentPlayerInfo());
-		// playerHighscore = OptionsController.getInstance()
-		// .getSinglePlayer(
-		// (String) comboBoxPlayer.getSelectedItem());
-		// OptionsController.getInstance().saveToFile(playerHighscore,
-		// difficulty);
-		// MainController.getInstance().restartGame(false);
-		// }
-		// } else {
-		// playerHighscore = OptionsController.getInstance().getSinglePlayer(
-		// (String) comboBoxPlayer.getSelectedItem());
-		// OptionsController.getInstance().saveToFile(playerHighscore,
-		// difficulty);
-		// }
-		// if(playerHighscore != null) {
-		// MainController.getInstance().setPlayerHighscore(playerHighscore);
-		// }
+		int selection = JOptionPane.showConfirmDialog(
+				null, "Die Spieleinstellungen wurden geändert! Das Spiel wird zurückgesetzt, wenn Sie fortfahren. Wollen Sie wirklich fortfahren?",
+				"Achtung", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if (selection == JOptionPane.YES_OPTION) {
+			OptionsController.getInstance().setOption("difficulty",
+					difficulty.toString());
+			MainController.getInstance().changePlayer(
+					(String) comboBoxPlayer.getSelectedItem());
+			try {
+				MainController.getInstance().optionsChanged();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		this.dispose();
 	}
 }

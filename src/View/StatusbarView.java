@@ -28,10 +28,10 @@ public class StatusbarView extends JPanel implements Observer {
 	public StatusbarView() {
 		setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.DARK_GRAY));
 		setLayout(new GridLayout());
-		playerLabel = new JLabel("Player: ");
-		scoreLabel = new JLabel("Score: ");
-		highscoreLabel = new JLabel("HighScore: ");
-		difficultyLabel = new JLabel("Difficulty: ");
+		playerLabel = new JLabel("Spieler: ");
+		scoreLabel = new JLabel("Punkte: ");
+		highscoreLabel = new JLabel("Highscore: ");
+		difficultyLabel = new JLabel("Schwierigkeit: ");
 		this.add(playerLabel);
 		this.add(scoreLabel);
 		this.add(highscoreLabel);
@@ -41,10 +41,10 @@ public class StatusbarView extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		StatusbarModel statusbarModel = ((StatusbarModel) o);
-		playerLabel.setText("Player: " + statusbarModel.getPlayerName());
-		scoreLabel.setText("Score: " + statusbarModel.getScore());
-		highscoreLabel.setText("HighScore: " + statusbarModel.getHighscore());
-		difficultyLabel.setText("Difficulty: "
+		playerLabel.setText("Spieler: " + statusbarModel.getPlayerName());
+		scoreLabel.setText("Punkte: " + statusbarModel.getScore());
+		highscoreLabel.setText("Highscore: " + statusbarModel.getHighscore());
+		difficultyLabel.setText("Schwierigkeit: "
 				+ statusbarModel.getDifficulty().toString());
 	}
 

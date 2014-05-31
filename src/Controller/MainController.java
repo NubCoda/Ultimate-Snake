@@ -229,8 +229,8 @@ public class MainController {
 		statusbarModel.updateStatus();
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
-		switch (Difficuty.valueOf(OptionsController.getInstance()
-				.getOption("difficulty").toUpperCase())) {
+		switch (Difficuty.fromString(OptionsController.getInstance()
+				.getOption("difficulty"))) {
 		case SIMPLE:
 			multiplikator = 16;
 			break;

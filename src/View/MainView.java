@@ -46,6 +46,7 @@ public class MainView extends JFrame implements ActionListener {
 		initGUI();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+		setTitle("Ultimate-Snake");
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -166,8 +167,8 @@ public class MainView extends JFrame implements ActionListener {
 	private void menuItemOptionActionPerformed(ActionEvent arg0) {
 		MainController.getInstance().pauseGame();
 		OptionView optionView = new OptionView(MainController.getInstance()
-				.getPlayers(), Difficuty.valueOf(OptionsController
-				.getInstance().getOption("difficulty").toUpperCase()),
+				.getPlayers(), Difficuty.fromString(OptionsController
+				.getInstance().getOption("difficulty")),
 				MainController.getInstance().getPlayerName());
 		optionView.setVisible(true);
 	}

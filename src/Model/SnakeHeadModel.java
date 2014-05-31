@@ -50,8 +50,8 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	@Override
 	public void actuate(double delta) {
 		lastMove += delta;
-		Difficuty difficuty = Difficuty.valueOf(OptionsController.getInstance()
-				.getOption("difficulty").toUpperCase());
+		Difficuty difficuty = Difficuty.fromString(OptionsController.getInstance()
+				.getOption("difficulty"));
 		int speed = difficuty == Difficuty.SIMPLE ? 110
 				: difficuty == Difficuty.MEDIUM ? 80 : 50;
 		if (lastMove > speed) {
