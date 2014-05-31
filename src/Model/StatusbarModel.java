@@ -19,7 +19,7 @@ public class StatusbarModel extends Observable {
 	public StatusbarModel(Player player) {
 		this.player = player;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -49,7 +49,8 @@ public class StatusbarModel extends Observable {
 	 * @return
 	 */
 	public Difficuty getDifficulty() {
-		return Difficuty.valueOf(OptionsController.getInstance().getOption("difficulty").toUpperCase());
+		return Difficuty.valueOf(OptionsController.getInstance()
+				.getOption("difficulty").toUpperCase());
 	}
 
 	/**

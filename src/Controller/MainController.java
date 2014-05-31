@@ -36,13 +36,15 @@ public class MainController {
 	private StatusbarView statusbar;
 	private StatusbarModel statusbarModel;
 	private Player player;
-	private DatabaseConnectionModel connectionModel = new DatabaseConnectionModel();
-	
+	private DatabaseConnectionModel connectionModel;
+
 	/**
 	 * 
 	 */
 	private MainController() {
-		player = connectionModel.getSinglePlayer(OptionsController.getInstance().getOption("player"));
+		connectionModel = new DatabaseConnectionModel();
+		player = connectionModel.getSinglePlayer(OptionsController
+				.getInstance().getOption("player"));
 		createWindow();
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
@@ -103,9 +105,9 @@ public class MainController {
 	/**
 	 * 
 	 * @param playerName
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public void createPlayer(String playerName) throws IOException{
+	public void createPlayer(String playerName) throws IOException {
 		connectionModel.createPlayer(playerName);
 		Player newPlayer = connectionModel.getSinglePlayer(playerName);
 		player.setPlayerName(newPlayer.getPlayerName());
@@ -113,10 +115,11 @@ public class MainController {
 		player.setScore(newPlayer.getScore());
 		player.setHighscore(newPlayer.getHighscore());
 		statusbarModel.updateStatus();
-		OptionsController.getInstance().setOption("player", player.getPlayerName());
+		OptionsController.getInstance().setOption("player",
+				player.getPlayerName());
 		OptionsController.getInstance().storeOptions();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -126,7 +129,6 @@ public class MainController {
 		logic.clearActors();
 		player.setScore(0);
 		statusbarModel.updateStatus();
-		// TODO: dies koennte das Level 1 sein
 		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
 				gamePanelView);
 		SnakeHeadView snakeHeadView = new SnakeHeadView(
@@ -148,10 +150,12 @@ public class MainController {
 		snakeHeadModel.setLast(snakeTailModel2);
 		AppleModel appleModel = new AppleModel(gamePanelView,
 				appleView.getImage());
-		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-		OpponentModel opponentModel1 = new OpponentModel(gamePanelView, opponentView1.getImage());
+		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH,
+				0, 60, gamePanelView);
+		OpponentModel opponentModel1 = new OpponentModel(gamePanelView,
+				opponentView1.getImage());
 		opponentModel1.addObserver(opponentView1);
-			
+
 		appleModel.addObserver(appleView);
 		snakeHeadModel.addObserver(snakeHeadView);
 		snakeTailModel.addObserver(snakeTailView);
@@ -186,7 +190,8 @@ public class MainController {
 	public void restartGame() {
 		logic.clearActors();
 		gamePanelView.clearActors();
-//		isGameStarted = false;
+		// TODO mehrfach starten nicht ermöglichen
+		// isGameStarted = false;
 		player.setScore(0);
 		startGame();
 	}
@@ -214,7 +219,7 @@ public class MainController {
 				String.valueOf(player.getScore()), 48.0f);
 		gamePanelView.addActor(highScoreTitleScore);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -224,7 +229,8 @@ public class MainController {
 		statusbarModel.updateStatus();
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
-		switch (Difficuty.valueOf(OptionsController.getInstance().getOption("difficulty").toUpperCase())) {
+		switch (Difficuty.valueOf(OptionsController.getInstance()
+				.getOption("difficulty").toUpperCase())) {
 		case SIMPLE:
 			multiplikator = 16;
 			break;
@@ -241,57 +247,67 @@ public class MainController {
 		if (spawnNewEnemy) {
 			OpponentView opponentView = new OpponentView(
 					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-			OpponentModel opponentModel = new OpponentModel(gamePanelView, opponentView.getImage());
+			OpponentModel opponentModel = new OpponentModel(gamePanelView,
+					opponentView.getImage());
 			opponentModel.addObserver(opponentView);
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void displayRanking() {
-//		if(!isGameStarted) {
-			Vector<Player> topPlayerVector = connectionModel.getTopPlayers();
-			int counter = 1;
-			logic.clearActors();
-			gamePanelView.clearActors();
-			for (Player topPlayer : topPlayerVector) {
-				MenuView topPlayerView = new MenuView(50, 9.5 * counter, gamePanelView,
-						topPlayer.getHighscore() + " - "
-								+ topPlayer.getPlayerName(),
-						48.0f);
-				gamePanelView.addActor(topPlayerView);
-				counter++;
-			}
-//		}
-//		else {
-//			logic.setGameRunning(false);
-//			JOptionPane.showMessageDialog(null, "Nicht w�hrend des Spiels m�glich!");
-//			logic.setGameRunning(true);
-//		}
+		Vector<Player> topPlayerVector = connectionModel.getTopPlayers();
+		int counter = 1;
+		logic.clearActors();
+		gamePanelView.clearActors();
+		for (Player topPlayer : topPlayerVector) {
+			MenuView topPlayerView = new MenuView(50, 9.5 * counter,
+					gamePanelView, topPlayer.getHighscore() + " - "
+							+ topPlayer.getPlayerName(), 48.0f);
+			gamePanelView.addActor(topPlayerView);
+			counter++;
+		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getPlayerName() {
 		return player.getPlayerName();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Vector<Player> getPlayers() {
 		return connectionModel.getPlayers();
 	}
-	
-	public void changePlayer(String playerName){
+
+	/**
+	 * 
+	 * @param playerName
+	 */
+	public void changePlayer(String playerName) {
 		Player newPlayer = connectionModel.getSinglePlayer(playerName);
 		player.setPlayerName(newPlayer.getPlayerName());
 		player.setPlayerId(newPlayer.getPlayerId());
 		player.setScore(newPlayer.getScore());
 		player.setHighscore(newPlayer.getHighscore());
 	}
-	
-	public void optionsChanged() throws IOException{
+
+	/**
+	 * 
+	 * @throws IOException
+	 */
+	public void optionsChanged() throws IOException {
 		statusbarModel.updateStatus();
-		OptionsController.getInstance().setOption("player", player.getPlayerName());
+		OptionsController.getInstance().setOption("player",
+				player.getPlayerName());
 		OptionsController.getInstance().storeOptions();
 	}
 }

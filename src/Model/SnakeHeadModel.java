@@ -47,13 +47,13 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		this.logic = logic;
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void actuate(double delta) {
 		lastMove += delta;
-		Difficuty difficuty = Difficuty.valueOf(OptionsController.getInstance().getOption("difficulty").toUpperCase());
-		int speed = difficuty == Difficuty.SIMPLE ? 110 : difficuty == Difficuty.MEDIUM ? 80 : 50;
+		Difficuty difficuty = Difficuty.valueOf(OptionsController.getInstance()
+				.getOption("difficulty").toUpperCase());
+		int speed = difficuty == Difficuty.SIMPLE ? 110
+				: difficuty == Difficuty.MEDIUM ? 80 : 50;
 		if (lastMove > speed) {
 			lastMove = 0;
 			move();
@@ -73,10 +73,11 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 
 		movement.x = bounding.x;
 		movement.y = bounding.y;
-		
+
 		switch (direction) {
 		case DOWN:
-			bounding.y = (bounding.y + bounding.getHeight()) % gamePanelView.getHeight();
+			bounding.y = (bounding.y + bounding.getHeight())
+					% gamePanelView.getHeight();
 			break;
 		case UP:
 			bounding.y -= bounding.getHeight();
@@ -85,8 +86,9 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 			}
 			break;
 		case RIGHT:
-			bounding.x = (bounding.x + bounding.getWidth()) % gamePanelView.getWidth();
-			
+			bounding.x = (bounding.x + bounding.getWidth())
+					% gamePanelView.getWidth();
+
 			break;
 		case LEFT:
 			bounding.x -= bounding.getWidth();
@@ -99,9 +101,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		}
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
 				&& !(actor instanceof IElement)) {
@@ -143,16 +143,12 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 		last = newTailModel;
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public Rectangle2D getBounding() {
 		return this.bounding.getBounds2D();
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public Point2D.Double getMovement() {
 		return movement;
 	}

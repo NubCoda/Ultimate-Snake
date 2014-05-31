@@ -10,7 +10,7 @@ import java.util.Observable;
 import Controller.MainController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
-import Model.Interface.IElement;
+import Model.Interface.IEnemy;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
 
@@ -50,30 +50,22 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 		return rotation;
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public Rectangle2D getBounding() {
 		return this.bounding.getBounds2D();
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public double getX() {
 		return bounding.x;
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public double getY() {
 		return bounding.y;
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void actuate(double delta) {
 		if (bounding.x != vorgaenger.getMovement().x
 				|| bounding.y != vorgaenger.getMovement().y) {
@@ -92,7 +84,7 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 
 	@Override
 	public void checkCollision(IActor actor) {
-		if (bounding.intersects(actor.getBounding()) && !(actor instanceof IElement)) {
+		if (bounding.intersects(actor.getBounding()) && actor instanceof IEnemy) {
 			MainController.getInstance().gameOver();
 		}
 	}

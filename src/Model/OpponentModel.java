@@ -46,7 +46,7 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 
 		this.bounding = new Rectangle2D.Double(positionX, positionY,
 				bufferedImage.getWidth(), bufferedImage.getHeight());
-		
+
 		try {
 			this.bufferedImages = ImageIO.read(new File(
 					IConstants.OPPONENT_PATH));
@@ -139,16 +139,12 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		}
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public Rectangle2D getBounding() {
 		return bounding;
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void actuate(double delta) {
 		if (opponentAlive) {
 			checkMovement();
@@ -158,6 +154,7 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		}
 	}
 
+	@Override
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof BulletModel) {

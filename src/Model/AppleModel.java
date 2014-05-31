@@ -35,22 +35,20 @@ public class AppleModel extends Observable implements IActor, IElement {
 	 */
 	public void moveApple() {
 		Random random = new Random();
-		int x = random.nextInt((int) (gamePanelView.getWidth() - bounding.getWidth()));
-		int y = random.nextInt((int) (gamePanelView.getHeight() - bounding.getHeight()));
+		int x = random.nextInt((int) (gamePanelView.getWidth() - bounding
+				.getWidth()));
+		int y = random.nextInt((int) (gamePanelView.getHeight() - bounding
+				.getHeight()));
 		bounding.x = (int) (x - (x % bounding.getWidth()));
 		bounding.y = (int) (y - (y % bounding.getHeight()));
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public Rectangle2D getBounding() {
 		return bounding;
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void actuate(double delta) {
 		if (!appleAlive) {
 			appleAlive = true;
@@ -60,9 +58,7 @@ public class AppleModel extends Observable implements IActor, IElement {
 		}
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof SnakeHeadModel) {

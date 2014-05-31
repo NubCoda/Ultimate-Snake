@@ -73,6 +73,10 @@ public class OptionsModel extends Observable {
 		properties.setProperty(propertyName, property);
 	}
 	
+	/**
+	 * 
+	 * @throws IOException
+	 */
 	public void storeOptions() throws IOException{
 		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(IConstants.CONFIG_PATH));
 		properties.store(out, "");

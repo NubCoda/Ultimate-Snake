@@ -8,14 +8,13 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import Model.Interface.IConstants;
-import Model.Interface.IDataBaseConnection;
 import Properties.Player;
 
 /**
  * 
  * 
  */
-public class DatabaseConnectionModel implements IDataBaseConnection {
+public class DatabaseConnectionModel {
 	private Connection connection;
 	private PreparedStatement preparedStatement;
 	private String table = IConstants.TABLE_PLAYER;
@@ -23,7 +22,6 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 	private String sql;
 	private Vector<Player> playerVector = null;
 
-	@Override
 	public void createConnection() {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -39,7 +37,10 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		}
 	}
 
-	@Override
+	/**
+	 * 
+	 * @param playerName
+	 */
 	public void createPlayer(String playerName) {
 		createConnection();
 		sql = "INSERT INTO " + table + " (player_name) values (?)";
@@ -69,7 +70,8 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet != null) {
 				player = new Player(resultSet.getInt("player_id"),
-						resultSet.getString("player_name"), resultSet.getInt("highscore"));
+						resultSet.getString("player_name"),
+						resultSet.getInt("highscore"));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -79,7 +81,10 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		return player;
 	}
 
-	@Override
+	/**
+	 * 
+	 * @return
+	 */
 	public Vector<Player> getPlayers() {
 		createConnection();
 		Player player = new Player();
@@ -102,20 +107,26 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		return playerVector;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Vector<Player> getTopPlayers() {
 		createConnection();
 		Vector<Player> vectorTopPlayer = new Vector<Player>();
 		Player player;
 		// TODO
-		// SQL Logik pr�fen - Warum kommt da ein Spasti-Spieler mit 0 Punkten an erster Stelle?
-		sql = "SELECT * FROM "
-				+ table
+		// SQL Logik pr�fen - Warum kommt da ein Spasti-Spieler mit 0 Punkten an
+		// erster Stelle?
+		sql = "SELECT * FROM " + table
 				+ " ORDER BY highscore DESC, player_name ASC LIMIT 10";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				player = new Player(resultSet.getInt("player_id"), resultSet.getString("player_name"), resultSet.getInt("highscore"));
+				player = new Player(resultSet.getInt("player_id"),
+						resultSet.getString("player_name"),
+						resultSet.getInt("highscore"));
 				vectorTopPlayer.add(player);
 			}
 		} catch (SQLException e) {
@@ -125,10 +136,13 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		return vectorTopPlayer;
 	}
 
+	/**
+	 * 
+	 * @param player
+	 */
 	public void updatePlayerScore(Player player) {
 		createConnection();
-		sql = "UPDATE " + table
-				+ " SET highscore = ? WHERE player_id = ?";
+		sql = "UPDATE " + table + " SET highscore = ? WHERE player_id = ?";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, player.getHighscore());

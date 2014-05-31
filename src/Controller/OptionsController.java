@@ -29,26 +29,30 @@ public class OptionsController {
 		}
 		return OPTIONS_CONTROLLER;
 	}
-	
+
 	/**
 	 * 
 	 * @param propertyName
 	 * @param property
 	 */
-	public void setOption(String propertyName, String property){
+	public void setOption(String propertyName, String property) {
 		optionsModel.setOption(propertyName, property);
 	}
-	
+
 	/**
 	 * 
 	 * @param propertyName
 	 * @return
 	 */
-	public String getOption(String propertyName){
+	public String getOption(String propertyName) {
 		return optionsModel.getOption(propertyName);
 	}
-	
-	public void storeOptions() throws IOException{
+
+	/**
+	 * 
+	 * @throws IOException
+	 */
+	public void storeOptions() throws IOException {
 		optionsModel.storeOptions();
 	}
 }
