@@ -67,11 +67,9 @@ public class Logic extends Observable implements Runnable {
 		last = System.nanoTime();
 		while (!isKilled) {
 			try {
-				// TODO Meunu hier unterbringen und neuzeichenen auffordern
 				if (isGameRunning) {
 					long currentTime = System.nanoTime();
 					delta = (currentTime - last) / 1000000.00;
-					// System.out.println(((long) 1e9)/delta); => fps
 					last = currentTime;
 					for (IActor actor : actors) {
 						actor.actuate(delta);
