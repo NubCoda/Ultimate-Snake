@@ -65,7 +65,7 @@ public class MainController {
 		if (playerHighscore == null) {
 			boolean created = false;
 			String playerName = null;
-			while (playerName == null) {
+			while (playerName == null || playerName.isEmpty()) {
 				playerName = JOptionPane
 						.showInputDialog("Spielernamen angeben!");
 				while (!created) {
