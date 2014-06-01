@@ -47,11 +47,4 @@ public class StatusbarView extends JPanel implements Observer {
 		difficultyLabel.setText("Schwierigkeit: "
 				+ statusbarModel.getDifficulty().toString());
 	}
-
-	/**
-	 * 
-	 */
-	public void updateText() {
-		playerLabel.setText("Player: Test");
-	}
 }

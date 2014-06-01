@@ -57,8 +57,8 @@ public class SnakeTailModel extends Observable implements IPlayerBone {
 
 	@Override
 	public void actuate(double delta) {
-		if (bounding.x != vorgaenger.getMovement().x
-				|| bounding.y != vorgaenger.getMovement().y) {
+		if ((bounding.x != vorgaenger.getMovement().x || bounding.y != vorgaenger.getMovement().y)
+		&& (vorgaenger.getBounding().getX() != vorgaenger.getMovement().x || vorgaenger.getBounding().getY() != vorgaenger.getMovement().y)) {
 			movement.x = bounding.x;
 			movement.y = bounding.y;
 			bounding.x = vorgaenger.getMovement().x;

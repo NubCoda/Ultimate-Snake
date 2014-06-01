@@ -73,7 +73,7 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 
 		movement.x = bounding.x;
 		movement.y = bounding.y;
-
+		
 		switch (direction) {
 		case DOWN:
 			bounding.y = (bounding.y + bounding.getHeight())
@@ -105,6 +105,11 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
 				&& !(actor instanceof IElement)) {
+			System.out.println(bounding.x);
+			System.out.println(bounding.y);
+			System.out.println(actor.getBounding().getX());
+			System.out.println(actor.getBounding().getY());
+			System.out.println(actor instanceof SnakeTailModel);
 			MainController.getInstance().gameOver();
 		}
 	}

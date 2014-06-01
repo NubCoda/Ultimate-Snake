@@ -37,6 +37,7 @@ public class MainController {
 	private StatusbarModel statusbarModel;
 	private Player player;
 	private DatabaseConnectionModel connectionModel;
+	private boolean isGameStarted;
 
 	/**
 	 * 
@@ -124,57 +125,57 @@ public class MainController {
 	 * 
 	 */
 	public void startGame() {
-		statusbar.updateText();
-		gamePanelView.clearActors();
-		logic.clearActors();
-		player.setScore(0);
-		statusbarModel.updateStatus();
-		AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
-				gamePanelView);
-		SnakeHeadView snakeHeadView = new SnakeHeadView(
-				IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
-		snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
-				snakeHeadView.getImage(), logic);
-		SnakeTailView snakeTailView = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PATH, 100, 120, gamePanelView);
-		SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView, 100,
-				120, snakeHeadModel, snakeTailView.getImage());
-		SnakeTailView snakeTailView1 = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PATH, 80, 120, gamePanelView);
-		SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView, 80,
-				120, snakeTailModel, snakeTailView1.getImage());
-		SnakeTailView snakeTailView2 = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PATH, 60, 120, gamePanelView);
-		SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView, 60,
-				120, snakeTailModel1, snakeTailView2.getImage());
-		snakeHeadModel.setLast(snakeTailModel2);
-		AppleModel appleModel = new AppleModel(gamePanelView,
-				appleView.getImage());
-		OpponentView opponentView1 = new OpponentView(IConstants.OPPONENT_PATH,
-				0, 60, gamePanelView);
-		OpponentModel opponentModel1 = new OpponentModel(gamePanelView,
-				opponentView1.getImage());
-		opponentModel1.addObserver(opponentView1);
-
-		appleModel.addObserver(appleView);
-		snakeHeadModel.addObserver(snakeHeadView);
-		snakeTailModel.addObserver(snakeTailView);
-		snakeTailModel1.addObserver(snakeTailView1);
-		snakeTailModel2.addObserver(snakeTailView2);
-		logic.addActor(appleModel);
-		logic.addActor(snakeHeadModel);
-		logic.addActor(snakeTailModel);
-		logic.addActor(snakeTailModel1);
-		logic.addActor(snakeTailModel2);
-		logic.addActor(opponentModel1);
-		gamePanelView.addActor(appleView);
-		gamePanelView.addActor(snakeHeadView);
-		gamePanelView.addActor(snakeTailView);
-		gamePanelView.addActor(snakeTailView1);
-		gamePanelView.addActor(snakeTailView2);
-		gamePanelView.addActor(opponentView1);
-		logic.setGameRunning(true);
-
+		if (!isGameStarted) {
+			isGameStarted = true;
+			gamePanelView.clearActors();
+			logic.clearActors();
+			player.setScore(0);
+			statusbarModel.updateStatus();
+			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
+					gamePanelView);
+			SnakeHeadView snakeHeadView = new SnakeHeadView(
+					IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
+			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
+					snakeHeadView.getImage(), logic);
+			SnakeTailView snakeTailView = new SnakeTailView(
+					IConstants.SNAKE_TAIL_PATH, 100, 120, gamePanelView);
+			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView,
+					100, 120, snakeHeadModel, snakeTailView.getImage());
+			SnakeTailView snakeTailView1 = new SnakeTailView(
+					IConstants.SNAKE_TAIL_PATH, 80, 120, gamePanelView);
+			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView,
+					80, 120, snakeTailModel, snakeTailView1.getImage());
+			SnakeTailView snakeTailView2 = new SnakeTailView(
+					IConstants.SNAKE_TAIL_PATH, 60, 120, gamePanelView);
+			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView,
+					60, 120, snakeTailModel1, snakeTailView2.getImage());
+			snakeHeadModel.setLast(snakeTailModel2);
+			AppleModel appleModel = new AppleModel(gamePanelView,
+					appleView.getImage());
+			OpponentView opponentView1 = new OpponentView(
+					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
+			OpponentModel opponentModel1 = new OpponentModel(gamePanelView,
+					opponentView1.getImage());
+			opponentModel1.addObserver(opponentView1);
+			appleModel.addObserver(appleView);
+			snakeHeadModel.addObserver(snakeHeadView);
+			snakeTailModel.addObserver(snakeTailView);
+			snakeTailModel1.addObserver(snakeTailView1);
+			snakeTailModel2.addObserver(snakeTailView2);
+			logic.addActor(appleModel);
+			logic.addActor(snakeHeadModel);
+			logic.addActor(snakeTailModel);
+			logic.addActor(snakeTailModel1);
+			logic.addActor(snakeTailModel2);
+			logic.addActor(opponentModel1);
+			gamePanelView.addActor(appleView);
+			gamePanelView.addActor(snakeHeadView);
+			gamePanelView.addActor(snakeTailView);
+			gamePanelView.addActor(snakeTailView1);
+			gamePanelView.addActor(snakeTailView2);
+			gamePanelView.addActor(opponentView1);
+			logic.setGameRunning(true);
+		}
 	}
 
 	/**
@@ -188,12 +189,14 @@ public class MainController {
 	 * 
 	 */
 	public void restartGame() {
-		logic.clearActors();
-		gamePanelView.clearActors();
-		// TODO mehrfach starten nicht ermöglichen
-		// isGameStarted = false;
-		player.setScore(0);
-		startGame();
+		if (isGameStarted) {
+			logic.setGameRunning(false);
+			logic.clearActors();
+			gamePanelView.clearActors();
+			isGameStarted = false;
+			player.setScore(0);
+			startGame();
+		}
 	}
 
 	/**
@@ -201,6 +204,7 @@ public class MainController {
 	 */
 	public void gameOver() {
 		logic.setGameRunning(false);
+		isGameStarted = false;
 		MenuView gameOverTitle = new MenuView(50, 40, gamePanelView,
 				"Game Over", 48.0f);
 		gamePanelView.addActor(gameOverTitle);
@@ -229,8 +233,8 @@ public class MainController {
 		statusbarModel.updateStatus();
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
-		switch (Difficuty.fromString(OptionsController.getInstance()
-				.getOption("difficulty"))) {
+		switch (Difficuty.fromString(OptionsController.getInstance().getOption(
+				"difficulty"))) {
 		case SIMPLE:
 			multiplikator = 16;
 			break;
