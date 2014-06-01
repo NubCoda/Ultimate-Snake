@@ -106,7 +106,7 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet != null) {
+			if (resultSet.next()) {
 				playerHighscore = new PlayerHighscore(new Player(
 						resultSet.getInt("player_id"),
 						resultSet.getString("player_name")),

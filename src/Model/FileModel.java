@@ -52,7 +52,7 @@ public class FileModel extends Observable {
 		try {
 			properties.load(new FileInputStream(getFile()));
 			gameSettings = new GameSettings(Integer.valueOf(properties
-					.getProperty("difficulty", "1")));
+					.getProperty("difficulty", "2")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -62,6 +62,22 @@ public class MainController {
 	private void intializeGame() {
 		playerHighscore = OptionsController.getInstance()
 				.getAndSetLastPlayerFromFile();
+		if (playerHighscore == null) {
+			boolean created = false;
+			String playerName = null;
+			while (playerName == null) {
+				playerName = JOptionPane
+						.showInputDialog("Spielernamen angeben!");
+				while (!created) {
+					playerName = JOptionPane
+							.showInputDialog("Spielernamen angeben!");
+					created = OptionsController.getInstance().createPlayer(
+							playerName);
+				}
+			}
+			playerHighscore = OptionsController.getInstance().getSinglePlayer(
+					playerName);
+		}
 		gameSettings = OptionsController.getInstance().getGameSettings();
 		createWindow();
 		logic = new Logic(gameSettings);
