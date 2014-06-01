@@ -220,9 +220,7 @@ public class MainController {
 		logic.setGameRunning(true);
 	}
 
-	public void raiseScore() {
-		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore() + 2);
-		statusbarModel.setValuesOfPlayer(playerHighscore);
+	private void spawnEnemy() {
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
 		switch (gameSettings.getDifficulty()) {
@@ -248,6 +246,12 @@ public class MainController {
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
 		}
+	}
+
+	public void raiseScore() {
+		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore() + 2);
+		statusbarModel.setValuesOfPlayer(playerHighscore);
+		spawnEnemy();
 	}
 
 	/**
@@ -276,31 +280,31 @@ public class MainController {
 	}
 
 	public void displayRanking() {
-		if(!isGameStarted) {
+		if (!isGameStarted) {
 			Vector<PlayerHighscore> topPlayerVector = OptionsController
 					.getInstance().getTopPlayers();
 			int counter = 1;
 			logic.clearActors();
 			gamePanelView.clearActors();
 			for (PlayerHighscore playerHighscore : topPlayerVector) {
-				MenuView topPlayer = new MenuView(50, 9.5 * counter, gamePanelView,
-						playerHighscore.getHighscore() + " - "
+				MenuView topPlayer = new MenuView(50, 9.5 * counter,
+						gamePanelView, playerHighscore.getHighscore() + " - "
 								+ playerHighscore.getPlayer().getPlayerName(),
 						48.0f);
 				gamePanelView.addActor(topPlayer);
 				counter++;
 			}
-		}
-		else {
+		} else {
 			logic.setGameRunning(false);
-			JOptionPane.showMessageDialog(null, "Nicht während des Spiels möglich!");
+			JOptionPane.showMessageDialog(null,
+					"Nicht während des Spiels möglich!");
 			logic.setGameRunning(true);
 		}
 	}
 
 	public void gameOver() {
 		Runnable runnable = new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
@@ -323,8 +327,7 @@ public class MainController {
 			MenuView highScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Neuer Highscore!", 48.0f);
 			gamePanelView.addActor(highScoreTitle);
-			OptionsController.getInstance().updateHighScore(
-					playerHighscore);
+			OptionsController.getInstance().updateHighScore(playerHighscore);
 		} else {
 			MenuView currentScoreTitle = new MenuView(50, 50, gamePanelView,
 					"Erreichte Punkte:", 48.0f);
