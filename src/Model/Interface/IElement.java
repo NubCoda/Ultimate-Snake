@@ -4,5 +4,7 @@ package Model.Interface;
  * 
  * 
  */
-public interface IElement extends IActor {
+public interface IElement {
+//	double getX();
+//	double getY();
 }

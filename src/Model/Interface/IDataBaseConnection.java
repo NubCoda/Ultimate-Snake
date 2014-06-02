@@ -2,7 +2,7 @@ package Model.Interface;
 
 import java.util.Vector;
 
-import Properties.PlayerHighscore;
+import Properties.Player;
 
 /**
  * 
@@ -18,15 +18,11 @@ public interface IDataBaseConnection {
 	 * 
 	 * @param playerName
 	 */
-	public boolean createPlayer(String playerName);
+	public void createPlayer(String playerName);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public Vector<PlayerHighscore> getPlayers();
-
-	public void updatePlayerScore(PlayerHighscore playerHighscore);
-
-	public Vector<PlayerHighscore> getTopTenPlayers();
+	public Vector<Player> getPlayers();
 }

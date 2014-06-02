@@ -1,5 +1,6 @@
 package Model.Interface;
 
+import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -7,6 +8,13 @@ import java.awt.geom.Rectangle2D;
  * 
  */
 public interface IActor {
+	/**
+	 * 
+	 * @param point
+	 * @return
+	 */
+	public boolean checkPosition(Point point);
+
 	/**
 	 * 
 	 * @param delta
@@ -24,4 +32,6 @@ public interface IActor {
 	 * @return
 	 */
 	public Rectangle2D getBounding();
+
+	public Direction getDirection();
 }

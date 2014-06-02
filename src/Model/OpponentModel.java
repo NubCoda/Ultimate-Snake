@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,6 +10,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Model.Interface.IEnemy;
@@ -19,49 +21,50 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	private GamePanelView gamePanelView;
 	private boolean opponentAlive = true;
 	private Rectangle2D.Double bounding;
-	private int nextJumpY = 0;
-	private int nextJumpX = 0;
+	private int nextJumpY;
+	private int nextJumpX;
 	private int maxJumpLength = 100;
 	private int minJumpLength = 50;
-	private double positionX = 100;
-	private double positionY = 100;
+	private Logic logic;
+	private double positionX;
+	private double positionY;
 	private double padding = 50;
+	private double slowDown = 30;
 
 	public OpponentModel(GamePanelView gamePanelView,
 			BufferedImage bufferedImage, Logic logic) {
 		this.gamePanelView = gamePanelView;
-
+		
 		this.positionX = setStartPosition(true);
 		this.positionY = setStartPosition(false);
 
 		this.bounding = new Rectangle2D.Double(positionX, positionY,
 				bufferedImage.getWidth(), bufferedImage.getHeight());
 		System.out.println(bounding);
-
+		
 		try {
 			this.bufferedImages = ImageIO.read(new File(
 					IConstants.OPPONENT_PATH));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.logic = logic;
 	}
 
 	private double setStartPosition(boolean width) {
 		double newPosition;
 		if (width) {
-			newPosition = (Math.random()
-					* ((gamePanelView.getWidth() - padding) / 2) + padding);
+			newPosition = (Math.random() * ((gamePanelView.getWidth()-padding) / 2)+padding);
 			System.out.println(newPosition);
 		} else {
-			newPosition = (Math.random()
-					* ((gamePanelView.getHeight() - padding) / 2) + padding);
+			newPosition = (Math.random()* ((gamePanelView.getHeight() - padding) / 2)+padding);
 		}
 		return newPosition;
 	}
 
-	public void moveOpponent() {
-		bounding.x += getNextMovement(true);
-		bounding.y += getNextMovement(false);
+	public void moveOpponent(double delta) {
+		bounding.x += getNextMovement(true)/slowDown*delta;
+		bounding.y += getNextMovement(false)/slowDown*delta;
 	}
 
 	private int getNextMovement(boolean movementOfX) {
@@ -122,7 +125,7 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 	public void actuate(double delta) {
 		if (opponentAlive) {
 			checkMovement();
-			moveOpponent();
+			moveOpponent(delta);
 			setChanged();
 			notifyObservers();
 		}
@@ -130,13 +133,30 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
-				&& actor instanceof SnakeHeadModel) {
+				&& actor instanceof BulletModel) {
 			setOpponentAlive(false);
+
+			// MainController.getInstance().
+			// ((SnakeHeadModel) actor).setSnakeAlive(false);
+			// TODO Abfrage, wenn es eine Snake ist, setAllive = false
+			// ((SnakeHeadModel) actor).increaseLength();
 		}
 	}
 
 	public void setOpponentAlive(boolean alive) {
 		this.opponentAlive = alive;
+	}
+
+	@Override
+	public boolean checkPosition(Point point) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Direction getDirection() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

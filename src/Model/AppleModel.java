@@ -1,11 +1,18 @@
 package Model;
 
+import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+
+import Model.Interface.Direction;
 import Model.Interface.IActor;
+import Model.Interface.IConstants;
 import Model.Interface.IElement;
 import View.GamePanelView;
 
@@ -34,10 +41,8 @@ public class AppleModel extends Observable implements IActor, IElement {
 	 */
 	public void moveApple() {
 		Random random = new Random();
-		int x = random.nextInt((int) (gamePanelView.getWidth() - bounding
-				.getWidth()));
-		int y = random.nextInt((int) (gamePanelView.getHeight() - bounding
-				.getHeight()));
+		int x = random.nextInt((int) (gamePanelView.getWidth() - bounding.getWidth()));
+		int y = random.nextInt((int) (gamePanelView.getHeight() - bounding.getHeight()));
 		bounding.x = (int) (x - (x % bounding.getWidth()));
 		bounding.y = (int) (y - (y % bounding.getHeight()));
 	}
@@ -65,12 +70,22 @@ public class AppleModel extends Observable implements IActor, IElement {
 	 * 
 	 */
 	public void checkCollision(IActor actor) {
-		System.out.println("YO");
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof SnakeHeadModel) {
 			appleAlive = false;
-			System.out.println("With Apple");
 			((SnakeHeadModel) actor).increaseLength();
 		}
+	}
+
+	@Override
+	public boolean checkPosition(Point point) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Direction getDirection() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

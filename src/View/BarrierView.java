@@ -3,9 +3,6 @@ package View;
 import java.util.Observable;
 import java.util.Observer;
 
-import Model.BarrierModel;
-import Model.Interface.IActor;
-
 /**
  * 
  * 
@@ -21,13 +18,11 @@ public class BarrierView extends SpriteView implements Observer {
 	public BarrierView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-		IActor barrier = ((IActor) observable);
-		this.x = barrier.getBounding().getX();
-		this.y = barrier.getBounding().getY();
-		System.out.println("Something happend");
+		// TODO Auto-generated method stub
 	}
 }

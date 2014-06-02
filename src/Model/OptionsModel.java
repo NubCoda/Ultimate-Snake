@@ -9,13 +9,13 @@ import java.util.Observable;
  */
 public class OptionsModel extends Observable {
 	private Dimension dimension;
-
+	
 	/**
 	 * 
 	 */
 	public OptionsModel() {
 	}
-
+	
 	/**
 	 * 
 	 * @param dimension
@@ -31,7 +31,7 @@ public class OptionsModel extends Observable {
 	public Dimension getDimension() {
 		return dimension;
 	}
-
+	
 	/**
 	 * 
 	 */

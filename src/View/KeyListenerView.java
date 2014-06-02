@@ -27,6 +27,8 @@ public class KeyListenerView extends KeyAdapter {
 		case IConstants.DEFAULT_KEY_DOWN:
 			MainController.getInstance().switchSnakeDirection(Direction.DOWN);
 			break;
+		case IConstants.DEFAULT_KEY_SPACE:
+			MainController.getInstance().shoot();
 		}
 	}
 

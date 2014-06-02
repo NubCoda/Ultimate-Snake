@@ -1,24 +1,26 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Properties;
 import java.util.Vector;
 
-import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
-import Controller.MainController;
 import Controller.OptionsController;
-import Properties.PlayerHighscore;
+import Model.DatabaseConnection;
+import Model.Interface.IConstants;
+import Properties.Player;
 
 /**
  * 
@@ -27,33 +29,39 @@ import Properties.PlayerHighscore;
 @SuppressWarnings("serial")
 public class OptionView extends JDialog implements ActionListener {
 	private final JPanel contentPanel = new JPanel();
+	private JLabel labelResolution;
+	private JComboBox<String> comboBoxResolution;
 	private JButton buttonCancel;
 	private JButton buttonOk;
-	private PlayerHighscore playerHighscore;
+	private MainView mainView;
+	private int newWidth;
+	private int newHeight;
+	private Player player;
 	private JLabel labelPlayer;
 	private JComboBox<String> comboBoxPlayer;
-	private Vector<PlayerHighscore> playerVector;
-	private JRadioButton radioButtonSlow;
-	private JRadioButton radioButtonNormal;
-	private JRadioButton radioButtonFast;
-	private JLabel labelDifficulty;
+	Vector<Player> playerVector;
 
 	/**
 	 * 
 	 * @param mainView
 	 * @param playerVector
 	 */
-	public OptionView(Vector<PlayerHighscore> playerVector, int difficulty,
-			String playerName) {
+	public OptionView(MainView mainView, Vector<Player> playerVector) {
 		initGUI();
-		ButtonGroup buttonGroup = new ButtonGroup();
-		buttonGroup.add(radioButtonSlow);
-		buttonGroup.add(radioButtonNormal);
-		buttonGroup.add(radioButtonFast);
 		this.setLocationRelativeTo(null);
+		this.mainView = mainView;
+		this.newWidth = mainView.getWidth();
+		this.newHeight = mainView.getHeight();
 		this.playerVector = playerVector;
-		this.fillComboBox(playerName);
-		this.selectDifficulty(difficulty);
+		fillComboBox();
+		comboBoxPlayer.actionPerformed(null);
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public OptionView() {
+		initGUI();
 	}
 
 	/**
@@ -61,40 +69,33 @@ public class OptionView extends JDialog implements ActionListener {
 	 */
 	private void initGUI() {
 		setModal(true);
-		setBounds(100, 100, 369, 231);
+		setBounds(100, 100, 221, 137);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
+			labelResolution = new JLabel("Aufl\u00F6sung:");
+			labelResolution.setBounds(10, 11, 62, 14);
+			contentPanel.add(labelResolution);
+		}
+		{
+			comboBoxResolution = new JComboBox<String>();
+			comboBoxResolution.addActionListener(this);
+			comboBoxResolution.setModel(new DefaultComboBoxModel<String>(
+					new String[] { "800x600", "1024x768", "1280x720" }));
+			comboBoxResolution.setBounds(82, 7, 102, 22);
+			contentPanel.add(comboBoxResolution);
+		}
+		{
 			labelPlayer = new JLabel("Spieler:");
-			labelPlayer.setBounds(10, 11, 62, 14);
+			labelPlayer.setBounds(10, 44, 62, 14);
 			contentPanel.add(labelPlayer);
 		}
 		{
 			comboBoxPlayer = new JComboBox<String>();
-			comboBoxPlayer.setBounds(10, 25, 102, 22);
+			comboBoxPlayer.setBounds(82, 40, 102, 22);
 			contentPanel.add(comboBoxPlayer);
-		}
-		{
-			radioButtonSlow = new JRadioButton("Einfach");
-			radioButtonSlow.setBounds(10, 78, 102, 23);
-			contentPanel.add(radioButtonSlow);
-		}
-		{
-			radioButtonNormal = new JRadioButton("Normal");
-			radioButtonNormal.setBounds(10, 104, 102, 23);
-			contentPanel.add(radioButtonNormal);
-		}
-		{
-			radioButtonFast = new JRadioButton("Schwer");
-			radioButtonFast.setBounds(10, 130, 102, 23);
-			contentPanel.add(radioButtonFast);
-		}
-		{
-			labelDifficulty = new JLabel("Schwierigkeit:");
-			labelDifficulty.setBounds(10, 49, 102, 22);
-			contentPanel.add(labelDifficulty);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -119,26 +120,11 @@ public class OptionView extends JDialog implements ActionListener {
 	/**
 	 * 
 	 */
-	private void fillComboBox(String playerName) {
-		for (PlayerHighscore tmp : playerVector) {
-			comboBoxPlayer.addItem(tmp.getPlayer().getPlayerName());
+	private void fillComboBox() {
+		for (Player tmp : playerVector) {
+			comboBoxPlayer.addItem(tmp.getPlayerName());
 		}
-		comboBoxPlayer.setSelectedItem((String) playerName);
-	}
 
-	private void selectDifficulty(int difficulty) {
-		System.out.println(difficulty);
-		switch (difficulty) {
-		case 1:
-			radioButtonSlow.setSelected(true);
-			break;
-		case 2:
-			radioButtonNormal.setSelected(true);
-			break;
-		case 3:
-			radioButtonFast.setSelected(true);
-			break;
-		}
 	}
 
 	/**
@@ -151,6 +137,22 @@ public class OptionView extends JDialog implements ActionListener {
 		if (arg0.getSource() == buttonCancel) {
 			buttonCancelActionPerformed(arg0);
 		}
+		if (arg0.getSource() == comboBoxResolution) {
+			comboBoxResolutionActionPerformed(arg0);
+		}
+	}
+
+	/**
+	 * 
+	 * @param arg0
+	 */
+	protected void comboBoxResolutionActionPerformed(ActionEvent arg0) {
+		String selectedItem = comboBoxResolution.getSelectedItem().toString();
+		int positionOfMulti = selectedItem.indexOf("x");
+		newWidth = Integer.valueOf(selectedItem.substring(0, positionOfMulti));
+		newHeight = Integer.valueOf(selectedItem.substring(positionOfMulti + 1,
+				selectedItem.length()));
+
 	}
 
 	/**
@@ -166,47 +168,21 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param arg0
 	 */
 	protected void buttonOkActionPerformed(ActionEvent arg0) {
-		int difficulty;
-		if (radioButtonSlow.isSelected()) {
-			difficulty = 1;
-		} else if (radioButtonNormal.isSelected()) {
-			difficulty = 2;
-		} else {
-			difficulty = 3;
-		}
-
-		if (MainController.getInstance().getCurrentPlayerInfo()
-				.getCurrentScore() > 0
-				&& (!MainController.getInstance().getCurrentPlayerInfo()
-						.getPlayer().getPlayerName()
-						.equals((String) comboBoxPlayer.getSelectedItem()))
-				|| MainController.getInstance().getCurrentGameSettings()
-						.getDifficulty() != difficulty) {
-			int selection = JOptionPane
-					.showConfirmDialog(
-							null,
-							"Sie haben Spieleinstellungen geändert! Das Spiel wird zurück gesetzt wenn Sie fortfahren. Wirklich fortfahren?",
-							"Achtung", JOptionPane.YES_NO_OPTION,
-							JOptionPane.WARNING_MESSAGE);
-			if (selection == JOptionPane.YES_OPTION) {
-				OptionsController.getInstance().updateHighScore(
-						MainController.getInstance().getCurrentPlayerInfo());
-				playerHighscore = OptionsController.getInstance()
-						.getSinglePlayer(
-								(String) comboBoxPlayer.getSelectedItem());
-				OptionsController.getInstance().saveToFile(playerHighscore,
-						difficulty);
-				MainController.getInstance().restartGame(false);
-			}
-		} else {
-			playerHighscore = OptionsController.getInstance().getSinglePlayer(
-					(String) comboBoxPlayer.getSelectedItem());
-			OptionsController.getInstance().saveToFile(playerHighscore,
-					difficulty);
-		}
-		if (playerHighscore != null) {
-			MainController.getInstance().setPlayerHighscore(playerHighscore);
-		}
+		DatabaseConnection databaseAccessObjects = new DatabaseConnection();
+		player = databaseAccessObjects.getSinglePlayer((String) comboBoxPlayer
+				.getSelectedItem());
+		OptionsController.getInstance().setResolution(mainView,
+				new Dimension(newWidth, newHeight));
+		Properties properties = new Properties();
+		properties.setProperty("player",
+				String.valueOf(playerVector.get(0).getPlayerName()));
+		properties.setProperty("player_id",
+				String.valueOf(player.getPlayerId()));
+		properties.setProperty("height", String.valueOf(newHeight));
+		properties.setProperty("width", String.valueOf(newWidth));
+		File file = new File(IConstants.CONFIG_PATH);
+//		FileController.getInstance().writeToIniFile(new FileView(), file,
+//				properties);
 		this.dispose();
 	}
 }

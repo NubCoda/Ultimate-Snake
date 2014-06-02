@@ -9,7 +9,7 @@ import Model.Interface.IPlayerBone;
  * 
  * 
  */
-public class SnakeTailView extends SpriteView implements Observer {
+public class SnakeTailView extends SpriteView implements Observer{
 	/**
 	 * 
 	 * @param path
@@ -25,7 +25,7 @@ public class SnakeTailView extends SpriteView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		IPlayerBone tail = (IPlayerBone) o;
-		this.x = tail.getBounding().getX();
-		this.y = tail.getBounding().getY();
+		this.x = tail.getX();
+		this.y = tail.getY();
 	}
 }

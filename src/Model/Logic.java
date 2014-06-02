@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.Point;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -62,6 +63,20 @@ public class Logic extends Observable implements Runnable {
 		isKilled = true;
 	}
 
+	/**
+	 * 
+	 * @param point
+	 * @return
+	 */
+	public IActor checkMouse(Point point) {
+		for (IActor actor : actors) {
+			if (actor.checkPosition(point)) {
+				return actor;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public void run() {
 		last = System.nanoTime();
@@ -86,7 +101,7 @@ public class Logic extends Observable implements Runnable {
 				}
 				setChanged();
 				notifyObservers();
-				Thread.sleep(10);
+				Thread.sleep(15);
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -96,5 +111,6 @@ public class Logic extends Observable implements Runnable {
 
 	public void gameOver() {
 		setGameRunning(false);
+		//TODO
 	}
 }
