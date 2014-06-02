@@ -36,7 +36,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 
 		this.bounding = new Rectangle2D.Double(positionX, positionY,
 				bufferedImage.getWidth(), bufferedImage.getHeight());
-		System.out.println(bounding);
 
 		try {
 			this.bufferedImages = ImageIO.read(new File(
@@ -51,7 +50,6 @@ public class OpponentModel extends Observable implements IActor, IEnemy {
 		if (width) {
 			newPosition = (Math.random()
 					* ((gamePanelView.getWidth() - padding) / 2) + padding);
-			System.out.println(newPosition);
 		} else {
 			newPosition = (Math.random()
 					* ((gamePanelView.getHeight() - padding) / 2) + padding);
