@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Model.AppleModel;
+import Model.BarrierModel;
 import Model.Logic;
 import Model.OpponentModel;
 import Model.SnakeHeadModel;
@@ -23,6 +24,7 @@ import Model.Interface.IConstants;
 import Properties.GameSettings;
 import Properties.PlayerHighscore;
 import View.AppleView;
+import View.BarrierView;
 import View.GamePanelView;
 import View.MainView;
 import View.MenuView;
@@ -51,6 +53,11 @@ public class MainController {
 	private SnakeTailModel snakeTailModel;
 	private SnakeTailView snakeTailView;
 	private StatusbarModel statusbarModel;
+	private SnakeHeadView snakeHeadView;
+	private AppleModel appleModel;
+	private AppleView appleView;
+	private BarrierModel barrierModel;
+	private BarrierView barrierView;
 
 	/**
 	 * 
@@ -189,9 +196,14 @@ public class MainController {
 			logic.clearActors();
 			gamePanelView.clearActors();
 			isGameStarted = true;
-			AppleView appleView = new AppleView(IConstants.APPLE_PATH, 0, 0,
+			
+			appleView = new AppleView(IConstants.APPLE_PATH, 0, 0,
 					gamePanelView);
-			SnakeHeadView snakeHeadView = new SnakeHeadView(
+			appleModel = new AppleModel(gamePanelView,
+					appleView.getImage());
+			appleModel.addObserver(appleView);
+			
+			snakeHeadView = new SnakeHeadView(
 					IConstants.SNAKE_HEAD_PATH, 120, 120, gamePanelView);
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
@@ -210,18 +222,20 @@ public class MainController {
 			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView,
 					60, 120, snakeTailModel1, snakeTailView2.getImage());
 			snakeHeadModel.setLast(snakeTailModel2);
-			AppleModel appleModel = new AppleModel(gamePanelView,
-					appleView.getImage());
-			appleModel.addObserver(appleView);
 			snakeHeadModel.addObserver(snakeHeadView);
 			snakeTailModel.addObserver(snakeTailView);
 			snakeTailModel1.addObserver(snakeTailView1);
 			snakeTailModel2.addObserver(snakeTailView2);
+			barrierView = new BarrierView(IConstants.BARRIER_PATH, 140, 140, gamePanelView);
+			barrierModel = new BarrierModel(gamePanelView, barrierView.getImage());
+			barrierModel.addObserver(barrierView);
+			logic.addActor(barrierModel);
 			logic.addActor(appleModel);
 			logic.addActor(snakeHeadModel);
 			logic.addActor(snakeTailModel);
 			logic.addActor(snakeTailModel1);
 			logic.addActor(snakeTailModel2);
+			gamePanelView.addActor(barrierView);
 			gamePanelView.addActor(appleView);
 			gamePanelView.addActor(snakeHeadView);
 			gamePanelView.addActor(snakeTailView);
