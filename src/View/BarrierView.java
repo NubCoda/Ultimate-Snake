@@ -28,6 +28,5 @@ public class BarrierView extends SpriteView implements Observer {
 		IActor barrier = ((IActor) observable);
 		this.x = barrier.getBounding().getX();
 		this.y = barrier.getBounding().getY();
-		System.out.println("Something happend");
 	}
 }

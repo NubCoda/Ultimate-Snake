@@ -72,5 +72,5 @@ public interface IConstants {
 	 * 
 	 */
 	public static final String TABLE_HIGHSCORE = "player_highscore";
-	public static final String GAME_SOUND_PATH = "./resources/sound/background_game.wav";
+	public static final String GAME_SOUND_PATH = "./resources/sound/background_game.mp3";
 }

@@ -59,6 +59,7 @@ public class MainController {
 	private AppleView appleView;
 	private BarrierModel barrierModel;
 	private BarrierView barrierView;
+	private GameSound gameSoundBackground;
 
 	/**
 	 * 
@@ -87,6 +88,7 @@ public class MainController {
 					playerName);
 		}
 		gameSettings = OptionsController.getInstance().getGameSettings();
+		gameSoundBackground = new GameSound(IConstants.GAME_SOUND_PATH);
 		createWindow();
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
@@ -228,23 +230,23 @@ public class MainController {
 			logic.addActor(snakeTailModel);
 			// Snake-Tail
 			// Part 2
-			SnakeTailView snakeTailView1 = new SnakeTailView(
+			snakeTailView = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PATH, 80, 120, gamePanelView);
-			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView,
-					80, 120, snakeTailModel, snakeTailView1.getImage());
-			snakeTailModel1.addObserver(snakeTailView1);
-			gamePanelView.addActor(snakeTailView1);
-			logic.addActor(snakeTailModel1);
+			snakeTailModel = new SnakeTailModel(gamePanelView,
+					80, 120, snakeTailModel, snakeTailView.getImage());
+			snakeTailModel.addObserver(snakeTailView);
+			gamePanelView.addActor(snakeTailView);
+			logic.addActor(snakeTailModel);
 			// Snake-Tail
 			// Part 3
-			SnakeTailView snakeTailView2 = new SnakeTailView(
+			snakeTailView = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PATH, 60, 120, gamePanelView);
-			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView,
-					60, 120, snakeTailModel1, snakeTailView2.getImage());
-			snakeTailModel2.addObserver(snakeTailView2);
-			snakeHeadModel.setLast(snakeTailModel2);
-			gamePanelView.addActor(snakeTailView2);
-			logic.addActor(snakeTailModel2);
+			snakeTailModel = new SnakeTailModel(gamePanelView,
+					60, 120, snakeTailModel, snakeTailView.getImage());
+			snakeTailModel.addObserver(snakeTailView);
+			snakeHeadModel.setLast(snakeTailModel);
+			gamePanelView.addActor(snakeTailView);
+			logic.addActor(snakeTailModel);
 
 			// Barrier
 			barrierView = new BarrierView(IConstants.BARRIER_PATH, 160, 140,
@@ -254,15 +256,12 @@ public class MainController {
 			barrierModel.addObserver(barrierView);
 			logic.addActor(barrierModel);
 			gamePanelView.addActor(barrierView);
-			
-			GameSound gameSound = new GameSound(IConstants.GAME_SOUND_PATH);
-			gameSound.playSound();
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
-
 		}
 		statusbarModel.setValuesOfPlayer(playerHighscore);
+		gameSoundBackground.playSound();
 		logic.setGameRunning(true);
 	}
 
@@ -305,6 +304,7 @@ public class MainController {
 	 */
 	public void pauseGame() {
 		logic.setGameRunning(false);
+		gameSoundBackground.stopSound();
 	}
 
 	/**
