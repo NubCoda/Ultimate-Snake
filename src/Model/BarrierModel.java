@@ -9,6 +9,7 @@ import Controller.MainController;
 import Model.Interface.IActor;
 import Model.Interface.IEnemy;
 import View.GamePanelView;
+import View.SnakeTailView;
 
 public class BarrierModel extends Observable implements IActor, IEnemy {
 

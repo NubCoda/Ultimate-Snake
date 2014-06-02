@@ -57,8 +57,6 @@ public class MainController {
 	private SnakeHeadView snakeHeadView;
 	private AppleModel appleModel;
 	private AppleView appleView;
-	private BarrierModel barrierModel;
-	private BarrierView barrierView;
 	private GameSound gameSoundBackground;
 
 	/**
