@@ -197,18 +197,9 @@ public class MainController {
 			gamePanelView.clearActors();
 			isGameStarted = true;
 			gameSettings = OptionsController.getInstance().getGameSettings();
-			
-			// Barrier
-			barrierView = new BarrierView(IConstants.BARRIER_PATH, 140, 140,
-					gamePanelView);
-			barrierModel = new BarrierModel(gamePanelView,
-					barrierView.getImage());
-			barrierModel.addObserver(barrierView);
-			logic.addActor(barrierModel);
-			gamePanelView.addActor(barrierView);
 
 			// Apple
-			appleView = new AppleView(IConstants.APPLE_PATH, 0, 0,
+			AppleView appleView = new AppleView(IConstants.APPLE_PATH, 0, 0,
 					gamePanelView);
 			appleModel = new AppleModel(gamePanelView, appleView.getImage());
 			appleModel.addObserver(appleView);
@@ -253,6 +244,15 @@ public class MainController {
 			snakeHeadModel.setLast(snakeTailModel2);
 			gamePanelView.addActor(snakeTailView2);
 			logic.addActor(snakeTailModel2);
+
+			// Barrier
+			barrierView = new BarrierView(IConstants.BARRIER_PATH, 160, 140,
+					gamePanelView);
+			barrierModel = new BarrierModel(gamePanelView,
+					barrierView.getImage());
+			barrierModel.addObserver(barrierView);
+			logic.addActor(barrierModel);
+			gamePanelView.addActor(barrierView);
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());

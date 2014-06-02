@@ -10,7 +10,7 @@ import Model.Interface.IActor;
 import Model.Interface.IEnemy;
 import View.GamePanelView;
 
-public class BarrierModel extends Observable implements IActor {
+public class BarrierModel extends Observable implements IActor, IEnemy {
 
 	private Rectangle2D.Double bounding;
 	private GamePanelView gamePanelView;

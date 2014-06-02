@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Model.BarrierModel;
+import Model.Interface.IActor;
 
 /**
  * 
@@ -24,9 +25,9 @@ public class BarrierView extends SpriteView implements Observer {
 
 	@Override
 	public void update(Observable observable, Object argObject) {
-		BarrierModel barrierModel = ((BarrierModel) observable);
-		this.x = barrierModel.getBounding().getX();
-		this.y = barrierModel.getBounding().getY();
+		IActor barrier = ((IActor) observable);
+		this.x = barrier.getBounding().getX();
+		this.y = barrier.getBounding().getY();
 		System.out.println("Something happend");
 	}
 }
