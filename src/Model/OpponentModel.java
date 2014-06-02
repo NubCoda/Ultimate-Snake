@@ -9,9 +9,11 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import Controller.MainController;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Model.Interface.IEnemy;
+import Model.Interface.ISphere;
 import View.GamePanelView;
 
 /**
@@ -156,9 +158,14 @@ public class OpponentModel extends Observable implements IEnemy {
 
 	@Override
 	public void checkCollision(IActor actor) {
+//		 TODO: check if its is needed
 		if (bounding.intersects(actor.getBounding())
-				&& actor instanceof BulletModel) {
+				&& actor instanceof ISphere) {
+			((ISphere) actor).setGone(true);
 			setOpponentAlive(false);
+			setChanged();
+			notifyObservers();
+			MainController.getInstance().removeActor(this);
 		}
 	}
 
@@ -168,5 +175,10 @@ public class OpponentModel extends Observable implements IEnemy {
 	 */
 	public void setOpponentAlive(boolean alive) {
 		this.opponentAlive = alive;
+	}
+
+	@Override
+	public boolean isAlive() {
+		return opponentAlive;
 	}
 }

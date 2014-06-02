@@ -1,7 +1,9 @@
 package Model;
 
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import Model.Interface.IActor;
 
@@ -10,7 +12,7 @@ import Model.Interface.IActor;
  * 
  */
 public class Logic extends Observable implements Runnable {
-	private Vector<IActor> actors;
+	private CopyOnWriteArrayList<IActor> actors;
 	private boolean isGameRunning;
 	private long last = 0;
 	private double delta = 0;
@@ -20,7 +22,7 @@ public class Logic extends Observable implements Runnable {
 	 * 
 	 */
 	public Logic() {
-		this.actors = new Vector<IActor>();
+		this.actors = new CopyOnWriteArrayList<IActor>();
 	}
 
 	/**
@@ -76,8 +78,8 @@ public class Logic extends Observable implements Runnable {
 					}
 					for (int i = 0; i < actors.size(); i++) {
 						for (int j = i + 1; j < actors.size(); j++) {
-							IActor s1 = actors.elementAt(i);
-							IActor s2 = actors.elementAt(j);
+							IActor s1 = actors.get(i);
+							IActor s2 = actors.get(j);
 							s1.checkCollision(s2);
 						}
 					}
@@ -90,5 +92,9 @@ public class Logic extends Observable implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void removeActor(IActor actor) {
+		this.actors.remove(actor);
 	}
 }

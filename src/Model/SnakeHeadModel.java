@@ -14,6 +14,7 @@ import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Model.Interface.IElement;
 import Model.Interface.IPlayerBone;
+import Model.Interface.ISphere;
 import View.GamePanelView;
 import View.SnakeTailView;
 
@@ -50,8 +51,8 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	@Override
 	public void actuate(double delta) {
 		lastMove += delta;
-		Difficuty difficuty = Difficuty.fromString(OptionsController.getInstance()
-				.getOption("difficulty"));
+		Difficuty difficuty = Difficuty.fromString(OptionsController
+				.getInstance().getOption("difficulty"));
 		int speed = difficuty == Difficuty.SIMPLE ? 110
 				: difficuty == Difficuty.MEDIUM ? 80 : 50;
 		if (lastMove > speed) {
@@ -73,7 +74,7 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 
 		movement.x = bounding.x;
 		movement.y = bounding.y;
-		
+
 		switch (direction) {
 		case DOWN:
 			bounding.y = (bounding.y + bounding.getHeight())
@@ -104,7 +105,7 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	@Override
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
-				&& !(actor instanceof IElement)) {
+				&& !(actor instanceof IElement || actor instanceof ISphere)) {
 			MainController.getInstance().gameOver();
 		}
 	}
@@ -173,7 +174,7 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 			newDirection = direction;
 		}
 	}
-	
+
 	@Override
 	public Direction getDirection() {
 		return this.direction;

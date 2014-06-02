@@ -26,6 +26,9 @@ public class KeyListenerView extends KeyAdapter {
 		} else if (e.getKeyCode() == Integer.valueOf(OptionsController
 				.getInstance().getOption("key_down"))) {
 			MainController.getInstance().switchSnakeDirection(Direction.DOWN);
+		} else if (e.getKeyCode() == Integer.valueOf(OptionsController
+				.getInstance().getOption("key_shoot"))) {
+			MainController.getInstance().shoot();
 		}
 	}
 

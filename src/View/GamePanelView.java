@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -25,7 +26,7 @@ import View.Interface.IDrawable;
  */
 @SuppressWarnings("serial")
 public class GamePanelView extends JPanel implements Observer {
-	private Vector<SpriteView> actors = new Vector<SpriteView>();
+	private CopyOnWriteArrayList<SpriteView> actors = new CopyOnWriteArrayList<SpriteView>();
 	private BufferedImage background;
 	private Font textFont;
 
@@ -61,7 +62,7 @@ public class GamePanelView extends JPanel implements Observer {
 	public void addActor(SpriteView actor) {
 		this.actors.add(actor);
 	}
-
+	
 	/**
 	 * 
 	 */
@@ -102,5 +103,9 @@ public class GamePanelView extends JPanel implements Observer {
 	 */
 	public void addActors(Vector<SpriteView> actors) {
 		this.actors.addAll(actors);
+	}
+
+	public void removeActor(SpriteView spriteView) {
+		this.actors.remove(spriteView);
 	}
 }

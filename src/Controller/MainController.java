@@ -2,11 +2,17 @@ package Controller;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
+
 import Model.AppleModel;
+import Model.BulletModel;
 import Model.DatabaseConnectionModel;
+import Model.GameSound;
 import Model.Logic;
 import Model.OpponentModel;
 import Model.SnakeHeadModel;
@@ -18,12 +24,14 @@ import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Properties.Player;
 import View.AppleView;
+import View.BulletView;
 import View.GamePanelView;
 import View.MainView;
 import View.MenuView;
 import View.OpponentView;
 import View.SnakeHeadView;
 import View.SnakeTailView;
+import View.SpriteView;
 import View.StatusbarView;
 
 /**
@@ -40,11 +48,13 @@ public class MainController {
 	private Player player;
 	private DatabaseConnectionModel connectionModel;
 	private boolean isGameStarted;
+	private GameSound gameSoundBackground;
 
 	/**
 	 * 
 	 */
 	private MainController() {
+		gameSoundBackground = new GameSound(IConstants.GAME_SOUND_PATH);
 		connectionModel = new DatabaseConnectionModel();
 		player = connectionModel.getSinglePlayer(OptionsController
 				.getInstance().getOption("player"));
@@ -177,6 +187,7 @@ public class MainController {
 			gamePanelView.addActor(snakeTailView2);
 			gamePanelView.addActor(opponentView1);
 			logic.setGameRunning(true);
+			gameSoundBackground.playSound();
 		}
 	}
 
@@ -184,6 +195,7 @@ public class MainController {
 	 * 
 	 */
 	public void pauseGame() {
+		gameSoundBackground.stopSound();
 		logic.setGameRunning(false);
 	}
 
@@ -192,6 +204,7 @@ public class MainController {
 	 */
 	public void restartGame() {
 		if (isGameStarted) {
+			gameSoundBackground.stopSound();
 			logic.setGameRunning(false);
 			logic.clearActors();
 			gamePanelView.clearActors();
@@ -205,6 +218,7 @@ public class MainController {
 	 * 
 	 */
 	public void gameOver() {
+		gameSoundBackground.stopSound();
 		logic.setGameRunning(false);
 		isGameStarted = false;
 		MenuView gameOverTitle = new MenuView(50, 40, gamePanelView,
@@ -315,5 +329,31 @@ public class MainController {
 		OptionsController.getInstance().setOption("player",
 				player.getPlayerName());
 		OptionsController.getInstance().storeOptions();
+	}
+
+	/**
+	 * 
+	 */
+	public void shoot() {
+//		boolean addShot = snakeHeadModel.allowShoot();
+//		if (addShot) {
+			BulletView bulletView = new BulletView(IConstants.BULLET_PATH,
+					snakeHeadModel.getBounding().getCenterX(), snakeHeadModel.getBounding().getCenterY(),
+					gamePanelView);
+			BulletModel bulletModel = new BulletModel(snakeHeadModel.getBounding().getCenterX(),
+					snakeHeadModel.getBounding().getCenterY(), bulletView.getImage(),
+					gamePanelView, snakeHeadModel.getDirection());
+			bulletModel.addObserver(bulletView);
+			logic.addActor(bulletModel);
+			gamePanelView.addActor(bulletView);
+//		}
+	}
+	
+	public void removeSpriteView(SpriteView spriteView){
+		gamePanelView.removeActor(spriteView);
+	}
+	
+	public void removeActor(IActor actor){
+		logic.removeActor(actor);
 	}
 }
