@@ -5,7 +5,9 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Random;
 
+import Controller.MainController;
 import Model.Interface.IActor;
+import Model.Interface.IEnemy;
 import View.GamePanelView;
 
 public class BarrierModel extends Observable implements IActor {
@@ -32,7 +34,7 @@ public class BarrierModel extends Observable implements IActor {
 
 	@Override
 	public void actuate(double delta) {
-		if (!barrierAlive) {
+		if(!barrierAlive) {
 			barrierAlive = true;
 			moveBarrier();
 			setChanged();
@@ -46,9 +48,10 @@ public class BarrierModel extends Observable implements IActor {
 	@Override
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
-				&& actor instanceof SnakeHeadModel) {
-			barrierAlive = false;
-			((SnakeHeadModel) actor).increaseLength();
+				&& actor instanceof SnakeHeadModel
+				|| actor instanceof SnakeTailModel) {
+			System.out.println("Crash With Tree");
+			MainController.getInstance().gameOver();
 		}
 	}
 

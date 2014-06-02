@@ -68,6 +68,7 @@ public class AppleModel extends Observable implements IActor, IElement {
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof SnakeHeadModel) {
 			appleAlive = false;
+			System.out.println("With Apple");
 			((SnakeHeadModel) actor).increaseLength();
 		}
 	}

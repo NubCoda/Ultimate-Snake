@@ -196,51 +196,63 @@ public class MainController {
 			logic.clearActors();
 			gamePanelView.clearActors();
 			isGameStarted = true;
+			gameSettings = OptionsController.getInstance().getGameSettings();
 			
+			// Barrier
+			barrierView = new BarrierView(IConstants.BARRIER_PATH, 140, 140,
+					gamePanelView);
+			barrierModel = new BarrierModel(gamePanelView,
+					barrierView.getImage());
+			barrierModel.addObserver(barrierView);
+			logic.addActor(barrierModel);
+			gamePanelView.addActor(barrierView);
+
+			// Apple
 			appleView = new AppleView(IConstants.APPLE_PATH, 0, 0,
 					gamePanelView);
-			appleModel = new AppleModel(gamePanelView,
-					appleView.getImage());
+			appleModel = new AppleModel(gamePanelView, appleView.getImage());
 			appleModel.addObserver(appleView);
-			
-			snakeHeadView = new SnakeHeadView(
-					IConstants.SNAKE_HEAD_PATH, 120, 120, gamePanelView);
-			gameSettings = OptionsController.getInstance().getGameSettings();
+			logic.addActor(appleModel);
+			gamePanelView.addActor(appleView);
+
+			// SnakeHead
+			snakeHeadView = new SnakeHeadView(IConstants.SNAKE_HEAD_PATH, 120,
+					120, gamePanelView);
 			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
 					snakeHeadView.getImage(), logic);
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
+			snakeHeadModel.addObserver(snakeHeadView);
+			logic.addActor(snakeHeadModel);
+			gamePanelView.addActor(snakeHeadView);
+
+			// Snake-Tail
+			// Part 1
 			snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PATH, 100,
 					120, gamePanelView);
 			snakeTailModel = new SnakeTailModel(gamePanelView, 100, 120,
 					snakeHeadModel, snakeTailView.getImage());
+			snakeTailModel.addObserver(snakeTailView);
+			gamePanelView.addActor(snakeTailView);
+			logic.addActor(snakeTailModel);
+			// Snake-Tail
+			// Part 2
 			SnakeTailView snakeTailView1 = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PATH, 80, 120, gamePanelView);
 			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView,
 					80, 120, snakeTailModel, snakeTailView1.getImage());
+			snakeTailModel1.addObserver(snakeTailView1);
+			gamePanelView.addActor(snakeTailView1);
+			logic.addActor(snakeTailModel1);
+			// Snake-Tail
+			// Part 3
 			SnakeTailView snakeTailView2 = new SnakeTailView(
 					IConstants.SNAKE_TAIL_PATH, 60, 120, gamePanelView);
 			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView,
 					60, 120, snakeTailModel1, snakeTailView2.getImage());
-			snakeHeadModel.setLast(snakeTailModel2);
-			snakeHeadModel.addObserver(snakeHeadView);
-			snakeTailModel.addObserver(snakeTailView);
-			snakeTailModel1.addObserver(snakeTailView1);
 			snakeTailModel2.addObserver(snakeTailView2);
-			barrierView = new BarrierView(IConstants.BARRIER_PATH, 140, 140, gamePanelView);
-			barrierModel = new BarrierModel(gamePanelView, barrierView.getImage());
-			barrierModel.addObserver(barrierView);
-			logic.addActor(barrierModel);
-			logic.addActor(appleModel);
-			logic.addActor(snakeHeadModel);
-			logic.addActor(snakeTailModel);
-			logic.addActor(snakeTailModel1);
-			logic.addActor(snakeTailModel2);
-			gamePanelView.addActor(barrierView);
-			gamePanelView.addActor(appleView);
-			gamePanelView.addActor(snakeHeadView);
-			gamePanelView.addActor(snakeTailView);
-			gamePanelView.addActor(snakeTailView1);
+			snakeHeadModel.setLast(snakeTailModel2);
 			gamePanelView.addActor(snakeTailView2);
+			logic.addActor(snakeTailModel2);
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
