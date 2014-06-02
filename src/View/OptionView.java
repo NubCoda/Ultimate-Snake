@@ -4,23 +4,35 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 
 import Controller.MainController;
 import Controller.OptionsController;
 import Model.Interface.Difficuty;
 import Properties.Player;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
+import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
 
 /**
  * 
@@ -38,6 +50,17 @@ public class OptionView extends JDialog implements ActionListener {
 	private JRadioButton radioButtonNormal;
 	private JRadioButton radioButtonFast;
 	private JLabel labelDifficulty;
+	private JLabel labelControls;
+	private JLabel labelRight;
+	private JLabel labelLeft;
+	private JLabel labelUp;
+	private JLabel labelDown;
+	private JLabel labelShoot;
+	private JTextField textFieldRight;
+	private JTextField textFieldLeft;
+	private JTextField textFieldUp;
+	private JTextField textFieldDown;
+	private JTextField textFieldShoot;
 
 	/**
 	 * 
@@ -47,11 +70,10 @@ public class OptionView extends JDialog implements ActionListener {
 	public OptionView(Vector<Player> playerVector, Difficuty difficulty,
 			String playerName) {
 		initGUI();
-		ButtonGroup buttonGroup = new ButtonGroup();
-		buttonGroup.add(radioButtonSlow);
-		buttonGroup.add(radioButtonNormal);
-		buttonGroup.add(radioButtonFast);
 		setTitle("Optionen");
+		setModal(true);
+		setBounds(100, 100, 425, 300);
+		setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.playerVector = playerVector;
 		this.fillComboBox(playerName);
@@ -62,42 +84,207 @@ public class OptionView extends JDialog implements ActionListener {
 	 * 
 	 */
 	private void initGUI() {
-		setModal(true);
-		setBounds(100, 100, 369, 231);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[] { 102, 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 14, 0, 22, 22, 23, 23, 23, 0,
+				0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		contentPanel.setLayout(gbl_contentPanel);
 		{
 			labelPlayer = new JLabel("Spieler:");
-			labelPlayer.setBounds(10, 11, 62, 14);
-			contentPanel.add(labelPlayer);
+			GridBagConstraints gbc_labelPlayer = new GridBagConstraints();
+			gbc_labelPlayer.anchor = GridBagConstraints.WEST;
+			gbc_labelPlayer.insets = new Insets(0, 0, 5, 5);
+			gbc_labelPlayer.gridx = 0;
+			gbc_labelPlayer.gridy = 0;
+			contentPanel.add(labelPlayer, gbc_labelPlayer);
 		}
 		{
 			comboBoxPlayer = new JComboBox<String>();
-			comboBoxPlayer.setBounds(10, 25, 102, 22);
-			contentPanel.add(comboBoxPlayer);
-		}
-		{
-			radioButtonSlow = new JRadioButton("Einfach");
-			radioButtonSlow.setBounds(10, 78, 102, 23);
-			contentPanel.add(radioButtonSlow);
-		}
-		{
-			radioButtonNormal = new JRadioButton("Normal");
-			radioButtonNormal.setBounds(10, 104, 102, 23);
-			contentPanel.add(radioButtonNormal);
-		}
-		{
-			radioButtonFast = new JRadioButton("Schwer");
-			radioButtonFast.setBounds(10, 130, 102, 23);
-			contentPanel.add(radioButtonFast);
+			GridBagConstraints gbc_comboBoxPlayer = new GridBagConstraints();
+			gbc_comboBoxPlayer.fill = GridBagConstraints.BOTH;
+			gbc_comboBoxPlayer.insets = new Insets(0, 0, 5, 5);
+			gbc_comboBoxPlayer.gridx = 1;
+			gbc_comboBoxPlayer.gridy = 0;
+			contentPanel.add(comboBoxPlayer, gbc_comboBoxPlayer);
 		}
 		{
 			labelDifficulty = new JLabel("Schwierigkeit:");
-			labelDifficulty.setBounds(10, 49, 102, 22);
-			contentPanel.add(labelDifficulty);
+			GridBagConstraints gbc_labelDifficulty = new GridBagConstraints();
+			gbc_labelDifficulty.fill = GridBagConstraints.BOTH;
+			gbc_labelDifficulty.insets = new Insets(0, 0, 5, 5);
+			gbc_labelDifficulty.gridx = 0;
+			gbc_labelDifficulty.gridy = 1;
+			contentPanel.add(labelDifficulty, gbc_labelDifficulty);
 		}
+		{
+			radioButtonSlow = new JRadioButton("Einfach");
+			GridBagConstraints gbc_radioButtonSlow = new GridBagConstraints();
+			gbc_radioButtonSlow.anchor = GridBagConstraints.NORTH;
+			gbc_radioButtonSlow.fill = GridBagConstraints.HORIZONTAL;
+			gbc_radioButtonSlow.insets = new Insets(0, 0, 5, 5);
+			gbc_radioButtonSlow.gridx = 0;
+			gbc_radioButtonSlow.gridy = 2;
+			contentPanel.add(radioButtonSlow, gbc_radioButtonSlow);
+		}
+		{
+			radioButtonNormal = new JRadioButton("Normal");
+			GridBagConstraints gbc_radioButtonNormal = new GridBagConstraints();
+			gbc_radioButtonNormal.anchor = GridBagConstraints.NORTH;
+			gbc_radioButtonNormal.fill = GridBagConstraints.HORIZONTAL;
+			gbc_radioButtonNormal.insets = new Insets(0, 0, 5, 5);
+			gbc_radioButtonNormal.gridx = 1;
+			gbc_radioButtonNormal.gridy = 2;
+			contentPanel.add(radioButtonNormal, gbc_radioButtonNormal);
+		}
+		{
+			radioButtonFast = new JRadioButton("Schwer");
+			GridBagConstraints gbc_radioButtonFast = new GridBagConstraints();
+			gbc_radioButtonFast.insets = new Insets(0, 0, 5, 0);
+			gbc_radioButtonFast.anchor = GridBagConstraints.NORTH;
+			gbc_radioButtonFast.fill = GridBagConstraints.HORIZONTAL;
+			gbc_radioButtonFast.gridx = 2;
+			gbc_radioButtonFast.gridy = 2;
+			contentPanel.add(radioButtonFast, gbc_radioButtonFast);
+		}
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(radioButtonSlow);
+		buttonGroup.add(radioButtonNormal);
+		buttonGroup.add(radioButtonFast);
+		{
+			labelControls = new JLabel("Steuerung:");
+			GridBagConstraints gbc_labelSteuerung = new GridBagConstraints();
+			gbc_labelSteuerung.anchor = GridBagConstraints.WEST;
+			gbc_labelSteuerung.insets = new Insets(0, 0, 5, 5);
+			gbc_labelSteuerung.gridx = 0;
+			gbc_labelSteuerung.gridy = 3;
+			contentPanel.add(labelControls, gbc_labelSteuerung);
+		}
+		{
+			labelRight = new JLabel("Rechts:");
+			GridBagConstraints gbc_labelRechts = new GridBagConstraints();
+			gbc_labelRechts.anchor = GridBagConstraints.WEST;
+			gbc_labelRechts.insets = new Insets(0, 0, 5, 5);
+			gbc_labelRechts.gridx = 0;
+			gbc_labelRechts.gridy = 4;
+			contentPanel.add(labelRight, gbc_labelRechts);
+		}
+		{
+			textFieldRight = new JTextField(KeyEvent.getKeyText(Integer
+					.valueOf(OptionsController.getInstance().getOption(
+							"key_right"))));
+			textFieldRight.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent arg0) {
+					do_textFieldRight_keyTyped(arg0);
+				}
+			});
+			textFieldRight.setEditable(false);
+			GridBagConstraints gbc_textField = new GridBagConstraints();
+			gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+			gbc_textField.insets = new Insets(0, 0, 5, 5);
+			gbc_textField.gridx = 1;
+			gbc_textField.gridy = 4;
+			contentPanel.add(textFieldRight, gbc_textField);
+			textFieldRight.setColumns(10);
+		}
+		{
+			labelLeft = new JLabel("Links:");
+			GridBagConstraints gbc_labelLinks = new GridBagConstraints();
+			gbc_labelLinks.anchor = GridBagConstraints.WEST;
+			gbc_labelLinks.insets = new Insets(0, 0, 5, 5);
+			gbc_labelLinks.gridx = 0;
+			gbc_labelLinks.gridy = 5;
+			contentPanel.add(labelLeft, gbc_labelLinks);
+		}
+		{
+			textFieldLeft = new JTextField(KeyEvent.getKeyText(Integer
+					.valueOf(OptionsController.getInstance().getOption(
+							"key_left"))));
+			textFieldLeft.setColumns(10);
+			textFieldLeft.setEditable(false);
+			GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+			gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+			gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+			gbc_textField_1.gridx = 1;
+			gbc_textField_1.gridy = 5;
+			contentPanel.add(textFieldLeft, gbc_textField_1);
+		}
+		{
+			labelUp = new JLabel("Hoch:");
+			GridBagConstraints gbc_labelHoch = new GridBagConstraints();
+			gbc_labelHoch.anchor = GridBagConstraints.WEST;
+			gbc_labelHoch.insets = new Insets(0, 0, 5, 5);
+			gbc_labelHoch.gridx = 0;
+			gbc_labelHoch.gridy = 6;
+			contentPanel.add(labelUp, gbc_labelHoch);
+		}
+		{
+			textFieldUp = new JTextField(KeyEvent.getKeyText(Integer
+					.valueOf(OptionsController.getInstance()
+							.getOption("key_up"))));
+			textFieldUp.setColumns(10);
+			textFieldUp.setEditable(false);
+			GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+			gbc_textField_2.insets = new Insets(0, 0, 5, 5);
+			gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+			gbc_textField_2.gridx = 1;
+			gbc_textField_2.gridy = 6;
+			contentPanel.add(textFieldUp, gbc_textField_2);
+		}
+		{
+			labelDown = new JLabel("Runter:");
+			GridBagConstraints gbc_labelRunter = new GridBagConstraints();
+			gbc_labelRunter.anchor = GridBagConstraints.WEST;
+			gbc_labelRunter.insets = new Insets(0, 0, 5, 5);
+			gbc_labelRunter.gridx = 0;
+			gbc_labelRunter.gridy = 7;
+			contentPanel.add(labelDown, gbc_labelRunter);
+		}
+		{
+			textFieldDown = new JTextField(KeyEvent.getKeyText(Integer
+					.valueOf(OptionsController.getInstance().getOption(
+							"key_down"))));
+			textFieldDown.setColumns(10);
+			textFieldDown.setEditable(false);
+			GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+			gbc_textField_3.insets = new Insets(0, 0, 5, 5);
+			gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
+			gbc_textField_3.gridx = 1;
+			gbc_textField_3.gridy = 7;
+			contentPanel.add(textFieldDown, gbc_textField_3);
+		}
+		{
+			// KeyEvent.getKeyText(Integer.valueOf(OptionsController.getInstance().getOption("key_shoot")))
+			textFieldShoot = new JTextField(KeyEvent.getKeyText(Integer
+					.valueOf(OptionsController.getInstance().getOption(
+							"key_shoot"))));
+			System.out.println();
+			textFieldShoot.setColumns(10);
+			textFieldShoot.setEditable(false);
+			GridBagConstraints gbc_textField_4 = new GridBagConstraints();
+			gbc_textField_4.insets = new Insets(0, 0, 5, 5);
+			gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
+			gbc_textField_4.gridx = 1;
+			gbc_textField_4.gridy = 8;
+			contentPanel.add(textFieldShoot, gbc_textField_4);
+		}
+		{
+			labelShoot = new JLabel("Schießen:");
+			GridBagConstraints gbc_labelSchieen = new GridBagConstraints();
+			gbc_labelSchieen.anchor = GridBagConstraints.WEST;
+			gbc_labelSchieen.insets = new Insets(0, 0, 0, 5);
+			gbc_labelSchieen.gridx = 0;
+			gbc_labelSchieen.gridy = 8;
+			contentPanel.add(labelShoot, gbc_labelSchieen);
+		}
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -178,9 +365,12 @@ public class OptionView extends JDialog implements ActionListener {
 			difficulty = Difficuty.DIFFICULT;
 		}
 
-		int selection = JOptionPane.showConfirmDialog(
-				null, "Die Spieleinstellungen wurden geändert! Das Spiel wird zurückgesetzt, wenn Sie fortfahren. Wollen Sie wirklich fortfahren?",
-				"Achtung", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		int selection = JOptionPane
+				.showConfirmDialog(
+						null,
+						"Die Spieleinstellungen wurden geändert! Das Spiel wird zurückgesetzt, wenn Sie fortfahren. Wollen Sie wirklich fortfahren?",
+						"Achtung", JOptionPane.YES_NO_OPTION,
+						JOptionPane.WARNING_MESSAGE);
 		if (selection == JOptionPane.YES_OPTION) {
 			OptionsController.getInstance().setOption("difficulty",
 					difficulty.toString());
@@ -194,5 +384,9 @@ public class OptionView extends JDialog implements ActionListener {
 			}
 		}
 		this.dispose();
+	}
+
+	protected void do_textFieldRight_keyTyped(KeyEvent arg0) {
+		textFieldRight.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
 	}
 }
