@@ -48,8 +48,7 @@ public class BarrierModel extends Observable implements IActor, IEnemy {
 	@Override
 	public void checkCollision(IActor actor) {
 		if (bounding.intersects(actor.getBounding())
-				&& actor instanceof SnakeHeadModel
-				|| actor instanceof SnakeTailModel) {
+				&& actor instanceof SnakeHeadModel) {
 			System.out.println("Crash With Tree");
 			MainController.getInstance().gameOver();
 		}
