@@ -369,6 +369,7 @@ public class MainController {
 				}
 			}
 		};
+		gameSoundBackground.stopSound();
 		Thread thread = new Thread(runnable);
 		thread.run();
 		isGameStarted = false;
