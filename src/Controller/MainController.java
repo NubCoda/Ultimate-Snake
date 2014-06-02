@@ -13,7 +13,6 @@ import javax.swing.KeyStroke;
 
 import Model.AppleModel;
 import Model.BarrierModel;
-import Model.BulletModel;
 import Model.GameSound;
 import Model.Logic;
 import Model.OpponentModel;
@@ -27,7 +26,6 @@ import Properties.GameSettings;
 import Properties.PlayerHighscore;
 import View.AppleView;
 import View.BarrierView;
-import View.BulletView;
 import View.GamePanelView;
 import View.MainView;
 import View.MenuView;
@@ -249,14 +247,16 @@ public class MainController {
 			snakeHeadModel.setLast(snakeTailModel);
 			gamePanelView.addActor(snakeTailView);
 			logic.addActor(snakeTailModel);
-			
-			//Bullet
-//			BulletView bulletView = new BulletView(IConstants.BULLET_PATH, 20, 20, gamePanelView);
-//			BulletModel  bulletModel = new BulletModel(50, 50, bulletView.getImage(), gamePanelView, snakeHeadModel.getDirection());
-//			gamePanelView.addActor(bulletView);
-//			logic.addActor(bulletModel);
-			
-			
+
+			// Bullet
+			// BulletView bulletView = new BulletView(IConstants.BULLET_PATH,
+			// 20, 20, gamePanelView);
+			// BulletModel bulletModel = new BulletModel(50, 50,
+			// bulletView.getImage(), gamePanelView,
+			// snakeHeadModel.getDirection());
+			// gamePanelView.addActor(bulletView);
+			// logic.addActor(bulletModel);
+
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());

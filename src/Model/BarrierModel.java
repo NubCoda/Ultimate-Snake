@@ -34,7 +34,7 @@ public class BarrierModel extends Observable implements IActor, IEnemy {
 
 	@Override
 	public void actuate(double delta) {
-		if(!barrierAlive) {
+		if (!barrierAlive) {
 			barrierAlive = true;
 			moveBarrier();
 			setChanged();

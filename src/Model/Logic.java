@@ -1,12 +1,9 @@
 package Model;
 
-import java.io.FileNotFoundException;
 import java.util.Observable;
 import java.util.Vector;
 
-import javazoom.jl.decoder.JavaLayerException;
 import Model.Interface.IActor;
-import Model.Interface.IConstants;
 
 /**
  * 

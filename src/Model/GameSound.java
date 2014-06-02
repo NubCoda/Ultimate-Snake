@@ -12,11 +12,11 @@ public class GameSound {
 	private Player soundPlayer;
 	private FileInputStream fileInputStream;
 	private Thread thread;
-	
+
 	public GameSound(String soundFilePath) {
 		this.soundFilePath = soundFilePath;
 	}
-	
+
 	public void stopSound() {
 		soundPlayer.close();
 	}

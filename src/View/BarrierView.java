@@ -3,7 +3,6 @@ package View;
 import java.util.Observable;
 import java.util.Observer;
 
-import Model.BarrierModel;
 import Model.Interface.IActor;
 
 /**
