@@ -16,7 +16,7 @@ public class GameSoundModel extends SwingWorker<Void, Void> {
 		try {
 			AudioInputStream audioIn = AudioSystem
 					.getAudioInputStream(new File(
-							"resources/sounds/background_game.wav"));
+							"resources/sound/background_game.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			clip.start();
