@@ -246,13 +246,13 @@ public class MainController {
 			logic.addActor(snakeTailModel2);
 
 			// Barrier
-			barrierView = new BarrierView(IConstants.BARRIER_PATH, 160, 140,
-					gamePanelView);
-			barrierModel = new BarrierModel(gamePanelView,
-					barrierView.getImage());
-			barrierModel.addObserver(barrierView);
-			logic.addActor(barrierModel);
-			gamePanelView.addActor(barrierView);
+//			barrierView = new BarrierView(IConstants.BARRIER_PATH, 160, 140,
+//					gamePanelView);
+//			barrierModel = new BarrierModel(gamePanelView,
+//					barrierView.getImage());
+//			barrierModel.addObserver(barrierView);
+//			logic.addActor(barrierModel);
+//			gamePanelView.addActor(barrierView);
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
