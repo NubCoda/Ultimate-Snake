@@ -74,5 +74,9 @@ public class BulletModel extends Observable implements IActor, IElement {
 	public BufferedImage getBufferedImage() {
 		return this.bufferedImages;
 	}
+	
+	public Direction getDirection() {
+		return this.direction;
+	}
 
 }

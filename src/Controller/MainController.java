@@ -13,6 +13,7 @@ import javax.swing.KeyStroke;
 
 import Model.AppleModel;
 import Model.BarrierModel;
+import Model.BulletModel;
 import Model.GameSound;
 import Model.Logic;
 import Model.OpponentModel;
@@ -26,6 +27,7 @@ import Properties.GameSettings;
 import Properties.PlayerHighscore;
 import View.AppleView;
 import View.BarrierView;
+import View.BulletView;
 import View.GamePanelView;
 import View.MainView;
 import View.MenuView;
@@ -230,32 +232,31 @@ public class MainController {
 			logic.addActor(snakeTailModel);
 			// Snake-Tail
 			// Part 2
-			snakeTailView = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PATH, 80, 120, gamePanelView);
-			snakeTailModel = new SnakeTailModel(gamePanelView,
-					80, 120, snakeTailModel, snakeTailView.getImage());
+			snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PATH, 80,
+					120, gamePanelView);
+			snakeTailModel = new SnakeTailModel(gamePanelView, 80, 120,
+					snakeTailModel, snakeTailView.getImage());
 			snakeTailModel.addObserver(snakeTailView);
 			gamePanelView.addActor(snakeTailView);
 			logic.addActor(snakeTailModel);
 			// Snake-Tail
 			// Part 3
-			snakeTailView = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PATH, 60, 120, gamePanelView);
-			snakeTailModel = new SnakeTailModel(gamePanelView,
-					60, 120, snakeTailModel, snakeTailView.getImage());
+			snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PATH, 60,
+					120, gamePanelView);
+			snakeTailModel = new SnakeTailModel(gamePanelView, 60, 120,
+					snakeTailModel, snakeTailView.getImage());
 			snakeTailModel.addObserver(snakeTailView);
 			snakeHeadModel.setLast(snakeTailModel);
 			gamePanelView.addActor(snakeTailView);
 			logic.addActor(snakeTailModel);
-
-			// Barrier
-			barrierView = new BarrierView(IConstants.BARRIER_PATH, 160, 140,
-					gamePanelView);
-			barrierModel = new BarrierModel(gamePanelView,
-					barrierView.getImage());
-			barrierModel.addObserver(barrierView);
-			logic.addActor(barrierModel);
-			gamePanelView.addActor(barrierView);
+			
+			//Bullet
+//			BulletView bulletView = new BulletView(IConstants.BULLET_PATH, 20, 20, gamePanelView);
+//			BulletModel  bulletModel = new BulletModel(50, 50, bulletView.getImage(), gamePanelView, snakeHeadModel.getDirection());
+//			gamePanelView.addActor(bulletView);
+//			logic.addActor(bulletModel);
+			
+			
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
@@ -265,7 +266,7 @@ public class MainController {
 		logic.setGameRunning(true);
 	}
 
-	private void spawnEnemy() {
+	private void spawnEnemies() {
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
 		switch (gameSettings.getDifficulty()) {
@@ -290,13 +291,21 @@ public class MainController {
 			opponentModel.addObserver(opponentView);
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
+			BarrierView barrierView = new BarrierView(IConstants.BARRIER_PATH,
+					0, 60, gamePanelView);
+			BarrierModel barrierModel = new BarrierModel(gamePanelView,
+					barrierView.getImage());
+			barrierModel.addObserver(barrierView);
+			logic.addActor(barrierModel);
+			gamePanelView.addActor(barrierView);
+
 		}
 	}
 
 	public void raiseScore() {
 		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore() + 2);
 		statusbarModel.setValuesOfPlayer(playerHighscore);
-		spawnEnemy();
+		spawnEnemies();
 	}
 
 	/**
