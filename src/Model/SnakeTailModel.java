@@ -88,16 +88,4 @@ public class SnakeTailModel extends Observable implements IPlayerBone {
 	public Direction getDirection() {
 		return direction;
 	}
-
-	@Override
-	public double getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
