@@ -17,17 +17,5 @@ public interface IPlayerBone extends IActor {
 	 * 
 	 * @return
 	 */
-	double getX();
-
-	/**
-	 * 
-	 * @return
-	 */
-	double getY();
-
-	/**
-	 * 
-	 * @return
-	 */
 	Point2D.Double getMovement();
 }

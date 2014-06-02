@@ -20,7 +20,7 @@ import View.SnakeTailView;
  * 
  * 
  */
-public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
+public class SnakeHeadModel extends Observable implements IPlayerBone {
 	private Point2D.Double movement;
 	private int speed;
 	private double lastMove = 0;
@@ -85,7 +85,7 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 
 		movement.x = bounding.x;
 		movement.y = bounding.y;
-
+		
 		switch (direction) {
 		case DOWN:
 			bounding.y = (bounding.y + bounding.getHeight())
@@ -128,26 +128,26 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 	 */
 	public void increaseLength() {
 		MainController.getInstance().raiseScore();
-		double x = last.getX();
-		double y = last.getY();
+		double x = last.getBounding().getX();
+		double y = last.getBounding().getY();
 		switch (last.getDirection()) {
 		case DOWN:
-			y += bounding.getHeight();
-			break;
-		case UP:
 			y -= bounding.getHeight();
 			break;
+		case UP:
+			y += bounding.getHeight();
+			break;
 		case RIGHT:
-			x += bounding.getWidth();
+			x -= bounding.getWidth();
 			break;
 		case LEFT:
-			x -= bounding.getWidth();
+			x += bounding.getWidth();
 			break;
 		default:
 			break;
 		}
 		SnakeTailView newTailView = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PAHT, x, y, gamePanelView);
+				IConstants.SNAKE_TAIL_PATH, x, y, gamePanelView);
 		SnakeTailModel newTailModel;
 		newTailModel = new SnakeTailModel(gamePanelView, x, y,
 				(IPlayerBone) MainController.getInstance().getActor(last),
@@ -191,16 +191,6 @@ public class SnakeHeadModel extends Observable implements IActor, IPlayerBone {
 				|| (this.direction == Direction.DOWN && (direction == Direction.LEFT || direction == Direction.RIGHT))) {
 			newDirection = direction;
 		}
-	}
-
-	@Override
-	public double getX() {
-		return bounding.x;
-	}
-
-	@Override
-	public double getY() {
-		return bounding.y;
 	}
 
 	@Override

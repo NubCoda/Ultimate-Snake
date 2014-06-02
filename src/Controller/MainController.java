@@ -80,7 +80,7 @@ public class MainController {
 		}
 		gameSettings = OptionsController.getInstance().getGameSettings();
 		createWindow();
-		logic = new Logic(gameSettings);
+		logic = new Logic();
 		logic.addObserver(gamePanelView);
 		Thread t = new Thread(logic);
 		t.start();
@@ -189,24 +189,24 @@ public class MainController {
 			logic.clearActors();
 			gamePanelView.clearActors();
 			isGameStarted = true;
-			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
+			AppleView appleView = new AppleView(IConstants.APPLE_PATH, 0, 0,
 					gamePanelView);
 			SnakeHeadView snakeHeadView = new SnakeHeadView(
-					IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
+					IConstants.SNAKE_HEAD_PATH, 120, 120, gamePanelView);
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
 					snakeHeadView.getImage(), logic);
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
-			snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PAHT, 100,
+			snakeTailView = new SnakeTailView(IConstants.SNAKE_TAIL_PATH, 100,
 					120, gamePanelView);
 			snakeTailModel = new SnakeTailModel(gamePanelView, 100, 120,
 					snakeHeadModel, snakeTailView.getImage());
 			SnakeTailView snakeTailView1 = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PAHT, 80, 120, gamePanelView);
+					IConstants.SNAKE_TAIL_PATH, 80, 120, gamePanelView);
 			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView,
 					80, 120, snakeTailModel, snakeTailView1.getImage());
 			SnakeTailView snakeTailView2 = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PAHT, 60, 120, gamePanelView);
+					IConstants.SNAKE_TAIL_PATH, 60, 120, gamePanelView);
 			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView,
 					60, 120, snakeTailModel1, snakeTailView2.getImage());
 			snakeHeadModel.setLast(snakeTailModel2);

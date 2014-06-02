@@ -25,7 +25,7 @@ public class SnakeTailView extends SpriteView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		IPlayerBone tail = (IPlayerBone) o;
-		this.x = tail.getX();
-		this.y = tail.getY();
+		this.x = tail.getBounding().getX();
+		this.y = tail.getBounding().getY();
 	}
 }

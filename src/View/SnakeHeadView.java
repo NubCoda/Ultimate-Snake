@@ -56,8 +56,8 @@ public class SnakeHeadView extends SpriteView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		IPlayerBone head = (IPlayerBone) o;
-		this.x = head.getX();
-		this.y = head.getY();
+		this.x = head.getBounding().getX();
+		this.y = head.getBounding().getY();
 		this.direction = head.getDirection();
 	}
 }

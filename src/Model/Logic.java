@@ -16,14 +16,12 @@ public class Logic extends Observable implements Runnable {
 	private long last = 0;
 	private double delta = 0;
 	private boolean isKilled = false;
-	private GameSettings gameSettings;
 
 	/**
 	 * 
 	 */
-	public Logic(GameSettings gameSettings) {
+	public Logic() {
 		this.actors = new Vector<IActor>();
-		this.gameSettings = gameSettings;
 	}
 
 	/**

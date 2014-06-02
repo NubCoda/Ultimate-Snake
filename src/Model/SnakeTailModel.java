@@ -8,24 +8,24 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import Controller.MainController;
-import Controller.OptionsController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
-import Model.Interface.IElement;
+import Model.Interface.IEnemy;
 import Model.Interface.IPlayerBone;
 import View.GamePanelView;
+
 
 /**
  * 
  * 
  */
-public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
+public class SnakeTailModel extends Observable implements IPlayerBone {
 	public IPlayerBone vorgaenger;
 	private Point2D.Double movement;
 	private Ellipse2D.Double bounding;
 	private int rotation;
 	private Direction direction = Direction.NONE;
-
+	private Direction newDirection = Direction.NONE;
 	/**
 	 * 
 	 * @param gamePanelView
@@ -50,37 +50,23 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 		return rotation;
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public Rectangle2D getBounding() {
 		return this.bounding.getBounds2D();
 	}
 
-	/**
-	 * 
-	 */
-	public double getX() {
-		return bounding.x;
-	}
-
-	/**
-	 * 
-	 */
-	public double getY() {
-		return bounding.y;
-	}
-
-	/**
-	 * 
-	 */
+	@Override
 	public void actuate(double delta) {
-		if (bounding.x != vorgaenger.getMovement().x
-				|| bounding.y != vorgaenger.getMovement().y) {
-			movement = new Point2D.Double(bounding.x, bounding.y);
+		if ((bounding.x != vorgaenger.getMovement().x || bounding.y != vorgaenger.getMovement().y)
+		&& (vorgaenger.getBounding().getX() != vorgaenger.getMovement().x || vorgaenger.getBounding().getY() != vorgaenger.getMovement().y)) {
+			movement.x = bounding.x;
+			movement.y = bounding.y;
 			bounding.x = vorgaenger.getMovement().x;
 			bounding.y = vorgaenger.getMovement().y;
-			this.direction = vorgaenger.getDirection();
+			if(newDirection != direction){
+				direction = newDirection;
+			}
+			newDirection = vorgaenger.getDirection();
 			setChanged();
 			notifyObservers();
 		}
@@ -88,8 +74,7 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 
 	@Override
 	public void checkCollision(IActor actor) {
-		if (bounding.intersects(actor.getBounding())
-				&& (actor instanceof OpponentModel)) {
+		if (bounding.intersects(actor.getBounding()) && actor instanceof IEnemy) {
 			MainController.getInstance().gameOver();
 		}
 	}
@@ -102,5 +87,17 @@ public class SnakeTailModel extends Observable implements IActor, IPlayerBone {
 	@Override
 	public Direction getDirection() {
 		return direction;
+	}
+
+	@Override
+	public double getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getY() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
