@@ -13,6 +13,7 @@ import javax.swing.KeyStroke;
 
 import Model.AppleModel;
 import Model.BarrierModel;
+import Model.GameSound;
 import Model.Logic;
 import Model.OpponentModel;
 import Model.SnakeHeadModel;
@@ -253,6 +254,9 @@ public class MainController {
 			barrierModel.addObserver(barrierView);
 			logic.addActor(barrierModel);
 			gamePanelView.addActor(barrierView);
+			
+			GameSound gameSound = new GameSound(IConstants.GAME_SOUND_PATH);
+			gameSound.playSound();
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
