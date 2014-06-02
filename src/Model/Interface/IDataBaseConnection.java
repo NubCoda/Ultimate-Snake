@@ -27,6 +27,6 @@ public interface IDataBaseConnection {
 	public Vector<PlayerHighscore> getPlayers();
 
 	public void updatePlayerScore(PlayerHighscore playerHighscore);
-	
+
 	public Vector<PlayerHighscore> getTopTenPlayers();
 }

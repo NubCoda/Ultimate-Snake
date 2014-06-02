@@ -38,7 +38,8 @@ public class FileModel extends Observable {
 		try {
 			properties.load(new FileInputStream(getFile()));
 			String playerName = properties.getProperty("player_name");
-			playerHighscore = OptionsController.getInstance().getSinglePlayer(playerName);
+			playerHighscore = OptionsController.getInstance().getSinglePlayer(
+					playerName);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

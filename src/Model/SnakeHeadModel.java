@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import Controller.MainController;
-import Controller.OptionsController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
@@ -85,7 +84,7 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 
 		movement.x = bounding.x;
 		movement.y = bounding.y;
-		
+
 		switch (direction) {
 		case DOWN:
 			bounding.y = (bounding.y + bounding.getHeight())

@@ -173,7 +173,8 @@ public class DatabaseConnectionModel implements IDataBaseConnection {
 		Vector<PlayerHighscore> vectorTopPlayer = new Vector<PlayerHighscore>();
 		PlayerHighscore playerHighscore;
 		// TODO
-		// SQL Logik prüfen - Warum kommt da ein Spasti-Spieler mit 0 Punkten an erster Stelle?
+		// SQL Logik prüfen - Warum kommt da ein Spasti-Spieler mit 0 Punkten an
+		// erster Stelle?
 		sql = "SELECT player.player_name, highscore.* FROM "
 				+ player_table
 				+ " player JOIN "

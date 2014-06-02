@@ -4,7 +4,6 @@ import java.util.Observable;
 import java.util.Vector;
 
 import Model.Interface.IActor;
-import Properties.GameSettings;
 
 /**
  * 
