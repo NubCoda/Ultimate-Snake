@@ -5,12 +5,15 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -23,7 +26,7 @@ import View.Interface.IDrawable;
  */
 @SuppressWarnings("serial")
 public class GamePanelView extends JPanel implements Observer {
-	private Vector<SpriteView> actors = new Vector<SpriteView>();
+	private CopyOnWriteArrayList<SpriteView> actors = new CopyOnWriteArrayList<SpriteView>();
 	private BufferedImage background;
 	private Font textFont;
 
@@ -59,17 +62,26 @@ public class GamePanelView extends JPanel implements Observer {
 	public void addActor(SpriteView actor) {
 		this.actors.add(actor);
 	}
-
+	
 	/**
 	 * 
 	 */
 	public void clearActors() {
-		actors.removeAllElements();
+		actors.clear();
 	}
 
 	@Override
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
+		((Graphics2D) graphics).setRenderingHint(
+				RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		((Graphics2D) graphics).setRenderingHint(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		((Graphics2D) graphics).setRenderingHint(
+				RenderingHints.KEY_FRACTIONALMETRICS,
+				RenderingHints.VALUE_FRACTIONALMETRICS_ON);
 		graphics.drawImage(background, 0, 0, getWidth(), getHeight(),
 				Color.BLACK, this);
 		graphics.setFont(textFont);
@@ -91,5 +103,9 @@ public class GamePanelView extends JPanel implements Observer {
 	 */
 	public void addActors(Vector<SpriteView> actors) {
 		this.actors.addAll(actors);
+	}
+
+	public void removeActor(SpriteView spriteView) {
+		this.actors.remove(spriteView);
 	}
 }
