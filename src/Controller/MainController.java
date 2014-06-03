@@ -26,6 +26,7 @@ import Properties.Player;
 import View.AppleView;
 import View.BulletView;
 import View.GamePanelView;
+import View.KeyListenerView;
 import View.MainView;
 import View.MenuView;
 import View.OpponentView;
@@ -49,7 +50,7 @@ public class MainController {
 	private DatabaseConnectionModel connectionModel;
 	private boolean isGameStarted;
 	private GameSound gameSoundBackground;
-
+	private KeyListenerView keyListenerView;
 	/**
 	 * 
 	 */
@@ -97,6 +98,7 @@ public class MainController {
 	 * 
 	 */
 	private void createWindow() {
+		keyListenerView = new KeyListenerView();
 		gamePanelView = new GamePanelView(800, 600);
 		statusbarModel = new StatusbarModel(player);
 		statusbar = new StatusbarView();
@@ -138,6 +140,7 @@ public class MainController {
 	 */
 	public void startGame() {
 		if (!isGameStarted) {
+			gamePanelView.addKeyListener(keyListenerView);
 			isGameStarted = true;
 			gamePanelView.clearActors();
 			logic.clearActors();
@@ -195,6 +198,7 @@ public class MainController {
 	 * 
 	 */
 	public void pauseGame() {
+		gamePanelView.removeKeyListener(keyListenerView);
 		gameSoundBackground.stopSound();
 		logic.setGameRunning(false);
 	}
@@ -218,6 +222,7 @@ public class MainController {
 	 * 
 	 */
 	public void gameOver() {
+		gamePanelView.removeKeyListener(keyListenerView);
 		gameSoundBackground.stopSound();
 		logic.setGameRunning(false);
 		isGameStarted = false;

@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Map.Entry;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -32,6 +34,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JTextField;
+
 import java.awt.event.KeyAdapter;
 
 /**
@@ -61,6 +64,7 @@ public class OptionView extends JDialog implements ActionListener {
 	private JTextField textFieldUp;
 	private JTextField textFieldDown;
 	private JTextField textFieldShoot;
+	private HashMap<String, Integer> keys;
 
 	/**
 	 * 
@@ -78,6 +82,7 @@ public class OptionView extends JDialog implements ActionListener {
 		this.playerVector = playerVector;
 		this.fillComboBox(playerName);
 		this.selectDifficulty(difficulty);
+		keys = new HashMap<String, Integer>();
 	}
 
 	/**
@@ -182,7 +187,7 @@ public class OptionView extends JDialog implements ActionListener {
 			textFieldRight.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyPressed(KeyEvent arg0) {
-					do_textFieldRight_keyTyped(arg0);
+					textFieldRightKeyPressed(arg0);
 				}
 			});
 			textFieldRight.setEditable(false);
@@ -207,6 +212,12 @@ public class OptionView extends JDialog implements ActionListener {
 			textFieldLeft = new JTextField(KeyEvent.getKeyText(Integer
 					.valueOf(OptionsController.getInstance().getOption(
 							"key_left"))));
+			textFieldLeft.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent arg0) {
+					textFieldLeftKeyPressed(arg0);
+				}
+			});
 			textFieldLeft.setColumns(10);
 			textFieldLeft.setEditable(false);
 			GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -229,6 +240,12 @@ public class OptionView extends JDialog implements ActionListener {
 			textFieldUp = new JTextField(KeyEvent.getKeyText(Integer
 					.valueOf(OptionsController.getInstance()
 							.getOption("key_up"))));
+			textFieldUp.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					textFieldUpKeyPressed(e);
+				}
+			});
 			textFieldUp.setColumns(10);
 			textFieldUp.setEditable(false);
 			GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -251,6 +268,12 @@ public class OptionView extends JDialog implements ActionListener {
 			textFieldDown = new JTextField(KeyEvent.getKeyText(Integer
 					.valueOf(OptionsController.getInstance().getOption(
 							"key_down"))));
+			textFieldDown.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					textFieldDownKeyPressed(e);
+				}
+			});
 			textFieldDown.setColumns(10);
 			textFieldDown.setEditable(false);
 			GridBagConstraints gbc_textField_3 = new GridBagConstraints();
@@ -265,6 +288,12 @@ public class OptionView extends JDialog implements ActionListener {
 			textFieldShoot = new JTextField(KeyEvent.getKeyText(Integer
 					.valueOf(OptionsController.getInstance().getOption(
 							"key_shoot"))));
+			textFieldShoot.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					textFieldShootKeyPressed(e);
+				}
+			});
 			System.out.println();
 			textFieldShoot.setColumns(10);
 			textFieldShoot.setEditable(false);
@@ -376,6 +405,10 @@ public class OptionView extends JDialog implements ActionListener {
 					difficulty.toString());
 			MainController.getInstance().changePlayer(
 					(String) comboBoxPlayer.getSelectedItem());
+			for (Entry<String, Integer> entry : keys.entrySet()) {
+				OptionsController.getInstance().setOption(entry.getKey(),
+						String.valueOf(entry.getValue()));
+			}
 			try {
 				MainController.getInstance().optionsChanged();
 			} catch (IOException e) {
@@ -386,7 +419,38 @@ public class OptionView extends JDialog implements ActionListener {
 		this.dispose();
 	}
 
-	protected void do_textFieldRight_keyTyped(KeyEvent arg0) {
+	protected void textFieldRightKeyPressed(KeyEvent arg0) {
 		textFieldRight.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
+		if (keys.replace("key_right", arg0.getKeyCode()) == null) {
+			keys.put("key_right", arg0.getKeyCode());
+		}
+	}
+
+	protected void textFieldLeftKeyPressed(KeyEvent arg0) {
+		textFieldLeft.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
+		if (keys.replace("key_left", arg0.getKeyCode()) == null) {
+			keys.put("key_left", arg0.getKeyCode());
+		}
+	}
+
+	protected void textFieldUpKeyPressed(KeyEvent arg0) {
+		textFieldUp.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
+		if (keys.replace("key_up", arg0.getKeyCode()) == null) {
+			keys.put("key_up", arg0.getKeyCode());
+		}
+	}
+
+	protected void textFieldDownKeyPressed(KeyEvent arg0) {
+		textFieldDown.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
+		if (keys.replace("key_down", arg0.getKeyCode()) == null) {
+			keys.put("key_down", arg0.getKeyCode());
+		}
+	}
+
+	protected void textFieldShootKeyPressed(KeyEvent arg0) {
+		textFieldShoot.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
+		if (keys.replace("key_shoot", arg0.getKeyCode()) == null) {
+			keys.put("key_shoot", arg0.getKeyCode());
+		}
 	}
 }

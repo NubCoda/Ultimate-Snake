@@ -35,7 +35,6 @@ public class GamePanelView extends JPanel implements Observer {
 	 */
 	public GamePanelView(int width, int height) {
 		setFocusable(true);
-		addKeyListener(new KeyListenerView());
 		setPreferredSize(new Dimension(width, height));
 
 		try {
