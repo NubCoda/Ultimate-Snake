@@ -13,7 +13,7 @@ import javax.swing.KeyStroke;
 
 import Model.AppleModel;
 import Model.BarrierModel;
-import Model.GameSound;
+import Model.GameSoundModel;
 import Model.Logic;
 import Model.OpponentModel;
 import Model.SnakeHeadModel;
@@ -57,7 +57,7 @@ public class MainController {
 	private SnakeHeadView snakeHeadView;
 	private AppleModel appleModel;
 	private AppleView appleView;
-	private GameSound gameSoundBackground;
+	private GameSoundModel gameSoundModelBackground;
 
 	/**
 	 * 
@@ -86,7 +86,7 @@ public class MainController {
 					playerName);
 		}
 		gameSettings = OptionsController.getInstance().getGameSettings();
-		gameSoundBackground = new GameSound(IConstants.GAME_SOUND_PATH);
+		gameSoundModelBackground = new GameSoundModel(IConstants.GAME_SOUND_PATH);
 		createWindow();
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
@@ -260,7 +260,7 @@ public class MainController {
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
 		}
 		statusbarModel.setValuesOfPlayer(playerHighscore);
-		gameSoundBackground.playSound();
+		gameSoundModelBackground.playSound();
 		logic.setGameRunning(true);
 	}
 
@@ -311,7 +311,7 @@ public class MainController {
 	 */
 	public void pauseGame() {
 		logic.setGameRunning(false);
-		gameSoundBackground.stopSound();
+		gameSoundModelBackground.stopSound();
 	}
 
 	/**
@@ -367,7 +367,7 @@ public class MainController {
 				}
 			}
 		};
-		gameSoundBackground.stopSound();
+		gameSoundModelBackground.stopSound();
 		Thread thread = new Thread(runnable);
 		thread.run();
 		isGameStarted = false;
