@@ -421,36 +421,26 @@ public class OptionView extends JDialog implements ActionListener {
 
 	protected void textFieldRightKeyPressed(KeyEvent arg0) {
 		textFieldRight.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
-		if (keys.replace("key_right", arg0.getKeyCode()) == null) {
-			keys.put("key_right", arg0.getKeyCode());
-		}
+		keys.put("key_right", arg0.getKeyCode());
 	}
 
 	protected void textFieldLeftKeyPressed(KeyEvent arg0) {
 		textFieldLeft.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
-		if (keys.replace("key_left", arg0.getKeyCode()) == null) {
-			keys.put("key_left", arg0.getKeyCode());
-		}
+		keys.put("key_left", arg0.getKeyCode());
 	}
 
 	protected void textFieldUpKeyPressed(KeyEvent arg0) {
 		textFieldUp.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
-		if (keys.replace("key_up", arg0.getKeyCode()) == null) {
-			keys.put("key_up", arg0.getKeyCode());
-		}
+		keys.put("key_up", arg0.getKeyCode());
 	}
 
 	protected void textFieldDownKeyPressed(KeyEvent arg0) {
 		textFieldDown.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
-		if (keys.replace("key_down", arg0.getKeyCode()) == null) {
-			keys.put("key_down", arg0.getKeyCode());
-		}
+		keys.put("key_down", arg0.getKeyCode());
 	}
 
 	protected void textFieldShootKeyPressed(KeyEvent arg0) {
 		textFieldShoot.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
-		if (keys.replace("key_shoot", arg0.getKeyCode()) == null) {
-			keys.put("key_shoot", arg0.getKeyCode());
-		}
+		keys.put("key_shoot", arg0.getKeyCode());
 	}
 }
