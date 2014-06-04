@@ -58,7 +58,11 @@ public class MainController {
 	private AppleModel appleModel;
 	private AppleView appleView;
 	private GameSoundModel gameSoundModelBackground;
-
+	private OpponentView opponentView;
+	private OpponentModel opponentModel;
+	private BarrierModel barrierModel;
+	private BarrierView barrierView;
+	
 	/**
 	 * 
 	 */
@@ -246,15 +250,6 @@ public class MainController {
 			gamePanelView.addActor(snakeTailView);
 			logic.addActor(snakeTailModel);
 
-			// Bullet
-			// BulletView bulletView = new BulletView(IConstants.BULLET_PATH,
-			// 20, 20, gamePanelView);
-			// BulletModel bulletModel = new BulletModel(50, 50,
-			// bulletView.getImage(), gamePanelView,
-			// snakeHeadModel.getDirection());
-			// gamePanelView.addActor(bulletView);
-			// logic.addActor(bulletModel);
-
 		} else {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
@@ -266,32 +261,32 @@ public class MainController {
 
 	private void spawnEnemies() {
 		boolean spawnNewEnemy = false;
-		int multiplikator = 0;
+		int modulo = 0;
 		switch (gameSettings.getDifficulty()) {
 		case 1:
-			multiplikator = 16;
+			modulo = 16;
 			break;
 		case 2:
-			multiplikator = 12;
+			modulo = 12;
 			break;
 		case 3:
-			multiplikator = 6;
+			modulo = 6;
 			break;
 		}
-		if (playerHighscore.getCurrentScore() % multiplikator == 0) {
+		if (playerHighscore.getCurrentScore() % modulo == 0) {
 			spawnNewEnemy = true;
 		}
 		if (spawnNewEnemy) {
-			OpponentView opponentView = new OpponentView(
+			opponentView = new OpponentView(
 					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-			OpponentModel opponentModel = new OpponentModel(gamePanelView,
+			opponentModel = new OpponentModel(gamePanelView,
 					opponentView.getImage(), logic);
 			opponentModel.addObserver(opponentView);
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
-			BarrierView barrierView = new BarrierView(IConstants.BARRIER_PATH,
+			barrierView = new BarrierView(IConstants.BARRIER_PATH,
 					0, 60, gamePanelView);
-			BarrierModel barrierModel = new BarrierModel(gamePanelView,
+			barrierModel = new BarrierModel(gamePanelView,
 					barrierView.getImage());
 			barrierModel.addObserver(barrierView);
 			logic.addActor(barrierModel);
