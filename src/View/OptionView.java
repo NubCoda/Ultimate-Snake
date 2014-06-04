@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import Controller.MainController;
 import Controller.OptionsController;
+import Properties.GameSettings;
 import Properties.PlayerHighscore;
 
 /**
@@ -37,6 +38,7 @@ public class OptionView extends JDialog implements ActionListener {
 	private JRadioButton radioButtonNormal;
 	private JRadioButton radioButtonFast;
 	private JLabel labelDifficulty;
+	private GameSettings gameSettings;
 
 	/**
 	 * 
@@ -197,15 +199,17 @@ public class OptionView extends JDialog implements ActionListener {
 				OptionsController.getInstance().saveToFile(playerHighscore,
 						difficulty);
 				MainController.getInstance().restartGame(false);
+				gameSettings = new GameSettings(difficulty);
 			}
 		} else {
 			playerHighscore = OptionsController.getInstance().getSinglePlayer(
 					(String) comboBoxPlayer.getSelectedItem());
 			OptionsController.getInstance().saveToFile(playerHighscore,
 					difficulty);
+			gameSettings = new GameSettings(difficulty);
 		}
 		if (playerHighscore != null) {
-			MainController.getInstance().setPlayerHighscore(playerHighscore);
+			MainController.getInstance().setPlayerHighscore(playerHighscore, gameSettings);
 		}
 		this.dispose();
 	}

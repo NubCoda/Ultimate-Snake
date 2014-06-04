@@ -4,6 +4,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JComponent;
@@ -62,7 +63,7 @@ public class MainController {
 	private OpponentModel opponentModel;
 	private BarrierModel barrierModel;
 	private BarrierView barrierView;
-	
+
 	/**
 	 * 
 	 */
@@ -90,7 +91,8 @@ public class MainController {
 					playerName);
 		}
 		gameSettings = OptionsController.getInstance().getGameSettings();
-		gameSoundModelBackground = new GameSoundModel(IConstants.GAME_SOUND_PATH);
+		gameSoundModelBackground = new GameSoundModel(
+				IConstants.GAME_SOUND_PATH);
 		createWindow();
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
@@ -171,7 +173,7 @@ public class MainController {
 		statusbarModel.addLabelToVector(statusLabelDifficulty);
 		statusbarModel.addKeyNameToVector("Schwierigkeit: ");
 		statusbar.addLabels();
-		statusbarModel.setValuesOfPlayer(playerHighscore);
+		statusbarModel.setValuesOfPlayer(playerHighscore, gameSettings);
 		statusbarModel.addObserver(statusbar);
 	}
 
@@ -254,7 +256,7 @@ public class MainController {
 			gameSettings = OptionsController.getInstance().getGameSettings();
 			snakeHeadModel.setSpeedByDifficulty(gameSettings.getDifficulty());
 		}
-		statusbarModel.setValuesOfPlayer(playerHighscore);
+		statusbarModel.setValuesOfPlayer(playerHighscore, gameSettings);
 		gameSoundModelBackground.playSound();
 		logic.setGameRunning(true);
 	}
@@ -262,42 +264,42 @@ public class MainController {
 	private void spawnEnemies() {
 		boolean spawnNewEnemy = false;
 		int modulo = 0;
+		long time = new Date().getTime();
 		switch (gameSettings.getDifficulty()) {
 		case 1:
-			modulo = 16;
-			break;
-		case 2:
 			modulo = 12;
 			break;
-		case 3:
+		case 2:
 			modulo = 6;
 			break;
+		case 3:
+			modulo = 3;
+			break;
 		}
-		if (playerHighscore.getCurrentScore() % modulo == 0) {
+		if (time % modulo == 0) {
 			spawnNewEnemy = true;
 		}
 		if (spawnNewEnemy) {
-			opponentView = new OpponentView(
-					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
+			opponentView = new OpponentView(IConstants.OPPONENT_PATH, 0, 60,
+					gamePanelView);
 			opponentModel = new OpponentModel(gamePanelView,
 					opponentView.getImage(), logic);
 			opponentModel.addObserver(opponentView);
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
-			barrierView = new BarrierView(IConstants.BARRIER_PATH,
-					0, 60, gamePanelView);
+			barrierView = new BarrierView(IConstants.BARRIER_PATH, 0, 60,
+					gamePanelView);
 			barrierModel = new BarrierModel(gamePanelView,
 					barrierView.getImage());
 			barrierModel.addObserver(barrierView);
 			logic.addActor(barrierModel);
 			gamePanelView.addActor(barrierView);
-
 		}
 	}
 
 	public void raiseScore() {
 		playerHighscore.setCurrentScore(playerHighscore.getCurrentScore() + 2);
-		statusbarModel.setValuesOfPlayer(playerHighscore);
+		statusbarModel.setValuesOfPlayer(playerHighscore, gameSettings);
 		spawnEnemies();
 	}
 
@@ -313,6 +315,7 @@ public class MainController {
 	 * 
 	 */
 	public void restartGame(boolean startGame) {
+		
 		logic.clearActors();
 		gamePanelView.clearActors();
 		isGameStarted = false;
@@ -322,9 +325,10 @@ public class MainController {
 		}
 	}
 
-	public void setPlayerHighscore(PlayerHighscore playerHighscore) {
+	public void setPlayerHighscore(PlayerHighscore playerHighscore, GameSettings gameSettings) {
 		this.playerHighscore = playerHighscore;
-		statusbarModel.setValuesOfPlayer(playerHighscore);
+		this.gameSettings = gameSettings;
+		statusbarModel.setValuesOfPlayer(playerHighscore, gameSettings);
 	}
 
 	public void displayRanking() {

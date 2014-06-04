@@ -32,7 +32,7 @@ public class StatusbarModel extends Observable {
 		notifyObservers();
 	}
 
-	public void setValuesOfPlayer(PlayerHighscore playerHighscore) {
+	public void setValuesOfPlayer(PlayerHighscore playerHighscore, GameSettings gameSettings) {
 		statusLabelVector.elementAt(0).setText(
 				"Spieler: " + playerHighscore.getPlayer().getPlayerName());
 		statusLabelVector.elementAt(1).setText(
