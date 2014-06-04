@@ -38,8 +38,8 @@ public class BulletModel extends Observable implements ISphere {
 		this.gamePanelView = gamePanelView;
 		this.bufferedImages = bufferedImage;
 		this.direction = direction;
-		this.bounding = new Rectangle2D.Double(midOfSnakeHeadGraphicX,
-				midOfSnakeHeadGraphicY, bufferedImage.getWidth(),
+		this.bounding = new Rectangle2D.Double(midOfSnakeHeadGraphicX - (bufferedImage.getWidth()/2),
+				midOfSnakeHeadGraphicY - (bufferedImage.getHeight()/2), bufferedImage.getWidth(),
 				bufferedImage.getHeight());
 
 	}

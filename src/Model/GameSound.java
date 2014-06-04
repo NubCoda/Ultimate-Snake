@@ -8,31 +8,35 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 public class GameSound {
-	private String soundFilePath;
 	private Player soundPlayer;
 	private FileInputStream fileInputStream;
 	private Thread thread;
+	private Runnable runnable;
+	private String soundFilePath;
+	private boolean fileClosed = false;
 	
 	public GameSound(String soundFilePath) {
 		this.soundFilePath = soundFilePath;
+		openSoundFile();
 	}
-	
+
 	public void stopSound() {
-		if(soundPlayer != null){
-			soundPlayer.close();
-		}
+		soundPlayer.close();
+		fileClosed = true;
 	}
 
 	public void playSound() {
+		if(fileClosed){
+			fileClosed = false;
+			openSoundFile();
+		}
 		try {
-			fileInputStream = new FileInputStream(new File(soundFilePath));
 			soundPlayer = new Player(fileInputStream);
-		} catch (JavaLayerException | FileNotFoundException e1) {
+		} catch (JavaLayerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Runnable runnable = new Runnable() {
-
+		runnable = new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -45,5 +49,15 @@ public class GameSound {
 		};
 		thread = new Thread(runnable);
 		thread.start();
+	}
+	
+	private void openSoundFile(){
+		try {
+			fileInputStream = new FileInputStream(new File(soundFilePath));
+			soundPlayer = new Player(fileInputStream);
+		} catch (JavaLayerException | FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }
