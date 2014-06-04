@@ -34,6 +34,11 @@ public interface IConstants {
 	/**
 	 * 
 	 */
+	public static final String BARRIER_PATH = "./resources/pic/tree_sprite.png";
+	
+	/**
+	 * 
+	 */
 	public static final String CONFIG_PATH = "./resources/other/config.ini";
 	
 	/**

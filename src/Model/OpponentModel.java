@@ -158,7 +158,6 @@ public class OpponentModel extends Observable implements IEnemy {
 
 	@Override
 	public void checkCollision(IActor actor) {
-//		 TODO: check if its is needed
 		if (bounding.intersects(actor.getBounding())
 				&& actor instanceof ISphere) {
 			((ISphere) actor).setGone(true);

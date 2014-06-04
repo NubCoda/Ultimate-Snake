@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 
 import Model.AppleModel;
+import Model.BarrierModel;
 import Model.BulletModel;
 import Model.DatabaseConnectionModel;
 import Model.GameSound;
@@ -24,6 +25,7 @@ import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Properties.Player;
 import View.AppleView;
+import View.BarrierView;
 import View.BulletView;
 import View.GamePanelView;
 import View.KeyListenerView;
@@ -277,6 +279,13 @@ public class MainController {
 			opponentModel.addObserver(opponentView);
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
+			BarrierView barrierView = new BarrierView(IConstants.BARRIER_PATH, 0, 60,
+					gamePanelView);
+			BarrierModel barrierModel = new BarrierModel(gamePanelView,
+					barrierView.getImage());
+			barrierModel.addObserver(barrierView);
+			logic.addActor(barrierModel);
+			gamePanelView.addActor(barrierView);
 		}
 	}
 
