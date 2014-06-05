@@ -31,7 +31,7 @@ public interface IDefaultOptions {
 	/**
 	 * 
 	 */
-	public static final Difficuty DEFAULT_DIFFICULTY = Difficuty.SIMPLE;
+	public static final Difficulty DEFAULT_DIFFICULTY = Difficulty.SIMPLE;
 
 	/**
 	 * 

@@ -15,7 +15,7 @@ import Model.OpponentModel;
 import Model.SnakeHeadModel;
 import Model.SnakeTailModel;
 import Model.StatusbarModel;
-import Model.Interface.Difficuty;
+import Model.Interface.Difficulty;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
@@ -274,7 +274,7 @@ public class MainController {
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
 		long time = System.currentTimeMillis();
-		switch (Difficuty.fromString(OptionsController.getInstance().getOption(
+		switch (Difficulty.fromString(OptionsController.getInstance().getOption(
 				"difficulty"))) {
 		case SIMPLE:
 			multiplikator = 12;

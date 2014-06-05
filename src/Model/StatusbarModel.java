@@ -3,7 +3,7 @@ package Model;
 import java.util.Observable;
 
 import Controller.OptionsController;
-import Model.Interface.Difficuty;
+import Model.Interface.Difficulty;
 import Properties.Player;
 
 /**
@@ -56,8 +56,8 @@ public class StatusbarModel extends Observable {
 	 * 
 	 * @return
 	 */
-	public Difficuty getDifficulty() {
-		return Difficuty.fromString(OptionsController.getInstance().getOption(
+	public Difficulty getDifficulty() {
+		return Difficulty.fromString(OptionsController.getInstance().getOption(
 				"difficulty"));
 	}
 

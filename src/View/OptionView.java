@@ -27,7 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 import Controller.MainController;
 import Controller.OptionsController;
-import Model.Interface.Difficuty;
+import Model.Interface.Difficulty;
 import Properties.Player;
 
 /**
@@ -64,7 +64,7 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param mainView
 	 * @param playerVector
 	 */
-	public OptionView(Vector<Player> playerVector, Difficuty difficulty,
+	public OptionView(Vector<Player> playerVector, Difficulty difficulty,
 			String playerName) {
 		initGUI();
 		setTitle("Optionen");
@@ -277,7 +277,6 @@ public class OptionView extends JDialog implements ActionListener {
 			contentPanel.add(textFieldDown, gbc_textField_3);
 		}
 		{
-			// KeyEvent.getKeyText(Integer.valueOf(OptionsController.getInstance().getOption("key_shoot")))
 			textFieldShoot = new JTextField(KeyEvent.getKeyText(Integer
 					.valueOf(OptionsController.getInstance().getOption(
 							"key_shoot"))));
@@ -341,7 +340,7 @@ public class OptionView extends JDialog implements ActionListener {
 	 * 
 	 * @param difficulty
 	 */
-	private void selectDifficulty(Difficuty difficulty) {
+	private void selectDifficulty(Difficulty difficulty) {
 		switch (difficulty) {
 		case SIMPLE:
 			radioButtonSlow.setSelected(true);
@@ -378,19 +377,19 @@ public class OptionView extends JDialog implements ActionListener {
 	 * @param arg0
 	 */
 	private void buttonOkActionPerformed(ActionEvent arg0) {
-		Difficuty difficulty;
+		Difficulty difficulty;
 		if (radioButtonSlow.isSelected()) {
-			difficulty = Difficuty.SIMPLE;
+			difficulty = Difficulty.SIMPLE;
 		} else if (radioButtonNormal.isSelected()) {
-			difficulty = Difficuty.MEDIUM;
+			difficulty = Difficulty.MEDIUM;
 		} else {
-			difficulty = Difficuty.DIFFICULT;
+			difficulty = Difficulty.DIFFICULT;
 		}
 
 		int selection = JOptionPane
 				.showConfirmDialog(
 						null,
-						"Die Spieleinstellungen wurden geÃ¤ndert! Das Spiel wird zurÃ¼ckgesetzt, wenn Sie fortfahren. Wollen Sie wirklich fortfahren?",
+						"Die Spieleinstellungen wurden geändert! Das Spiel wird zurückgesetzt, wenn Sie fortfahren. Wollen Sie wirklich fortfahren?",
 						"Achtung", JOptionPane.YES_NO_OPTION,
 						JOptionPane.WARNING_MESSAGE);
 		if (selection == JOptionPane.YES_OPTION) {

@@ -7,7 +7,7 @@ import java.util.Observable;
 
 import Controller.MainController;
 import Controller.OptionsController;
-import Model.Interface.Difficuty;
+import Model.Interface.Difficulty;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IElement;
@@ -46,10 +46,10 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	@Override
 	public void actuate(double delta) {
 		lastMove += delta;
-		Difficuty difficuty = Difficuty.fromString(OptionsController
+		Difficulty difficuty = Difficulty.fromString(OptionsController
 				.getInstance().getOption("difficulty"));
-		int speed = difficuty == Difficuty.SIMPLE ? 110
-				: difficuty == Difficuty.MEDIUM ? 80 : 50;
+		int speed = difficuty == Difficulty.SIMPLE ? 110
+				: difficuty == Difficulty.MEDIUM ? 80 : 50;
 		if (lastMove > speed) {
 			lastMove = 0;
 			move();

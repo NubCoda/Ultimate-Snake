@@ -4,7 +4,7 @@ package Model.Interface;
  * 
  *
  */
-public enum Difficuty {
+public enum Difficulty {
 	SIMPLE, MEDIUM, DIFFICULT;
 
 	@Override
@@ -18,7 +18,7 @@ public enum Difficuty {
 	 * @param difficulty
 	 * @return
 	 */
-	public static Difficuty fromString(String difficulty) {
+	public static Difficulty fromString(String difficulty) {
 		if (difficulty.equals("einfach")) {
 			return SIMPLE;
 		} else if (difficulty.equals("normal")) {
