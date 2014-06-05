@@ -297,7 +297,7 @@ public class OptionView extends JDialog implements ActionListener {
 			contentPanel.add(textFieldShoot, gbc_textField_4);
 		}
 		{
-			labelShoot = new JLabel("Schie√üen:");
+			labelShoot = new JLabel("Schieﬂen:");
 			GridBagConstraints gbc_labelSchieen = new GridBagConstraints();
 			gbc_labelSchieen.anchor = GridBagConstraints.WEST;
 			gbc_labelSchieen.insets = new Insets(0, 0, 0, 5);
