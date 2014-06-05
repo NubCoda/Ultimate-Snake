@@ -9,6 +9,7 @@ public class Player {
 	private int playerId;
 	private int highscore;
 	private int score = 0;
+	private int bulletCount = 0;
 	
 	/**
 	 * 
@@ -99,5 +100,21 @@ public class Player {
 	 */
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getBulletCount() {
+		return bulletCount;
+	}
+
+	/**
+	 * 
+	 * @param count
+	 */
+	public void setBulletCount(int count) {
+		this.bulletCount = count;
 	}
 }

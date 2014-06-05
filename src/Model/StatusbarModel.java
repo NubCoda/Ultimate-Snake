@@ -48,6 +48,14 @@ public class StatusbarModel extends Observable {
 	 * 
 	 * @return
 	 */
+	public int getBulletCount() {
+		return player.getBulletCount();
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
 	public Difficuty getDifficulty() {
 		return Difficuty.fromString(OptionsController.getInstance()
 				.getOption("difficulty"));

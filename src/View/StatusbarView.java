@@ -21,6 +21,7 @@ public class StatusbarView extends JPanel implements Observer {
 	private JLabel scoreLabel;
 	private JLabel highscoreLabel;
 	private JLabel difficultyLabel;
+	private JLabel bulletCountLabel;
 
 	/**
 	 * 
@@ -32,9 +33,11 @@ public class StatusbarView extends JPanel implements Observer {
 		scoreLabel = new JLabel("Punkte: ");
 		highscoreLabel = new JLabel("Highscore: ");
 		difficultyLabel = new JLabel("Schwierigkeit: ");
+		bulletCountLabel = new JLabel("Schüsse: ");
 		this.add(playerLabel);
 		this.add(scoreLabel);
 		this.add(highscoreLabel);
+		this.add(bulletCountLabel);
 		this.add(difficultyLabel);
 	}
 
@@ -44,7 +47,7 @@ public class StatusbarView extends JPanel implements Observer {
 		playerLabel.setText("Spieler: " + statusbarModel.getPlayerName());
 		scoreLabel.setText("Punkte: " + statusbarModel.getScore());
 		highscoreLabel.setText("Highscore: " + statusbarModel.getHighscore());
-		difficultyLabel.setText("Schwierigkeit: "
-				+ statusbarModel.getDifficulty().toString());
+		difficultyLabel.setText("Schwierigkeit: " + statusbarModel.getDifficulty().toString());
+		bulletCountLabel.setText("Schüsse: " + statusbarModel.getBulletCount());
 	}
 }

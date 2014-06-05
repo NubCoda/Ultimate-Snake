@@ -53,6 +53,7 @@ public class MainController {
 	private boolean isGameStarted;
 	private GameSound gameSoundBackground;
 	private KeyListenerView keyListenerView;
+
 	/**
 	 * 
 	 */
@@ -146,6 +147,7 @@ public class MainController {
 			isGameStarted = true;
 			gamePanelView.clearActors();
 			logic.clearActors();
+			player.setBulletCount(0);
 			player.setScore(0);
 			statusbarModel.updateStatus();
 			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
@@ -169,11 +171,6 @@ public class MainController {
 			snakeHeadModel.setLast(snakeTailModel2);
 			AppleModel appleModel = new AppleModel(gamePanelView,
 					appleView.getImage());
-			OpponentView opponentView1 = new OpponentView(
-					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-			OpponentModel opponentModel1 = new OpponentModel(gamePanelView,
-					opponentView1.getImage());
-			opponentModel1.addObserver(opponentView1);
 			appleModel.addObserver(appleView);
 			snakeHeadModel.addObserver(snakeHeadView);
 			snakeTailModel.addObserver(snakeTailView);
@@ -184,13 +181,11 @@ public class MainController {
 			logic.addActor(snakeTailModel);
 			logic.addActor(snakeTailModel1);
 			logic.addActor(snakeTailModel2);
-			logic.addActor(opponentModel1);
 			gamePanelView.addActor(appleView);
 			gamePanelView.addActor(snakeHeadView);
 			gamePanelView.addActor(snakeTailView);
 			gamePanelView.addActor(snakeTailView1);
 			gamePanelView.addActor(snakeTailView2);
-			gamePanelView.addActor(opponentView1);
 			logic.setGameRunning(true);
 			gameSoundBackground.playSound();
 		}
@@ -215,7 +210,6 @@ public class MainController {
 			logic.clearActors();
 			gamePanelView.clearActors();
 			isGameStarted = false;
-			player.setScore(0);
 			startGame();
 		}
 	}
@@ -251,6 +245,7 @@ public class MainController {
 	 * 
 	 */
 	public void raiseScore() {
+		player.setBulletCount(player.getBulletCount() + 2);
 		snakeHeadModel.increaseLength();
 		player.setScore(player.getScore() + 2);
 		statusbarModel.updateStatus();
@@ -279,8 +274,8 @@ public class MainController {
 			opponentModel.addObserver(opponentView);
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
-			BarrierView barrierView = new BarrierView(IConstants.BARRIER_PATH, 0, 60,
-					gamePanelView);
+			BarrierView barrierView = new BarrierView(IConstants.BARRIER_PATH,
+					0, 60, gamePanelView);
 			BarrierModel barrierModel = new BarrierModel(gamePanelView,
 					barrierView.getImage());
 			barrierModel.addObserver(barrierView);
@@ -331,6 +326,7 @@ public class MainController {
 		player.setPlayerName(newPlayer.getPlayerName());
 		player.setPlayerId(newPlayer.getPlayerId());
 		player.setScore(newPlayer.getScore());
+		player.setBulletCount(newPlayer.getScore());
 		player.setHighscore(newPlayer.getHighscore());
 	}
 
@@ -349,25 +345,27 @@ public class MainController {
 	 * 
 	 */
 	public void shoot() {
-//		boolean addShot = snakeHeadModel.allowShoot();
-//		if (addShot) {
+		if (player.getBulletCount() > 0) {
+			player.setBulletCount(player.getBulletCount() - 1);
+			statusbarModel.updateStatus();
 			BulletView bulletView = new BulletView(IConstants.BULLET_PATH,
-					snakeHeadModel.getBounding().getCenterX(), snakeHeadModel.getBounding().getCenterY(),
-					gamePanelView);
-			BulletModel bulletModel = new BulletModel(snakeHeadModel.getBounding().getCenterX(),
-					snakeHeadModel.getBounding().getCenterY(), bulletView.getImage(),
-					gamePanelView, snakeHeadModel.getDirection());
+					snakeHeadModel.getBounding().getCenterX(), snakeHeadModel
+							.getBounding().getCenterY(), gamePanelView);
+			BulletModel bulletModel = new BulletModel(snakeHeadModel
+					.getBounding().getCenterX(), snakeHeadModel.getBounding()
+					.getCenterY(), bulletView.getImage(), gamePanelView,
+					snakeHeadModel.getDirection());
 			bulletModel.addObserver(bulletView);
 			logic.addActor(bulletModel);
 			gamePanelView.addActor(bulletView);
-//		}
+		}
 	}
-	
-	public void removeSpriteView(SpriteView spriteView){
+
+	public void removeSpriteView(SpriteView spriteView) {
 		gamePanelView.removeActor(spriteView);
 	}
-	
-	public void removeActor(IActor actor){
+
+	public void removeActor(IActor actor) {
 		logic.removeActor(actor);
 	}
 }
