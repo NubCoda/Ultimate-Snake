@@ -61,8 +61,14 @@ public class OpponentModel extends Observable implements IEnemy {
 	 * 
 	 */
 	public void moveOpponent() {
-		bounding.x += getNextMovement(true);
-		bounding.y += getNextMovement(false);
+		double x = 0;
+		double y = 0;
+		do {
+			x = bounding.x + getNextMovement(true);
+			y = bounding.y + getNextMovement(false);
+		} while (!MainController.getInstance().checkPosition(x, y));
+		bounding.x = x;
+		bounding.y = y;
 	}
 
 	/**
