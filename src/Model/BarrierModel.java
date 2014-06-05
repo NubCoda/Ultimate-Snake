@@ -1,7 +1,6 @@
 package Model;
 
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Random;
 
@@ -9,19 +8,19 @@ import Controller.MainController;
 import Model.Interface.IActor;
 import Model.Interface.IEnemy;
 import Model.Interface.ISphere;
-import View.GamePanelView;
 
 public class BarrierModel extends Observable implements IActor, IEnemy {
 
 	private Rectangle2D.Double bounding;
-	private GamePanelView gamePanelView;
 	private boolean barrierAlive = false;
 	private boolean isAlive = true;
+	private int maxX;
+	private int maxY;
 
-	public BarrierModel(GamePanelView gamePanelView, BufferedImage bufferedImage) {
-		this.bounding = new Rectangle2D.Double(0, 0, bufferedImage.getWidth(),
-				bufferedImage.getHeight());
-		this.gamePanelView = gamePanelView;
+	public BarrierModel(int maxX, int maxY, int width, int height) {
+		this.bounding = new Rectangle2D.Double(0, 0, width, height);
+		this.maxX = maxX;
+		this.maxY = maxY;
 	}
 
 	public void moveBarrier() {
@@ -29,10 +28,8 @@ public class BarrierModel extends Observable implements IActor, IEnemy {
 		int x = 0;
 		int y = 0;
 		do {
-			x = random.nextInt((int) (gamePanelView.getWidth() - bounding
-					.getWidth()));
-			y = random.nextInt((int) (gamePanelView.getHeight() - bounding
-					.getHeight()));
+			x = random.nextInt((int) (maxX - bounding.getWidth()));
+			y = random.nextInt((int) (maxY - bounding.getHeight()));
 		} while (!MainController.getInstance().checkPosition(
 				x - (x % bounding.getWidth()), y - (y % bounding.getHeight())));
 		bounding.x = (int) (x - (x % bounding.getWidth()));

@@ -4,7 +4,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import Controller.MainController;
@@ -12,7 +11,6 @@ import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IEnemy;
 import Model.Interface.IPlayerBone;
-import View.GamePanelView;
 
 /**
  * 
@@ -34,10 +32,9 @@ public class SnakeTailModel extends Observable implements IPlayerBone {
 	 * @param vorgaenger
 	 * @param bufferedImage
 	 */
-	public SnakeTailModel(GamePanelView gamePanelView, double x, double y,
-			IPlayerBone vorgaenger, BufferedImage bufferedImage) {
-		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(),
-				bufferedImage.getHeight());
+	public SnakeTailModel(double x, double y, IPlayerBone vorgaenger,
+			int width, int height) {
+		this.bounding = new Ellipse2D.Double(x, y, width, height);
 		this.vorgaenger = vorgaenger;
 		movement = new Point2D.Double(x, y);
 	}

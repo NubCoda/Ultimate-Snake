@@ -165,11 +165,14 @@ public class MainController {
 			player.setScore(0);
 			statusbarModel.updateStatus();
 
+			int maxX = gamePanelView.getWidth();
+			int maxY = gamePanelView.getHeight();
+
 			// Apple
 			AppleView appleView = new AppleView(IConstants.APPLE_PATH, 0, 0,
 					gamePanelView);
-			AppleModel appleModel = new AppleModel(gamePanelView,
-					appleView.getImage());
+			AppleModel appleModel = new AppleModel(maxX, maxY, appleView
+					.getImage().getWidth(), appleView.getImage().getHeight());
 			appleModel.addObserver(appleView);
 			logic.addActor(appleModel);
 			gamePanelView.addActor(appleView);
@@ -177,8 +180,9 @@ public class MainController {
 			// SnakeHead
 			SnakeHeadView snakeHeadView = new SnakeHeadView(
 					IConstants.SNAKE_HEAD_PATH, 120, 120, gamePanelView);
-			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
-					snakeHeadView.getImage(), logic);
+			snakeHeadModel = new SnakeHeadModel(maxX, maxY, 120, 120,
+					snakeHeadView.getImage().getWidth(), snakeHeadView
+							.getImage().getHeight(), logic, gamePanelView);
 			snakeHeadModel.addObserver(snakeHeadView);
 			logic.addActor(snakeHeadModel);
 			gamePanelView.addActor(snakeHeadView);
@@ -187,10 +191,11 @@ public class MainController {
 			IPlayerBone vorgaenger = snakeHeadModel;
 			for (int count = 1; count <= 3; count++) {
 				SnakeTailView snakeTailView = new SnakeTailView(
-						IConstants.SNAKE_TAIL_PATH, 100, 120, gamePanelView);
-				SnakeTailModel snakeTailModel = new SnakeTailModel(
-						gamePanelView, 100, 120, vorgaenger,
-						snakeTailView.getImage());
+						IConstants.SNAKE_TAIL_PATH, 120 - vorgaenger
+								.getBounding().getWidth(), 120, gamePanelView);
+				SnakeTailModel snakeTailModel = new SnakeTailModel(100, 120,
+						vorgaenger, snakeTailView.getImage().getWidth(),
+						snakeTailView.getImage().getHeight());
 				snakeTailModel.addObserver(snakeTailView);
 				logic.addActor(snakeTailModel);
 				gamePanelView.addActor(snakeTailView);
@@ -286,15 +291,19 @@ public class MainController {
 		if (spawnNewEnemy) {
 			OpponentView opponentView = new OpponentView(
 					IConstants.OPPONENT_PATH, 0, 60, gamePanelView);
-			OpponentModel opponentModel = new OpponentModel(gamePanelView,
-					opponentView.getImage());
+			OpponentModel opponentModel = new OpponentModel(
+					gamePanelView.getWidth(), gamePanelView.getHeight(),
+					opponentView.getImage().getWidth(), opponentView.getImage()
+							.getHeight());
 			opponentModel.addObserver(opponentView);
 			logic.addActor(opponentModel);
 			gamePanelView.addActor(opponentView);
 			BarrierView barrierView = new BarrierView(IConstants.BARRIER_PATH,
 					0, 60, gamePanelView);
-			BarrierModel barrierModel = new BarrierModel(gamePanelView,
-					barrierView.getImage());
+			BarrierModel barrierModel = new BarrierModel(
+					gamePanelView.getWidth(), gamePanelView.getHeight(),
+					barrierView.getImage().getWidth(), barrierView.getImage()
+							.getHeight());
 			barrierModel.addObserver(barrierView);
 			logic.addActor(barrierModel);
 			gamePanelView.addActor(barrierView);
@@ -370,8 +379,8 @@ public class MainController {
 							.getBounding().getCenterY(), gamePanelView);
 			BulletModel bulletModel = new BulletModel(snakeHeadModel
 					.getBounding().getCenterX(), snakeHeadModel.getBounding()
-					.getCenterY(), bulletView.getImage(), gamePanelView,
-					snakeHeadModel.getDirection());
+					.getCenterY(), bulletView.getImage().getWidth(), bulletView
+					.getImage().getHeight(), snakeHeadModel.getDirection());
 			bulletModel.addObserver(bulletView);
 			logic.addActor(bulletModel);
 			gamePanelView.addActor(bulletView);

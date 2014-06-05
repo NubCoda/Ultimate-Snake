@@ -3,7 +3,6 @@ package Model;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import Controller.MainController;
@@ -29,8 +28,10 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	private Direction newDirection = Direction.NONE;
 	private Direction direction = Direction.RIGHT;
 	private IPlayerBone last;
-	private GamePanelView gamePanelView;
 	private Logic logic;
+	private int maxX;
+	private int maxY;
+	private GamePanelView gamePanelView;
 
 	/**
 	 * 
@@ -39,13 +40,14 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	 * @param y
 	 * @param bufferedImage
 	 */
-	public SnakeHeadModel(GamePanelView gamePanelView, double x, double y,
-			BufferedImage bufferedImage, Logic logic) {
-		this.bounding = new Ellipse2D.Double(x, y, bufferedImage.getWidth(),
-				bufferedImage.getHeight());
+	public SnakeHeadModel(int maxX, int maxY, double x, double y, int width,
+			int height, Logic logic, GamePanelView gamePanelView) {
+		this.bounding = new Ellipse2D.Double(x, y, width, height);
 		movement = new Point2D.Double(x, y);
-		this.gamePanelView = gamePanelView;
 		this.logic = logic;
+		this.maxX = maxX;
+		this.maxY = maxY;
+		this.gamePanelView = gamePanelView;
 	}
 
 	@Override
@@ -77,24 +79,22 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 
 		switch (direction) {
 		case DOWN:
-			bounding.y = (bounding.y + bounding.getHeight())
-					% gamePanelView.getHeight();
+			bounding.y = (bounding.y + bounding.getHeight()) % maxY;
 			break;
 		case UP:
 			bounding.y -= bounding.getHeight();
 			if (bounding.y < 0) {
-				bounding.y += gamePanelView.getHeight();
+				bounding.y += maxY;
 			}
 			break;
 		case RIGHT:
-			bounding.x = (bounding.x + bounding.getWidth())
-					% gamePanelView.getWidth();
+			bounding.x = (bounding.x + bounding.getWidth()) % maxX;
 
 			break;
 		case LEFT:
 			bounding.x -= bounding.getWidth();
 			if (bounding.x < 0) {
-				bounding.x += gamePanelView.getWidth();
+				bounding.x += maxX;
 			}
 			break;
 		default:
@@ -135,9 +135,9 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 		SnakeTailView newTailView = new SnakeTailView(
 				IConstants.SNAKE_TAIL_PATH, x, y, gamePanelView);
 		SnakeTailModel newTailModel;
-		newTailModel = new SnakeTailModel(gamePanelView, x, y,
-				(IPlayerBone) MainController.getInstance().getActor(last),
-				newTailView.getImage());
+		newTailModel = new SnakeTailModel(x, y, (IPlayerBone) MainController
+				.getInstance().getActor(last), newTailView.getImage()
+				.getWidth(), newTailView.getImage().getHeight());
 		newTailModel.addObserver(newTailView);
 		gamePanelView.addActor(newTailView);
 		logic.addActor(newTailModel);

@@ -1,36 +1,28 @@
 package Model;
 
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import Controller.MainController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.ISphere;
-import View.GamePanelView;
 
 public class BulletModel extends Observable implements ISphere {
-	private BufferedImage bufferedImages;
-	private GamePanelView gamePanelView;
 	private Rectangle2D.Double bounding;
 	private double speed = 0.5;
 	private double timeAlive = 0;
 	private final double TIMETOLIVEINSECONDS = 5000;
 	private boolean bulletIsGone = false;
-	// private List<OpponentModel> opponents1;
 	private Direction direction;
 
 	public BulletModel(double midOfSnakeHeadGraphicX,
-			double midOfSnakeHeadGraphicY, BufferedImage bufferedImage,
-			GamePanelView gamePanelView, Direction direction) {
-		this.gamePanelView = gamePanelView;
-		this.bufferedImages = bufferedImage;
+			double midOfSnakeHeadGraphicY, int width, int height,
+			Direction direction) {
 		this.direction = direction;
 		this.bounding = new Rectangle2D.Double(midOfSnakeHeadGraphicX
-				- (bufferedImage.getWidth() / 2), midOfSnakeHeadGraphicY
-				- (bufferedImage.getHeight() / 2), bufferedImage.getWidth(),
-				bufferedImage.getHeight());
+				- (width / 2), midOfSnakeHeadGraphicY - (height / 2), width,
+				height);
 
 	}
 
@@ -71,10 +63,6 @@ public class BulletModel extends Observable implements ISphere {
 		// notifyObservers();
 		// MainController.getInstance().removeActor(this);
 		// }
-	}
-
-	public BufferedImage getBufferedImage() {
-		return this.bufferedImages;
 	}
 
 	@Override
