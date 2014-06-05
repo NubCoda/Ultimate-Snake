@@ -368,4 +368,8 @@ public class MainController {
 	public void removeActor(IActor actor) {
 		logic.removeActor(actor);
 	}
+	
+	public boolean checkPosition(double x, double y){
+		return logic.checkPosition(x, y);
+	}
 }
