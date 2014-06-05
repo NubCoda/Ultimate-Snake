@@ -42,10 +42,8 @@ public class OpponentModel extends Observable implements IEnemy {
 	public OpponentModel(GamePanelView gamePanelView,
 			BufferedImage bufferedImage) {
 		this.gamePanelView = gamePanelView;
-
-		this.positionX = setStartPosition(true);
-		this.positionY = setStartPosition(false);
-
+		setStartPosition();
+		
 		this.bounding = new Rectangle2D.Double(positionX, positionY,
 				bufferedImage.getWidth(), bufferedImage.getHeight());
 
@@ -62,16 +60,16 @@ public class OpponentModel extends Observable implements IEnemy {
 	 * @param width
 	 * @return
 	 */
-	private double setStartPosition(boolean width) {
-		double newPosition;
-		if (width) {
-			newPosition = (Math.random()
-					* ((gamePanelView.getWidth() - padding) / 2) + padding);
-		} else {
-			newPosition = (Math.random()
-					* ((gamePanelView.getHeight() - padding) / 2) + padding);
-		}
-		return newPosition;
+	private void setStartPosition() {
+		
+		double x = 0;
+		double y = 0;
+		do {
+			x = (Math.random() * ((gamePanelView.getWidth() - padding) / 2) + padding);
+			y = (Math.random() * ((gamePanelView.getHeight() - padding) / 2) + padding);
+		} while (!MainController.getInstance().checkPosition(x, y));
+		positionX = x;
+		positionY = x;
 	}
 
 	/**
