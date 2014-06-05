@@ -19,7 +19,9 @@ public class GameSoundModel {
 	}
 
 	public void stopSound() {
-		soundPlayer.close();
+		if(soundPlayer != null){
+			soundPlayer.close();
+		}
 	}
 
 	public void playSound() {

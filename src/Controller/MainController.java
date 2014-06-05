@@ -409,6 +409,6 @@ public class MainController {
 		newTailModel.addObserver(newTailView);
 		gamePanelView.addActor(newTailView);
 		logic.addActor(newTailModel);
-		return null;
+		return newTailModel;
 	}
 }
