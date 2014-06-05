@@ -68,7 +68,7 @@ public class DatabaseConnectionModel {
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet != null) {
+			if (resultSet.isBeforeFirst()) {
 				player = new Player(resultSet.getInt("player_id"),
 						resultSet.getString("player_name"),
 						resultSet.getInt("highscore"));

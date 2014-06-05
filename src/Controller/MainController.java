@@ -13,7 +13,7 @@ import Model.AppleModel;
 import Model.BarrierModel;
 import Model.BulletModel;
 import Model.DatabaseConnectionModel;
-import Model.GameSound;
+import Model.GameSoundModel;
 import Model.Logic;
 import Model.OpponentModel;
 import Model.SnakeHeadModel;
@@ -23,6 +23,7 @@ import Model.Interface.Difficuty;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
+import Model.Interface.IDefaultOptions;
 import Properties.Player;
 import View.AppleView;
 import View.BarrierView;
@@ -51,17 +52,21 @@ public class MainController {
 	private Player player;
 	private DatabaseConnectionModel connectionModel;
 	private boolean isGameStarted;
-	private GameSound gameSoundBackground;
+	private GameSoundModel gameSoundBackground;
 	private KeyListenerView keyListenerView;
 
 	/**
 	 * 
 	 */
 	private MainController() {
-		gameSoundBackground = new GameSound(IConstants.GAME_SOUND_PATH);
+		gameSoundBackground = new GameSoundModel(IConstants.GAME_SOUND_PATH);
 		connectionModel = new DatabaseConnectionModel();
 		player = connectionModel.getSinglePlayer(OptionsController
 				.getInstance().getOption("player"));
+		if(player == null){
+			player = connectionModel.getSinglePlayer(IDefaultOptions.DEFAULT_PLAYER);
+			OptionsController.getInstance().setOption("player", player.getPlayerName());
+		}
 		createWindow();
 		logic = new Logic();
 		logic.addObserver(gamePanelView);

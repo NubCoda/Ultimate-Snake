@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
-public class GameSound {
+public class GameSoundModel {
 	private Player soundPlayer;
 	private FileInputStream fileInputStream;
 	private Thread thread;
@@ -15,7 +15,7 @@ public class GameSound {
 	private String soundFilePath;
 	private boolean fileClosed = false;
 	
-	public GameSound(String soundFilePath) {
+	public GameSoundModel(String soundFilePath) {
 		this.soundFilePath = soundFilePath;
 		openSoundFile();
 	}
