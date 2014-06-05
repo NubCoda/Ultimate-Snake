@@ -157,13 +157,11 @@ public class MainController {
 	 */
 	public void startGame() {
 		if (!isGameStarted) {
-			gamePanelView.addKeyListener(keyListenerView);
 			isGameStarted = true;
 			gamePanelView.clearActors();
 			logic.clearActors();
 			player.setBulletCount(0);
 			player.setScore(0);
-			statusbarModel.updateStatus();
 
 			int maxX = gamePanelView.getWidth();
 			int maxY = gamePanelView.getHeight();
@@ -182,7 +180,7 @@ public class MainController {
 					IConstants.SNAKE_HEAD_PATH, 120, 120, gamePanelView);
 			snakeHeadModel = new SnakeHeadModel(maxX, maxY, 120, 120,
 					snakeHeadView.getImage().getWidth(), snakeHeadView
-							.getImage().getHeight(), logic, gamePanelView);
+							.getImage().getHeight());
 			snakeHeadModel.addObserver(snakeHeadView);
 			logic.addActor(snakeHeadModel);
 			gamePanelView.addActor(snakeHeadView);
@@ -202,9 +200,11 @@ public class MainController {
 				vorgaenger = snakeTailModel;
 			}
 			snakeHeadModel.setLast(vorgaenger);
-			logic.setGameRunning(true);
-			gameSoundBackground.playSound();
 		}
+		gamePanelView.addKeyListener(keyListenerView);
+		statusbarModel.updateStatus();
+		logic.setGameRunning(true);
+		gameSoundBackground.playSound();
 	}
 
 	/**
@@ -397,5 +397,18 @@ public class MainController {
 
 	public boolean checkPosition(double x, double y) {
 		return logic.checkPosition(x, y);
+	}
+
+	public IPlayerBone createSnakeTail(int x, int y, IPlayerBone vorgaenger) {
+		SnakeTailView newTailView = new SnakeTailView(
+				IConstants.SNAKE_TAIL_PATH, x, y, gamePanelView);
+		SnakeTailModel newTailModel;
+		newTailModel = new SnakeTailModel(x, y,
+				(IPlayerBone) getActor(vorgaenger), newTailView.getImage()
+						.getWidth(), newTailView.getImage().getHeight());
+		newTailModel.addObserver(newTailView);
+		gamePanelView.addActor(newTailView);
+		logic.addActor(newTailModel);
+		return null;
 	}
 }

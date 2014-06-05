@@ -10,12 +10,9 @@ import Controller.OptionsController;
 import Model.Interface.Difficuty;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
-import Model.Interface.IConstants;
 import Model.Interface.IElement;
 import Model.Interface.IPlayerBone;
 import Model.Interface.ISphere;
-import View.GamePanelView;
-import View.SnakeTailView;
 
 /**
  * 
@@ -28,10 +25,8 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	private Direction newDirection = Direction.NONE;
 	private Direction direction = Direction.RIGHT;
 	private IPlayerBone last;
-	private Logic logic;
 	private int maxX;
 	private int maxY;
-	private GamePanelView gamePanelView;
 
 	/**
 	 * 
@@ -41,13 +36,11 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 	 * @param bufferedImage
 	 */
 	public SnakeHeadModel(int maxX, int maxY, double x, double y, int width,
-			int height, Logic logic, GamePanelView gamePanelView) {
+			int height) {
 		this.bounding = new Ellipse2D.Double(x, y, width, height);
 		movement = new Point2D.Double(x, y);
-		this.logic = logic;
 		this.maxX = maxX;
 		this.maxY = maxY;
-		this.gamePanelView = gamePanelView;
 	}
 
 	@Override
@@ -132,16 +125,8 @@ public class SnakeHeadModel extends Observable implements IPlayerBone {
 		default:
 			break;
 		}
-		SnakeTailView newTailView = new SnakeTailView(
-				IConstants.SNAKE_TAIL_PATH, x, y, gamePanelView);
-		SnakeTailModel newTailModel;
-		newTailModel = new SnakeTailModel(x, y, (IPlayerBone) MainController
-				.getInstance().getActor(last), newTailView.getImage()
-				.getWidth(), newTailView.getImage().getHeight());
-		newTailModel.addObserver(newTailView);
-		gamePanelView.addActor(newTailView);
-		logic.addActor(newTailModel);
-		last = newTailModel;
+		last = MainController.getInstance().createSnakeTail((int) x, (int) y,
+				last);
 	}
 
 	@Override
