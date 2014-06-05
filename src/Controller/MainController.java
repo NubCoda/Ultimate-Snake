@@ -273,19 +273,20 @@ public class MainController {
 		statusbarModel.updateStatus();
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
+		long time = System.currentTimeMillis();
 		switch (Difficuty.fromString(OptionsController.getInstance().getOption(
 				"difficulty"))) {
 		case SIMPLE:
-			multiplikator = 16;
-			break;
-		case MEDIUM:
 			multiplikator = 12;
 			break;
-		case DIFFICULT:
+		case MEDIUM:
 			multiplikator = 6;
 			break;
+		case DIFFICULT:
+			multiplikator = 3;
+			break;
 		}
-		if (player.getScore() % multiplikator == 0) {
+		if (time % multiplikator == 0) {
 			spawnNewEnemy = true;
 		}
 		if (spawnNewEnemy) {
