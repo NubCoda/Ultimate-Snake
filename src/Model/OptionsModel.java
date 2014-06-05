@@ -19,7 +19,7 @@ import Model.Interface.IDefaultOptions;
  */
 public class OptionsModel extends Observable {
 	private Properties properties;
-	
+
 	/**
 	 * 
 	 */
@@ -32,35 +32,42 @@ public class OptionsModel extends Observable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	private void loadProperties() throws FileNotFoundException, IOException{
-		if(new File(IConstants.CONFIG_PATH).exists()){
-			BufferedInputStream in = new BufferedInputStream(new FileInputStream(IConstants.CONFIG_PATH));
+	private void loadProperties() throws FileNotFoundException, IOException {
+		if (new File(IConstants.CONFIG_PATH).exists()) {
+			BufferedInputStream in = new BufferedInputStream(
+					new FileInputStream(IConstants.CONFIG_PATH));
 			properties.load(in);
 			in.close();
 		} else {
 			properties.setProperty("player", IDefaultOptions.DEFAULT_PLAYER);
-			properties.setProperty("difficulty", String.valueOf(IDefaultOptions.DEFAULT_DIFFICULTY));
-			properties.setProperty("key_down", String.valueOf(IDefaultOptions.DEFAULT_KEY_DOWN));
-			properties.setProperty("key_up", String.valueOf(IDefaultOptions.DEFAULT_KEY_UP));
-			properties.setProperty("key_right", String.valueOf(IDefaultOptions.DEFAULT_KEY_RIGHT));
-			properties.setProperty("key_left", String.valueOf(IDefaultOptions.DEFAULT_KEY_LEFT));
-			properties.setProperty("key_shoot", String.valueOf(IDefaultOptions.DEFAULT_KEY_SHOOT));
+			properties.setProperty("difficulty",
+					String.valueOf(IDefaultOptions.DEFAULT_DIFFICULTY));
+			properties.setProperty("key_down",
+					String.valueOf(IDefaultOptions.DEFAULT_KEY_DOWN));
+			properties.setProperty("key_up",
+					String.valueOf(IDefaultOptions.DEFAULT_KEY_UP));
+			properties.setProperty("key_right",
+					String.valueOf(IDefaultOptions.DEFAULT_KEY_RIGHT));
+			properties.setProperty("key_left",
+					String.valueOf(IDefaultOptions.DEFAULT_KEY_LEFT));
+			properties.setProperty("key_shoot",
+					String.valueOf(IDefaultOptions.DEFAULT_KEY_SHOOT));
 			storeOptions();
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param propertyKey
 	 * @return
 	 */
-	public String getOption(String propertyKey){
+	public String getOption(String propertyKey) {
 		return properties.getProperty(propertyKey);
 	}
 
@@ -72,13 +79,14 @@ public class OptionsModel extends Observable {
 	public void setOption(String propertyName, String property) {
 		properties.setProperty(propertyName, property);
 	}
-	
+
 	/**
 	 * 
 	 * @throws IOException
 	 */
-	public void storeOptions() throws IOException{
-		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(IConstants.CONFIG_PATH));
+	public void storeOptions() throws IOException {
+		BufferedOutputStream out = new BufferedOutputStream(
+				new FileOutputStream(IConstants.CONFIG_PATH));
 		properties.store(out, "");
 		out.close();
 	}

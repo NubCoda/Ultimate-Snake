@@ -1,13 +1,8 @@
 package Controller;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import Model.AppleModel;
@@ -24,7 +19,6 @@ import Model.Interface.Difficuty;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
-import Model.Interface.IDefaultOptions;
 import Model.Interface.IPlayerBone;
 import Properties.Player;
 import View.AppleView;

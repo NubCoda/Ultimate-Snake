@@ -47,7 +47,8 @@ public class StatusbarView extends JPanel implements Observer {
 		playerLabel.setText("Spieler: " + statusbarModel.getPlayerName());
 		scoreLabel.setText("Punkte: " + statusbarModel.getScore());
 		highscoreLabel.setText("Highscore: " + statusbarModel.getHighscore());
-		difficultyLabel.setText("Schwierigkeit: " + statusbarModel.getDifficulty().toString());
+		difficultyLabel.setText("Schwierigkeit: "
+				+ statusbarModel.getDifficulty().toString());
 		bulletCountLabel.setText("Schüsse: " + statusbarModel.getBulletCount());
 	}
 }

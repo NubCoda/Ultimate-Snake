@@ -1,23 +1,12 @@
 package Model;
 
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.Observable;
-import java.util.Random;
-
-import javax.imageio.ImageIO;
 
 import Controller.MainController;
 import Model.Interface.Direction;
 import Model.Interface.IActor;
-import Model.Interface.IConstants;
-import Model.Interface.IElement;
-import Model.Interface.IEnemy;
 import Model.Interface.ISphere;
 import View.GamePanelView;
 
@@ -38,8 +27,9 @@ public class BulletModel extends Observable implements ISphere {
 		this.gamePanelView = gamePanelView;
 		this.bufferedImages = bufferedImage;
 		this.direction = direction;
-		this.bounding = new Rectangle2D.Double(midOfSnakeHeadGraphicX - (bufferedImage.getWidth()/2),
-				midOfSnakeHeadGraphicY - (bufferedImage.getHeight()/2), bufferedImage.getWidth(),
+		this.bounding = new Rectangle2D.Double(midOfSnakeHeadGraphicX
+				- (bufferedImage.getWidth() / 2), midOfSnakeHeadGraphicY
+				- (bufferedImage.getHeight() / 2), bufferedImage.getWidth(),
 				bufferedImage.getHeight());
 
 	}
@@ -49,22 +39,21 @@ public class BulletModel extends Observable implements ISphere {
 	}
 
 	public void actuate(double delta) {
-		if(!bulletIsGone){
-			
-		
-		timeAlive += delta;
-		if (timeAlive > TIMETOLIVEINSECONDS) {
-			this.bulletIsGone = true;
-		}
-			if(this.direction == Direction.DOWN){
-				bounding.y += speed*delta;
-		}else if(this.direction == Direction.RIGHT){
-			bounding.x += speed*delta;
-		}else if(this.direction == Direction.LEFT) {
-			bounding.x -= speed*delta;
-		}else if(this.direction == Direction.UP){
-			bounding.y-=speed*delta;
-		}
+		if (!bulletIsGone) {
+
+			timeAlive += delta;
+			if (timeAlive > TIMETOLIVEINSECONDS) {
+				this.bulletIsGone = true;
+			}
+			if (this.direction == Direction.DOWN) {
+				bounding.y += speed * delta;
+			} else if (this.direction == Direction.RIGHT) {
+				bounding.x += speed * delta;
+			} else if (this.direction == Direction.LEFT) {
+				bounding.x -= speed * delta;
+			} else if (this.direction == Direction.UP) {
+				bounding.y -= speed * delta;
+			}
 		} else {
 			MainController.getInstance().removeActor(this);
 		}

@@ -43,7 +43,7 @@ public class OpponentModel extends Observable implements IEnemy {
 			BufferedImage bufferedImage) {
 		this.gamePanelView = gamePanelView;
 		setStartPosition();
-		
+
 		this.bounding = new Rectangle2D.Double(positionX, positionY,
 				bufferedImage.getWidth(), bufferedImage.getHeight());
 
@@ -61,7 +61,7 @@ public class OpponentModel extends Observable implements IEnemy {
 	 * @return
 	 */
 	private void setStartPosition() {
-		
+
 		double x = 0;
 		double y = 0;
 		do {

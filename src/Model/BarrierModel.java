@@ -10,7 +10,6 @@ import Model.Interface.IActor;
 import Model.Interface.IEnemy;
 import Model.Interface.ISphere;
 import View.GamePanelView;
-import View.SnakeTailView;
 
 public class BarrierModel extends Observable implements IActor, IEnemy {
 
@@ -34,7 +33,8 @@ public class BarrierModel extends Observable implements IActor, IEnemy {
 					.getWidth()));
 			y = random.nextInt((int) (gamePanelView.getHeight() - bounding
 					.getHeight()));
-		} while (!MainController.getInstance().checkPosition(x- (x % bounding.getWidth()), y - (y % bounding.getHeight())));
+		} while (!MainController.getInstance().checkPosition(
+				x - (x % bounding.getWidth()), y - (y % bounding.getHeight())));
 		bounding.x = (int) (x - (x % bounding.getWidth()));
 		bounding.y = (int) (y - (y % bounding.getHeight()));
 	}
@@ -58,12 +58,12 @@ public class BarrierModel extends Observable implements IActor, IEnemy {
 				&& actor instanceof SnakeHeadModel) {
 			MainController.getInstance().gameOver();
 		} else if (bounding.intersects(actor.getBounding())
-					&& actor instanceof ISphere) {
-				((ISphere) actor).setGone(true);
-				isAlive  = false;
-				setChanged();
-				notifyObservers();
-				MainController.getInstance().removeActor(this);
+				&& actor instanceof ISphere) {
+			((ISphere) actor).setGone(true);
+			isAlive = false;
+			setChanged();
+			notifyObservers();
+			MainController.getInstance().removeActor(this);
 		}
 	}
 

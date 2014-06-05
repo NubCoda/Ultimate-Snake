@@ -61,7 +61,7 @@ public class GamePanelView extends JPanel implements Observer {
 	public void addActor(SpriteView actor) {
 		this.actors.add(actor);
 	}
-	
+
 	/**
 	 * 
 	 */

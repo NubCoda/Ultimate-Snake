@@ -4,7 +4,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Controller.MainController;
-import Model.Interface.IActor;
 import Model.Interface.IEnemy;
 
 /**
@@ -29,7 +28,7 @@ public class BarrierView extends SpriteView implements Observer {
 		IEnemy barrier = ((IEnemy) observable);
 		this.x = barrier.getBounding().getX();
 		this.y = barrier.getBounding().getY();
-		if(!barrier.isAlive()){
+		if (!barrier.isAlive()) {
 			MainController.getInstance().removeSpriteView(this);
 			observable.deleteObserver(this);
 		}

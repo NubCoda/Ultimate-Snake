@@ -42,7 +42,8 @@ public class AppleModel extends Observable implements IElement {
 					.getWidth()));
 			y = random.nextInt((int) (gamePanelView.getHeight() - bounding
 					.getHeight()));
-		} while (!MainController.getInstance().checkPosition(x- (x % bounding.getWidth()), y - (y % bounding.getHeight())));
+		} while (!MainController.getInstance().checkPosition(
+				x - (x % bounding.getWidth()), y - (y % bounding.getHeight())));
 		bounding.x = (int) (x - (x % bounding.getWidth()));
 		bounding.y = (int) (y - (y % bounding.getHeight()));
 

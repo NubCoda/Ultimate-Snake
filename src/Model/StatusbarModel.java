@@ -57,8 +57,8 @@ public class StatusbarModel extends Observable {
 	 * @return
 	 */
 	public Difficuty getDifficulty() {
-		return Difficuty.fromString(OptionsController.getInstance()
-				.getOption("difficulty"));
+		return Difficuty.fromString(OptionsController.getInstance().getOption(
+				"difficulty"));
 	}
 
 	/**

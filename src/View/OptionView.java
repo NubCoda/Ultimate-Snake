@@ -2,40 +2,33 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.Map.Entry;
-import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.KeyStroke;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JFormattedTextField.AbstractFormatter;
 
 import Controller.MainController;
 import Controller.OptionsController;
 import Model.Interface.Difficuty;
 import Properties.Player;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import javax.swing.JTextField;
-
-import java.awt.event.KeyAdapter;
 
 /**
  * 

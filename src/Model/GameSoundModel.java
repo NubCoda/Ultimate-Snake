@@ -13,28 +13,25 @@ public class GameSoundModel {
 	private Thread thread;
 	private Runnable runnable;
 	private String soundFilePath;
-	private boolean fileClosed = false;
 	
 	public GameSoundModel(String soundFilePath) {
 		this.soundFilePath = soundFilePath;
-		openSoundFile();
 	}
 
 	public void stopSound() {
 		soundPlayer.close();
-		fileClosed = true;
 	}
 
 	public void playSound() {
-		if(fileClosed){
-			fileClosed = false;
-			openSoundFile();
-		}
 		try {
+			fileInputStream = new FileInputStream(new File(soundFilePath));
 			soundPlayer = new Player(fileInputStream);
 		} catch (JavaLayerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		}
 		runnable = new Runnable() {
 			@Override
@@ -50,14 +47,5 @@ public class GameSoundModel {
 		thread = new Thread(runnable);
 		thread.start();
 	}
-	
-	private void openSoundFile(){
-		try {
-			fileInputStream = new FileInputStream(new File(soundFilePath));
-			soundPlayer = new Player(fileInputStream);
-		} catch (JavaLayerException | FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
+
 }

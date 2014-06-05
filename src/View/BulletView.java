@@ -8,8 +8,6 @@ import java.util.Observer;
 
 import Controller.MainController;
 import Model.Interface.Direction;
-import Model.Interface.IActor;
-import Model.Interface.IPlayerBone;
 import Model.Interface.ISphere;
 
 public class BulletView extends SpriteView implements Observer {
@@ -20,10 +18,10 @@ public class BulletView extends SpriteView implements Observer {
 	 * @param y
 	 * @param gamePanelView
 	 */
-	
+
 	private int rotation;
 	private Direction direction;
-	
+
 	public BulletView(String path, double x, double y,
 			GamePanelView gamePanelView) {
 		super(path, x, y, gamePanelView);
@@ -49,7 +47,9 @@ public class BulletView extends SpriteView implements Observer {
 		default:
 			break;
 		}
-		at.rotate(Math.toRadians(rotation), (int) x + (this.bufferedImage.getWidth()/2), (int) y + (this.bufferedImage.getHeight()/2));
+		at.rotate(Math.toRadians(rotation),
+				(int) x + (this.bufferedImage.getWidth() / 2), (int) y
+						+ (this.bufferedImage.getHeight() / 2));
 		g2.transform(at);
 		g2.drawImage(bufferedImage, (int) x, (int) y, null);
 		g2.setTransform(oldTransorfm);
@@ -61,7 +61,7 @@ public class BulletView extends SpriteView implements Observer {
 		this.x = bullet.getBounding().getX();
 		this.y = bullet.getBounding().getY();
 		this.direction = bullet.getDirection();
-		if(bullet.isGone()){
+		if (bullet.isGone()) {
 			MainController.getInstance().removeSpriteView(this);
 			observable.deleteObserver(this);
 		}

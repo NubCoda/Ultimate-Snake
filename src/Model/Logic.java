@@ -1,8 +1,6 @@
 package Model;
 
-import java.util.Iterator;
 import java.util.Observable;
-import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import Model.Interface.IActor;
@@ -100,7 +98,7 @@ public class Logic extends Observable implements Runnable {
 
 	public boolean checkPosition(double x, double y) {
 		for (int i = 0; i < actors.size(); i++) {
-			if(actors.get(i).getBounding().contains(x, y)){
+			if (actors.get(i).getBounding().contains(x, y)) {
 				return false;
 			}
 		}

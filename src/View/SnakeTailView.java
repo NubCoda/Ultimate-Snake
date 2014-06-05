@@ -9,7 +9,7 @@ import Model.Interface.IPlayerBone;
  * 
  * 
  */
-public class SnakeTailView extends SpriteView implements Observer{
+public class SnakeTailView extends SpriteView implements Observer {
 	/**
 	 * 
 	 * @param path

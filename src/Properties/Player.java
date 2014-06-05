@@ -10,7 +10,7 @@ public class Player {
 	private int highscore;
 	private int score = 0;
 	private int bulletCount = 0;
-	
+
 	/**
 	 * 
 	 */

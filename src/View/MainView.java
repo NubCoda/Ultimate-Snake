@@ -168,8 +168,8 @@ public class MainView extends JFrame implements ActionListener {
 		MainController.getInstance().pauseGame();
 		OptionView optionView = new OptionView(MainController.getInstance()
 				.getPlayers(), Difficuty.fromString(OptionsController
-				.getInstance().getOption("difficulty")),
-				MainController.getInstance().getPlayerName());
+				.getInstance().getOption("difficulty")), MainController
+				.getInstance().getPlayerName());
 		optionView.setVisible(true);
 	}
 
