@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import Model.AppleModel;
 import Model.BarrierModel;
@@ -24,6 +25,7 @@ import Model.Interface.Direction;
 import Model.Interface.IActor;
 import Model.Interface.IConstants;
 import Model.Interface.IDefaultOptions;
+import Model.Interface.IPlayerBone;
 import Properties.Player;
 import View.AppleView;
 import View.BarrierView;
@@ -59,14 +61,27 @@ public class MainController {
 	 * 
 	 */
 	private MainController() {
-		gameSoundBackground = new GameSoundModel(IConstants.GAME_SOUND_PATH);
+		initializeGame();
+	}
+
+	private void initializeGame() {
 		connectionModel = new DatabaseConnectionModel();
 		player = connectionModel.getSinglePlayer(OptionsController
 				.getInstance().getOption("player"));
-		if(player == null){
-			player = connectionModel.getSinglePlayer(IDefaultOptions.DEFAULT_PLAYER);
-			OptionsController.getInstance().setOption("player", player.getPlayerName());
+		if (player == null) {
+			String playerName = JOptionPane
+					.showInputDialog("Spielernamen angeben!");
+			connectionModel.createPlayer(playerName);
+			player = connectionModel.getSinglePlayer(playerName);
+			OptionsController.getInstance().setOption("player",
+					player.getPlayerName());
+			try {
+				OptionsController.getInstance().storeOptions();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		gameSoundBackground = new GameSoundModel(IConstants.GAME_SOUND_PATH);
 		createWindow();
 		logic = new Logic();
 		logic.addObserver(gamePanelView);
@@ -155,42 +170,39 @@ public class MainController {
 			player.setBulletCount(0);
 			player.setScore(0);
 			statusbarModel.updateStatus();
-			AppleView appleView = new AppleView(IConstants.APPLE_PAHT, 0, 0,
+
+			// Apple
+			AppleView appleView = new AppleView(IConstants.APPLE_PATH, 0, 0,
 					gamePanelView);
-			SnakeHeadView snakeHeadView = new SnakeHeadView(
-					IConstants.SNAKE_HEAD_PAHT, 120, 120, gamePanelView);
-			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
-					snakeHeadView.getImage(), logic);
-			SnakeTailView snakeTailView = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PATH, 100, 120, gamePanelView);
-			SnakeTailModel snakeTailModel = new SnakeTailModel(gamePanelView,
-					100, 120, snakeHeadModel, snakeTailView.getImage());
-			SnakeTailView snakeTailView1 = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PATH, 80, 120, gamePanelView);
-			SnakeTailModel snakeTailModel1 = new SnakeTailModel(gamePanelView,
-					80, 120, snakeTailModel, snakeTailView1.getImage());
-			SnakeTailView snakeTailView2 = new SnakeTailView(
-					IConstants.SNAKE_TAIL_PATH, 60, 120, gamePanelView);
-			SnakeTailModel snakeTailModel2 = new SnakeTailModel(gamePanelView,
-					60, 120, snakeTailModel1, snakeTailView2.getImage());
-			snakeHeadModel.setLast(snakeTailModel2);
 			AppleModel appleModel = new AppleModel(gamePanelView,
 					appleView.getImage());
 			appleModel.addObserver(appleView);
-			snakeHeadModel.addObserver(snakeHeadView);
-			snakeTailModel.addObserver(snakeTailView);
-			snakeTailModel1.addObserver(snakeTailView1);
-			snakeTailModel2.addObserver(snakeTailView2);
 			logic.addActor(appleModel);
-			logic.addActor(snakeHeadModel);
-			logic.addActor(snakeTailModel);
-			logic.addActor(snakeTailModel1);
-			logic.addActor(snakeTailModel2);
 			gamePanelView.addActor(appleView);
+
+			// SnakeHead
+			SnakeHeadView snakeHeadView = new SnakeHeadView(
+					IConstants.SNAKE_HEAD_PATH, 120, 120, gamePanelView);
+			snakeHeadModel = new SnakeHeadModel(gamePanelView, 120, 120,
+					snakeHeadView.getImage(), logic);
+			snakeHeadModel.addObserver(snakeHeadView);
+			logic.addActor(snakeHeadModel);
 			gamePanelView.addActor(snakeHeadView);
-			gamePanelView.addActor(snakeTailView);
-			gamePanelView.addActor(snakeTailView1);
-			gamePanelView.addActor(snakeTailView2);
+
+			// Snake-Tail
+			IPlayerBone vorgaenger = snakeHeadModel;
+			for (int count = 1; count <= 3; count++) {
+				SnakeTailView snakeTailView = new SnakeTailView(
+						IConstants.SNAKE_TAIL_PATH, 100, 120, gamePanelView);
+				SnakeTailModel snakeTailModel = new SnakeTailModel(
+						gamePanelView, 100, 120, vorgaenger,
+						snakeTailView.getImage());
+				snakeTailModel.addObserver(snakeTailView);
+				logic.addActor(snakeTailModel);
+				gamePanelView.addActor(snakeTailView);
+				vorgaenger = snakeTailModel;
+			}
+			snakeHeadModel.setLast(vorgaenger);
 			logic.setGameRunning(true);
 			gameSoundBackground.playSound();
 		}
@@ -201,32 +213,38 @@ public class MainController {
 	 */
 	public void pauseGame() {
 		gamePanelView.removeKeyListener(keyListenerView);
-		gameSoundBackground.stopSound();
 		logic.setGameRunning(false);
+		gameSoundBackground.stopSound();
 	}
 
 	/**
 	 * 
 	 */
 	public void restartGame() {
-		if (isGameStarted) {
-			gameSoundBackground.stopSound();
-			logic.setGameRunning(false);
-			logic.clearActors();
-			gamePanelView.clearActors();
-			isGameStarted = false;
-			startGame();
-		}
+		gameSoundBackground.stopSound();
+		logic.setGameRunning(false);
+		logic.clearActors();
+		gamePanelView.clearActors();
+		isGameStarted = false;
+		startGame();
 	}
 
 	/**
 	 * 
 	 */
 	public void gameOver() {
+		try {
+			Thread.sleep(650);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		gamePanelView.removeKeyListener(keyListenerView);
 		gameSoundBackground.stopSound();
 		logic.setGameRunning(false);
 		isGameStarted = false;
+		logic.clearActors();
+		gamePanelView.clearActors();
 		MenuView gameOverTitle = new MenuView(50, 40, gamePanelView,
 				"Game Over", 48.0f);
 		gamePanelView.addActor(gameOverTitle);
@@ -373,8 +391,8 @@ public class MainController {
 	public void removeActor(IActor actor) {
 		logic.removeActor(actor);
 	}
-	
-	public boolean checkPosition(double x, double y){
+
+	public boolean checkPosition(double x, double y) {
 		return logic.checkPosition(x, y);
 	}
 }

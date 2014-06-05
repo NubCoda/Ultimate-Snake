@@ -9,12 +9,12 @@ public interface IConstants {
 	/**
 	 * 
 	 */
-	public static final String APPLE_PAHT = "./resources/pic/apple_sprite.png";
+	public static final String APPLE_PATH = "./resources/pic/apple_sprite.png";
 	
 	/**
 	 * 
 	 */
-	public static final String SNAKE_HEAD_PAHT = "./resources/pic/head_sprite.png";
+	public static final String SNAKE_HEAD_PATH = "./resources/pic/head_sprite.png";
 	
 	/**
 	 * 
