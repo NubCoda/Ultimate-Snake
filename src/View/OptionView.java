@@ -407,6 +407,7 @@ public class OptionView extends JDialog implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			MainController.getInstance().restartGame();
 		}
 		this.dispose();
 	}

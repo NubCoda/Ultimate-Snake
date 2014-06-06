@@ -242,15 +242,14 @@ public class MainController {
 	 * 
 	 */
 	public void gameOver() {
+		logic.setGameRunning(false);
 		try {
 			Thread.sleep(650);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		gamePanelView.removeKeyListener(keyListenerView);
 		gameSoundBackground.stopSound();
-		logic.setGameRunning(false);
 		isGameStarted = false;
 		logic.clearActors();
 		gamePanelView.clearActors();
