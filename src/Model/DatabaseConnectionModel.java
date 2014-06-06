@@ -25,14 +25,11 @@ public class DatabaseConnectionModel {
 	public void createConnection() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			// initialise connection
 			connection = DriverManager.getConnection(url);
 			connection.setReadOnly(false);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -41,18 +38,28 @@ public class DatabaseConnectionModel {
 	 * 
 	 * @param playerName
 	 */
-	public void createPlayer(String playerName) {
+	public boolean createPlayer(String playerName) {
 		createConnection();
-		sql = "INSERT INTO " + table + " (player_name) values (?)";
+		boolean notCreated = true;
 		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, playerName);
-			preparedStatement.executeUpdate();
+			Player player = getSinglePlayer(playerName);
+			if (player != null) {
+				notCreated = false;
+			}
+
+			if (notCreated) {
+				sql = "INSERT INTO " + table + " (player_name) values (?)";
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, playerName);
+				preparedStatement.executeUpdate();
+
+			}
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return notCreated;
 	}
 
 	/**
@@ -63,10 +70,10 @@ public class DatabaseConnectionModel {
 	public Player getSinglePlayer(String playerName) {
 		createConnection();
 		Player player = null;
-		sql = "SELECT * FROM " + table + " WHERE player_name = '" + playerName
-				+ "'";
+		sql = "SELECT * FROM " + table + " WHERE player_name = ?";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, playerName);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.isBeforeFirst()) {
 				player = new Player(resultSet.getInt("player_id"),
@@ -75,7 +82,6 @@ public class DatabaseConnectionModel {
 			}
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return player;
@@ -101,7 +107,6 @@ public class DatabaseConnectionModel {
 			}
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return playerVector;
@@ -115,9 +120,6 @@ public class DatabaseConnectionModel {
 		createConnection();
 		Vector<Player> vectorTopPlayer = new Vector<Player>();
 		Player player;
-		// TODO
-		// SQL Logik pr�fen - Warum kommt da ein Spasti-Spieler mit 0 Punkten an
-		// erster Stelle?
 		sql = "SELECT * FROM " + table
 				+ " ORDER BY highscore DESC, player_name ASC LIMIT 10";
 		try {
@@ -130,7 +132,6 @@ public class DatabaseConnectionModel {
 				vectorTopPlayer.add(player);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return vectorTopPlayer;
@@ -150,7 +151,6 @@ public class DatabaseConnectionModel {
 			preparedStatement.executeUpdate();
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

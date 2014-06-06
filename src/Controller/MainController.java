@@ -63,9 +63,15 @@ public class MainController {
 		player = connectionModel.getSinglePlayer(OptionsController
 				.getInstance().getOption("player"));
 		if (player == null) {
-			String playerName = JOptionPane
-					.showInputDialog("Spielernamen angeben!");
-			connectionModel.createPlayer(playerName);
+			boolean created = false;
+			String playerName = null;
+			while (!created) {
+				playerName = JOptionPane
+						.showInputDialog("Spielernamen angeben!");
+				if (playerName == null || playerName.isEmpty()) {
+					created = connectionModel.createPlayer(playerName);
+				}
+			}
 			player = connectionModel.getSinglePlayer(playerName);
 			OptionsController.getInstance().setOption("player",
 					player.getPlayerName());
@@ -137,19 +143,23 @@ public class MainController {
 	/**
 	 * 
 	 * @param playerName
+	 * @return
 	 * @throws IOException
 	 */
-	public void createPlayer(String playerName) throws IOException {
-		connectionModel.createPlayer(playerName);
-		Player newPlayer = connectionModel.getSinglePlayer(playerName);
-		player.setPlayerName(newPlayer.getPlayerName());
-		player.setPlayerId(newPlayer.getPlayerId());
-		player.setScore(newPlayer.getScore());
-		player.setHighscore(newPlayer.getHighscore());
-		statusbarModel.updateStatus();
-		OptionsController.getInstance().setOption("player",
-				player.getPlayerName());
-		OptionsController.getInstance().storeOptions();
+	public boolean createPlayer(String playerName) throws IOException {
+		boolean created = connectionModel.createPlayer(playerName);
+		if (created) {
+			Player newPlayer = connectionModel.getSinglePlayer(playerName);
+			player.setPlayerName(newPlayer.getPlayerName());
+			player.setPlayerId(newPlayer.getPlayerId());
+			player.setScore(newPlayer.getScore());
+			player.setHighscore(newPlayer.getHighscore());
+			statusbarModel.updateStatus();
+			OptionsController.getInstance().setOption("player",
+					player.getPlayerName());
+			OptionsController.getInstance().storeOptions();
+		}
+		return created;
 	}
 
 	/**
@@ -274,8 +284,8 @@ public class MainController {
 		boolean spawnNewEnemy = false;
 		int multiplikator = 0;
 		long time = System.currentTimeMillis();
-		switch (Difficulty.fromString(OptionsController.getInstance().getOption(
-				"difficulty"))) {
+		switch (Difficulty.fromString(OptionsController.getInstance()
+				.getOption("difficulty"))) {
 		case SIMPLE:
 			multiplikator = 8;
 			break;

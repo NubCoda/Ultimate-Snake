@@ -178,14 +178,17 @@ public class MainView extends JFrame implements ActionListener {
 	 * @param arg0
 	 */
 	private void menuItemSpielerErstellenActionPerformed(ActionEvent arg0) {
-		String playerName = JOptionPane
-				.showInputDialog("Spielernamen angeben!");
-		if (playerName != null && !playerName.isEmpty()) {
-			try {
-				MainController.getInstance().createPlayer(playerName);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		boolean created = false;
+		while (!created) {
+			String playerName = JOptionPane
+					.showInputDialog("Spielernamen angeben!");
+			if (playerName != null && !playerName.isEmpty()) {
+				try {
+					created = MainController.getInstance().createPlayer(playerName);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
