@@ -39,14 +39,14 @@ public class DatabaseConnectionModel {
 	 * @param playerName
 	 */
 	public boolean createPlayer(String playerName) {
-		createConnection();
 		boolean notCreated = true;
 		try {
 			Player player = getSinglePlayer(playerName);
 			if (player != null) {
 				notCreated = false;
 			}
-
+			createConnection();
+			
 			if (notCreated) {
 				sql = "INSERT INTO " + table + " (player_name) values (?)";
 				preparedStatement = connection.prepareStatement(sql);

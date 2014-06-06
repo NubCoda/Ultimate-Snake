@@ -19,9 +19,9 @@ public enum Difficulty {
 	 * @return
 	 */
 	public static Difficulty fromString(String difficulty) {
-		if (difficulty.equals("einfach")) {
+		if (difficulty.equals("Einfach")) {
 			return SIMPLE;
-		} else if (difficulty.equals("normal")) {
+		} else if (difficulty.equals("Normal")) {
 			return MEDIUM;
 		} else {
 			return DIFFICULT;

@@ -68,7 +68,7 @@ public class MainController {
 			while (!created) {
 				playerName = JOptionPane
 						.showInputDialog("Spielernamen angeben!");
-				if (playerName == null || playerName.isEmpty()) {
+				if (playerName != null && !playerName.isEmpty()) {
 					created = connectionModel.createPlayer(playerName);
 				}
 			}
