@@ -7,6 +7,7 @@ import java.util.Random;
 import Controller.MainController;
 import Model.Interface.IActor;
 import Model.Interface.IEnemy;
+import Model.Interface.IPlayerBone;
 import Model.Interface.ISphere;
 
 /**
@@ -20,8 +21,6 @@ public class OpponentModel extends Observable implements IEnemy {
 	private int nextJumpX = 0;
 	private int maxJumpLength = 100;
 	private int minJumpLength = 50;
-	private double positionX = 100;
-	private double positionY = 100;
 	private double padding = 50;
 	private double maxX;
 	private double maxY;
@@ -33,10 +32,9 @@ public class OpponentModel extends Observable implements IEnemy {
 	 * @param logic
 	 */
 	public OpponentModel(int maxX, int maxY, int width, int height) {
+		this.bounding = new Rectangle2D.Double(0, 0, width, height);
 		setStartPosition();
 
-		this.bounding = new Rectangle2D.Double(positionX, positionY, width,
-				height);
 		this.maxX = maxX;
 		this.maxY = maxY;
 	}
@@ -52,9 +50,9 @@ public class OpponentModel extends Observable implements IEnemy {
 		do {
 			x = (Math.random() * ((maxX - padding) / 2) + padding);
 			y = (Math.random() * ((maxY - padding) / 2) + padding);
-		} while (!MainController.getInstance().checkPosition(x, y));
-		positionX = x;
-		positionY = x;
+		} while (MainController.getInstance().getActorAt(x, y, bounding.getWidth(), bounding.getHeight()) != null);
+		bounding.x = x;
+		bounding.y = y;
 	}
 
 	/**
@@ -63,10 +61,12 @@ public class OpponentModel extends Observable implements IEnemy {
 	public void moveOpponent() {
 		double x = 0;
 		double y = 0;
+		IActor actor;
 		do {
 			x = bounding.x + getNextMovement(true);
 			y = bounding.y + getNextMovement(false);
-		} while (!MainController.getInstance().checkPosition(x, y));
+			actor = MainController.getInstance().getActorAt(x, y, bounding.getWidth(), bounding.getHeight());
+		} while (actor != null && (!actor.equals(this) || !(actor instanceof IPlayerBone)));
 		bounding.x = x;
 		bounding.y = y;
 	}

@@ -96,12 +96,14 @@ public class Logic extends Observable implements Runnable {
 		this.actors.remove(actor);
 	}
 
-	public boolean checkPosition(double x, double y) {
+	public IActor getAtPosition(double x, double y, double width, double height) {
+		IActor actor = null;
 		for (int i = 0; i < actors.size(); i++) {
-			if (actors.get(i).getBounding().contains(x, y)) {
-				return false;
+			if (actors.get(i).getBounding().contains(x, y, width, height)) {
+				actor = actors.get(i);
+				break;
 			}
 		}
-		return true;
+		return actor;
 	}
 }

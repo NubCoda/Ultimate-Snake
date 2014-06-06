@@ -277,13 +277,13 @@ public class MainController {
 		switch (Difficulty.fromString(OptionsController.getInstance().getOption(
 				"difficulty"))) {
 		case SIMPLE:
-			multiplikator = 12;
+			multiplikator = 8;
 			break;
 		case MEDIUM:
-			multiplikator = 6;
+			multiplikator = 4;
 			break;
 		case DIFFICULT:
-			multiplikator = 3;
+			multiplikator = 2;
 			break;
 		}
 		if (time % multiplikator == 0) {
@@ -396,8 +396,8 @@ public class MainController {
 		logic.removeActor(actor);
 	}
 
-	public boolean checkPosition(double x, double y) {
-		return logic.checkPosition(x, y);
+	public IActor getActorAt(double x, double y, double width, double height) {
+		return logic.getAtPosition(x, y, width, height);
 	}
 
 	public IPlayerBone createSnakeTail(int x, int y, IPlayerBone vorgaenger) {

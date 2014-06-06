@@ -30,8 +30,8 @@ public class BarrierModel extends Observable implements IActor, IEnemy {
 		do {
 			x = random.nextInt((int) (maxX - bounding.getWidth()));
 			y = random.nextInt((int) (maxY - bounding.getHeight()));
-		} while (!MainController.getInstance().checkPosition(
-				x - (x % bounding.getWidth()), y - (y % bounding.getHeight())));
+		} while (MainController.getInstance().getActorAt(
+				x - (x % bounding.getWidth()), y - (y % bounding.getHeight()), bounding.getWidth(), bounding.getHeight()) != null);
 		bounding.x = (int) (x - (x % bounding.getWidth()));
 		bounding.y = (int) (y - (y % bounding.getHeight()));
 	}
