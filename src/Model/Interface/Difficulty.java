@@ -9,8 +9,8 @@ public enum Difficulty {
 
 	@Override
 	public String toString() {
-		return this == SIMPLE ? "einfach" : this == MEDIUM ? "normal"
-				: "schwer";
+		return this == SIMPLE ? "Einfach" : this == MEDIUM ? "Normal"
+				: "Schwer";
 	}
 
 	/**
