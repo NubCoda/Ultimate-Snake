@@ -47,13 +47,13 @@ public class OpponentModel extends Observable implements IEnemy {
 		 * Erzeuge das Bounding
 		 */
 		this.bounding = new Rectangle2D.Double(0, 0, width, height);
+		this.maxX = maxX;
+		this.maxY = maxY;
+		
 		/*
 		 * Kalkuliere die Startposition
 		 */
 		setStartPosition();
-
-		this.maxX = maxX;
-		this.maxY = maxY;
 	}
 
 	/**
